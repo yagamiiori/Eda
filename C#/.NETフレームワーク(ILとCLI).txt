@@ -1,0 +1,21 @@
+
+・.NET FrameworkはCLIで定義されている。そのため、
+　CLI実装している環境であれば動作する
+　マイクロソフト以外でも.NET互換のCLIを実装している環境もあるので
+　そういう環境でもCLIが実装されているのでCLIで定義されている.NET Frameworkが動くというわけ
+
+・C# は「.NET Framework 上で動く言語」（正確には CLI 規格上で動く言語）です。
+ （規格上は、C# と .NET Framework は独立していますが、実質的に。）
+
+・.NET Framework では、プログラムはネイティブコードではなく、
+　IL (Intermediate Language)と呼ばれる中間コードにコンパイルされます。 
+　この IL を実行するための環境（の仕様）を CLI (Common Language Infrastructure)といいます。
+　 IL は、この CLI 仕様にそった実装さえされていれば任意のプラットフォームで実行することが出来ます。
+
+・Windows 上の CLI 実装をCLR(Common Language Runtime)という
+
+・.Netの特徴として、CLIをサポートする任意のプラットフォームで実行することが出来るというのがある
+　将来的にはWindows以外のプラットフォーム用のCLRも作成される可能性がある。
+
+
+

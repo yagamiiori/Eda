@@ -1,0 +1,25 @@
+
+①　ボタン押した場合の動作書いたスクリプトを書く
+↓
+②　ボタンUIを作る
+↓
+③　①をボタンUIオブジェクトにアタッチ
+↓
+④　ボタンオブジェクトのOnClick()に自分自身のオブジェクトをアタッチ
+↓
+⑤　No Functionをメソッド名に変更
+
+
+-----------
+①の例
+-----------
+public class ButtonClick : MonoBehaviour {
+
+    // ボタン押したらシーン遷移する
+    public void ClickTest ()
+    {
+        Application.LoadLevel("game");
+    }        
+}
+
+

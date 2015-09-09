@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html
+  lang="ja"
+  data-avail-langs="ja en"
+
+  data-page="entry"
+  data-static-domain="https://blog.st-hatena.com"
+  data-blog="tsubakit1.hateblo.jp"
+  data-blog-name="テラシュールブログ"
+  data-blogs-uri-base="http://tsubakit1.hateblo.jp"
+  data-globalheader-color="b"
+  data-globalheader-type="pc"
+  data-author="tsubaki_t1"
+  data-version="7086b427fed490930d9adb6840fb8d55"
+  data-blog-comments-top-is-new="1"
+  data-device="pc"
+
+  
+
+  data-admin-domain="http://blog.hatena.ne.jp"
+
+  data-brand="hatenablog"
+
+
+  data-has-touch-view="1"
+  
+
+  itemscope
+   itemtype="http://schema.org/Article"
+
+  >
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    
+    
+    
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7; IE=9; IE=10; IE=11" />
+    <title>Unityの特殊フォルダと各々の役割（追記版） - テラシュールブログ</title>
+
+    
+
+    
+      <link rel="canonical" href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930"/>
+    
+
+    <meta itemprop="name" content="Unityの特殊フォルダと各々の役割（追記版） - テラシュールブログ"/>
+    
+      <meta itemprop="image" content="https://blog.st-hatena.com/images/theme/og-image-1500.gif"/>
+    
+
+    <meta property="og:title" content="Unityの特殊フォルダと各々の役割（追記版） - テラシュールブログ"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="http://tsubakit1.hateblo.jp/entry/20131028/1382965930"/>
+    
+      
+      
+      
+      <meta property="og:image" content="https://blog.st-hatena.com/images/theme/og-image-1500.gif"/>
+    
+        <meta property="og:description" content="EUnityは幾つかの特殊フォルダがある。例えばResourcesやPlugins等だ。特殊フォルダの用途と注意点についてメモしておこうと思う。Assets/StreamingAssets 変換していないデータをそのままアプリに組み込めるフォルダ。 pngや音楽といった画像や、データベースといったバイナリデータを組み込む事が出来る。Androidと他で若干アクセス方法が異なるが、Application.streamingAssetsPathでアクセス出来る。ファイルは毎回ビルド時に転送するので、あまりにも多いとビルド時間が伸びる。 [Unity3D] StreamingAssetsについて W…" />
+    <meta property="og:site_name" content="http://tsubakit1.hateblo.jp/"/>
+      <meta property="article:published_time" content="1382965930" />
+
+        <meta property="article:tag" content="Unity" />        <meta name="twitter:card"  content="summary" />      <meta name="twitter:title" content="Unityの特殊フォルダと各々の役割（追記版） - テラシュールブログ" />        <meta name="twitter:description" content="EUnityは幾つかの特殊フォルダがある。例えばResourcesやPlugins等だ。特殊フォルダの用途と注意点についてメモしておこうと思う。Assets/StreamingAssets 変換していないデータをそのままアプリに組み込めるフォルダ。 pngや音楽といった画像や、データベースといったバイナリデータを組み込…" />      <meta name="twitter:app:name:iphone" content="はてなブログアプリ" />
+      <meta name="twitter:app:id:iphone" content="583299321" />
+      <meta name="twitter:app:url:iphone" content="hatenablog:///open?uri=http%3A%2F%2Ftsubakit1.hateblo.jp%2Fentry%2F20131028%2F1382965930" />      <meta name="twitter:site" content="@tsubaki_t1" />        <meta name="google-site-verification" content="EZboP0t7OOt_jI46T9c4b0UGqHkAoyYK2Yafo8rdc6Y">        <meta name="keywords" content="Unity,Game,ゲーム開発,開発,入門,チュートリアル,作り方,3D,2D">        <meta name="description" content="EUnityは幾つかの特殊フォルダがある。例えばResourcesやPlugins等だ。特殊フォルダの用途と注意点についてメモしておこうと思う。Assets/StreamingAssets 変換していないデータをそのままアプリに組み込めるフォルダ。 pngや音楽といった画像や、データベースといったバイナリデータを組み込…" />
+    
+<script type="text/javascript">
+// <!--
+
+if (~navigator.userAgent.indexOf('Mac OS X')) {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27ヒラギノ角ゴ Pro W3\x27, \x27Hiragino Kaku Gothic Pro\x27, sans-serif; } </style>');
+} else {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27メイリオ\x27, \x27Meiryo\x27, \x27MS PGothic\x27, sans-serif; } </style>');
+}
+
+// -->
+</script>
+
+<!--[if lt IE 9]>
+<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript" src="https://blog.st-hatena.com/js/vendor/excanvas/excanvas.js?version=7086b427fed490930d9adb6840fb8d55"></script>
+<![endif]-->
+
+
+
+
+    <link rel="shortcut icon" href="https://blog.st-hatena.com/images/favicon.ico">
+    <link rel="icon" sizes="192x192" href="https://blog.st-hatena.com/images/common/meta-icon-global.png">
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="http://tsubakit1.hateblo.jp/feed"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS2.0" href="http://tsubakit1.hateblo.jp/rss"/>
+    <link rel="alternate" type="application/json+oembed" href="http://hatenablog.com/oembed?url=http%3A%2F%2Ftsubakit1.hateblo.jp%2Fentry%2F20131028%2F1382965930&amp;format=json" title="oEmbed Profile of Unityの特殊フォルダと各々の役割（追記版）"/>
+    <link rel="alternate" type="text/xml+oembed" href="http://hatenablog.com/oembed?url=http%3A%2F%2Ftsubakit1.hateblo.jp%2Fentry%2F20131028%2F1382965930&amp;format=xml" title="oEmbed Profile of Unityの特殊フォルダと各々の役割（追記版）"/>
+      <link rel="author" href="http://www.hatena.ne.jp/tsubaki_t1/">
+
+      <link rel="stylesheet" type="text/css" href="https://blog.st-hatena.com/.shared.css:7086b427fed490930d9adb6840fb8d55:/css/theme/base.css,/css/prettify.css,/css/globalheader.css?version=7086b427fed490930d9adb6840fb8d55"/>
+      <link rel="stylesheet" type="text/css" href="http://blog.hatena.ne.jp/-/blog_style/12921228815728443005/813fb00e91ac24314c621e8814a51c0075f48c09"/>    <script>    </script>
+
+    
+    <style>
+      div#google_afc_user,
+      div#google_afc_user_container_0,
+      div#google_afc_user_container_1,
+      div#google_afc_user_container_2,
+      div#google_afc_user_container_3,
+      div#google_afc_user_container_4,
+      div#google_afc_user_container_5,
+      div.google_afc_image,
+      div.google_afc_blocklink {
+          display: block !important;
+      }
+    </style>
+
+    
+  </head>
+
+  <body class="page-entry      category-Unity  ">
+    <!-- Google Universal Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-29716941-6', 'auto', {'name': 'HatenaBlogTracker'});
+  ga('HatenaBlogTracker.require', 'displayfeatures');
+  ga('HatenaBlogTracker.send', 'pageview');
+
+</script>
+<!-- End Google Universal Analytics -->
+
+    
+    <div id="header-container">
+     <div id="sp-suggest" style="display: none;"><a id="sp-suggest-link" href="#">スマートフォン用の表示で見る</a></div>
+    </div>
+
+    <div class="select_star_button_container" style="display: none;">
+      <img src="https://blog.st-hatena.com/images/theme/hatena-star-quote-box.png?version=7086b427fed490930d9adb6840fb8d55" title="引用スターをつける" class="select_star_button" />
+      <img src="https://blog.st-hatena.com/images/theme/hatena-star-quote-star.png?version=7086b427fed490930d9adb6840fb8d55" title="引用スターをつける" class="select_star_button select_star_star">
+    </div>
+
+    <div class="message-box" id="select-star-message-box" style="display: none;">
+      スターをつけました
+    </div>
+
+    <div id="globalheader-container" >
+  <iframe id="globalheader" height="37" frameborder="0" allowTransparency="true"></iframe>
+</div>
+
+
+    
+    <div id="hidden-subscribe-button">
+      <div class="hatena-follow-button-box btn-subscribe js-hatena-follow-button-box"
+  
+  >
+
+  <a href="#" class="hatena-follow-button js-hatena-follow-button">
+    <span class="subscribing">
+      <span class="foreground">読者です</span>
+      <span class="background">読者をやめる</span>
+    </span>
+    <span class="unsubscribing" data-track-name="profile-widget-subscribe-button" data-track-once>
+      <span class="foreground">読者になる</span>
+      <span class="background">読者になる</span>
+    </span>
+  </a>
+  <div class="subscription-count-box js-subscription-count-box">
+    <i></i>
+    <u></u>
+    <span class="subscription-count js-subscription-count">
+    </span>
+  </div>
+</div>
+
+    </div>
+
+    <div id="container">
+      <div id="container-inner">
+        <header id="blog-title" data-brand="hatenablog">
+  <div id="blog-title-inner" >
+    <h1 id="title"><a href="http://tsubakit1.hateblo.jp/">テラシュールブログ</a></h1>
+    
+      <h2 id="blog-description">旧テラシュールウェアブログUnity記事。主にUnityのTipsやAR・VR、ニコニコ動画についてのメモを残します。</h2>
+    
+  </div>
+</header>
+
+        
+        
+        
+
+
+
+<div id="content" class="hfeed"
+  
+  >
+  <div id="content-inner">
+    <div id="wrapper">
+      <div id="main">
+        <div id="main-inner">
+          
+            
+            <!-- google_ad_section_start -->
+            <!-- rakuten_ad_target_begin -->
+            
+              
+                <article class="entry hentry js-entry-article date-first autopagerize_page_element chars-2400 words-100 mode-hatena entry-odd" id="entry-12921228815729614604" data-keyword-campaign="" data-uuid="12921228815729614604">
+  <div class="entry-inner">
+    <header class="entry-header">
+      <div class="date first">
+        <a href="http://tsubakit1.hateblo.jp/entries/2013/10/28" rel="nofollow">
+          <time pubdate datetime="2013-10-28T13:12:10Z" title="2013-10-28T13:12:10Z">
+            <span class="date-year">2013</span><span class="hyphen">-</span><span class="date-month">10</span><span class="hyphen">-</span><span class="date-day">28</span>
+          </time>
+        </a>
+      </div>
+      <h1 class="entry-title">
+        <a href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930" class="entry-title-link bookmark">Unityの特殊フォルダと各々の役割（追記版）</a>
+      </h1>
+      
+      
+        <div class="categories">
+          
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Unity">Unity</a>
+          
+        </div>
+      
+      
+
+      
+    </header>
+    <div class="entry-content">
+
+      
+        <p>EUnityは幾つかの特殊フォルダがある。例えばResourcesやPlugins等だ。</p><p>特殊フォルダの用途と注意点についてメモしておこうと思う。</p><p><ul><li><span style="font-size: large;">Assets/StreamingAssets</span><br />
+変換していないデータをそのままアプリに組み込めるフォルダ。<br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/png">png</a>や音楽といった画像や、データベースといったバイナリデータを組み込む事が出来る。<a class="keyword" href="http://d.hatena.ne.jp/keyword/Android">Android</a>と他で若干アクセス方法が異なるが、<span style="" class="notranslate">Application.streamingAssetsPathでアクセス出来る。</span>ファイルは毎回ビルド時に転送するので、あまりにも多いとビルド時間が伸びる。<br />
+<a href="http://Unity シーンローダー">[Unity3D] StreamingAssetsについて</a><br />
+</li><li><span style="font-size: large;">WebPlayerTemplates</span><br />
+WebPlayerのテンプレートを配置する。ここにWebPayerのテンプレートを配置すると、WebPlayerからテンプレートを選択できるようになる。<br />
+<a href="http://terasur.blog.fc2.com/blog-entry-565.html">[Unity]WebPlayerでGetMethodのパラメータを取得する</a><br />
+</li><li><span style="font-size: large;">Assets/Gizmos</span><br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/Gizmo">Gizmo</a>を描画するのに使う。<br />
+この場所においた画像はGizmos.DrawIcon()で使用することが出来る。</li><li><span style="font-size: large;">Assets/Plugins/<a class="keyword" href="http://d.hatena.ne.jp/keyword/iOS">iOS</a></span><br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/iOS">iOS</a>向けにビルドした際、このフォルダに入っている。.a, .m, .mm, .c, .cppといったファイルを組み込む。<br />
+色々と処理したい場合、<span style="background-color: rgb(230, 236, 249);" class="notranslate">PostprocessBuildPlayerで配置する。<br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3">プラグイン</a>開発段階からこのフォルダを使用</span>するよりも、開発完了後に自動化するために使ったほうが作りやすい。<br />
+<a href="http://terasur.blog.fc2.com/blog-entry-520.html">[Unity]iPhone/Androidでネイティブプラグインを作るコツ…みたいなもの</a><br />
+<a href="http://terasur.blog.fc2.com/blog-entry-349.html">[Unity3D]Unity ネイティブプラグインの作成について</a><br />
+</li><li><span style="font-size: large;">Assets/Plugins/<a class="keyword" href="http://d.hatena.ne.jp/keyword/Android">Android</a></span><br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/Android">Android</a>向けにビルドした際、このフォルダに含まれてるjarとかそこらへん概ねを<a class="keyword" href="http://d.hatena.ne.jp/keyword/Android">Android</a>に組み込む。3系はある程度チェックしていたが4系で全部突っ込まれるようになった模様。<br />
+これも<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3">プラグイン</a>開発段階から使用するより、開発完了後に自動組込み的な用途で使うと良いと思われ。<br />
+<a href="http://terasur.blog.fc2.com/blog-entry-520.html">[Unity]iPhone/Androidでネイティブプラグインを作るコツ…みたいなもの</a><br />
+<a href="http://terasur.blog.fc2.com/blog-entry-349.html">[Unity3D]Unity ネイティブプラグインの作成について</a><br />
+</li><li><span style="font-size: large;">Assets/Plugins/<a class="keyword" href="http://d.hatena.ne.jp/keyword/x86">x86</a></span><br />
+x86PC向けのネイティブ<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3">プラグイン</a>。<br />
+ユニバーサルで作る場合、これも作っておくほうが吉。<br />
+これがない場合、Assets/Pluginsを参照する。</li><li><span style="font-size: large;">Assets/Plugins/<a class="keyword" href="http://d.hatena.ne.jp/keyword/x86">x86</a>_64</span><br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/x64">x64</a>向けの<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3">プラグイン</a>。<br />
+これがない場合、Assets/Pluginsを参照する。</li><li><span style="font-size: large;">Assets/Plugins</span><br />
+<a class="keyword" href="http://d.hatena.ne.jp/keyword/x86">x86</a>_64及び<a class="keyword" href="http://d.hatena.ne.jp/keyword/x86">x86</a>フォルダがない場合、ここに配置されているdllをPC向けと判断する。<br />
+また、この場所に配置されている<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</a>は初期段階でビルドされるので、js及び<a class="keyword" href="http://d.hatena.ne.jp/keyword/C%23">C#</a>で使える。</li><li><span style="font-size: large;">Assets/Standard Assets</span><br />
+この場所に配置されている<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</a>は初期段階でビルドされるので、js及び<a class="keyword" href="http://d.hatena.ne.jp/keyword/C%23">C#</a>で使える。<br />
+何となく、この場所に物を大量に置くと重くなるイメージ。</li><li><span style="font-size: large;">Assets/Pro Standard Assets</span><br />
+この場所に配置されている<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</a>は初期段階でビルドされるので、js及び<a class="keyword" href="http://d.hatena.ne.jp/keyword/C%23">C#</a>で使える。<br />
+Pro専用</li><li><span style="font-size: large;">（任意）/Resources</span><br />
+Resources.Loadで読むファイルを格納するフォルダ。<br />
+ランタイムでファイルを呼ぶのに使われる。UTJ的には設計が古いため推奨しないと言っているが、問題が発生したと聞いたことは無いし、パフォーマンスもそこまで悪くない。<br />
+親フォルダが何でも良いので、色々な場所に配置されている事が多い。注意点として、このフォルダに配置したファイル任意の<a class="keyword" href="http://d.hatena.ne.jp/keyword/%B3%C8%C4%A5%BB%D2">拡張子</a>（画像フォーマット・bytes・asset等）のファイルは、別に参照が無くともアプリに組み込まれる。<br />
+割と購入したアセットがこれを使っていることがあるため注意。</li><li><span style="font-size: large;">（任意）/Editor</span><br />
+エディタ<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</a>はこのフォルダに入れる。このフォルダに配置したファイルは<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</a>として使用できない。<br />
+エディタのみで使用する事を明言している為、ここに配置されたファイルはビルドに含まれない。（逆を言えば、このフォルダ以外に配置されている<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</a>は全てUnityに含まれる）</p><p><span style="color: rgb(255, 0, 0);">追記</span>：Editorフォルダだが、rootフォルダがPluginsの場合かつ1個間にフォルダがある場合はEditorフォルダのルールが適応されないらしい。つまり、Plugins/EditorはOKだが、Plugins/(任意)/Editorは駄目。 Standard Assetsも同様なのでJSで組む場合は注意すべし。<br />
+（指摘ありがとうございます！）</p><p><span style="color: rgb(255, 0, 0);">追記</span>：ビルド プレイヤー <a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D1%A5%A4%A5%D7%A5%E9%A5%A4%A5%F3">パイプライン</a>を使用する場合は別。Assets/Editorのみっぽい。</li><li><span style="font-size: large;">Assets/Editor Default Resources/Icons</span>　<span style="color: rgb(255, 0, 0);">（追記）</span><br />
+このフォルダにアイコンを入れると、EditorWindowと同じ場合アイコンが変化するらしい。<br />
+<a href="http://masa795.hatenablog.jp/entry/2013/09/01/142706">EidtorWindowのタイトルに好きなアイコンを付けてみた</a></p><p></li></ul>参考<br />
+<a href="http://hamken100.blogspot.jp/2012/04/unity-script.html">Unity: Scriptフォルダーの注意点 </a><br />
+<a href="http://unitygeek.hatenablog.com/entry/2012/10/13/121917">特別なフォルダー名とコンパイルの順番</a><br />
+<a href="http://wiki.unity3d.com/index.php/Special_Folder_Names_in_your_Assets_Folder">Special Folder Names in your Assets Folder</a></p>
+
+      
+    </div>
+    <footer class="entry-footer">
+      <p class="entry-footer-section">
+        <span class="author vcard"><span class="fn" data-load-nickname="1" data-user-name="tsubaki_t1">tsubaki_t1</span></span>
+        <span class="entry-footer-time"><a href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930"><time data-relative datetime="2013-10-28T13:12:10Z" title="2013-10-28T13:12:10Z" pubdate class="updated">2013-10-28 22:12</time></a></span>
+      </p>
+
+      
+        <div class="hatena-star-container">
+        </div>
+        <div class="hatena-star-metadata" style="display: none">
+          <a class="hatena-star-permalink" href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930">Unityの特殊フォルダと各々の役割（追記版）</a>
+        </div>
+      
+
+      
+<div class="social-buttons">
+  
+  
+    <div class="social-button-item">
+      <a href="http://b.hatena.ne.jp/entry/http://tsubakit1.hateblo.jp/entry/20131028/1382965930" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical-balloon" data-hatena-bookmark-lang="ja" title="この記事をはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only.gif" alt="この記事をはてなブックマークに追加" width="20" height="20" style="border: none;" /></a>
+    </div>
+  
+  
+    <div class="social-button-item">
+      <div class="fb-share-button" data-layout="box_count" data-href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930"></div>
+    </div>
+  
+  
+    <div class="social-button-item">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tsubakit1.hateblo.jp/entry/20131028/1382965930" data-count="vertical" data-text="Unityの特殊フォルダと各々の役割（追記版） - テラシュールブログ" data-lang="ja">Tweet</a>
+    </div>
+  
+  
+    <div class="social-button-item">
+      <div class="g-plusone" data-size="tall" data-href="http://tsubakit1.hateblo.jp/entry/20131028/1382965930"></div>
+    </div>
+  
+  
+  
+    <span>
+      <script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140411" ></script>
+      <script type="text/javascript">
+      new media_line_me.LineButton({"pc":false,"lang":"ja","type":"e"});
+      </script>
+    </span>
+  
+  
+    <div class="social-button-item">
+      <a data-pocket-label="pocket" data-save-url="http://tsubakit1.hateblo.jp/entry/20131028/1382965930" data-pocket-count="vertical" class="pocket-btn" data-lang="en"></a>
+    </div>
+  
+</div>
+
+
+      
+
+      <div class="customized-footer">
+
+        
+
+          
+
+          
+
+          
+        
+      </div>
+
+      <div class="comment-box">
+        
+          <a class="leave-comment-title">コメントを書く</a>
+        
+        <ul class="comment">
+          
+        </ul>
+        
+      </div>
+    </footer>
+  </div>
+</article>
+
+                
+
+                
+                  
+                  
+                  <div class="permalink pager">
+                    
+                      
+                      <span class="pager-prev">
+                        <a href="http://tsubakit1.hateblo.jp/entry/20131031/1383229460" rel="prev">
+                          <span class="pager-arrow">« </span>
+                          Unityでテクスチャを読む7つの方法　4・5…
+                        </a>
+                      </span>
+                    
+                    
+                      
+                      <span class="pager-next">
+                        <a href="http://tsubakit1.hateblo.jp/entry/20131027/1382809916" rel="next">
+                          Unityでテクスチャを読む7つの方法
+                          <span class="pager-arrow"> »</span>
+                        </a>
+                      </span>
+                    
+                  </div>
+                
+
+              
+            
+            <!-- rakuten_ad_target_end -->
+            <!-- google_ad_section_end -->
+
+            
+          
+        </div>
+      </div>
+
+      
+      <aside id="box1">
+        <div id="box1-inner">
+        </div>
+      </aside>
+
+    </div><!-- #wrapper -->
+
+    <aside id="box2">
+  <div id="box2-inner">
+    
+      
+
+<div class="hatena-module hatena-module-profile">
+  <div class="hatena-module-title">
+    プロフィール
+  </div>
+  <div class="hatena-module-body">
+    
+    <a href="http://tsubakit1.hateblo.jp/about" class="profile-icon-link">
+      <img src="http://cdn1.www.st-hatena.com/users/ts/tsubaki_t1/profile.gif?1393258892"
+      alt="id:tsubaki_t1" class="profile-icon" />
+    </a>
+    
+
+    
+    <span class="id">
+      <a href="http://tsubakit1.hateblo.jp/about" class="hatena-id-link"><span data-load-nickname="1" data-user-name="tsubaki_t1">id:tsubaki_t1</span></a>
+      
+  
+    
+    
+      <a href="http://blog.hatena.ne.jp/guide/pro" title="はてなブログPro"><i class="icon-pro" /></i></a>
+    
+  
+
+
+    </span>
+    
+
+    
+    <div class="profile-description">
+      <p>旧テラシュールウェアブログUnity記事</p>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+  </div>
+</div>
+
+    
+      <div class="hatena-module hatena-module-search-box">
+  <div class="hatena-module-title">
+    検索
+  </div>
+  <div class="hatena-module-body">
+    <form class="search-form" role="search" action="http://tsubakit1.hateblo.jp/search" method="get">
+      <input type="text" name="q" class="search-module-input" value="" placeholder="ブログ内検索" required>
+      <input type="submit" value="検索" class="search-module-button" />
+    </form>
+  </div>
+</div>
+
+    
+      <div class="hatena-module hatena-module-recent-entries ">
+  <div class="hatena-module-title">
+    <a href="http://tsubakit1.hateblo.jp/archive">
+      最新記事
+    </a>
+  </div>
+  <div class="hatena-module-body">
+    <ul class="recent-entries hatena-urllist urllist-with-thumbnails">
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/07/02/233000">            <img alt="NavmeshのAI経路探索とAnimatorのアニメーションを連動させる #Unity" src="http://cdn.image.st-hatena.com/image/square/03bfc0f7147ad0e19f09be34b21e9b5b1ff0a31a/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150703%2F20150703010318.gif" class="urllist-image recent-entries-image" title="NavmeshのAI経路探索とAnimatorのアニメーションを連動させる #Unity" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/07/02/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">NavmeshのAI経路探索とAnimatorのアニメーションを連動させる #Unity        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/07/01/233000">            <img alt="一方通行のコライダーを設定する、Platform Effector 2D #Unity" src="http://cdn.image.st-hatena.com/image/square/5eb4b3f77a61daa7e6b8c24450ffd827ee7d03df/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150701%2F20150701235953.gif" class="urllist-image recent-entries-image" title="一方通行のコライダーを設定する、Platform Effector 2D #Unity" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/07/01/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">一方通行のコライダーを設定する、Platform Effector 2D #Unity        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/30/233000">            <img alt="【Unity】とりあえずメニューを作るサンプルにはなる、Game Jam Menu Template" src="http://cdn.image.st-hatena.com/image/square/ec847d85bc18656f0ac88b7cc2c335ffed88da8e/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150701%2F20150701003031.png" class="urllist-image recent-entries-image" title="【Unity】とりあえずメニューを作るサンプルにはなる、Game Jam Menu Template" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/30/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】とりあえずメニューを作るサンプルにはなる、Game Jam Menu Template        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/22/233000">            <img alt="【Unity】コンポーネントを設定したフィールドを非表示にする" src="http://cdn.image.st-hatena.com/image/square/58ba030c5dadce1bbbe194a4038ead602754d6b3/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150630%2F20150630020306.png" class="urllist-image recent-entries-image" title="【Unity】コンポーネントを設定したフィールドを非表示にする" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/22/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】コンポーネントを設定したフィールドを非表示にする        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/28/231805">            <img alt="【Unity】AnimatorをAnimationのように使えるよう色々と試行錯誤" src="http://cdn.image.st-hatena.com/image/square/c5ee2bdc223353b91cbc32fa9708c57e2f54c863/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150628%2F20150628224708.png" class="urllist-image recent-entries-image" title="【Unity】AnimatorをAnimationのように使えるよう色々と試行錯誤" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/28/231805" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】AnimatorをAnimationのように使えるよう色々と試行錯誤        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/26/232958">            <img alt="【Unity】ImportPackage（StandardAssets）が無い時の対処" src="http://cdn.image.st-hatena.com/image/square/4383171d0b7c68d29e037dad6c7e0a3465b3cd0e/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150626%2F20150626231238.jpg" class="urllist-image recent-entries-image" title="【Unity】ImportPackage（StandardAssets）が無い時の対処" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/26/232958" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】ImportPackage（StandardAssets）が無い時の対処        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/26/003654">            <img alt="【Unity】ディスプレイより大きくてサイズが指定された解像度のスクリーンショットを撮影する" src="http://cdn.image.st-hatena.com/image/square/5fa772874707dc63b622f321e47fcb760686e928/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150626%2F20150626003322.png" class="urllist-image recent-entries-image" title="【Unity】ディスプレイより大きくてサイズが指定された解像度のスクリーンショットを撮影する" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/26/003654" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】ディスプレイより大きくてサイズが指定された解像度のスクリーンショットを撮影する        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/24/055130">            <img alt="【Unity】Unity 5 で「光モノ系」を表現するあれこれ" src="http://cdn.image.st-hatena.com/image/square/7fcc701738aebccd4abdd7ea8ff46b066f4cfbbf/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150624%2F20150624052536.png" class="urllist-image recent-entries-image" title="【Unity】Unity 5 で「光モノ系」を表現するあれこれ" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/24/055130" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】Unity 5 で「光モノ系」を表現するあれこれ        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/22/235705">            <img alt="Unity 5 で最近よく使ってる絵作りのメモ" src="http://cdn.image.st-hatena.com/image/square/f24c67a89b5df85a50367a481c2efe58f67512b9/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150623%2F20150623000830.png" class="urllist-image recent-entries-image" title="Unity 5 で最近よく使ってる絵作りのメモ" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/22/235705" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">Unity 5 で最近よく使ってる絵作りのメモ        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/17/230741">            <img alt="【Unity】Unity 5.1でGear VR向けアプリを作る方法" src="http://cdn.image.st-hatena.com/image/square/1f9f6f5a6601d55f78453e88e8d6673ed63530b1/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150617%2F20150617223726.png" class="urllist-image recent-entries-image" title="【Unity】Unity 5.1でGear VR向けアプリを作る方法" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/17/230741" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】Unity 5.1でGear VR向けアプリを作る方法        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/14/233000">            <img alt="【Unity 5】UnityがSketchup(skp)に対応したので椅子とか家とかディズニーランドとか色々読んでみる" src="http://cdn.image.st-hatena.com/image/square/b1f407e52ae7900ced834a47c4e74804d5924c26/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150614%2F20150614232705.png" class="urllist-image recent-entries-image" title="【Unity 5】UnityがSketchup(skp)に対応したので椅子とか家とかディズニーランドとか色々読んでみる" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/14/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity 5】UnityがSketchup(skp)に対応したので椅子とか家とかディズニーランドとか色々読んでみる        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/13/233000">            <img alt="【Unit 5】Unityでマルチプレイヤーなゲームを作る入門（１）" src="http://cdn.image.st-hatena.com/image/square/cf1686d7ac6006cfcc189143ba5c859d05310927/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150614%2F20150614001011.png" class="urllist-image recent-entries-image" title="【Unit 5】Unityでマルチプレイヤーなゲームを作る入門（１）" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/13/233000" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unit 5】Unityでマルチプレイヤーなゲームを作る入門（１）        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/12/013245">            <img alt="【Unity】Unity 5.1で追加された機能で個人的に気になった部分まとめ" src="http://cdn.image.st-hatena.com/image/square/f10a953aad4a41d31aa16b89d2e7488e4b1ecb0e/backend=imagemagick;height=35;version=1;width=100/https%3A%2F%2Fblog.st-hatena.com%2Fimages%2Ftheme%2Fog-image-1500.gif" class="urllist-image recent-entries-image" title="【Unity】Unity 5.1で追加された機能で個人的に気になった部分まとめ" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/12/013245" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】Unity 5.1で追加された機能で個人的に気になった部分まとめ        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/09/231520">            <img alt="【Unity】キーボードでメニューの操作やオブジェクト検索を行うクィックランチャー Haste" src="http://cdn.image.st-hatena.com/image/square/da8d52a3bf695fdf9fb960097079a6c2e8f22adb/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150609%2F20150609230714.png" class="urllist-image recent-entries-image" title="【Unity】キーボードでメニューの操作やオブジェクト検索を行うクィックランチャー Haste" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/09/231520" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】キーボードでメニューの操作やオブジェクト検索を行うクィックランチャー Haste        </a>
+        
+        
+
+              </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+                  <a class="urllist-image-link recent-entries-image-link" href="http://tsubakit1.hateblo.jp/entry/2015/06/08/235853">            <img alt="【Unity】Inspectorビューのプレビューを分離する" src="http://cdn.image.st-hatena.com/image/square/743f95f26bc0152fb8bb78ab5703387110e0c448/backend=imagemagick;height=35;version=1;width=100/http%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftsubaki_t1%2F20150608%2F20150608234857.png" class="urllist-image recent-entries-image" title="【Unity】Inspectorビューのプレビューを分離する" width="100">
+          </a>
+        
+        <a href="http://tsubakit1.hateblo.jp/entry/2015/06/08/235853" class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        ">【Unity】Inspectorビューのプレビューを分離する        </a>
+        
+        
+
+              </div>
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+    
+      
+<div class="hatena-module hatena-module-entries-access-ranking"
+     data-count="10"
+     data-display_entry_category="0"
+     data-display_entry_image="1"
+     data-display_entry_image_size_width="100"
+     data-display_entry_image_size_height="35"
+     data-display_entry_body_length="0"
+     data-display_entry_date="0"
+     data-display_bookmark_count="0"
+     data-source="access"
+>
+  <div class="hatena-module-title">
+    
+      注目記事
+    
+  </div>
+  <div class="hatena-module-body">
+    
+  </div>
+</div>
+
+    
+      
+
+<div class="hatena-module hatena-module-category">
+  <div class="hatena-module-title">
+    カテゴリー
+  </div>
+  <div class="hatena-module-body">
+    <ul class="hatena-urllist">
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Unity">
+            Unity (761)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Unity%E6%83%85%E5%A0%B1">
+            Unity情報 (171)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%A2%E3%82%BB%E3%83%83%E3%83%88%E7%B4%B9%E4%BB%8B%E3%80%81AssetStore">
+            アセット紹介、AssetStore (138)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/2D">
+            2D (90)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E6%8B%A1%E5%BC%B5%E3%83%BB%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E6%A9%9F%E8%83%BD">
+            エディタ拡張・エディタ機能 (84)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/3D">
+            3D (62)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E6%9C%80%E9%81%A9%E5%8C%96%E3%83%BB%E3%83%87%E3%83%90%E3%83%83%E3%82%B0">
+            最適化・デバッグ (56)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">
+            スクリプティング (54)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%81%8A%E3%82%82%E3%81%97%E3%82%8D%E6%BC%94%E5%87%BA%E3%80%81%E6%BC%94%E5%87%BA%E3%81%AE%E5%BC%B7%E5%8C%96">
+            おもしろ演出、演出の強化 (49)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/GUI%EF%BC%88uGUI%2FNGUI%2F%E6%97%A7UI%EF%BC%89">
+            GUI（uGUI/NGUI/旧UI） (45)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%A2%E3%82%BB%E3%83%83%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E7%AE%A1%E7%90%86">
+            アセット・ファイル管理 (45)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D">
+            その他いろいろ (41)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">
+            トラブルシューティング (38)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E4%BD%9C%E3%82%8A%E6%96%B9%E3%83%BB%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB">
+            ゲームの作り方・チュートリアル・サンプル (35)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/MMD%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E6%89%B1%E3%81%84%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0">
+            MMD・モデルの扱い・モデリング (32)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/iOS">
+            iOS (31)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Unity5">
+            Unity5 (31)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%A1%E3%83%A2%E3%83%AA%E7%AE%A1%E7%90%86">
+            リソース・メモリ管理 (30)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E9%96%8B%E7%99%BA%E3%83%95%E3%83%AD%E3%83%BC">
+            開発フロー (30)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Android">
+            Android (29)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/C%23">
+            C# (28)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E7%94%BB%E9%9D%A2%E5%8A%B9%E6%9E%9C">
+            画面効果 (23)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B8%E6%A7%8B%E7%AF%89">
+            ステージ構築 (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%81%BE%E3%81%A8%E3%82%81">
+            まとめ (18)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E6%97%A5%E8%A8%98">
+            日記 (17)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E8%A9%A6%E4%BD%9C">
+            試作 (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/AssetBundle">
+            AssetBundle (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%80%81%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89">
+            ネットワーク、ダウンロード (15)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">
+            ライティング (15)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Monodevelop">
+            Monodevelop (14)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%96%E9%80%A3%E6%90%BA">
+            ネイティブ連携 (14)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Sample%20Assets">
+            Sample Assets (13)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/ScriptableObject">
+            ScriptableObject (13)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%93%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%83%BB%E3%83%8E%E3%83%BC%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0">
+            ビジュアルスクリプト・ノーコーディング (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/AI">
+            AI (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Navmesh">
+            Navmesh (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/ImageEffect">
+            ImageEffect (10)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E5%9B%9E%E8%BB%A2%E3%81%A8%E3%81%8B%E7%A7%BB%E5%8B%95%E3%81%A8%E3%81%8B%E6%8B%A1%E5%A4%A7%E7%B8%AE%E5%B0%8F%E3%81%A8%E3%81%8B">
+            回転とか移動とか拡大縮小とか (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Excel">
+            Excel (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%81%8D%E3%81%AB%E3%81%AA%E3%81%A3%E3%81%9F%E3%82%A2%E3%83%97%E3%83%AA">
+            きになったアプリ (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%9E%E3%83%AB%E3%83%81%E3%83%97%E3%83%AC%E3%82%A4">
+            マルチプレイ (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E7%89%A9%E7%90%86%E6%BC%94%E7%AE%97">
+            物理演算 (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E6%83%85%E5%A0%B1">
+            イベント情報 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%82%AF%E3%83%AB">
+            パーティクル (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC">
+            シェーダー (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/NetworkView">
+            NetworkView (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/AR">
+            AR (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">
+            アニメーション (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%83%B3%E3%82%B0">
+            メッセージング (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Oculus%20Rift%2FHMD">
+            Oculus Rift/HMD (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%B8%E3%83%A3%E3%83%A0">
+            ゲームジャム (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Audio">
+            Audio (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Profiler">
+            Profiler (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/uGUI">
+            uGUI (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E9%80%9A%E4%BF%A1">
+            通信 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/GearVR">
+            GearVR (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Shader">
+            Shader (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Vuforia">
+            Vuforia (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/WebPlayer">
+            WebPlayer (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Gizmo">
+            Gizmo (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%83%A6%E3%83%8B%E3%83%86%E3%82%A3%E3%81%A1%E3%82%83%E3%82%93">
+            ユニティちゃん (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/UnityChan">
+            UnityChan (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/Unity%2CGearVR">
+            Unity,GearVR (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%C2%A02D">
+             2D (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://tsubakit1.hateblo.jp/archive/category/%E3%82%B2%E3%83%BC%E3%83%A0">
+            ゲーム (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+    
+      
+
+<div class="hatena-module hatena-module-archive" data-archive-type="default" data-archive-url="http://tsubakit1.hateblo.jp/archive">
+  <div class="hatena-module-title">
+    <a href="http://tsubakit1.hateblo.jp/archive">月別アーカイブ</a>
+  </div>
+  <div class="hatena-module-body">
+  </div>
+</div>
+
+    
+    
+  </div>
+</aside>
+
+  </div>
+</div>
+
+
+
+
+
+
+        
+      </div>
+    </div>
+
+    
+      <footer id="footer" data-brand="hatenablog">
+  <div id="footer-inner">
+    <address>
+      
+      <a href="http://tsubakit1.hateblo.jp/about"><img src="http://cdn1.www.st-hatena.com/users/ts/tsubaki_t1/profile.gif" width="16" height="16" alt=""/>
+        <span data-load-nickname="1" data-user-name="tsubaki_t1">tsubaki_t1</span>
+      </a>
+    </address>
+    <p class="services">Powered by <a href="http://hatenablog.com/">Hatena Blog</a></p>
+  </div>
+</footer>
+
+    
+
+    
+      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    
+
+    
+      <script src="https://s.hatena.ne.jp/js/HatenaStar.js"></script>
+    
+
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+  {"parsetags": "explicit"}
+</script>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+
+<script type="text/javascript" src="http://blog.hatena.ne.jp/js?version=7086b427fed490930d9adb6840fb8d55"></script>
+<script type="text/javascript" src="http://blog.hatena.ne.jp/js/texts-ja.js?version=7086b427fed490930d9adb6840fb8d55"></script>
+
+
+  <script type="text/javascript">Hatena.Diary.loadGlobalHeader()</script>
+
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+
+
+
+
+
+    
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&appId=719729204785177&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    
+
+    
+       <script id="google-analytics-script" type="text/javascript">
+var _gaq = _gaq || [];
+
+(function($){
+
+  // 現在のドメイン
+  
+    
+    
+      
+      var current_domain = "hateblo.jp".split(":")[0];
+    
+  
+
+  
+    _gaq.push(['_setAccount', 'UA-33615610-2']);
+    _gaq.push(['_trackPageview']);
+  
+
+  
+
+   
+   _gaq.push(['all._setAccount', 'UA-7855606-1']);
+   _gaq.push(['all._setDomainName', current_domain]);
+   _gaq.push(['all._setSampleRate', '10']);
+   _gaq.push(['all._trackPageview']);
+
+  
+    _gaq.push(['a._setAccount', 'UA-29716941-5']);
+    _gaq.push(['a._setDomainName', current_domain]);
+    _gaq.push(['a._setCustomVar', 1, 'PageId', document.documentElement.getAttribute('data-page'), 3 /* page-level */]);
+      var keywordCampaigns = [];
+      $('.js-entry-article').each(function (index, element) {
+        var keywords = $(element).data('keywordCampaign').split(' ');
+        keywords = _.filter(keywords, function (keyword) { return keyword.length > 0 });
+        keywordCampaigns = keywordCampaigns.concat(keywords);
+      });
+      if (keywordCampaigns.length > 0) {
+        _gaq.push(['a._setCustomVar', 3, 'KeywordCampaign', keywordCampaigns[0], 3 /* page-level */]);
+      }
+      _gaq.push(['a._trackPageview']);
+  
+    _gaq.push(['b._setAccount', 'UA-29716941-2']);
+    _gaq.push(['b._setDomainName', current_domain]);
+    _gaq.push(['b._setCustomVar', 1, 'PageId', document.documentElement.getAttribute('data-page'), 3 /* page-level */]);
+      var keywordCampaigns = [];
+      $('.js-entry-article').each(function (index, element) {
+        var keywords = $(element).data('keywordCampaign').split(' ');
+        keywords = _.filter(keywords, function (keyword) { return keyword.length > 0 });
+        keywordCampaigns = keywordCampaigns.concat(keywords);
+      });
+      if (keywordCampaigns.length > 0) {
+        _gaq.push(['b._setCustomVar', 3, 'KeywordCampaign', keywordCampaigns[0], 3 /* page-level */]);
+      }
+      _gaq.push(['b._trackPageview']);
+  
+
+  $(function () {
+      $(document).delegate('[data-track-event="click"]', 'click', function () {
+          
+          _gaq.push([ 'a._trackEvent', 'Blogs', 'Click', this.getAttribute('data-track-key') ]);
+          
+          _gaq.push([ 'b._trackEvent', 'Blogs', 'Click', this.getAttribute('data-track-key') ]);
+          
+      });
+  });
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  var available_domains = ["blog.hatena.ne.jp"];
+  
+    available_domains.push("hatenablog.com".split(":")[0]);
+  
+    available_domains.push("hatenablog.jp".split(":")[0]);
+  
+    available_domains.push("hateblo.jp".split(":")[0]);
+  
+    available_domains.push("hatenadiary.com".split(":")[0]);
+  
+    available_domains.push("hatenadiary.jp".split(":")[0]);
+  
+  $('a').on('click', function() {
+    // 同じドメインならスキップ
+    if ( !this.hostname || this.hostname.indexOf(current_domain) != -1 ) return;
+
+    var cross_domain = false;
+    for (var i = 0, len = available_domains.length; i < len; i++) {
+      if (this.hostname.indexOf(available_domains[i]) != -1) cross_domain = true;
+    }
+    if ( cross_domain ) {
+      
+      _gaq.push(['a._link', this.href]);
+      
+      _gaq.push(['b._link', this.href]);
+      
+    }
+  });
+
+})(jQuery);
+</script>
+
+       
+
+  <script id="hatena-counter-script" type="text/javascript"><!--
+      hatena_counter_name = "tsubaki_t1";
+      hatena_counter_id = "101";
+      hatena_counter_ref = document.referrer+"";
+      hatena_counter_screen = screen.width + "x" + screen.height+","+screen.colorDepth;
+  //--></script>
+  <script type="text/javascript" src="http://counter.hatena.ne.jp/js/counter.js"></script>
+  <noscript><img src="http://counter.hatena.ne.jp/tsubaki_t1/101" border="0" alt="counter"></noscript>
+
+
+    
+
+  </body>
+</html>
+

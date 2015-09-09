@@ -1,0 +1,3 @@
+
+・ListやArrayListや配列などのクラスのこと
+

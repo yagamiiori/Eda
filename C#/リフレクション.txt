@@ -1,0 +1,106 @@
+
+==============================================================================
+これがリフレクション
+　※メソッドMainはどのような型のオブジェクトが返ってきたのか何も知らないが
+　　リフレクションの機能で、それに属するフィールドの値を得ることができている
+======================
+	class A
+	{
+	  public readonly string MyName = "山田太郎";
+	  public static object GetObjectA() { return new A(); }
+	}
+
+	class Program
+	{
+	  static void Main(string[] args)
+	  {
+	    object a = A.GetObjectA();
+
+	    // リフレクションで取得
+	    var name = a.GetType().GetField("MyName").GetValue(a);
+
+	    Console.WriteLine(name);
+	  }
+	}
+
+	↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+	↓↓↓↓↓↓dynamic型を使う事で簡素化できる↓↓↓↓↓↓↓↓
+	↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+class A
+{
+  public readonly string MyName = "山田太郎";
+  public static dynamic GetObjectA() { return new A(); }
+}
+
+class Program
+{
+  static void Main(string[] args)
+  {
+    dynamic a = A.GetObjectA();
+    Console.WriteLine(a.MyName);
+  }
+}
+==============================================================================
+
+・リフレクション使わずdynamnicを使うべき
+
+・リフレクション API は System.Reflection 名前空間に属するクラス
+
+・クラスのメンバ全体の情報を取得するには、リフレクション API の一つ
+　MemberInfoクラスを用いる
+
+・GetMembers：Type オブジェクトが持つ型が保有するメンバの情報を
+　MemberInfo 型のオブジェクトの配列として返す
+	Type t = Type.GetType(args[0]);
+		MemberInfo[] mi = t.GetMembers();
+		foreach(MemberInfo tmp in mi) Console.WriteLine(tmp);
+
+・メンバをフィールドとメソッドに区別しそれぞれに特殊化した情報をより確実に
+　取得し、操作したい場合
+	フィールドは System.Reflection.FieldInfoクラス
+	メソッドは System.Reflection.MethodInfoクラスを用いる
+	Type t = Type.GetType(args[0]);
+		FieldInfo[] field = t.GetFields();
+		MethodInfo[] method = t.GetMethods();
+
+・クラスを他のプログラムから利用できるようにするためプログラムやライブラリ中には
+　クラス名やメンバー名、それらのアクセスレベル等の情報が格納されています。
+　これらの情報はメタデータと呼ばれ、 プログラムの実行時にメタデータを取り出すための
+　機能をリフレクション（reflection）と呼びます。
+
+・C# ではクラスのインスタンスから実行時に型情報を取得したりリフレクション機能を利用して
+　型情報からメタデータを取り出したりする機能が用意されています。
+　このようにして実行時に得られる型に関する情報を実行時型情報といいます
+
+・構造体/クラス名やメンバー名などの情報はプログラムを実行するだけなら不要な情報
+・C# にはクラス名やメンバー名などの情報を実行時に取り出したり、 あるいは
+　クラス名の文字列からクラスのインスタンスを動的に生成したりする機能（リフレクション）がある
+
+=============================================================================================
+Rect x = new Rect();
+x.Width = 3;
+x.Height = 4;
+int w = x.Width;
+int h = x.Height;
+int area = w * h;
+
+Console.Write("{0} × {1} ＝ {2}\n", x.Width, x.Height, area);
+
+★上記をリフレクション仕様に直すと以下になる
+
+Type t = Type.GetType("Rect");
+object o = Activator.CreateInstance(t);
+
+t.GetField("Width").SetValue(o, 3);
+t.GetField("Height").SetValue(o, 4);
+
+int w = (int)t.GetField("Width").GetValue(o);
+int h = (int)t.GetField("Height").GetValue(o);
+int area = w * h;
+
+Rect x = (Rect)o;
+Console.Write("{0} × {1} ＝ {2}\n", x.Width, x.Height, area);
+
+
+

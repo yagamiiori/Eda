@@ -1,0 +1,24 @@
+
+★型変換するものではない事に注意
+　型でフィルタをかけるメソッド
+（型変換はキャストやas演算子、型の取得にはType t = GetType(xxx);、またはtypeof演算子を使う）
+
+任意の型を持つリスト(特殊な***Collectionや、IListで与えられるオブジェクト)から
+特定クラスを引き出すためのLINQが、OfType<>メソッド。
+
+using System;
+using System.Linq;
+...
+ArrayList list = new ArrayList {1, 2L, 3, 4m, 5, 6D, 7, 8f};
+var intList = new List(list.OfType<int>());
+...
+
+intListの中身は、{1,3,5,7}になる。
+キャストできないオブジェクトは無視される。
+型でフィルタをかけるって感じかな。
+
+intではなく、IDisposableなんかのインターフェースにも使えるのでそれなりに便利。
+なお、無視せずにキャストするためのメソッドも、Castという名前で用意されている。
+こっちの場合は、キャストできなければ、InvalidCastExceptionが発生する。
+
+

@@ -1,0 +1,52 @@
+
+・オブジェクトを見分ける場合に使う
+・コンポーネントやオブジェクトのユニークIDを取得する
+・任意で変更はできない
+
+// アタッチされたオブジェクトではなく、そのスクリプトコンポーネントのIDが返ってくる
+var id = GetInstanceID();
+
+// アタッチされたオブジェクトのIDが返ってくる
+var id = gameObject.GetInstanceID();
+
+
+===========================================================
+インスタンスにIDをつける
+
+インスタンスのスクリプトに変数設定して実証した。
+下記ブロック崩しのスクリプトの一部。
+
+GameObject clone;
+
+//インスタンス生成座標設定
+Vector3 position01 = new Vector3( (float)(22.5-yoko*5), (float)(77.5-tate*2.5), 0f );
+
+//インスタント生成しながら、ゲームobj設定
+clone = (GameObject)Instantiate(p_Block_01,position01,Quaternion.identity);
+
+//ブロックのＩＤ生成
+init.BlockNum ++;
+
+//スクリプトコンポーネント　Block01　で定義
+Block01 Block01obj;
+
+//IDをつけたいobjのスクリプトコンポーネント呼び出し
+Block01obj = clone.GetComponent<Block01>();
+
+//IDを与える
+Block01obj.BlockID = init.BlockNum;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+jQuery.noConflict();jQuery(document).bind("ready",function(){jQuery(".nav-collapse-toggle").first().click(function(){jQuery(".nav-collapse").toggleClass("open")})})

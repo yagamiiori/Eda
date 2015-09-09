@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://doc.photonengine.com/ja/realtime/current/reference/serialization-in-photon -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    
+    
+
+    <meta name="description" content="Photon Realtime, Photon PUN, Photon Turnbased, Photon Chat や Photon Server　のオンラインドキュメント">
+    <meta name="generator" content="Version 1.9.1.0">
+
+    <link rel="alternate" type="text/xml" title="RSS" href="http://feeds.feedburner.com/exitgamesphoton">
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="http://feeds.feedburner.com/exitgamesphoton">
+    <link rel="shortcut icon" href="https://doc.photonengine.com/favicon.ico">
+
+    
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://doc.photonengine.com/Content/fontawesome?v=dOLiGOnXMSx_4A9urPcJmzFIhTUQBYOSzWk80d-u7Ko1" rel="stylesheet">
+
+    <link href="https://doc.photonengine.com/Content/exitgames?v=FfSbqVDx7-EiPZ9EhwpW5ouRetD70BcqbpNSQbLctzQ1" rel="stylesheet">
+
+
+    
+    <link href="https://doc.photonengine.com/Content/syntaxhighlight?v=SytwbhHdGlbiuWrOiI4KjJx550zrrNLoB35vCQ1A6-Y1" rel="stylesheet">
+
+
+
+    <!-- (shake) -->
+    <!--[if lt IE 9]>
+    <script src="/Scripts/html5shiv?v="></script>
+
+    <![endif]-->
+
+    <title>
+        Photonでシリアル化 | Exit Games
+    </title>
+<link rel="stylesheet" type="text/css" href="./Photonでサポートされている型_files/swiftype_nocode-862cc0feac61f00e170fbcc6360aeeb7.css"></head>
+
+<body>
+    <noscript>
+        &lt;div class="alert alert-danger"&gt;
+            &lt;p&gt;
+                Please enable Javascript to continue.
+            &lt;/p&gt;
+        &lt;/div&gt;
+    </noscript>
+
+    
+    <a class="sr-only" href="https://doc.photonengine.com/ja/realtime/current/reference/serialization-in-photon#main">
+        Skip to main content
+    </a>
+
+    <script type="text/javascript" async="" src="./Photonでサポートされている型_files/cc.js"></script><script async="" src="./Photonでサポートされている型_files/analytics.js"></script><script type="text/javascript" async="" src="./Photonでサポートされている型_files/swiftype_nocode-0d4eef21230e87046e91f473c623b215.js"></script><script type="text/javascript" async="" src="./Photonでサポートされている型_files/embed.js"></script><div class="page">
+        
+
+
+<nav role="navigation">
+    
+    <div class="container nav-products">
+
+        
+        <button class="nav-collapse-toggle" type="button">
+            <span class="sr-only">
+                Show Navigation
+            </span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        
+
+
+<div class="col-xs-1o7 nav-products-menu nav-product-photon">
+    <a class="link-no-border" href="https://doc.photonengine.com/ja/Realtime">
+        <img alt="Photon" src="./Photonでサポートされている型_files/logo_photon-nav.png" style="margin-top: -3px;">
+    </a>
+</div>
+
+<div class="col-xs-1o7 bg-realtime nav-products-menu menu-active">
+    <a href="https://doc.photonengine.com/ja/realtime">
+        Realtime
+    </a>
+</div>
+<div class="col-xs-1o7 bg-turnbased nav-products-menu ">
+    <a href="https://doc.photonengine.com/ja/turnbased">
+        Turnbased
+    </a>
+</div>
+<div class="col-xs-1o7 bg-pun nav-products-menu ">
+    <a href="https://doc.photonengine.com/ja/pun">
+        PUN
+    </a>
+</div>
+<div class="col-xs-1o7 bg-bolt nav-products-menu ">
+    <a href="https://doc.photonengine.com/ja/bolt">
+        BOLT
+    </a>
+</div>
+<div class="col-xs-1o7 bg-chat nav-products-menu ">
+    <a href="https://doc.photonengine.com/ja/chat">
+        Chat
+    </a>
+</div>
+<div class="col-xs-1o7 bg-onpremise nav-products-menu ">
+    <a href="https://doc.photonengine.com/ja/onpremise">
+        Server
+    </a>
+</div>
+
+
+    </div>
+
+    
+    <div class="bg-realtime">
+        <div class="container" id="nav-contents">
+
+            <div class="nav-site nav-collapse">
+                <a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdks-overview">API と SDK</a>
+                <a href="http://www.photonengine.com/ja/realtime/" target="_blank" title="Click to open in new window ...">Photon Realtime ホーム</a>
+            </div>
+
+            <div class="nav-aside nav-collapse">
+                
+
+
+<ul class="hoverNav hoverNav-bg-realtime changeLang pull-right">
+    <li>
+        <a class="link-no-border" data-langprefix="Japanese" href="javascript:void(0);">
+            <span class="flag-jp" title="日本語のサイトを閲覧しています。"></span>
+        </a>
+        <ul>
+            <li>
+                <a class="flag-us culture-link" href="https://doc.photonengine.com/en/realtime/current/reference/serialization-in-photon">English</a>
+            </li>
+            <li>
+                <a class="flag-jp culture-link menu-item-active" href="./Photonでサポートされている型_files/Photonでサポートされている型.html">Japanese</a>
+            </li>
+            <li>
+                <a class="flag-kr culture-link" href="https://doc.photonengine.com/ko-kr/realtime/current/reference/serialization-in-photon">Korean</a>
+            </li>
+            
+        </ul>
+    </li>
+</ul>
+
+                <a class="pull-right" href="http://www.photonengine.com/ja/Contact" target="_blank" title="Click to open in new window ...">お問い合わせ</a>
+                
+
+<form class="form-inline pull-right">
+    <input class="input-search input-search-transition" id="st-search-input" placeholder="SEARCH" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" style="outline: none;"><span class="search-trigger"><i class="fa fa-search" aria-hidden="true"></i></span>
+    <button class="sr-only" type="submit">SEARCH</button>
+</form>
+<script>
+    var Swiftype = window.Swiftype || {};
+
+    ( function ()
+    {
+             Swiftype.key = 'qQxFaxB4s8RpGP3CemRB';
+        Swiftype.additionalInputElements = ['#st-search-input-404'];
+
+        var script = document.createElement( 'script' );
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = "//swiftype.com/embed.js";
+
+        var body = document.getElementsByTagName( 'body' )[0];
+        body.insertBefore( script, body.lastChild );
+    }()
+    );
+</script>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+        <div id="main" role="main">
+
+            
+
+
+<div class="container " id="doc">
+<div class="row row-gutter">
+    <article class="col-xs-12 col-sm-8 col-md-9 col-lg-9" id="main" role="main">
+
+        <header>
+            <p class="text-right">
+                <a class="toggle-sidebar hidden-sm-up" href="javascript: void(0);" id="show-sidebar" onclick="showSidebar();"><i class="fa fa-plus-square"></i>&nbsp;Show Sidebar</a>
+            </p>
+            <h1>
+
+                Photonでシリアル化
+
+            </h1>
+        </header>
+
+        <section>
+
+            <p>Photonとそのクライアントは高度に最適化されたバイナリプロトコルを使用して通信しています。
+コンパクトな上にパースがしやすくなっています。</p>
+
+<p>送信ができる前にPhotonはバイナリプロトコルに全てのデータを変換する必要があります。
+これはよく使われる様々なデータタイプで自動的に行われます。
+ほとんどのクライアントAPIでは、必要な他クラスに応じてカスタムのシリアル化方法を登録することができます。
+以下を参照ください。</p>
+
+<h2>Photonでサポートされている型</h2>
+
+<p>下記のタイプは通常サポートされていて、Photonのバイナリプロトコルとして知られています。<br>
+言語によってはリストにある全ての型を提供していませんので、SDKによっては型のサポートが少ないものもあります。</p>
+
+<table class="table table-striped"><tbody>
+<tr>
+<th> type (C#)</th>
+<th> size [bytes]</th>
+<th> description</th>
+</tr>
+<tr>
+<td> byte <br> </td>
+<td> 2 <br> </td>
+
+<td> 8 bit unsigned<br> </td>
+</tr>
+<tr>
+<td> boolean <br> </td>
+<td> 2 <br> </td>
+<td> true or false <br> </td>
+
+</tr>
+<tr>
+<td> short <br> </td>
+<td> 3 <br> </td>
+<td> 16 bit <br> </td>
+</tr>
+<tr>
+<td> int <br> </td>
+
+<td> 5 <br> </td>
+<td> 32 bit <br> </td>
+</tr>
+<tr>
+<td> long <br> </td>
+<td> 9 <br> </td>
+
+<td> 64 bit <br> </td>
+</tr>
+<tr>
+<td> float <br> </td>
+<td> 5 <br> </td>
+<td> 32 bit <br> </td>
+
+</tr>
+<tr>
+<td> double <br> </td>
+<td> 9 <br> </td>
+<td> 64 bit <br> </td>
+</tr>
+<tr>
+<td> string <br> </td>
+
+<td> 3 + size( UTF8.GetBytes(string) ) <br> </td>
+<td>&lt; short.MaxValue length</td>
+</tr>
+
+<tr>
+<td> byte-array <br> </td>
+<td> 5 + 1 * length <br> </td>
+
+<td>&lt; int.MaxValue length</td>
+</tr>
+
+<tr>
+<td> int-array <br> </td>
+<td> 5 + 4 * length <br> </td>
+
+<td>&lt; int.MaxValue length</td>
+</tr>
+
+<tr>
+<td> array of &lt;type&gt; <br> </td>
+<td> 4 + size(entries) - count(entries) <br> </td>
+<td>&lt; short.MaxValue length</td>
+
+</tr>
+
+
+<tr>
+<td> hashtable <br> </td>
+<td> 3 + size(keys) + size(values) <br> </td>
+<td>&lt; short.MaxValue pairs</td>
+</tr>
+
+
+<tr>
+<td> dictionary<k,v> <br> </k,v></td>
+<td> 3 + size(keys) + size(values) <br> </td>
+<td>&lt; short.MaxValue pairs<br>
+additional size if K- or V-type is object
+</td>
+</tr>
+
+</tbody></table>
+
+<h2>Photon Unity Networkingで追加された型</h2>
+
+<p>Photon Unity Networking (PUN) ではいくつかの追加の型に対応しています。これらはカスタムタイプとして実施されています。以下で説明します。</p>
+
+<p>TransformとPhotonViewはこのリストに含まれていません。Transforms全体を送ることができないので、Position, RotationとScaleを個別で送る必要があります。PhotonViewsは通常viewId (short-typed) で区別されます。これはネットワークのゲーム上では固有でかつ簡単に送信します。</p>
+
+<table class="table table-striped"><tbody>
+<tr>
+<th> type (C#)</th>
+<th> size [bytes]</th>
+<th> description</th>
+</tr>
+<tr>
+
+</tr><tr>
+<td>Vector2</td>
+<td>12</td>
+<td>2 floats</td>
+</tr>
+
+<tr>
+<td>Vector3</td>
+<td>16</td>
+<td>3 floats</td>
+</tr>
+
+<tr>
+<td>Quaternion</td>
+<td>20</td>
+<td>4 floats</td>
+</tr>
+
+<tr>
+<td>PhotonPlayer</td>
+<td>8</td>
+<td>integer PhotonPlayer.ID</td>
+</tr>
+
+</tbody></table>
+
+<h2>カスタムタイプ</h2>
+
+<p>上記リストに含まれていない型の場合、重要な値をシリアライズ化または非シリアライズ化する必要があります。</p>
+
+<p>基本的には二つのメソッドを書いてクラスをバイト配列に変換してから戻します。その後にそれをPhoton APIに登録します。
+登録が完了すれば、メッセージにその型のインスタンスを含むことができます。</p>
+
+<p>Photonが登録された型のシリアライズ化メソッドを呼び、自動的に作成したバイト配列（4byte）と必要なタイプ情報をプリフィックスします。
+4 byteのオーバーヘッドがあるので、byteの少ないデータの登録は避けた方が良いかもしれません。</p>
+
+<p><strong>Photon Serverは不明のカスタムタイプをそのまま転送することもできます。</strong>このため、Photon Cloudではタイプの登録をする必要がありません。</p>
+
+<p>通信する全てのクライアントにカスタムタイプを登録してください。</p>
+
+<h2>C#でのカスタムタイプ</h2>
+
+<p>全てのC#ベースのAPIは(.NET, Unity, Xamarin, etc)同じ方法でレジスタークラスへの提供をします。</p>
+
+<p>コールの静的メソッドは：</p>
+
+<div><div id="highlighter_160165" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp plain">PhotonPeer.RegisterType(Type customType, </code><code class="csharp keyword">byte</code> <code class="csharp plain">code, SerializeMethod serializeMethod, DeserializeMethod constructor)</code></div></div></td></tr></tbody></table></div></div>
+
+<p>SerializeMethodとDeserializeMethodは定義されたデリゲートです。</p>
+
+<div><div id="highlighter_723224" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp keyword">public</code> <code class="csharp keyword">delegate</code> <code class="csharp keyword">byte</code><code class="csharp plain">[] SerializeMethod(</code><code class="csharp keyword">object</code> <code class="csharp plain">customObject);</code></div><div class="line number2 index1 alt1"><code class="csharp keyword">public</code> <code class="csharp keyword">delegate</code> <code class="csharp keyword">object</code> <code class="csharp plain">DeserializeMethod(</code><code class="csharp keyword">byte</code><code class="csharp plain">[] serializedCustomObject);</code></div></div></td></tr></tbody></table></div></div>
+
+<h3>例</h3>
+
+<p>PUNがどのようにUnityのVector2に対応しているかを説明します。</p>
+
+<p>Vector2にはｘとｙの二つのfloatがあります。Photonはfloatには対応していますがVector2には対応していません。</p>
+
+<p>SerializeMethodには結果としてバイト配列が必要です。基本的にはC#のどのような方法でfloat型を表す4byteを取得しても問題ありません。PhotonのProtocolクラスには効果的に複数のタイプをバイト配列に書き出すシリアライズ方法がいくつかあります。</p>
+
+<div><div id="highlighter_715534" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp keyword">private</code> <code class="csharp keyword">static</code> <code class="csharp keyword">byte</code><code class="csharp plain">[] SerializeVector2(</code><code class="csharp keyword">object</code> <code class="csharp plain">customobject)</code></div><div class="line number2 index1 alt1"><code class="csharp plain">{</code></div><div class="line number3 index2 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Vector2 vo = (Vector2)customobject;</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">byte</code><code class="csharp plain">[] bytes = </code><code class="csharp keyword">new</code> <code class="csharp keyword">byte</code><code class="csharp plain">[2 * 4];</code></div><div class="line number6 index5 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">index = 0;</code></div><div class="line number7 index6 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Protocol.Serialize(vo.x, bytes, </code><code class="csharp keyword">ref</code> <code class="csharp plain">index);</code></div><div class="line number8 index7 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Protocol.Serialize(vo.y, bytes, </code><code class="csharp keyword">ref</code> <code class="csharp plain">index);</code></div><div class="line number9 index8 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">bytes;</code></div><div class="line number10 index9 alt1"><code class="csharp plain">}</code></div></div></td></tr></tbody></table></div></div>
+
+<p>注記としてSerializeVector2はオブジェクトを取得し、それを予測されるVector2タイプに投げる必要があります。</p>
+
+<p>あとはDeserializeVector2にオブジェクトを返すのみです：</p>
+
+<div><div id="highlighter_211993" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp keyword">private</code> <code class="csharp keyword">static</code> <code class="csharp keyword">object</code> <code class="csharp plain">DeserializeVector2(</code><code class="csharp keyword">byte</code><code class="csharp plain">[] bytes)</code></div><div class="line number2 index1 alt1"><code class="csharp plain">{</code></div><div class="line number3 index2 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Vector2 vo = </code><code class="csharp keyword">new</code> <code class="csharp plain">Vector2();</code></div><div class="line number4 index3 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">index = 0;</code></div><div class="line number5 index4 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Protocol.Deserialize(</code><code class="csharp keyword">out</code> <code class="csharp plain">vo.x, bytes, </code><code class="csharp keyword">ref</code> <code class="csharp plain">index);</code></div><div class="line number6 index5 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Protocol.Deserialize(</code><code class="csharp keyword">out</code> <code class="csharp plain">vo.y, bytes, </code><code class="csharp keyword">ref</code> <code class="csharp plain">index);</code></div><div class="line number7 index6 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">vo;</code></div><div class="line number8 index7 alt1"><code class="csharp plain">}</code></div></div></td></tr></tbody></table></div></div>
+
+<p>そして最後にVector2を登録する必要があります：</p>
+
+<div><div id="highlighter_382984" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp plain">PhotonPeer.RegisterType(</code><code class="csharp keyword">typeof</code><code class="csharp plain">(Vector2), (</code><code class="csharp keyword">byte</code><code class="csharp plain">)</code><code class="csharp string">'W'</code><code class="csharp plain">, SerializeVector2, DeserializeVector2);</code></div></div></td></tr></tbody></table></div></div>
+
+
+            <p class="mT">
+                <a href="https://doc.photonengine.com/ja/realtime/current/reference/serialization-in-photon#main"><i class="fa fa-long-arrow-up"></i>&nbsp;To Document Top</a>
+            </p>
+        </section>
+
+    </article>
+    <aside class="col-xs-5 col-sm-4 col-md-3 col-lg-3" id="sidebar">
+        <p class="text-right">
+            <a class="toggle-sidebar hidden-xs" href="javascript: void(0);" id="hide-sidebar" onclick="hideSidebar();"><i class="fa fa-minus-square"></i>&nbsp;Hide Sidebar</a>
+        </p>
+
+        <ul class="tree">
+<li><label for="getting-started">Getting Started</label><input id="getting-started" type="checkbox" checked="checked"><ul class="tree">
+<li><a href="https://doc.photonengine.com/ja/realtime/current/getting-started/realtime-intro">Realtimeイントロ</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/getting-started/quick-start">Quick Start</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/getting-started/obtain-your-app-id">APP IDを取得する方法</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/getting-started/onpremise-or-saas">Photon Cloud、それともPhoton Server?</a></li>
+</ul></li><li><label for="tutorials">Tutorials</label><input id="tutorials" type="checkbox" checked="checked"><ul class="tree">
+<li><a href="https://doc.photonengine.com/ja/realtime/current/tutorials/custom-auth-facebook-javascript">Facebook認証を用いたカスタム認証</a></li>
+</ul></li><li class="active"><label for="reference">Reference</label><input id="reference" type="checkbox" checked="checked"><ul class="tree">
+<li><a href="https://doc.photonengine.com/ja/realtime/current/reference/glossary">用語集</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/known-issues">既知の問題点</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/get-help">困ったときは？</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/analyzing-disconnects">接続が切断された場合の調査</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/binary-protocol">バイナリ―プロトコル</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/cached-events">キャッシュされたイベント</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/client-connection-handling">クライアントの接続処理</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/custom-authentication">カスタム認証</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/encryption">暗号化</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/matchmaking-and-lobby">マッチメイキング＆ルームプロパティ</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/performance-tips">パフォーマンスのヒント</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/receiver-groups">受信者のグループ</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/regions">リージョン</a></li><li class="active"><a href="./Photonでサポートされている型_files/Photonでサポートされている型.html">Photonでシリアル化</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/subscription-error-cases">登録エラーのケース</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/reference/tcp-and-udp-port-numbers">TCPとUDPポート番号</a></li>
+</ul></li><li><label for="sdks-and-api">SDKs and API</label><input id="sdks-and-api" type="checkbox" checked="checked"><ul class="tree">
+<li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdks-overview">Photon Realtime用SDKとAPIについて</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-android">Android SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-androidndk">Android NDK SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-cocos2d-x">Cocos 2D-X SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-corona">Corona SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-dotnet">.Net SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-flash">Flash SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-ios">iOS SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-javascript">JavaScript, HTML 5 SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-linux">Linux SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-macosx">Mac OS X SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-marmalade">Marmalade SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-playstation">Playstation SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-psmobile">Playstation Mobile SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-pun">Photon Unity Networking (PUN) SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-unity3d">Unity3D SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-unreal-engine">Unreal Engine SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-wii-u">Wii U SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-win32">Win32 SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-win8phone">Windows 8 Phone SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-win8rt">Windows 8 RT SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-windows">Win32 SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-windowsphone">Windows Phone SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-xamarin">Xamarin SDK</a></li><li><a href="https://doc.photonengine.com/ja/realtime/current/sdks-and-api/sdk-xbox">Xbox SDK</a></li>
+</ul></li>
+</ul>
+
+    </aside>
+</div>
+</div>
+
+
+
+
+
+        </div>
+
+        
+
+
+<footer role="contentinfo">
+    <section class="footer-terms">
+        <div class="col-xs-6">
+            ©2003-<time datetime="2015-07-12 10:27:11Z">2015</time>
+            <a href="http://www.photonengine.com/ja/">Exit Games</a>®
+            <span class="hidden-xs hidden-sm">
+                ,&nbsp;all rights reserved.
+            </span>
+        </div>
+        <div class="col-xs-6 text-right">
+            <a href="http://www.photonengine.com/ja/account/terms">利用規約</a> |
+            <a href="https://www.dropbox.com/sh/uksus8kgf0gqkoh/GRKT2ZstB7">プレス</a> |
+            <a href="http://www.photonengine.com/ja/contact">お問い合わせ</a>
+        </div>
+    </section>
+</footer>
+    </div>
+
+    <script src="./Photonでサポートされている型_files/jquery-2.1.0.min.js"></script>
+
+    <script src="./Photonでサポートされている型_files/bootstrap.min.js"></script>
+
+    <script src="./Photonでサポートされている型_files/nav-collapse"></script>
+
+    
+    <script src="./Photonでサポートされている型_files/syntaxhighlight"></script>
+
+    <script>
+        jQuery.noConflict();
+
+        jQuery(document).bind('ready', function() {
+            // code highlighting preferences
+            SyntaxHighlighter.defaults.toolbar = false;
+            SyntaxHighlighter.config.tagName = 'code';
+
+            // 'markup', supporting tags, < ... /> !
+            jQuery('script[type="syntaxhighlighter"]').each(function(i, elem) {
+                SyntaxHighlighter.highlight(null, elem);
+            });
+
+            // multi-language code highlighting
+            jQuery('.syntaxhighlighter-multi').each(function(i) {
+                var brushToLanguage = {
+                    'cpp': 'C++',
+                    'csharp': 'C#',
+                    'javascript': 'Javascript',
+                    'jscript': 'Javascript',
+                    'plain': 'Plain Old Text',
+                    'xml': 'XML',
+                    'unknown': 'Unknown'
+                };
+                var selectHtml = '';
+                selectHtml += '<div class="m-b-1o4 m-t-1o2 dropdown">';
+                selectHtml += '<button class="btn btn-primary dropdown-codesamples" id="dropdown-codesamples-' + i + '" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                selectHtml += 'View Code Example for ';
+                selectHtml += '<span class="strong codesample-selected">{{lang-default}}</span> ';
+                selectHtml += '<span class="caret"></span></button>';
+                selectHtml += '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-codesamples-' + i + '">';
+
+                jQuery(this).find('.syntaxhighlighter').each(function(j) {
+
+                    // detect language / brush
+                    // assuming the last class name identifying the language ...
+                    var language = jQuery.trim(jQuery(this).attr('class').substr(jQuery(this).attr('class').lastIndexOf(' ')));
+                    language = brushToLanguage[language.toLowerCase()];
+                    if (typeof language == 'undefined') {
+                        language = brushToLanguage.unknown;
+                    }
+
+                    // ... and assuming the ID of the newly rendered element is unique
+                    var hashId = jQuery(this).attr('id');
+                    selectHtml += '<li>';
+                    selectHtml += '<a data-codesample="' + hashId + '" href="#' + hashId + '">' + language + '</a>';
+                    selectHtml += '</li>';
+
+                    // select the first code snippet as default
+                    if (j === 0) {
+                        selectHtml = selectHtml.replace( /{{lang-default}}/gi, language );
+                    } else {
+                        jQuery(this).addClass('hide');
+                    }
+
+                    jQuery(this).addClass('code-sample');
+                });
+
+                selectHtml += '</ul>';
+                selectHtml += '</div>';
+                jQuery(this).prepend(selectHtml);
+
+                jQuery( '#dropdown-codesamples-' + i + ' + ul.dropdown-menu > li > a' ).on( 'click', function ( evt )
+                {
+                    evt.preventDefault();
+                    jQuery(this).parents('.dropdown').find('.codesample-selected').text(jQuery(this).text());
+                    showCodeSample(jQuery(this).attr('data-codesample'));
+                });
+            });
+        });
+
+        // show / hide code siblings
+        function showCodeSample(hashId) {
+            var codeSample = jQuery('#' + hashId);
+
+            if (codeSample.hasClass('hide')) {
+                codeSample.parents('.syntaxhighlighter-multi').first().find('.syntaxhighlighter:not(.hide)').each(function(i, elem) {
+                    jQuery(elem).addClass('hide');
+                });
+
+                codeSample.removeClass('hide');
+            }
+
+            // stop further event bubbling
+            return false;
+        }
+
+        function showSidebar() {
+            jQuery('.toggle-sidebar').removeClass('hidden hidden-sm-up hidden-xs');
+            jQuery('.toggle-sidebar#show-sidebar').addClass('hidden');
+            jQuery('aside#sidebar').fadeIn();
+            jQuery('article#main')
+                .removeClass('col-xs-12')
+                .addClass('col-xs-7 col-sm-8 col-md-9 col-lg-9');
+        }
+
+        function hideSidebar() {
+            jQuery('.toggle-sidebar').removeClass('hidden hidden-sm-up hidden-xs')
+            jQuery('.toggle-sidebar#hide-sidebar').addClass('hidden');
+            jQuery('aside#sidebar').fadeOut();
+            jQuery('article#main')
+                .removeClass('col-xs-7 col-sm-8 col-md-9 col-lg-9')
+                .addClass('col-xs-12');
+        }
+    </script>
+
+    <script>
+
+    ( function ( i, s, o, g, r, a, m )
+    {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function ()
+        {
+            ( i[r].q = i[r].q || [] ).push( arguments )
+        }, i[r].l = 1 * new Date(); a = s.createElement( o ),
+        m = s.getElementsByTagName( o )[0]; a.async = 1; a.src = g; m.parentNode.insertBefore( a, m )
+    } )( window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga' );
+    
+    ga( 'create', 'UA-898741-20', 'photonengine.com' );
+    ga( 'send', 'pageview' );
+</script>
+
+<div id="st-main-container" style="display: none;">   <div class="swiftype">   <a class="close" data-dismiss="st-modal" href="https://doc.photonengine.com/ja/realtime/current/reference/serialization-in-photon#">×</a>   <div class="st-search-bar st-only-input">     <form>       <div class="st-input-wrapper">         <div class="st-input-inner">           <input type="text" value="" id="st-overlay-search-input" placeholder="search this website" autocomplete="off" autocorrect="off" autocapitalize="off" style="outline: none;">           <span class="st-input-icon"></span>           <a href="https://swiftype.com/?ref=pbo" class="st-input-powered-by st-powered-by" target="_blank"></a>         </div>         <input type="submit" value="search" id="submitbutton">       </div>     </form>   </div>   <div class="st-result-wrapper" style="min-height: 554px;">     <div class="st-result-listing">       <div class="st-results">       </div>       <div class="st-indexing-notice" style="display: none;">         This site is still being indexed. Please try your search again in a few minutes.       </div>       <div class="st-logo-footer st-powered-by">         <a href="http://swiftype.com/?ref=pbo" target="_blank">search by swiftype</a>       </div>     </div>   </div> </div> </div><div class="swiftype-widget"><div class="autocomplete" style="position: absolute; z-index: 199999; width: 210px; top: 0px; left: -8px; display: none;"><ul></ul></div></div><div class="swiftype-widget"><div class="autocomplete" style="position: absolute; z-index: 199999; width: 210px; top: 73px; left: 888.25px; display: none;"><ul></ul></div></div></body></html>

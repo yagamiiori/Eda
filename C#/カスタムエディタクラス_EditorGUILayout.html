@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0048)http://marupeke296.com/UNI_ED_No1_Inspector.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+
+<meta name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.1.0 for Windows">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>その１ Isnpectorが変わる！</title>
+</head>
+<body background="./カスタムエディタクラス_EditorGUILayout_files/image_main.jpg">
+<p><font size="-1"><a href="http://marupeke296.com/index.html" target="_self">ホーム</a> &lt; <a href="http://marupeke296.com/GameMain.html" target="_self">ゲームつくろー！</a> &lt; <a href="http://marupeke296.com/UNI_main.html" target="_parent">Unity/カスタムエディタ編</a></font></p>
+<p><b><font size="+1">カスタムエディタ編</font></b><br>
+<b><font size="+3">その１ Inspectorが変わる！</font></b></p>
+
+<p>　UnityのGameObjectにスクリプトをくっつけると、そのGameObjectが機能を持つようになります。そして、その機能を調節するパラメータがInspector上に表示されます。例えば、ワールドに球を沢山発生させるジェネレータを作るとしましょう。ObjectGeneratorというスクリプトに「freq」という発生頻度を調節するメンバ変数をpublicで作り、このスクリプトをGameObjectにくっつけると、Inspectorはこう表示されます：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_im01.gif" width="386" height="54" border="0"></blockquote>
+<p>　まぁ、もちろんこのFreqに何らかの値を与えればいいわけですが、このままだとどんな値でも入ってしまいます。頻度なのにマイナス値も入れられますし、とんでもなく大きな値も可能です。例えばこの数値が1秒間あたりに出現するオブジェクトの数だとして、1億とか入れるとPCごと落ちるかもしれません。要は「ObjectGeneratorが許容する範囲」をこのGUIだと制御出来ないわけです。</p>
+<p>　Unityにはこういう時のためにエディタ内の一部をカスタマイズする「カスタムエディタ」機能があります。その中でInspectorの表示を変えるのが「カスタムインスペクタ」です。</p>
+<p><br>
+<br>
+<b><font size="+2">① カスタムインスペクタでFreqを範囲指定に</font></b></p>
+<p>　カスタムインスペクタは実際に使ってみるのが一番分かりやすいと思いますので、冒頭のObjectGeneratorのfreq値を特定の範囲に設定できるようにしてみましょう。</p>
+<p>　まず、UnityのAssets内に「Editor」というフォルダを作成します。このフォルダ名は特別な扱いになっていて、ここにカスタムエディタ用のスクリプトを入れるとそれが機能するようになります：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_im02.gif" width="234" height="97" border="0"></blockquote>
+<p>　次にObjectGeneratorのInspectorをカスタマイズする専用のスクリプトを新規に作ります。名前は何でも良いのですが「ObjectGeneratorEditor」としておきましょう。作り方は通常のスクリプト追加と同じで、Editorフォルダ内で右クリックして[Create]→[C#
+Script]です：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_im03.gif" width="233" height="102" border="0"></blockquote>
+<p>出来たObjectGeneratorEditorを次に編集します。</p>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc"><tt>using UnityEngine;<br>
+      using System.Collections;<br>
+      <b>using UnityEditor</b>;<br>
+      <br>
+      <b>[CustomEditor( typeof(ObjectGenerator) )]</b><br>
+      public class ObjectGeneratorEditor : <b>Editor</b> { <br>
+      <br>
+      }<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>　太文字の所がポイントです。カスタムエディタに関するクラスはUnityEditorにまとめられているので「using UnityEditor」で名前解決しておきます。<br>
+　次にクラスの直前に「[CustomEditor(<i>type</i>)]」という記述をします。これはC#の「<b><font color="#ff0000">属性（Attribute)</font></b>」という機能を利用しています。属性はそのクラスの機能を使用者に明記したり、コンパイラに特殊な指示を与える時に使います。CustomEditor属性の引数にはインスペクタを変更したいクラスの名前（Type）を指定します。<br>
+　最後に作ったクラスをカスタムエディタ用にするため、Editorクラスを継承するように変更します。</p>
+<p>　この段階でUnity側に行くとカスタムエディタのビルドが回ります。カスタムエディタは普通のプログラムの前にビルドされるんです。エラーが出ない事を確認しておきましょう。</p>
+<p>　インスペクタの変更は「OnInspectorGUIメソッド」の中で行います。今やりたい事はObjectGeneratorのfreq値を範囲指定する事です。コードを記述するとこういう感じになります：</p>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>using UnityEngine;<br>
+      using System.Collections;<br>
+      using UnityEditor;<br>
+      <br>
+      [CustomEditor( typeof(ObjectGenerator) )]<br>
+      public class ObjectGeneratorEditor : Editor { <br>
+      <br>
+      &nbsp; &nbsp; <b>public override void OnInspectorGUI() {<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; ObjectGenerator obj = target as ObjectGenerator;<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; obj.freq = EditorGUILayout.Slider( "Frequency",
+      obj.freq, 0.0f, 10.0f );<br>
+      &nbsp; &nbsp; &nbsp; &nbsp; EditorUtility.SetDirty( target );</b><br>
+      &nbsp; &nbsp; <b>}</b><br>
+      }<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>OnInspectorGUIメソッドは仮想関数なのでそれをoverride（上書き）します。</p>
+<p>　まず、対象となるObjectGenerator自体を取得します。これはEditorクラス内の「target」というメンバ変数がそれを担っています。しかしtargetはobject型（何にでもなれる型）になっているのでObjectGeneratorにキャストします。</p>
+<p>　カスタムインスペクタのGUIは「EditorGUILayout」等でInspector上に並べる事が出来ます。今回は数値の範囲していなので「Slider（スライダー）」を使う事にしましょう。Sliderの第1引数にはそのスライダーの名前を記述します。第2引数には現在の値を入れます。第3、4引数にはスライダーの範囲を指定します。</p>
+<p>　最後にEditorUtility.SetDirtyというメソッドにtargetを渡しています。このメソッドは変更のあったInspector上のGUIを変更してくれます。</p>
+<p>　このカスタムインスペクタのコードをビルドすると、ObjectGeneratorをアタッチしたGameObjectのInspectorは次のように変わります：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_im04.gif" width="421" height="43" border="0"></blockquote>
+<p>スライダーになりました～(^-^)/。指定した0～10の範囲にちゃんと制限されています。このように、特定のスクリプトのInspectorをより分かりやすく安全なGUIに変更できるんです。</p>
+<p><br>
+<br>
+<b><font size="+2">② EditorGUILayoutの種類</font></b></p>
+<p>　上の例で出てきた「EditorGUILayout」というクラス。この人は各種GUIを提供してくれるだけでなく、宣言した順番にInspector上にGUIを並べてくれるというとても便利な能力も持っています。EditorGUILayoutがどのようなカスタムインスペクタを持っているか、一挙にだだ～っと見て行く事にしましょう。</p>
+<p><b><font size="+1">○ BoundsField</font></b></p>
+<p>　中心点とXYZ軸平行のサイズを指定するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_boundsfield.gif" width="421" height="57" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.bound = EditorGUILayout.BoundsField( "BoundsField", obj.bound
+      );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.boundはBounds型の変数です。Bounds型は軸平行な直方体を表現するのに使われます。</p>
+<p><br>
+<b><font size="+1">○ Color</font></b></p>
+<p>　RGBA色をカラーピッカーで設定するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_color.gif" width="421" height="26" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.color = EditorGUILayout.ColorField( "Color", obj.color );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.colorはColor型の変数です。</p>
+<p><br>
+<br>
+<b><font size="+1">○ AnimationCurve</font></b></p>
+<p>　時間軸等に対応したカーブ値を設定できるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_animationcurve.gif" width="420" height="22" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.animationCurve = EditorGUILayout.CurveField( "CurveField", obj.animationCurve );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.animationCurveはAnimationCurve型のオブジェクトです。例えば2秒での値を取得したい時は、</p>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>float val = animationCurve.Evaluate( 2.0f );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>などとします。ちょっとした時間変化する値を作りたい時に重宝しますね。</p>
+<p><br>
+<br>
+<b><font size="+1">○ EnumMaskField</font></b></p>
+<p>　列挙型を複数選択する事ができるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_enummask.gif" width="420" height="159" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.enumMask = (ObjectGenerator.EnumHoge)EditorGUILayout.EnumMaskField(
+      "EnumMaskField", obj.enumMask );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.enumMaskは自分で作成する任意の列挙型の値です。ただし、この列挙型は「ビットマスク」になっている必要があります。つまり：</p>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>public enum EnumHoge {<br>
+      &nbsp; &nbsp; Hoge = 1,<br>
+      &nbsp; &nbsp; Foo &nbsp;= 2,<br>
+      &nbsp; &nbsp; Mofu = 4,<br>
+      &nbsp; &nbsp; Unyu = 8,<br>
+	}<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>上のように列挙型に2のべき乗の数値を指定します。こうする事で、例えば、</p>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>if ( obj.enumMask &amp; (EnumHoge.Foo&nbsp;|&nbsp;EnumHoge.Mofu) ) {<br>
+      &nbsp; &nbsp; // FooとMofuがONだった<br>
+      }<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>のように立っているビットに対応した振る舞いを記述できます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ EnumPopup</font></b></p>
+<p>　EnumMaskFieldに対し、EnumPopupは列挙型を一つだけ選択できるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_enumpopup.gif" width="419" height="115" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.enumMask2 = (ObjectGenerator.EnumHoge)EditorGUILayout.EnumPopup( "EnumPopup",
+      obj.enumMask2 );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p><br>
+<br>
+<b><font size="+1">○ FloatField</font></b></p>
+<p>　1つの浮動小数点を設定できるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_floatfield.gif" width="419" height="20" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.floatField = EditorGUILayout.FloatField( "FloatField", obj.floatField );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p><br>
+<br>
+<b><font size="+1">○ Foldout</font></b></p>
+<p>　項目を出したり折りたたんだりする時に使います：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_foldout.gif" width="420" height="21" border="0"><br>
+foldoutがfalse</blockquote>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_foldout2.gif" width="421" height="165" border="0"><br>
+foldoutがtrue</blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.foldOut = EditorGUILayout.Foldout( obj.foldOut, "FoldOut" );<br>
+		if ( obj.foldOut == true ) {<br>
+      &nbsp; &nbsp; obj.boundField = EditorGUILayout.BoundsField( "BoundsField",
+      obj.boundField );<br>
+      &nbsp; &nbsp; obj.color = EditorGUILayout.ColorField( "Color",
+      obj.color );<br>
+      &nbsp; &nbsp; obj.animationCurve = EditorGUILayout.CurveField( "CurveField",
+      obj.animationCurve );<br>
+      &nbsp; &nbsp; obj.enumMask = (ObjectGenerator.EnumHoge)EditorGUILayout.EnumMaskField(
+      "EnumMaskField", obj.enumMask );<br>
+      &nbsp; &nbsp; obj.enumMask2 = (ObjectGenerator.EnumHoge)EditorGUILayout.EnumPopup(
+      "EnumPopup", obj.enumMask2 );<br>
+      &nbsp; &nbsp; obj.floatField = EditorGUILayout.FloatField( "FloatField",
+      obj.floatField );<br>
+		}<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>Inspector内に項目がずらっと並んでいると時に見づらい事があります。そういう時にFoldoutを使うと項目を一まとめに出したり折りたたんだり出来ます。実際は上のようにfoldoutがtrueの時に出したい項目を通すだけです(^-^;</p>
+<p><br>
+<br>
+<b><font size="+1">○ HelpBox</font></b></p>
+<p>　Inspector内に注釈（Help）を表示します：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_help.gif" width="419" height="86" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.HelpBox( "This is a info-wide-help message.", MessageType.Info, true );<br>
+		EditorGUILayout.HelpBox( "This is a warning-help message.", MessageType.Warning, false );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>HelpBoxにはNone, Info, Warning, Errorの4種類があり、ボックスの幅をwideにするか通常にするか選択もできます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ IntField</font></b></p>
+<p>　1つの整数値を設定するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_intfield.gif" width="420" height="20" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.intField = EditorGUILayout.IntField( "IntField", obj.intField );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>整数用のため、小数点や文字列などは入力できないようになっています。</p>
+<p><br>
+<br>
+<b><font size="+1">○ IntPopup</font></b></p>
+<p>　整数に対応した文字列をポップアップで選択するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_intpopup.gif" width="420" height="138" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.intPopup = EditorGUILayout.IntPopup( "IntPopup", obj.intPopup,
+      obj.intPopupName, obj.intPopupAry );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>一見すると列挙型の選択のようなのですが、各文字列に対応した数値が内部で設定されています。第3引数にポップアップで出す文字列の配列、第4引数にその文字列に対応した整数配列をそれぞれ渡します。</p>
+<p><br>
+<br>
+<b><font size="+1">○ IntSlider</font></b></p>
+<p>　整数値のスライダーです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_intslider.gif" width="419" height="21" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.intSlider = EditorGUILayout.IntSlider( "IntSlider", obj.intSlider,
+      10, 100 );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>スライダーの整数値版です。第3引数に最小値、第4引数に最大値を指定します。</p>
+<p><br>
+<br>
+<b><font size="+1">○ LabelField</font></b></p>
+<p>　Inspector上に文字を表示します：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_label.gif" width="405" height="39" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.LabelField( "Label1" );<br>
+		EditorGUILayout.LabelField( "Label1", "Label2" );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第1引数に文字列を渡すと上のように単純にその文字列が表示されます。第2引数にも文字列を渡すと下のようにサブラベルが表示されます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ LayerField</font></b></p>
+<p>　UnityのLayerをポップアップで表示します：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_layerfield.gif" width="414" height="146" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.layerField = EditorGUILayout.LayerField( "LayerField", obj.layerField
+      );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>Layersにある[Editer Layer]を選択した時にでるレイヤー設定画面で設定したレイヤータイプがポップアップで表示されます。選択するとobj.layerFieldにそのレイヤーのIDが代入されます。レイヤーを選択して何かしたい時に使えます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ MaskField</font></b></p>
+<p>　文字列の配列をビット値に見立てた複数選択ポップアップを表示します：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_maskfield.gif" width="414" height="182" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.maskField = EditorGUILayout.MaskField( "MaskField", obj.maskField,
+      obj.maskFieldNames );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第3引数に文字列の配列を渡すと、要素の順番にその文字列に1,2,4,8...とビット値を割り振ってくれます。戻り値は選択した文字列に対応したビット値です。例えば上の場合だと00111なので7が返ります。</p>
+<p><br>
+<br>
+<b><font size="+1">○ MinMaxSlider</font></b></p>
+<p>　min～maxまでの範囲指定ができるスライダーです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_minmaxfield.gif" width="413" height="21" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.MinMaxSlider( new GUIContent("MinMaxSlider"),
+      ref obj.minValue, ref obj.maxValue, 0.0f, 10.0f );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第2、第3引数に現在の最小値、最大値を「ref（参照）」で渡します。スライダーに変化があった時にはここにその結果が返ります。第4、第5引数はそれぞれ最小と最大の限界値を指定します。</p>
+<p><br>
+<br>
+<b><font size="+1">○ ObjectField</font></b></p>
+<p>　UnityObjectをドラッグ&amp;ドロップで設定できるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_objectfield.gif" width="421" height="40" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.objectField = (Transform)EditorGUILayout.ObjectField( "ObjectField", obj.objectField, typeof( Transform ), false );<br>
+		obj.objectFieldAllow = (Transform)EditorGUILayout.ObjectField( "ObjectFieldAllow", obj.objectFieldAllow, typeof( Transform ), true );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第3引数に渡せるオブジェクトのTypeを指定します。ポイントは第4引数の「allowSceneObjects」フラグです。ここをtrueにすると、ヒエラルキーにあるGameObjectをドロップする事が可能になります。一方falseにするとヒエラルキー内のGameObjectを受け付けず、Projectにあるプレハブ等のリソースのみ受け付けるようになります。Unityはヒエラルキー上での関連をあまり推奨していないので、このフラグを基本falseに設定して関連を保護するのが大切になります。</p>
+<p>　第3引数の型によってフォームの形や受け入れるアイコンなども変わります：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_objectfield2.gif" width="372" height="106" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.texture = (Texture)EditorGUILayout.ObjectField( "Image", obj.texture, typeof(Texture), false );<br>
+		obj.material = (Material)EditorGUILayout.ObjectField( "Material", obj.material, typeof(Material), false );<br>
+		obj.audioClip = (AudioClip)EditorGUILayout.ObjectField( "AudioClip", obj.audioClip, typeof(AudioClip), false );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>良く出来てます^^</p>
+<p><br>
+<br>
+<b><font size="+1">○ PasswordField</font></b></p>
+<p>　パスワード入力用の伏字なフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_password.gif" width="421" height="20" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.password = EditorGUILayout.PasswordField( "PasswordField", obj.password );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>これ、使い道が良く分かりません(^-^;</p>
+<p><br>
+<br>
+<b><font size="+1">○ Popup</font></b></p>
+<p>　いわゆるリストと同じでポップアップウィンドウから項目を一つ選択するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_popup.gif" width="420" height="162" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.popupSelectIndex = EditorGUILayout.Popup( "Popup", obj.popupSelectIndex,
+      obj.popupSelectNames );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第2引数には選択されている項目のインデックス番号を渡します。第3引数は選択項目の文字列配列です。</p>
+<p><br>
+<br>
+<b><font size="+1">○ PrefixLabel</font></b></p>
+<p>　Labelと基本的に同じですが、GUIをくっつける事ができます：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_prefixlabel.gif" width="420" height="21" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.BeginHorizontal();<br>
+		EditorGUILayout.PrefixLabel( "PrefixLabel" );<br>
+		obj.intSlider2 = EditorGUILayout.IntSlider( obj.intSlider2, 0, 100 );<br>
+		obj.intSlider3 = EditorGUILayout.IntSlider( obj.intSlider3, 0, 100 );<br>
+		EditorGUILayout.EndHorizontal();<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>典型的な使い方は上のコードのようにラベルとGUIを別々に定義する時などです。無理して使わなくても良いかもしれません(^-^;</p>
+<p><br>
+<br>
+<b><font size="+1">○ PropertyField</font></b></p>
+<p>　…よぐわがんね(-_-;</p>
+<p><br>
+<br>
+<b><font size="+1">○ RectField</font></b></p>
+<p>　長方形を設定するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_rect.gif" width="421" height="55" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.rectField = EditorGUILayout.RectField( "RectField", obj.rectField
+      );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.rectFieldはRect型の変数で、上の図にあるようにx,y,width,heightの4つの要素で長方形を表現します。</p>
+<p><br>
+<br>
+<b><font size="+1">○ SelectableLabel</font></b></p>
+<p>　選択可能なラベルを設定できます：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_selectablelabel.gif" width="421" height="19" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.SelectableLabel( "SelectableLabel" );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>上の図のように選択してコピーできます。んー、どう使うのかな(^-^;</p>
+<p><br>
+<br>
+<b><font size="+1">○ Separator</font></b></p>
+<p>　間を開けます：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_separator.gif" width="420" height="107" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.Separator();<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>…間、空いてますよね(^-^;</p>
+<p><br>
+<br>
+<b><font size="+1">○ Slider</font></b></p>
+<p>　2つの値の間を設定するスライダーを設置します：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_slider.gif" width="420" height="19" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.slider = EditorGUILayout.Slider( "Slider", obj.slider, 1.0f, 10.0f );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>第2引数に現在の値、第3、4引数に最小値と最大値を設定します。</p>
+<p><br>
+<br>
+<b><font size="+1">○ Space</font></b></p>
+<p>　間を開けます：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_space.gif" width="407" height="106" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.Space();<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+		EditorGUILayout.LabelField( "Label" );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>…間、空いてますよね(^-^;;</p>
+<p><br>
+<br>
+<b><font size="+1">○ TagField</font></b></p>
+<p>　Tagを設定するフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_tag.gif" width="421" height="218" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.tagField = EditorGUILayout.TagField( "TagField", obj.tagField );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.tagFieldはstring型です。Layerと違いTagは文字列で種類を識別します。自分のTagはInspectorにデフォルトで設定する所がありますので、これはもっぱら別目的で使われる物と思われます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ TextArea</font></b></p>
+<p>　文字列を自由に書き込めるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_textarea.gif" width="384" height="103" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.textArea = EditorGUILayout.TextArea( obj.textArea, GUILayout.Height(96.0f)
+      );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.textAreaはもちろんstring型です。このメソッドにはラベルを引数に取れるタイプがありませんので注意して下さい。第2引数にレイアウトオプションを渡すと上のように複数行のテキストエリアにできます。</p>
+<p><br>
+<br>
+<b><font size="+1">○ TextField</font></b></p>
+<p>　1行テキストを書き込めるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_textfield.gif" width="387" height="22" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.textField = EditorGUILayout.TextField( obj.textField );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.textFieldはstring型です。このフィールドは改行を入れる事ができません。</p>
+<p><br>
+<br>
+<b><font size="+1">○ Toggle</font></b></p>
+<p>　On/Offを切り替えるいわゆるトグルボタンです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_toggle.gif" width="385" height="19" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.toggle = EditorGUILayout.Toggle( "Toggle", obj.toggle );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.toggleはbool型です。</p>
+<p><br>
+<br>
+<b><font size="+1">○ Vector2Field, Vector3Field, Vector4Field</font></b></p>
+<p>　2,3,4成分のベクトルを記入できるフィールドです：</p>
+<blockquote><img src="./カスタムエディタクラス_EditorGUILayout_files/UNI_ED_No1_vector.gif" width="386" height="115" border="0"></blockquote>
+<blockquote>
+<table border="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#cccccc" nowrap=""><tt>obj.vector2 = EditorGUILayout.Vector2Field( "Vector2", obj.vector2 );<br>
+		obj.vector3 = EditorGUILayout.Vector3Field( "Vector3", obj.vector3 );<br>
+		obj.vector4 = EditorGUILayout.Vector4Field( "Vector4", obj.vector4 );<br>
+      </tt></td>
+    </tr>
+  </tbody>
+</table>
+</blockquote>
+<p>obj.vector2、3、4はそれぞれVector2、Vector3、Vector4型です。</p>
+<p><br>
+<br>
+　これらのフォームをInspectorに配置する事で、GameObjectをよりGUIベースで作り込んでいく事ができるようになります。</p>
+
+</body></html>

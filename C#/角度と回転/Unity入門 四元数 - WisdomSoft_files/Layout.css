@@ -1,0 +1,142 @@
+﻿html,body 
+{
+	height: 100%;
+}
+
+.DocLayout
+{
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	
+	border-style:none;
+}
+
+.DocLayoutTop
+{
+	border-style:none;
+	height:100px;
+	
+	vertical-align:bottom;
+}
+
+.DocumentHeader
+{
+	margin:0px;
+}
+
+.DocLayoutLeft
+{
+	border-style:none;
+	background-color: #F0F0FF;
+	
+	min-width: 160px;
+	width: 15%;
+	
+	vertical-align: top;
+}
+
+.DocLayoutCenter
+{
+	border-style:none;
+	
+	min-width: 640px;
+	
+	min-height: 480px;
+	height: 100%;
+	
+	vertical-align: top;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-color: #C0C0C0;
+	border-left-color: #C0C0C0;
+}
+
+.Contents
+{
+	border-style:none;
+}
+
+.Footer
+{
+	text-align:center;	
+}
+
+.DocLayoutRight
+{
+	border-style:none;
+	background-color: #F0F0FF;
+	
+	min-width: 160px;
+	width: 200px;
+	
+	vertical-align: top;
+}
+
+.DocLayoutBottom
+{
+	border-style:none;
+	
+	vertical-align: top;
+}
+
+.Widget 
+{
+	padding: 0px;
+	margin-bottom: 8px;
+}
+.WidgetHeader
+{
+	padding:4px;
+	
+	background-color:#C0C0FF;
+	font-weight:bold;
+}
+.WidgetContents
+{
+	padding-top: 4px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-bottom: 8px;
+}
+
+
+.List {
+}
+.ListHeader {
+	font-weight: bold;
+}
+.ListItem {
+	margin-left: 16px;
+	margin-bottom: 4px;
+	border-width: 1px;
+	display: list-item;
+}
+
+.SiteInformationBar {
+	border-width: 1px;
+	padding: 8px;
+	text-align: center;
+	font-size: small;
+	margin: 16px 128px 16px 128px;
+	border-top-style: solid;
+	border-top-color: #C0C0C0;
+}
+
+.GoogleAdsense
+{
+	margin-bottom:16px;
+}
+
+.MetroTile
+{
+	margin-right:10px;
+	margin-bottom:10px;
+	
+	width:150px;
+	height:150px;
+	
+	border-style:none;
+}

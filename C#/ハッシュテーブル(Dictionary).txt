@@ -1,0 +1,74 @@
+
+参考：http://webya.in/archives/3864
+
+リストから辞書を作る参考：http://qiita.com/RyotaMurohoshi/items/ba4ade6c6c9dc40b6217
+（LINQのToDictionaryメソッドを使って1発でリスト→Dictionaryを作成できる）
+
+・using System.Collections.Generic必須
+
+==================
+宣言
+==================
+	// インスタンスの生成
+	Dictionary<TKey,TValue> dict = new Dictionary<TKey,TValue>();
+	  
+	// TKey,TValue 共に string型 を指定した場合
+	Dictionary<string,string> dict = new Dictionary<string,string>();
+
+==================
+値の追加
+==================
+	dict.Add("foo","フー");
+	dict.Add("boo","ブー");
+
+==================
+値の取得
+==================
+	dict["foo"]
+	  
+	// Console に出力
+	Console.WriteLine(dict["foo"]);
+
+==================
+キーの列挙
+==================
+	foreach(string key in dict.Keys)
+	{
+	    Console.WriteLine(key);
+	}
+
+==================
+値の列挙
+==================
+	foreach(string val in dic.Values)
+	{
+	    Console.WriteLine(val);
+	}
+
+==================
+キーと値の列挙
+==================
+	foreach(KeyValuePair<string,string> pair in dict)
+	{
+	    Console.WriteLine("KEY : " + pair.Key);
+	    Console.WriteLine("VAL : " + pair.Value);
+	}
+
+==================
+キーでソートして、キーと値の列挙
+==================
+	SortedDictionary<string, string> sDict = new SortedDictionary<string, string>(dict);
+	foreach(KeyValuePair<string,string> sPair in sDict)
+	{
+	    Console.WriteLine(sPair.Key + ":" + sPair.Value);
+	}
+※Dictionaryは順序をもっておらず、キーでの値は SortedDictionary へ値をコピー
+　することで「キー」でのソートをすることが可能だが値でのソートとなると、とくにメソッドが用意
+　されていないことから独自に実装する必要がある。
+　それなら最初からSortedListやSortedDictionaryを使えば良い感じもするが、
+　SortedListやSortedDictionaryはパフォーマンス的にDictionaryに劣るので、
+　やはり必要時に応じてソートを実装する方が効率がよくなる
+
+
+
+

@@ -1,0 +1,16 @@
+
+・拡大縮小処理は「Canvas Scaler」コンポのCanvas Scale Modeで行う
+・複数のアスペクト比だけでなく複数の解像度にも対応することが出来る
+
+方法：①Canvasを選択しCanvas ScalerをScale With Screen Sizeに変更
+　　　②Screen Match ModeをExpandに変更
+　　　③Sizeを640x480とか1024x768とか任意のものに変更
+　　　④Canvas下Panelを作り、ANCHORを中央設定にする（オブジェクトは全てこのPanelの子にする）
+　　　⑤④で作ったPanlのHightとWidthの値を③と同じにする
+
+参考：http://tsubakit1.hateblo.jp/entry/2014/12/11/223427
+
+Canvas Scale Modeの参考：http://www.metalbrage.com/UnityTutorials/uGUI/Scaler.html
+
+
+

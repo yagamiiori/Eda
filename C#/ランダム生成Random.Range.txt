@@ -1,0 +1,4 @@
+
+# Random.Range(<最小値>, <最大値>)
+var rand = Random.Range(0, 10);　←これだと入る値は0～9になる。
+

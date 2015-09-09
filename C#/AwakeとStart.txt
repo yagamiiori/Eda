@@ -1,0 +1,10 @@
+
+LevelのロードやInstantiate直後にAwake
+初回のUpdateの直前がStart
+って覚えておけばだいたい問題起きない
+
+SetActiveで有効化したときはOnEnable()
+SetActiveで無効化したときはOnDisable()
+どちらも一度だけ呼ばれる
+
+

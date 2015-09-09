@@ -1,0 +1,42 @@
+
+758 名前：名前は開発中のものです。[sage] 投稿日：2015/01/11(日) 19:08:26.66 ID:IVsi8iPX
+>>756
+こんな記事はあるなぁ、試してはいない。
+ttp://www.salusgames.com/blog/simple-unity-jukebox-in-c-sharp-that-reads-and-plays-music-from-a-folder
+
+mp3をそのまま読むってのは多分できなくて外部ライブラリを
+インポートしてってやり方でやってる例はあるな
+ttp://denis-potapenko.blogspot.jp/2013/04/task-6-loading-mp3-audio-via-www-class.html
+もちろん試したりとかしてない。
+
+まぁ要するに基本的なこと、とかではなくUnityでは
+そういうことは想定していない、やるなら全部自力でやる系の話だってことだね
+
+759 名前：名前は開発中のものです。[sage] 投稿日：2015/01/11(日) 19:13:41.94 ID:61G1tgy2
+>>756
+ttp://docs.unity3d.com/ScriptReference/WWW-audioClip.html
+これ使う
+urlに "file:///Your/sound/file/path/someaudio.mp3"
+とか突っ込む
+ただしプラットフォーム毎に使えるサウンドファイルの種類が違う(oggなら全部通ったはず）
+なおWebPlayerはhttpオンリー、iOSはfile://使う場合plugin書かないと駄目（自分のゲームの内部ファイルシステムに取り込んでからじゃないとアクセスできない
+外のアプリのデータはアクセス許可をnative pluginで取ったりしないと使えないしFileSystemからは隔離されてる)
+
+
+Windows上ですが、下のソースで無事動いたのでご報告。
+ただmp3はできなかったから、>>758さんのようなやり方が必要かも。
+いずれにせよ、ありがとうございました！
+
+void Start()
+{
+string path = "C:/Users/aaa/Desktop/test.ogg";
+WWW www = new WWW("file://" + path);
+audio.clip = www.audioClip;
+}
+void Update()
+{
+if (!audio.isPlaying && audio.clip.isReadyToPlay)
+audio.Play();
+}
+
+

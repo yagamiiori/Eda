@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- saved from url=(0147)http://cdn.api.b.hatena.ne.jp/entry/button/?url=http%3A%2F%2Fnaichilab.blogspot.jp%2F2014%2F08%2Funityugui01-ui-canvas.html&layout=vertical-balloon -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+  <link rel="canonical" href="http://b.hatena.ne.jp/entry/naichilab.blogspot.com/2014/08/unityugui01-ui-canvas.html">
+  <title>はてなブックマークボタン</title>
+  <link rel="stylesheet" href="reset.css" type="text/css" media="all">
+  <link rel="stylesheet" href="entry-button.css" type="text/css" media="all">
+  <script>
+    function postMessageToParentWin(type, dataStr, useFallback) {
+        var match = window.name.match(/^(\w+)\|((https?:\/\/[^\/?#]+)[^#]*)/);
+        if (!match) return;
+        if (window.postMessage) {
+            window.parent.postMessage('HBMessage@{"type": "' + type + '", "data": ' + dataStr + '}', match[3]);
+            return;
+        }
+        if (useFallback) {
+            var url = match[2] + "#HBMessage-" + match[1] + "-" + type + "/" + dataStr;
+            try {
+                window.parent.location.replace(url);
+            } catch (ex) {
+                window.parent.location.href = url;
+            }
+        }
+    }
+    function clickHandler() {
+        postMessageToParentWin("click", "null", true);
+    }
+  </script>
+  </head><body onkeypress="if (event.keyCode === 13) { clickHandler(); return false; }">
+    <div class="b-area-standard vertical en">
+      <a href="http://b.hatena.ne.jp/entry/naichilab.blogspot.com/2014/08/unityugui01-ui-canvas.html" class="b-btn" target="_top" title="このエントリーをはてなブックマークに追加 (21 users)" onclick="if ((event.which || event.button) &lt;= 1) { clickHandler(); return false; }">
+        <span>Bookmark</span>
+      </a>
+      <a href="http://b.hatena.ne.jp/entry/naichilab.blogspot.com/2014/08/unityugui01-ui-canvas.html" class="b-count" target="_blank">21</a>
+    </div>
+  
+
+</body></html>

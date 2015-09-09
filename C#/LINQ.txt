@@ -1,0 +1,64 @@
+
+・LINQ のメソッドの使える対象とは型で言うと IEnumerable<T> インターフェースを継承したクラスです。
+　インターフェースですがこれに拡張メソッドという機能を使ってIEnumerable<T> がメソッドを持てる
+　ようになっています。
+
+・Select() や Where() は新しいコレクションを返します。 この戻り値がシーケンスです。
+　正確な型はコンパイラーが生成する複雑なものなので、 変数に入れたい場合などはvarを
+　使った型推論が必要となります。
+
+	var src = new[] {3, 2, 9, 6}; //型推論
+	var seq = src.Where(elem => elem % 2 == 1) .Select(elem => elem * 2); //型推論
+	foreach (var elem in seq)
+	{
+		Console.Write("{0} ", elem);
+	}
+	Console.WriteLine(); // => 6 18
+
+このシーケンスには必要になるまで実行されないという遅延評価の機能があります。
+上記の例では foreach で一つずつ取り出す時が実行のタイミングです。
+
+遅延評価には大きなメリットがあります。
+それは処理結果を溜めないため、使用メモリーを減らせる点です。
+
+
+====================================================================================
+LinqのWhereで帰ってくるジェネリクスって元の型と違うんですか？
+var list = new List<Person>();
+list.Where(x=>x.name =="Bob");
+ってやったら
+
+System.Linq.Enumerable+<CreateWhereIterator>c__Iterator1D`1
+の型で返ってきたんですけど
+
+353 名前：デフォルトの名無しさん
+>>352
+LINQは遅延評価なので list.Where(x=>x.name =="Bob") だと宣言しただけで
+ToArray()とかしないと中身は取り出せませぬ。
+
+354 名前：デフォルトの名無しさん
+var list = new List<Person>();
+var query = list.Where(x => x.Name == "Bob");
+↑
+IEnumerable<out T>
+T is Person
+
+ってなるし、GetType()も
+System.Linq.Enumerable+WhereListIterator`1[Person]
+なんですが
+
+355 名前：デフォルトの名無しさん
+>>354
+だから～、
+var queryには結果じゃなくて、結果を取り出すための関数が入ってるだけ～
+
+
+
+
+
+
+
+
+
+
+

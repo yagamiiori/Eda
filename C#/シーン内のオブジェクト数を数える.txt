@@ -1,0 +1,10 @@
+
+    public GameObject[] cardnum;  // シーン内のカードオブジェクト
+    public int decknum;         // シーン内のカード数（整数リテラル）
+    
+    // シーン内のカードオブジェクトを検索
+    cardnum = GameObject.FindGameObjectsWithTag("Card");
+    // 見つかったカードオブジェクトの数をスタック
+    decknum = cardnum.Length;
+
+

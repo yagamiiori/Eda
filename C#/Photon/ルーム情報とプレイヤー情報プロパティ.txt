@@ -1,0 +1,68 @@
+
+参考：http://ft-lab.ne.jp/cgi-bin-unity/wiki.cgi?page=unity_photon_cloud_room_list
+　　　http://chronote.hatenablog.com/
+　　　http://mrcrystd.blogspot.jp/2014/01/photoncloud.html
+　　　https://doc.photonengine.com/ja/pun/current/tutorials/tutorial-marco-polo
+
+・maxPlayers、isVisible、isOpenはRoomOptions（CPではない。RoomInfo型フィールドからもアクセス可能）
+
+RoomOptions roomOption
+ ┗roomOption.maxPlayers、roomOption.isVisible、roomOption.isOpen（RoomInfo roomInfo.maxPlayersとかもできる）
+ ┗ルームCP（部屋名とか）
+
+// 特定のルーム情報を取得（●ロビー限定）
+RoomInfo mRoomToGetInto = new Room(roomName, roomOptions);
+
+// 全ルーム情報を取得（●ロビー限定）
+// 注意：GetRoomListはStart関数やOnJoinedLobby関数内では使えない
+// 　　　それより後にコールされるOnReceivedRoomListUpdate内で行うこと
+RoomInfo[] roomInfo = PhotonNetwork.GetRoomList();
+
+// 全ルーム情報を取得(foreachで使う場合はインデクサじゃないこっち)（●ロビー限定）
+// 注意：GetRoomListはStart関数やOnJoinedLobby関数内では使えない
+// 　　　それより後にコールされるOnReceivedRoomListUpdate内で行うこと
+foreach (RoomInfo roomInfo2 in PhotonNetwork.GetRoomList())
+
+// ルーム名を取得（●ロビー限定）
+roomInfo[i].name
+
+// 全プレイヤー数を取得（●ロビー限定）
+PhotonNetwork.countOfPlayers.ToString();
+
+// 全ルーム数を取得（●ロビー限定）
+PhotonNetwork.countOfRooms.ToString();
+
+// 自分がRoomに参加しているかどうか（●ロビー＋★ルーム）
+// 注意：OnJoinedRoom関数に入った段階でtrueになる
+PhotonNetwork.inRoom(bool)
+
+// 特定のRoomの人数を数える（●ロビー限定）
+// 注意：GetRoomListを使うので、OnReceivedRoomListUpdate内で行うこと
+foreach (RoomInfo roomInfo2 in PhotonNetwork.GetRoomList())
+{
+    // ルーム名「あいうえお」が存在する場合
+    if ("あいうえお" == (string)gameManager.RoomcustomPropeties["RoomNo"])
+    {
+        // ルーム「あいうえお」の人数のが2人の場合（満員の場合）
+        if (2 == roomInfo2.playerCount) Debug.Lod("満員");
+
+
+// 自分が今ルームインしているルーム名を取得（★ルーム限定）
+PhotonNetwork.room.name
+
+// プレイヤー名を取得or設定（他プレイヤーと同じ名前も可能）（★ルーム限定）
+PhotonNetwork.playerName = "playerName";
+
+// プレイヤーIDを取得
+// 入室時(OnJoinedRoom内)に振られるユニークなID。特定したい場合はplayerNameよりこっち（★ルーム限定）
+PhotonNetwork.player.ID
+
+// ルームインしているプレイヤー情報を配列で取得（★ルーム限定）
+PhotonPlayer [] player = PhotonNetwork.playerList;
+
+// ルーム内にいるプレイヤーの数（★ルーム限定）
+Room.playerCount
+
+
+
+

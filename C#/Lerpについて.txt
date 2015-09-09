@@ -1,0 +1,8 @@
+
+>transform.position = Vector3.Lerp(moviePoint.position, startPoint.position, Time.deltaTime * speed)
+第三引数で与える値は補間係数なので時間経過で0から1に変化させるようにする
+ついで言うと第一引数が開始位置で第二の方が目的位置だから逆になってるよ
+※Lerpは線形補完、Slerpは球面線形補完
+
+
+

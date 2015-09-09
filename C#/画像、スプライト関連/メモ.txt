@@ -1,0 +1,17 @@
+◆通常、コライダー同士は反発するが、反発が必要ないオブジェクトは
+　コライダーのIs Triggerにチェックを入れる
+
+◆Resorces.LoadはResorcesフォルダからの相対パス必須（Resorcesフォルダがなければ作ること）
+
+◆Destroy(hit.collider.gameObject); // 光線に当たったオブジェクトを消します(クリックしたオブジェクト)
+
+◆子のオブジェクトに適用させてあるScriptから親のコンポーネントを弄りたい→GetComponentsInParent
+
+◆自スクリプト内の関数を起動したい
+　SendMessage("Test");
+
+◆別コンポの関数を起動したい
+　GameObject.Find("GameObjectB").SendMessage("Test");
+　※"GameObjectB"というオブジェクトの"Test"を起動しているが、この関数名が複数あったら全部起動する。
+　※"Test"という関数を起動して処理している間は呼び出し元の処理は停止する
+

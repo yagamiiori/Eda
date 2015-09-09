@@ -1,0 +1,15 @@
+
+
+・スクリプトも同時に停止する
+・スクリプトは動かしたい場合はレンダラーを弄る（gameobject.renderer.enabled = false;）
+・falseで非アクティブ化するとFindによるサーチができなくなる
+・非アクティブからアクティブにしたときにStart関数は実行されない
+
+// オブジェクト取得（非アクティブ化するとFindによるサーチができなくなるためこうやってキャッシュしておく）
+obj1 = GameObject.FindWithTag("Player");
+
+// 表示、非表示切り替え
+obj1.gameObject.SetActive(true);
+obj1.gameObject.SetActive(false);
+
+

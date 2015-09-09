@@ -1,0 +1,11 @@
+Normal keys: gah, gbh, gch c
+Number keys: g1h, g2h, g3h, c
+Arrow keys: guph, gdownh, glefth, grighth
+Keypad keys: g[1]h, g[2]h, g[3]h, g[+]h, g[equals]h
+Modifier keys: gright shifth, gleft shifth, gright ctrlh, gleft ctrlh, gright alth, gleft alth, gright cmdh, gleft cmdh
+Mouse Buttons: gmouse 0h, gmouse 1h, gmouse 2h, c
+Joystick Buttons (from any joystick): gjoystick button 0h, gjoystick button 1h, gjoystick button 2h, c
+Joystick Buttons (from a specific joystick): gjoystick 1 button 0h, gjoystick 1 button 1h, gjoystick 2 button 0h, c
+Special keys: gbackspaceh, gtabh, greturnh, gescapeh, gspaceh, gdeleteh, genterh, ginserth, ghomeh, gendh, gpage uph, gpage downh
+Function keys: gf1h, gf2h, gf3h, c
+

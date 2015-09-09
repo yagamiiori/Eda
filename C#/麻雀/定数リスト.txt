@@ -1,0 +1,52 @@
+
+////////////////////////////////////////////////////////////////////////////////////////
+// ”v’è”’è‹`ƒNƒ‰ƒX
+////////////////////////////////////////////////////////////////////////////////////////
+public static class Def
+{
+    // äİq
+    public const int M1 = 1;
+    public const int M2 = 2;
+    public const int M3 = 3;
+    public const int M4 = 4;
+    public const int M5 = 5;
+    public const int M6 = 6;
+    public const int M7 = 7;
+    public const int M8 = 8;
+    public const int M9 = 9;
+
+    // õq
+    public const int S1 = 11;
+    public const int S2 = 12;
+    public const int S3 = 13;
+    public const int S4 = 14;
+    public const int S5 = 15;
+    public const int S6 = 16;
+    public const int S7 = 17;
+    public const int S8 = 18;
+    public const int S9 = 19;
+
+    // “›q
+    public const int P1 = 21;
+    public const int P2 = 22;
+    public const int P3 = 23;
+    public const int P4 = 24;
+    public const int P5 = 25;
+    public const int P6 = 26;
+    public const int P7 = 27;
+    public const int P8 = 28;
+    public const int P9 = 29;
+
+    // š”v
+    public const int Z1 = 31; // “Œ
+    public const int Z2 = 32; // “ì
+    public const int Z3 = 33; // ¼
+    public const int Z4 = 34; // –k
+    public const int Z5 = 35; // ”’
+    public const int Z6 = 36; // ”­
+    public const int Z7 = 37; // ’†
+}
+
+
+
+

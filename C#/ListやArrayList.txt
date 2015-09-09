@@ -1,0 +1,125 @@
+
+★ArrayListはジェネリック対応までの古いクラスなので使わないようにし、
+　List<T>の方を使う
+
+★コレクションクラス使うとエラーが出る
+　┗using System.Collections.Generic;を付けてない可能性
+
+・ArrayListとListの違い
+　┗ArrayList：可変サイズの一次元リスト・コレクション
+　　　　　　　 格納するオブジェクトの型名の指定をせず全てObject型にアップキャストされる
+　　　　　　　 【メリット】同じArrayListに何でも突っ込める
+　　　　　　　 【デメリット】値を呼び出して使用する際にはキャストが必要である
+　　　　　　　 【デメリット】foreach文などで順に処理する際異なる方のオブジェクトが混ざっているとエラーになる事がある
+
+　┗List<T>：型の指定をしてインスタンス化する
+　　　　　　　 【メリット】値を呼び出して使用する際，キャストが不要
+
+　┗LinkedList：データの要素をリンクリストに繋げていくリスト構造
+　　　　　　　　要素の挿入・削除がある場合，内部的にはリンクの付け替えをするだけ
+　　　　　　　 【メリット】値の挿入・削除が高速に行える
+　　　　　　　 【デメリット】インデックスによる参照ができないため，ランダムなアクセスが苦手
+
+【まとめ】
+　明確に使う型が決まっている場合にはArrayListを使うより，Listを使う方が良い
+　多くの場合格納する型は決まっていると思うので，結局普段はListを使えばいい
+　LinkedListとListの使い分けについては、要素の挿入や削除が多い場合はLinkedList
+　要素の参照が多い場合はList
+
+
+
+===========================================================================================
+各カードと乱数を保持するクラスを作る
+class CardRandPair
+{
+	// 各カードのクラス？
+	public readonly SomeCard card;
+	public readonly int r;
+	public indexPair(SomeCard c)
+	{
+		card = c;
+		r = Random.Range(0,N);
+	}
+}
+Random.Rangeの引数Nは最大枚数
+これをすべてのカード要素についてListに(allShuffleとかの名前で)枚数分突っ込んで
+rについてソートする事でシャッフルした結果が得られる。
+List<CardRandPair> sortedList = allShuffle.OrderBy(o=>o.r).ToList();
+SomeCard firstCard = sortedList[0].card; // シャッフル後の一枚目
+
+
+===========================================================================================
+// インスタンスを作成
+// List<(型名)> と記述することで(型名)型のリストを作成できます
+// 今回はstring型のリストを作成しています。
+List<string> strData = new List<string>();
+
+// Listに値を追加
+// Addメソッドにより値をリストに追加できます
+// ArrayListとは異なり、Addメソッドの引数に与えられる型はstring型のみです。
+strData.Add("Penguin");
+strData.Add("Duck");
+strData.Add("Dorphin");
+strData.Add("Camel");
+
+// リストの要素を取り出し、テキストボックスに表示します。リストの要素には
+// リストのインスタンス[インデックス番号]でアクセスできます
+// 取り出される型もリスト作成時に宣言した型で取り出せます
+for (int i=0; i < strData.Count; i++) {
+  textBox1.Text += strData[i] +"\r\n";
+}
+
+
+
+List<CardRandPair> sortedList = allShuffle.OrderBy(o=>o.r).ToList();
+SomeCard firstCard = sortedList[0].card; // シャッフル後の一枚目
+
+
+〓〓〓〓〓〓〓〓〓〓
+Listのクリア
+〓〓〓〓〓〓〓〓〓〓
+●TestList.Clear();
+　要素数を0にしてクリアする。
+　type[]の配列と違い0やnullになるわけでなく要素丸ごとクリアするので、
+　クリア後に参照しようとすると例外になる。
+　続けてTestList.TrimExcess();を実行する事でメモリの予約箇所的な部分も開放するので、
+　特に大きな要素数からクリアしたりRemove系でかなり少なくした場合は合わせて実行するとよい。
+
+
+〓〓〓〓〓〓〓〓〓〓
+ArrayListのデータ数(Count)を見る
+〓〓〓〓〓〓〓〓〓〓
+●if (DeckList.cardslist.Count == 0) DeckList.listclear();
+
+
+〓〓〓〓〓〓〓〓〓〓
+ArrayListの任意の場所にデータを挿入する
+〓〓〓〓〓〓〓〓〓〓
+// 「int r番目」に「cardtype」を挿入
+●DeckList.cardslist.Insert(r, cardtype);
+
+
+〓〓〓〓〓〓〓〓〓〓
+Listの中に特定のデータがあるか調べる
+〓〓〓〓〓〓〓〓〓〓
+// リストdeckNum内に「test」という文字リテラルがあるか調べる
+●deckNum.Contains("test")
+
+
+〓〓〓〓〓〓〓〓〓〓
+Listの特定のインデックスに上書き
+〓〓〓〓〓〓〓〓〓〓
+// リストdeckNumのインデックス[1]に「12」という整数リテラルを上書き
+●deckNum[1] = 12;
+
+
+〓〓〓〓〓〓〓〓〓〓
+Listの末尾にデータを追加
+〓〓〓〓〓〓〓〓〓〓
+// 末尾に12を追加
+●deckNum.Add = 12;
+
+
+
+
+

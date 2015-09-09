@@ -1,0 +1,21 @@
+
+参考：http://unitygeek.hatenablog.com/entry/2015/03/07/181029
+
+ボタンとかトグルを作る
+↓
+ボタンコンポのTransitionをAnimationにする
+↓
+NormalTriggerとかは全部空欄にする
+↓
+Animatorコンポを追加する
+↓
+Project→Create→Animation Controllerを作成
+↓
+AnimatorコンポのControllerにAnimation Controllerをアタッチ
+↓
+Project→Create→Animationを作成
+↓
+できたAnimationファイルをHierarchy上のオブジェクトにD&D
+↓
+Animationウィンドウを開き、タイムライン上にスプライト画像をD&Dでスプライトを追加する
+

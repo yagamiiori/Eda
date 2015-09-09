@@ -1,0 +1,208 @@
+
+<!-- saved from url=(0065)http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<title>麻雀の作り方（あがり判定）</title>
+<style type="text/css">
+	<!--
+		body, table{
+		 font-size : 10pt
+		}
+	-->
+</style>
+</head>
+<body background="./麻雀の作り方（あがり判定）_files/back008.jpg">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<b>麻雀の作り方（あがり判定）</b><br>
+文章：.1064<br>
+日付：2004/07/11<br>
+<br>
+目次<br>
+<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#1"><b>1.はじめに</b></a><br>
+<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#2"><b>2.麻雀の仕様</b></a><br>
+<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#3"><b>3.データ構造</b></a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#3a">－牌のデータ構造</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#3b">－手牌のデータ構造</a><br>
+<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4"><b>4.あがり役判定</b></a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4a">－手牌を種類別の数(kind[])に置き換える</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4z">－牌の取り出し</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4b">－kind[]をtmp[]にコピー</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4c">－頭の判定</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4d">－刻子の判定</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4e">－順子の判定</a><br>
+　<a href="http://www5f.biglobe.ne.jp/~kenmo/program/majang/agari/agari.html#4f">－配列の値が全て0</a><br>
+<br>
+<br>
+<br>
+<br>
+<a name="1" id="1"></a><br>
+<b>1.はじめに</b><br>
+今回は麻雀の作り方を説明します。<br>
+麻雀は運の要素が強いので、初心者でもベテランの人に勝ててしまうことがある<br>
+エキサイティングなゲームです。<br>
+<br>
+最近は、東風荘やMJ、麻雀格闘倶楽部などネットワーク対戦が流行っていますね。<br>
+<br>
+一般的な麻雀は４人でプレイしますが、<br>
+いきなりそれを作るのは大変です。<br>
+<br>
+とりあえずは、１人で遊べるようなものを作ることを目標とします。<br>
+まず、「あがり判定」をつくり、それから「役の判定」を作ります。<br>
+それができたら、２人→４人とプレイ人数を増やしていきます。<br>
+<br>
+今回の内容はここを参考にしています。<br>
+<a href="http://www.onionsoft.net/hsp/mahjong.txt">麻雀の役判定アルゴリズムについてのドキュメント</a><br>
+<br>
+（というかここを読めば、今回の内容を読む必要ないような…（´ー｀;））<br>
+<br>
+<br>
+<a name="2" id="2"></a><br>
+<b>2.麻雀の仕様</b><br>
+まず、麻雀とはどんなゲームであるかを説明します。<br>
+<br>
+麻雀とは、<br>
+山から牌というものを取り、<br>
+その牌を組み合わせて、役を作るゲームです。<br>
+<br>
+次に牌の種類です。<br>
+牌には、<br>
+1～9の数字牌とそれ以外の字牌があります。<br>
+数字牌には、<br>
+マンズ／ピンズ／ソーズの３種類あります。<br>
+字牌には、白発中東南西北の７種類あります。<br>
+があります。<br>
+<br>
+手牌としてプレイヤーに配られるのは14枚です。<br>
+これを１つ捨てて、１つ山から取ることで役を作ります。<br>
+<br>
+組み合わせ方の基本となるのは、以下の３つとなります。
+<ul>
+	<li>刻子：同じ牌を３つ揃えたもの</li>
+	<li>順子：数字牌を連番で３つ揃えたもの</li>
+	<li>頭：同じ牌を２つ揃えたもの</li>
+</ul>
+<br>
+刻子または順子をあわせて４つ揃え、頭を１つ揃えれば上がりです。<br>
+（3×4＋2=14ですね）<br>
+<br>
+例えば、<br>
+111 222 345 678 99<br>
+と揃えれば上がりです。<br>
+<br>
+他にも、リーチやら鳴き、ロンなどのルールがありますが、<br>
+今回は上がり判定の説明に留めておきます。<br>
+<br>
+詳しくはGoogleで「麻雀　ルール」で検索してください（´∀｀;）<br>
+<br>
+<br>
+<a name="3" id="3"></a><br>
+3.データ構造<br>
+<a name="3a" id="3a"></a><br>
+－牌のデータ構造<br>
+まず牌のデータ構造を考えてみます。<br>
+定数を以下のように割り当てます。<br>
+<ul>
+	<li>1～9：マンズ</li>
+	<li>11～19：ピンズ</li>
+	<li>21～29：ソーズ</li>
+	<li>31～38：白発中東南西北</li>
+</ul>
+こうしておけば、ソートをするとき楽ですし、数字と牌の対応が簡単でしょう。<br>
+<br>
+<a name="3b" id="3b"></a><br>
+－手牌のデータ構造<br>
+次に手牌です。<br>
+単純に14枚ですから、14要素の配列でいいでしょう…。（´ε｀;）<br>
+<br>
+<br>
+<a name="4" id="4"></a><br>
+4.あがり役判定<br>
+ここでは、あがり判定を行う関数を作成します。<br>
+入力は手牌となり、出力としてあがっているか否か（真偽）を返します。<br>
+<br>
+<img src="./麻雀の作り方（あがり判定）_files/agari.png" alt="上がり判定関数"><br>
+ちょっと長めのフローですが、<br>
+キモとなるのは、最初の置き換え処理と２重ループの部分ですから、<br>
+そこを抑えれば、そんなに難しくないと思います。<br>
+<a name="4a" id="4a"></a><br>
+－手牌を種類別の数(kind[])に置き換える<br>
+ここは何をしているのかというと、例えば、手牌が「22334455556788」である場合、<br>
+kind[1] = 0<br>
+kind[2] = 2<br>
+kind[3] = 2<br>
+kind[4] = 2<br>
+kind[5] = 4<br>
+kind[6] = 1<br>
+kind[7] = 1<br>
+kind[8] = 2<br>
+kind[9] = 0<br>
+というように、それぞれの牌が何枚づつあるか、という視点に置き換えているだけです。<br>
+<br>
+こうすることで、これ以降の処理がとても楽になります。<br>
+<br>
+また、kind[]は牌のデータ構造と対応していると、処理が楽です。<br>
+kind[1～9]：マンズ、kind[11～19]：ピンズ、…というように。<br>
+<br>
+<a name="4z" id="4z"></a>
+－牌の取り出し<br>
+あがり判定の考え方としては、14枚ある手牌を、頭／刻子／順子の規則で取り出していき、<br>
+すべて取り出せた場合にあがりとなります。<br>
+<br>
+ここで注意することとして、例えば12223という並びがあった場合、<br>
+順子で123と取り出して、頭で22と取り出せばいいのですが、<br>
+刻子で222と取り出してしまうと、13が残り正しく判定ができなくなってしまいます。<br>
+<br>
+ですので、正しい優先順位をつけて取り出さないと、ダメなわけです。<br>
+<br>
+色々方法はありますが、ここでは頭＞刻子＞順子の順番で取り出しを行います。<br>
+なぜこの順番で取り出すのかというと、<br>
+頭＞刻子でないと、先ほどの12223のパターンで失敗してしまうからです。<br>
+また刻子＞順子としているのは、111222333のパターンで、<br>
+123 123 123というように、三暗刻のパターンを逃してしまうからです。<br>
+（今回の上がり判定を考えるだけなら、どちらでもいいわけですが…）<br>
+<br>
+以上の考え方があるため、
+第一のループで頭の候補を探し、<br>
+第二のループで刻子／順子の取り出しを行っているわけです。<br>
+<br>
+<a name="4b" id="4b"></a><br>
+－kind[]をtmp[]にコピー<br>
+「種類別の数」に編集をかけるので、テンポラリにコピーします。<br>
+<br>
+<a name="4c" id="4c"></a><br>
+－頭の判定<br>
+tmp[i]が2以上であれば、頭の候補となりますので、tmp[i]をマイナス2します。<br>
+2より小さい場合は、次のループに進みます。<br>
+<br>
+<a name="4d" id="4d"></a><br>
+－刻子の判定<br>
+tmp[j]が3以上であれば、刻子となりますので、tmp[j]をマイナス3します。<br>
+<a name="4e" id="4e"></a><br>
+－順子の判定<br>
+tmp[j]が1以上かつtmp[j+1]が1以上かつtmp[j+2]が1以上であれば、順子となりますので、<br>
+tmp[j]とtmp[j+1]とtmp[j+2]をマイナス1します。<br>
+<br>
+<a name="4f" id="4f"></a><br>
+－tmp[]の値が全て0<br>
+全てが取り出されていれば、全て「0」となりますので、その判定を行っています。<br>
+全て「0」であれば、上がりとなります。<br>
+<br>
+<br>
+とりあえず、これであがり判定は行えます。<br>
+<br>
+あとは、手牌が13枚であるときの聴牌判定や、当たり牌の探索などがあります。<br>
+<br>
+アプローチとしては、この牌を入れたら上がりとなるか？<br>
+<br>
+という処理にしてしまうと楽です。<br>
+つまり、手牌の中に仮に加えてしまい、今回の当たり判定ロジックを通す、ということです。<br>
+<br>
+以上、.1064でした。<br>
+
+</body></html>

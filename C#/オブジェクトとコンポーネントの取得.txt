@@ -1,0 +1,13 @@
+
+// オブジェクトスタック
+private GameObject player = null;
+// コンポーネントスタック
+public コンポーネント名(スクリプトファイル名) component;
+
+// オブジェクト取得
+player = GameObject.FindGameObjectWithTag ("タグ名");
+
+// コンポーネント取得
+component = player.GetComponent<クラス名>();
+
+

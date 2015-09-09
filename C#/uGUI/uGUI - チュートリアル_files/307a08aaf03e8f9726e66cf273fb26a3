@@ -1,0 +1,1130 @@
+
+
+
+
+
+
+(function(d){
+	var SITE = "//omt.shinobi.jp/";
+	var CKEY = "OyFaDpj";
+	var CLS = "buzzurl:delicious:evernote:facebook:favorite:feedly:google:gree:grow:hatena:instapaper:line:live:livedoor:mailto:mixi:mixifavorite:ninja:pinterest:plusone:pocket:readitlater:rss:tumblr:tweet:tweethashtag:tweetmention:twitter:yahoo:youtube";
+	var SOURCEKEY = "307a08aaf03e8f9726e66cf273fb26a3";
+	var w = window;
+	var ob = "NT_OMT_BTN_" + SOURCEKEY;
+	var QRY = "__ntomt";
+	var obsk = "NINJA_CO_JP_ONETAG_BUTTON_" + SOURCEKEY;
+	var eUC = encodeURIComponent;
+	var ANLZ = "1";
+
+    var ORIGINAL_BUTTON = {};
+
+
+	
+    try {
+        var link = d.createElement("link");
+        link.rel = "stylesheet";
+        link.href = SITE + "css/ninja_onetag.css";
+        d.getElementsByTagName("head")[0].appendChild(link);
+    } catch(e) {}
+
+	///////////////////////////////// NINJA_CO_JP_ONETAG_BUTTON /////////////////////////////////
+    if (typeof(w[ob]) == 'undefined') {
+        w[ob] = {
+        	CKEY : CKEY,
+        	SITE : SITE,
+        	CLS : CLS,
+        	SOURCEKEY : SOURCEKEY,
+			Recorder : function (type, o){
+				if (o.classname != 'undefined') {
+					var head = o.classname.split("_")[0];
+					var cls = w[ob].CLS.split(":");
+					var matchflg = 0;
+					for (var i=0; i < cls.length; i++ ) {
+						if (head == cls[i]) {matchflg = 1; break;}
+					}
+					if (!matchflg) { return; }
+				}
+				o.type = type;
+				var params = new Array();
+				for (var i in o) {
+					params.push( i+"="+encodeURIComponent(o[i]) );
+				}
+				var url = w[ob].SITE + "l/" + w[ob].SOURCEKEY + "?" + params.join("&");
+				var script = d.createElement('script');
+				script.src = url;
+				script.type = "text/javascript";
+				script.defer = "defer";
+				var e = d.getElementsByTagName("script")[0];
+				e.parentNode.insertBefore(script, e);
+			},
+			analyzeHref: function(url){
+				var anc = url.split("#");
+				if (anc.length != 2) { return {original_url:url,ckey:""}; }
+				return {original_url: anc[0],ckey:anc[1]};
+			},
+			checkView: function(){
+				if (ANLZ != "1") {return;}
+				var ckey = "";
+				var original_url = "";
+				var title = d.title;
+
+				if (location.href.indexOf("fb_ref=") != -1) {
+					var parseQuery = function(s){
+						var ret = {};
+						var vs = s.split("&");
+						for (var i=0; i < vs.length; i++) {
+							var v = vs[i].split("=");
+							ret[v[0]] = decodeURIComponent(v[1]);
+						}
+						return ret;
+					};
+					var o = parseQuery(location.href.split("?")[1]);
+					if (typeof(o.fb_ref) != 'undefined') {
+						ckey = o.fb_ref.substr(1);
+						original_url = location.href;
+					}
+				}else if (location.href.indexOf("#") != -1) {
+					var href = w[ob].analyzeHref(location.href);
+					original_url = href.original_url;
+					ckey = href.ckey;
+				} else{
+					return;
+				}
+				if (ckey == "undefined" || ckey == "") {return;}
+				var s = ckey.split("\.");
+				if (s.length != 2 || s[0] == "" || s[0] == "undefined" || s[1] == "" || s[1] == "undefined") { return;}
+				w[ob].Recorder("v", {url: original_url,title: title, ckey: s[0], classname: s[1]});
+			},
+			getURL: function(url, className){
+				if (ANLZ != "1") {return url;}
+				var href = w[ob].analyzeHref(url);
+				var original_url = href.original_url;
+				return original_url + "#" + CKEY + "." + className;
+			},
+			log: function(obj) {
+				console.log(obj);
+			},
+            getNext : function(n){
+				if (!n) return null;
+	            var y = n.nextSibling;
+	            while (y && (y.nodeType != 1)) {
+	                y=y.nextSibling;
+	            }
+	            return y;
+			},
+			clicked: new Array(),
+			processIFrameClick :function(e) {
+            	if(w[ob].activeDiv == null) { return; }
+
+				try{
+				    if (w[ob].activeDiv.tagName == 'undefined' || w[ob].activeDiv.tagName != "IFRAME") {
+				        w[ob].activeDiv = document.activeElement;
+				    }
+				}catch(er){
+				    w[ob].activeDiv = document.activeElement;
+				}
+				
+				if (w[ob].activeDiv.tagName == 'undefined' || w[ob].activeDiv.tagName != "IFRAME") {
+				    return;
+				}
+
+            	for (var i=0;i < w[ob].clicked.length; i++) {
+            		if (w[ob].clicked[i] === w[ob].activeDiv) {
+            			//w[ob].log("found already clicked ");
+            			return;
+            		}
+            	}
+            	w[ob].clicked.push(w[ob].activeDiv);
+				var i = 0;
+            	var parent = w[ob].activeDiv.parentNode || w[ob].activeDiv.parentElement;
+            	while(i < 5 && parent.getAttribute('data-onetagbutton') != "true") {
+            		parent = parent.parentNode || parent.parentElement;
+            		i++;
+            	}
+				var url = parent.getAttribute('data-url');
+				var title = parent.getAttribute('data-title');
+				var cn = parent.className;
+				w[ob].Recorder("c", {classname: cn, url: url,ckey: w[ob].CKEY, title: title});
+		    },
+		    getAttribute: function(e){
+		    	return e.target || e.srcElement;
+		    },
+        	clickInterceptor : function () {
+        		if (ANLZ != "1") {return;}
+
+            	if (typeof window.attachEvent != 'undefined') {
+                	top.attachEvent('onblur', w[ob].processIFrameClick);
+            	} else if (typeof window.addEventListener != 'undefined') {
+                	top.addEventListener('blur', w[ob].processIFrameClick, false);
+            	}
+
+                for (var tc=1; tc <= w[obsk]["ONETAGButton_Count"]; tc++) {
+                    var obj = d.getElementById(obsk + "_" +tc);
+                    if (!obj || tc > 50) {
+                        break;
+                    }
+                    var url = location.href;
+                    var title = d.title;
+                    var urlObj = w[ob].getNext(obj);
+                    var titleObj = w[ob].getNext(urlObj);
+                    if (urlObj && titleObj) {
+                        if ((urlObj.innerHTML != '') && (titleObj.innerHTML != '') && (/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(urlObj.innerHTML))) {
+                            url = urlObj.innerHTML;
+                            title = titleObj.innerHTML;
+                        }
+                    }
+					var elements = obj.childNodes;
+					for (var i=0; i < elements.length; i++) {
+						var cn = elements[i].className;
+						if(cn =='undefined' || !cn|| cn == null || cn == "ninja_onebutton_clear" || cn == "ninja_onebutton_ninja") {
+							continue;
+						}
+						elements[i].setAttribute("data-url", url);
+						elements[i].setAttribute("data-title", title);
+						elements[i].setAttribute("data-onetagbutton", "true");
+						w[ob].watchIframeLoaded(elements[i]);
+					}
+				}
+        	},
+        	watchIframeLoaded: function(element){
+				var type = element.getAttribute('data-type');
+				if (type != 'undefined' && type == 'iframe') {
+					var click_timer = null;
+					var check_num = 0;
+					var iframe = element.getElementsByTagName("iframe");
+					if (iframe.length > 0) {
+						w[ob].setClickInterceptor(element);
+					}else{
+				        click_timer = setInterval(function() {
+				            var iframe = element.getElementsByTagName("iframe");
+				            check_num++;
+				            if (iframe.length > 0) {
+				            	clearTimeout(click_timer);
+				            	w[ob].setClickInterceptor(element);
+				            } else if (check_num>50) {
+				            	clearTimeout(click_timer);
+				            }
+				        }, 200);
+					}
+				}else{
+					w[ob].setClickInterceptor(element);
+				}
+        	},
+			setClickInterceptor: function (element) {
+				var type = element.getAttribute('data-type');
+				if (type != 'undefined' && type == 'iframe') {
+					w[ob].iframeClickInterceptor(element);
+				}else{
+					w[ob].divClickInterceptor(element);
+				}
+		    },
+        	divClickInterceptor: function(element){
+        		var cn = element.className;
+        		var click_done = false;
+        		
+				var frameClicker = function(evt) {
+					if (click_done) return;
+					click_done = true;
+					var obj = evt.target || evt.srcElement; 
+					var i = 0;
+            		while(i < 5 && obj.getAttribute('data-onetagbutton') != "true") {
+            			obj = obj.parentNode || obj.parentElement;
+            			i++;
+            		}
+					var url = obj.getAttribute('data-url');
+					var title = obj.getAttribute('data-title');
+					w[ob].Recorder("c", {classname: cn, url: url,ckey: w[ob].CKEY, title: title});
+				}
+				
+				if (w.addEventListener) {
+					element.addEventListener("click", frameClicker, false);
+				}else if (w.attachEvent) {
+					element.attachEvent("onclick", frameClicker);
+				}
+        	},
+        	activeDiv : null,
+        	iframeClickInterceptor: function(element) {
+				var className = element.className;
+				var iframe = element.getElementsByTagName("iframe");
+				var ninja_frame = iframe[0];
+			    var iframeMouseOut = function(e) {
+			        w[ob].activeDiv = null;
+			        top.focus();
+			    };
+		        var iframeMouseOver = function(e) {
+		        	w[ob].activeDiv = this;
+					var obj = e.target || e.srcElement;;
+					var i = 0;
+	            	while(i < 5 && obj.getAttribute('data-onetagbutton') != "true") {
+	            		obj = obj.parentNode || obj.parentElement;
+	            		i++;
+	            	}
+					var cn = obj.className;
+		        };
+
+				if (w.addEventListener) {
+					ninja_frame.addEventListener("mouseover", iframeMouseOver, false);
+					ninja_frame.addEventListener("mouseout", iframeMouseOut, false);
+				}else if (w.attachEvent) {
+					ninja_frame.attachEvent("onmouseover", iframeMouseOver);
+					ninja_frame.attachEvent("onmouseout", iframeMouseOut);
+				}
+        	},
+
+		    clickShareInterceptor :function(className, url, title){
+		    	if (ANLZ != "1") {return;}
+		    	w[ob].Recorder("c", {classname:className,url:url,ckey:w[ob].CKEY,title:title});
+				return true;
+		    },
+		    clickSmartInterceptor :function(obj){
+		    	if (ANLZ != "1") {return;}
+				w[ob].Recorder("c", {classname: obj.getAttribute("data-class"),url: obj.getAttribute("data-url"),ckey:w[ob].CKEY,title: obj.getAttribute("data-title")});
+				return true;
+			},
+            ONETAGButton_Tag : new Array(),
+            ONETAGButton_RunFlg : false,
+            ONETAGButton_Output : function () {
+                if (w[ob].ONETAGButton_RunFlg) {
+                    return;
+                }
+
+                w[ob].ONETAGButton_RunFlg = true;
+                w[ob].checkView();
+                for (var i = 0; i< w[ob].ONETAGButton_Tag.length; i++) {
+                    if (w[w[ob].ONETAGButton_Tag[i]]) {
+                        w[w[ob].ONETAGButton_Tag[i]].ONETAGButton_Pre();
+                    }
+                }
+                for (var i = 0; i< w[ob].ONETAGButton_Tag.length; i++) {
+                    if (w[w[ob].ONETAGButton_Tag[i]]) {
+                        w[w[ob].ONETAGButton_Tag[i]].ONETAGButton_Render();
+                    }
+                }
+                for (var i = 0; i< w[ob].ONETAGButton_Tag.length; i++) {
+                    if (w[w[ob].ONETAGButton_Tag[i]]) {
+                        w[w[ob].ONETAGButton_Tag[i]].ONETAGButton_Post();
+                    }
+                }
+                w[ob].clickInterceptor();
+            }
+        };
+        ///////////////////////////////// NINJA_CO_JP_ONETAG_BUTTON /////////////////////////////////
+
+        if (d.addEventListener) {
+            w[ob].u = function (){
+                d.removeEventListener("DOMContentLoaded", w[ob].u, false);
+                w[ob].ONETAGButton_Output();
+            };
+        } else if (d.attachEvent) {
+            w[ob].u = function () {
+                if (d.readyState === "complete") {
+                    d.detachEvent("onreadystatechange", w[ob].u);
+                    w[ob].ONETAGButton_Output();
+                }
+            };
+        }
+
+        w[ob].a = function () {
+            if (d.readyState !== "complete") {
+                try {
+                    d.documentElement.doScroll("left")
+                } catch (j) {
+                    setTimeout(w[ob].a, 64);
+                    return
+                }
+                d.detachEvent("onreadystatechange", w[ob].u);
+                w[ob].ONETAGButton_Output();
+            }
+        }
+
+        if (d.readyState === "complete") {
+            w[ob].ONETAGButton_Output();
+        }
+        if (d.addEventListener) {
+            d.addEventListener("DOMContentLoaded", w[ob].u, false);
+        } else if (window.document.attachEvent) {
+            d.attachEvent("onreadystatechange", w[ob].u);
+            w[ob].a();
+        }
+
+    };
+
+	///////////////////////////////// NINJA_CO_JP_ONETAG_BUTTON+SOURCEKEY /////////////////////////////////
+    if (typeof(w[obsk]) == 'undefined') {
+        w[ob].ONETAGButton_Tag.push(obsk);
+        w[obsk] = {
+            ONETAGButton_Count : 0,
+            LoadJsonp: function(url,provider,domobj){
+            	var t = new Date();
+            	var tm = t.getTime() +""+ t.getMilliseconds();
+            	var script = document.createElement("script");
+            	var api = null;
+            	var identifier = null;
+            	var objName = null;
+            	if (provider == "twitter") {
+            		identifier = "NT"+CKEY+"OMT_TWCB" + crc32(encodeURIComponent(url));
+            		objName = "count";
+					api = "//urls.api.twitter.com/1/urls/count.json?callback=window." + identifier + "&url=" + encodeURIComponent(url) + "&_=" + tm;
+				}else if (provider == "facebook") {
+            		identifier = "NT"+CKEY+"OMT_FBCB" + crc32(encodeURIComponent(url));
+            		objName = "shares";
+					api = "//graph.facebook.com/" + encodeURIComponent(url) + "?callback=window." + identifier + "&_=" + tm;
+				}else if (provider == "hatena") {
+					identifier = "NT"+CKEY+"OMT_HTCB" + crc32(encodeURIComponent(url));
+            		objName = "count";
+					api = "//b.hatena.ne.jp/entry/jsonlite/?callback=window." + identifier + "&url=" + encodeURIComponent(url) + "&_=" + tm;
+				}else if (provider == "feedly") {
+				    identifier = "NT"+CKEY+"OMT_FDLY" + crc32(encodeURIComponent(url));
+				    objName = "query.results.json.subscribers";
+				    api = '//query.yahooapis.com/v1/public/yql?format=json&callback=window.' + identifier +'&q=' + encodeURIComponent('select * from json where url="' + 'http://cloud.feedly.com/v3/feeds/feed%2F' + encodeURIComponent(url) + '"') + "&_=" + tm;
+				}
+				if (typeof(w[identifier]) == "undefined") {
+					w[identifier] = function(obj){
+						var count = 0;
+						if (objName == "shares") {
+						  if (typeof(obj) != "undefined" && obj!=null && typeof(obj.shares) != "undefined") count += obj.shares;
+						  if (typeof(obj) != "undefined" && obj!=null && typeof(obj.likes) != "undefined") count += obj.likes;
+						}else if (objName == "query.results.json.subscribers") {
+				            if (typeof(obj) != "undefined" && obj!=null && typeof(obj.query) != "undefined" && typeof(obj.query.results) != "undefined" && typeof(obj.query.results.json) != "undefined" && typeof(obj.query.results.json.subscribers) != "undefined") count = obj.query.results.json.subscribers;
+						}else{
+						    if (typeof(obj) != "undefined" && obj!=null && typeof(obj[objName]) != "undefined") count = obj[objName];
+						}
+                        if (domobj.getElementsByClassName("count")[0].childNodes[2].nodeName == "#text") {
+                            domobj.getElementsByClassName("count")[0].childNodes[2].nodeValue = count;
+                        }
+						eval("window."+identifier + "=" + count + ";");
+					}
+				}else{
+					var check_num = 0;
+			        var click_timer = setInterval(function() {
+			            check_num++;
+			            if (typeof(w[identifier]) != "function") {
+			            	clearTimeout(click_timer);
+	                        if (domobj.getElementsByClassName("count")[0].childNodes[2].nodeName == "#text") {
+	                            domobj.getElementsByClassName("count")[0].childNodes[2].nodeValue = w[identifier];
+	                        }
+							return;
+			            } else if (check_num>100) {
+			            	clearTimeout(click_timer);
+			            }
+			        }, 50);
+					return;
+
+				}
+
+				script.src = api;
+				script.type = "text/javascript";
+				script.defer = "defer";
+				var target = document.getElementsByTagName("script")[0];
+				target.parentNode.insertBefore(script, target);
+			},
+			
+            ONETAGButton_Load:function() {
+
+                w[obsk].ONETAGButton_Count ++;
+                
+                
+                    d.write('<div id="'+obsk+'_'+w[obsk].ONETAGButton_Count+'" class="ninja_onebutton_output ninja_onebutton_output_horizontal"></div>');
+                
+
+            },
+            ONETAGButton_Render:function() {
+                for (var tc=1; tc <= w[obsk].ONETAGButton_Count; tc++) {
+                    var obj = d.getElementById(obsk + "_" +tc);
+
+                    if (!obj || tc > 50) {
+                        break;
+                    }
+
+                    var url = location.href;
+                    var title = d.title;
+
+                    var urlObj = getNext(obj);
+                    var titleObj = getNext(urlObj);
+                    var lang = getLanguage();
+
+                    if (urlObj && titleObj) {
+                        if ((urlObj.innerHTML != '') && (titleObj.innerHTML != '') && (/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(urlObj.innerHTML))) {
+                            url = urlObj.innerHTML.replace(/(^[\s　]+)|([\s　]+$)/g, "");
+                            title = titleObj.innerHTML.replace(/(^[\s　]+)|([\s　]+$)/g, "");
+                        }
+                    }
+                   	var original_url = url;
+                    
+		                
+	                        
+	                        	var url = w[ob].getURL(original_url, "feedly_follow_count_rectangle");
+	                            
+
+
+
+
+
+var ele = document.createElement('div');
+ele.className = "feedly_follow_count_rectangle";
+
+var anchor = document.createElement('a');
+anchor.href = 'http://cloud.feedly.com/#subscription%2Ffeed%2F' + encodeURIComponent('http://naichilab.blogspot.com/feeds/posts/default');
+anchor.target = '_blank'; 
+var img = document.createElement('img');
+img.width = "66";img.height = "20";img.alt = "follow";
+img.src = "http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-small_2x.png";
+anchor.appendChild(img);
+var span1 = document.createElement('span');
+span1.className = "feedly-btn";
+span1.appendChild(anchor);
+var span2 = document.createElement('span');
+span2.className = "count";
+var i1 = document.createElement('i');
+i1.className = "balloon-left-front";
+var i2 = document.createElement('i');
+i2.className = "balloon-left-back";
+var textNode = document.createTextNode("0");
+span2.appendChild(i1);
+span2.appendChild(i2);
+span2.appendChild(textNode);
+var div1 = document.createElement('div');
+div1.className = "feedly horizontal";
+div1.appendChild(span1);
+div1.appendChild(span2);
+
+var div2 = document.createElement('div');
+div2.appendChild(div1);
+
+ele.appendChild(div2);
+var ret = obj.appendChild(ele);
+w[obsk].LoadJsonp("http://naichilab.blogspot.com/feeds/posts/default", "feedly", ret);
+
+
+
+	                        
+	                        	var url = w[ob].getURL(original_url, "livedoor_reader_indigo_l");
+	                            
+
+
+
+var ele = document.createElement('div');
+ele.className = "livedoor_reader_indigo_l";
+
+    ele.innerHTML = '<a href="http://reader.livedoor.com/subscribe/' +'http://naichilab.blogspot.com/feeds/posts/default'+ '" target="_blank" title="Subscribe with livedoor Reader"><img src="http://image.reader.livedoor.com/img/banner/91_17_1.gif" border="0" width="91" height="17" alt="Subscribe with livedoor Reader"></a>';
+
+obj.appendChild(ele);
+
+	                        
+	                        	var url = w[ob].getURL(original_url, "yahoo_myyahoo_standard");
+	                            
+
+
+
+var ele = document.createElement('div');
+ele.className = 'yahoo_myyahoo_standard';
+
+    ele.innerHTML = '<a target=_blank href="http://rd.yahoo.co.jp/myyahoo/rss/addtomy/users/*http://add.my.yahoo.co.jp/rss?url=' +encodeURIComponent('http://naichilab.blogspot.com/feeds/posts/default')+ '"><img src="http://i.yimg.jp/i/jp/my/addtomy1.gif" width="91" height="17" border="0" align=middle alt="My Yahoo!に追加"></a>';
+
+obj.appendChild(ele);
+
+	                        
+	                        	var url = w[ob].getURL(original_url, "rss_button_l");
+	                            
+
+var rsslink = "";
+var onclick = "";
+var links = document.getElementsByTagName('link');
+for (var i=0; i< links.length; i++) {
+	if (!links[i]) continue;
+	if (links[i].getAttribute('href') == null) continue;
+	if (links[i].getAttribute('type') == null) continue;
+	if (links[i].getAttribute('type') != 'application/rss+xml' && links[i].getAttribute('type') != 'application/atom+xml') continue;
+	rsslink = links[i].getAttribute('href');
+	onclick = "window.open(this.href, \'rss\'); return false;";
+	break;
+}
+if (!rsslink) {
+	rsslink = "javascript:alert('フィードが見つかりませんでした');";
+}
+var ele = document.createElement('div');
+ele.className = "rss_button_l";
+ele.innerHTML = '<a href="'+rsslink+'" onclick="'+onclick+'" target="_blank"><img src="//omt.shinobi.jp/images/rss_button_l.png" alt="rss"></a>';
+obj.appendChild(ele);
+
+
+	                        
+		                
+                    
+
+                    var ele2 = d.createElement("div");
+                    ele2.className = 'ninja_onebutton_clear';
+                    obj.appendChild(ele2);
+
+                }
+            },
+            ONETAGButton_Pre:function() {
+                
+            },
+            ONETAGButton_Post:function() {
+                
+            },
+
+
+            ONETAGButton_SmartPhone:function() {
+            	//スマホ設定
+            	window.NINJA_CO_JP_ONETAG_BUTTON_SMART = "1";
+                
+                    
+
+
+//スマホじゃない場合は即離脱
+var agent = navigator.userAgent;
+if(agent.search(/iPhone/) != -1 || agent.search(/Android/) != -1){
+}else{
+    return false; //stop
+}
+
+               var objBody = document.getElementsByTagName("body").item(0);
+
+
+
+
+               var eleb = document.createElement('img');
+               eleb.id   = "img_omatome";
+               eleb.style.cssText= "position: absolute; z-index: 9999; display: none; margin-top:10px;bottom:0px;width:200px;height:200px";
+
+               if(isRetina()){
+                    eleb.src="//omt.shinobi.jp/images/ninja_icon_mobile_x2.png";
+               }else{
+                    eleb.src="//omt.shinobi.jp/images/ninja_icon_mobile.png";
+               }
+
+
+               objBody.appendChild(eleb);
+
+				
+				function isRetina(){
+				    var root = (typeof exports == 'undefined' ? window : exports);
+				    var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
+				                      (min--moz-device-pixel-ratio: 1.5),\
+				                      (-o-min-device-pixel-ratio: 3/2),\
+				                      (min-resolution: 1.5dppx)";
+				
+				    if (root.devicePixelRatio > 1)
+				        return true;
+				
+				    if (root.matchMedia && root.matchMedia(mediaQuery).matches)
+				        return true;
+				
+				    return false;
+				}
+				
+
+               function getBrowserHeight() {
+
+                    if ( window.innerHeight ) {
+                            return window.innerHeight;
+                    }
+                    else if ( document.documentElement && document.documentElement.clientHeight != 0 ) {
+                            return document.documentElement.clientHeight;
+                    }
+                    else if ( document.body ) {
+                            return document.body.clientHeight;
+                    }
+                    return 0;
+
+               }
+
+               function getScrollPosition() {
+                    var obj = new Object();
+                    obj.x = document.documentElement.scrollLeft || document.body.scrollLeft;
+                    obj.y = document.documentElement.scrollTop || document.body.scrollTop;
+                    return obj;
+                }
+
+                function getDeviceClass()
+                {
+                    var a = navigator.userAgent;
+                    if (/iPhone/.test(a)) {
+                        return "iphone";
+                    }
+                    return / Android / .test(a) ? "android" : "unknown";
+                }
+
+                function getViewportProperties ()
+                    {
+                        var a = document.getElementsByTagName("meta");
+                        if (a.length)
+                        {
+                            for (var b = 0, c = a.length; b < c; b++)
+                            {
+                                if (a[b].getAttribute("name") == "viewport")
+                                {
+                                    var d = {};
+                                    vpKVSet = a[b].getAttribute("content").indexOf(";") > 1 ? a[b].getAttribute("content").split(";") : a[b].getAttribute("content").split(",");
+                                    b = 0;
+                                    for (c = vpKVSet.length; b < c; b++)
+                                    {
+                                        kv = vpKVSet[b].replace(/\s/ig, "");
+                                        if (kv.indexOf("=") !=- 1)
+                                        {
+                                            kvArray = kv.split("=");
+                                            kvArray[0] = kvArray[0].replace(/\-([a-z])/g, function (e, h)
+                                            {
+                                                return h.toUpperCase();
+                                            });
+                                            switch (kvArray[0])
+                                            {
+                                                case "width":
+                                                case "height":
+                                                    d[kvArray[0]] = kvArray[1].indexOf("device-") ==- 1 ? parseFloat(kvArray[1]) : kvArray[1];
+                                                    break;
+                                                case "initialScale":
+                                                case "minimumScale":
+                                                case "maximumScale":
+                                                    d[kvArray[0]] = parseFloat(kvArray[1]);
+                                                    break;
+                                                case "userScalable":
+                                                    d[kvArray[0]] = kvArray[1] == "no" || kvArray[1] == "0" ? false : true;
+                                                    break;
+                                                default:
+                                                    d[kvArray[0]] = kvArray[1];
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return d;
+
+                            }
+                        }
+                        return false;
+
+                    }
+
+                function isPortrait()
+                {
+
+                    var vp = getViewportProperties();
+
+                    if (vp && vp.width && vp.width != "device-width" && vp.width < 320) {
+                        return true;
+                    }
+
+                    return window.orientation % 180 == 0 ? true : false;
+                }
+
+                function getZoomRatio()
+                {
+                    return (isPortrait() ? 320 : 480) / window.innerWidth;
+                }
+
+				
+                //クリックされたイベント
+                function clickEvent(){
+if (typeof(window._ntomt_clicked) == 'undefined') {
+	(function(d){
+	    var head = d.getElementsByTagName('head')[0];
+	    var script = d.createElement('script');
+	    script.defer = 'defer';
+	    script.async = 'async';
+	    script.src  = '//www.shinobi.jp/c.php';
+	    head.insertBefore(script, head.firstChild);
+	})(document);
+	window._ntomt_clicked = true;
+}
+                   //urlとタイトルが必要
+                   var url = location.href;
+                   var title = document.title;
+                   var wob = window[ob];
+                   var href = wob.analyzeHref(url);
+                   url = href.original_url;
+                   
+                   var zoomer = 1 /getZoomRatio();
+                   var cw = document.documentElement.clientWidth;
+                   var ch = document.documentElement.clientHeight;
+
+                   var top = window.scrollY + "px";
+                   var left = window.scrollX + "px";
+                   var width = 20 * zoomer + "px";
+                   var height = 20 * zoomer  + "px";
+
+                   var top_height = (parseInt(height) +40) + "px";
+                   //var top_height = (45 * zoomer) +"px";
+
+                   var top_width = "";
+
+                   //縦と横で動作を分ける
+                   if(Math.abs(window.orientation) === 90){
+                        //横向きになった際の命令
+                        top_width = ((ch/6) * zoomer) +"px";
+
+                    }else{
+                        top_width  =  ((cw/3) * zoomer) +"px";
+                    }
+
+                    var url_facebook = 'http://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(wob.getURL(url,"smart_facebook")) +'&t=' + encodeURIComponent(title)+'';
+                    var url_twitter  = 'http://twitter.com/share?original_referer='+encodeURIComponent(wob.getURL(url,"smart_twitter"))+'&url='+encodeURIComponent(wob.getURL(url,"smart_twitter"))+'&text=' + encodeURIComponent(title) + '&source=tweetbutton';
+                    var url_gplus    = 'https://plus.google.com/share?url=' + encodeURIComponent(wob.getURL(url,"smart_gplus"))+'';
+                    var url_hatena     = 'http://b.hatena.ne.jp/entry/'+htmlentities(url);
+                    var url_mailto   = 'mailto:?subject='+encodeURIComponent(title)+'&body='+encodeURIComponent(wob.getURL(url,"smart_mailto"));
+
+
+                    //すでに表示状態なら、スタイルの変更だけでリターンする
+                    if(document.getElementById("omatome_button_area") !=null ){
+                        var tmp_ele = document.getElementById("omatome_button_area");
+                        tmp_ele.parentNode.removeChild(tmp_ele);
+
+                    }
+
+          var html = ''
+          +'<div id="omatome_button_area_img" style="position:absolute;background: #000; z-index:999999;width:'+top_width+'; min-height:'+top_height+'; overflow:hidden;left:'+ left +'; top:'+ top +'">'
+          +'<p style=" float:left; padding:15px 6% 5px 8%; "><a data-title="'+title+'" data-url="'+url+'" data-class="smart_facebook" target="_blank" href="'+ url_facebook +'" onclick="window["'+ob+'"].clickSmartInterceptor(this);"><img src="//omt.shinobi.jp/images/icon_sfma_01.png" width="'+width+'" height="'+height+'" alt="icon "></a></p>'
+          +'<p style=" float:left; padding:15px 6%; "><a data-title="'+title+'" data-url="'+url+'" data-class="smart_twitter" target="_blank" href="'+url_twitter+'" onclick="window.["'+ob+'"].clickSmartInterceptor(this);"><img src="//omt.shinobi.jp/images/icon_sfma_02.png" width="'+width+'" height="'+height+'" alt="icon "></a></p>'
+          +'<p style=" float:left; padding:15px 6%; "><a data-title="'+title+'" data-url="'+url+'" data-class="smart_gplus" target="_blank" href="'+url_gplus+'" onclick="window.["'+ob+'"].clickSmartInterceptor(this);"><img src="//omt.shinobi.jp/images/icon_sfma_03.png" width="'+width+'" height="'+height+'" alt="icon "></a></p>'
+          +'<p style=" float:left; padding:15px 6%; "><a data-title="'+title+'" data-url="'+url+'" data-class="smart_hatena" target="_blank" href="'+url_hatena+'" onclick="window.["'+ob+'"].clickSmartInterceptor(this);"><img src="//omt.shinobi.jp/images/icon_sfma_04.png" width="'+width+'" height="'+height+'" alt="icon "></a></p>'
+          +'<p style=" float:left; padding:15px 0 5px 6%; "><a data-title="'+title+'" data-url="'+url+'" data-class="smart_mailto" target="_blank" href="'+url_mailto+'" onclick="window.["'+ob+'"].clickSmartInterceptor(this);"><img src="//omt.shinobi.jp/images/icon_sfma_05.png" width="'+width+'" height="'+height+'" alt="icon "></a></p>'
+          +'</div>';
+
+
+                   var ele = document.createElement('div');
+                   //ele.style.position = "absolute";
+                   ele.id = "omatome_button_area";
+                   ele.innerHTML += html;
+
+                   var button_img = document.getElementById("img_omatome");
+                   button_img.style.display = "none";
+
+                   var objBody = document.getElementsByTagName("body").item(0);
+                   objBody.appendChild(ele);
+
+
+                }
+
+                function remove_button_area(){
+
+                    try{
+
+                        if(window.NINJA_CO_JP_ONETAG_BUTTON_SMART!="3"){
+
+                            if(document.getElementById("omatome_button_area") != null){
+                                var objBody = document.getElementsByTagName("body").item(0);
+                                objBody.removeChild(document.getElementById("omatome_button_area"));
+                            }
+                        }else{
+                            clickEvent();
+                        }
+
+                        if(document.getElementById("img_omatome").style.display == "none"){
+                            var button_img = document.getElementById("img_omatome");
+                            if(window.NINJA_CO_JP_ONETAG_BUTTON_SMART!="3"){
+                                button_img.style.display = "";
+                            }
+                        }
+
+                    }catch(e){
+                        console.log(e);
+                    }
+                }
+
+                function scrollEvent(){
+
+                    remove_button_area();
+
+                    var elm = document.getElementById("img_omatome");
+                    var zoomer = 1 /getZoomRatio();
+
+                    elm.style.top = window.scrollY + "px";
+
+
+
+		           //右寄せの場合
+
+		           if(window.NINJA_CO_JP_ONETAG_BUTTON_SMART =="2"){
+
+			           //縦と横で動作を分ける
+			           if(Math.abs(window.orientation) === 90){
+			            elm.style.left = window.scrollX + ( 440 * zoomer) + "px";
+			           }else{
+			            elm.style.left = window.scrollX + ( 285 * zoomer) + "px";
+			           }
+
+		           }else{
+
+		              elm.style.left = window.scrollX + "px";
+
+
+		           }
+
+
+                    elm.style.width = 32 * zoomer + "px";
+                    elm.style.height = 32 * zoomer  + "px";
+
+                    var zoomer = getZoomRatio();
+
+                    elm.addEventListener('click', clickEvent, false);
+
+                }
+
+        function orientationEvent(){
+
+            //方向変換検知イベント
+
+        }
+
+
+                try {
+                    window.addEventListener('scroll', scrollEvent, false);
+                    window.addEventListener('orientationchange',orientationEvent,false);
+                    //window.addEventListener('touchend',scrollEvent,false);
+                } catch (e) {
+                    window.attachEvent('onscroll',scrollEvent);
+                }
+
+                scrollEvent();
+
+
+
+
+
+                
+
+            }
+            
+
+        };
+		///////////////////////////////// NINJA_CO_JP_ONETAG_BUTTON+SOURCEKEY /////////////////////////////////
+		
+		w[obsk].ONETAGButton_Load();
+
+        //スマホ設定フラグが入っている場合は、以下が実行される
+        w[obsk].ONETAGButton_SmartPhone();
+
+
+        function getNext(n) {
+            if (!n) {
+                return null;
+            }
+
+            var y = n.nextSibling;
+            while (y && (y.nodeType != 1)) {
+                y=y.nextSibling;
+            }
+            return y;
+        }
+
+		function getLanguage() {
+			try {
+				var raw_lang = "ja,en-US;q=0.8,en;q=0.6".toLowerCase();
+				if (raw_lang.length < 2) { return "en";}
+				var lang = raw_lang.substr(0,2);
+				if (lang == "zh") {
+					var zhstr = raw_lang.match(/^zh-[a-z]{2}/);
+					if (zhstr) {
+						return zhstr;
+					}
+				}
+				return lang;
+			} catch(e) {
+				return "en";
+			}
+		}
+
+        function getElementPosition(elem){
+            var html = document.documentElement;
+            var body = document.body;
+            var scrollLeft = (body.scrollLeft || html.scrollLeft);
+            var scrollTop  = (body.scrollTop || html.scrollTop);
+
+            var pos = getElementScreenPosition(elem);
+
+            var left = pos.left + scrollLeft;
+            var top  = pos.top + scrollTop;
+            return {left:left, top:top};
+        }
+        function getElementScreenPosition(elem){
+            var html = document.documentElement;
+            var rect = elem.getBoundingClientRect();
+            var left = rect.left - html.clientLeft;
+            var top = rect.top - html.clientTop;
+            return {left:left, top:top};
+        }
+
+		function rmHash(str) {
+			return str;
+			//return str.replace( /#.*$/, "");
+		}
+		function crc32(s/*, polynomial = 0x04C11DB7, initialValue = 0xFFFFFFFF, finalXORValue = 0xFFFFFFFF*/) {
+		  s = String(s);
+		  var polynomial = arguments.length < 2 ? 0x04C11DB7 : arguments[1],
+		      initialValue = arguments.length < 3 ? 0xFFFFFFFF : arguments[2],
+		      finalXORValue = arguments.length < 4 ? 0xFFFFFFFF : arguments[3],
+		      crc = initialValue,
+		      table = [], i, j, c;
+		
+		  function reverse(x, n) {
+		    var b = 0;
+		    while (n) {
+		      b = b * 2 + x % 2;
+		      x /= 2;
+		      x -= x % 1;
+		      n--;
+		    }
+		    return b;
+		  }
+		
+		  for (i = 255; i >= 0; i--) {
+		    c = reverse(i, 32);
+		
+		    for (j = 0; j < 8; j++) {
+		      c = ((c * 2) ^ (((c >>> 31) % 2) * polynomial)) >>> 0;
+		    }
+		
+		    table[i] = reverse(c, 32);
+		  }
+		
+		  for (i = 0; i < s.length; i++) {
+		    c = s.charCodeAt(i);
+		    if (c > 255) {
+		      throw new RangeError();
+		    }
+		    j = (crc % 256) ^ c;
+		    crc = ((crc / 256) ^ table[j]) >>> 0;
+		  }
+		
+		  return (crc ^ finalXORValue) >>> 0;
+		}
+		function htmlentities(str) {
+			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+		}
+		
+		function getOriginalButton(button_info_obj, className){
+		    var text = "";
+		    var addClass = "";
+		    var icon_name = "";
+		    var icon_size = "";
+		
+		    if (className.indexOf("twitter") != -1) {
+		        text = "ツイート";
+		        icon_name = "twitter";
+		    } else if (className.indexOf("facebook") != -1) {
+		        text = "シェア";
+		        icon_name = "facebook";
+		    } else if (className.indexOf("hatena") != -1) {
+		        text = "Bookmark";
+		        icon_name = "hatena";
+		    }
+		
+		    if (className.indexOf("icon") == -1) {
+		        if (className.indexOf("vertical") != -1) {
+		            addClass = "vertical";
+		        }
+		    }else{
+		        addClass = "icon";
+		        text = "";
+		        if (className.indexOf("medium") != -1) {
+		            icon_size = "medium";
+		        } else if (className.indexOf("small") != -1) {
+		            icon_size = "small";
+		        } else if (className.indexOf("large") != -1) {
+		            icon_size = "large";
+		        }
+		    }
+		
+		    var div_wrap_omatome_icon_font_button = document.createElement('div');
+		    div_wrap_omatome_icon_font_button.className = "wrap-omatome-icnfont-button";
+		    if (addClass != "") {
+		        div_wrap_omatome_icon_font_button.className += " " + addClass;
+		        if (icon_size != "") {
+		            div_wrap_omatome_icon_font_button.className += " " + icon_size;
+		        }
+		    }
+		    
+		    var span_gradient = document.createElement('span');
+		    if (button_info_obj['gradient']) {
+		        span_gradient.className = "gradient";
+		    }
+		
+		    var span_omatome_icn_font = document.createElement('span');
+		    span_omatome_icn_font.className = "omatome-icnfont " + "omatome-icn-" + icon_name; //< TODO
+		
+		
+		    var span_omatome_icn_font_button = document.createElement('span');
+		    span_omatome_icn_font_button.className = "omatome-icnfont-button";
+		    span_omatome_icn_font_button.style.borderRadius = button_info_obj['radius']+"px";
+		    span_omatome_icn_font_button.style.color = button_info_obj['icon_color'];
+		    span_omatome_icn_font_button.style.backgroundColor = button_info_obj['back_color'];
+		    span_omatome_icn_font_button.style.borderColor = button_info_obj['border_color'];
+		
+		
+		    if (addClass != "icon") {
+		        var span_text = document.createElement('span');
+		        span_text.appendChild(document.createTextNode(text));
+		        span_text.className = "text";
+		        span_text.style.color = button_info_obj['text_color'];
+		        span_omatome_icn_font.appendChild(span_text);
+		    }
+		    
+		    span_gradient.appendChild(span_omatome_icn_font);
+		    span_omatome_icn_font_button.appendChild(span_gradient);
+		
+		    if (addClass != "icon"){
+		        var span_wrap_count = document.createElement('span');
+		        span_wrap_count.className = "wrap-count";
+		        span_wrap_count.style.color = button_info_obj['baloon_text_color'];
+		
+		        var i_front = document.createElement('i');
+		        if (addClass == "vertical") {
+		            i_front.className = "balloon-bottom-front";
+		            i_front.style.borderTopColor = button_info_obj['baloon_border_color'];
+		        }else{
+		            i_front.className = "balloon-left-front";
+		            i_front.style.borderRightColor = button_info_obj['baloon_border_color'];
+		        }
+		
+		        var i_back = document.createElement('i');
+		        if (addClass == "vertical") {
+		            i_back.className = "balloon-bottom-back";
+		            i_back.style.borderTopColor = button_info_obj['baloon_back_color'];
+		        }else{
+		            i_back.className = "balloon-left-back";
+		            i_back.style.borderRightColor = button_info_obj['baloon_back_color'];
+		        }
+		
+		        var textnode = document.createTextNode("0");
+		
+		        var span_count = document.createElement('span');
+		        span_count.className = "count";
+		        span_count.style.backgroundColor = button_info_obj['baloon_back_color'];
+		        span_count.style.borderColor = button_info_obj['baloon_border_color'];
+		
+		        span_count.appendChild(i_front);
+		        span_count.appendChild(i_back);
+		        span_count.appendChild(textnode);
+		
+		        span_wrap_count.appendChild(span_count);
+		
+		        if (addClass == "vertical") {
+		            div_wrap_omatome_icon_font_button.appendChild(span_wrap_count);
+		            div_wrap_omatome_icon_font_button.appendChild(span_omatome_icn_font_button);
+		        }else{
+		            div_wrap_omatome_icon_font_button.appendChild(span_omatome_icn_font_button);
+		            div_wrap_omatome_icon_font_button.appendChild(span_wrap_count);
+		        }
+		    }else{
+		        div_wrap_omatome_icon_font_button.appendChild(span_omatome_icn_font_button);
+		    }
+		
+		    return div_wrap_omatome_icon_font_button;
+		}
+
+
+    } else {
+        w[obsk].ONETAGButton_Load();
+    }
+
+})(document);
+(function(d){
+    var head = d.getElementsByTagName('head')[0];
+    var script = d.createElement('script');
+    script.defer = 'defer';
+    script.async = 'async';
+    script.src  = '//st.shinobi.jp/img/services/admaxdsp/static/javascripts/trac.js';
+    head.insertBefore(script, head.firstChild);
+})(document);

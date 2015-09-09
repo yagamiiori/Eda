@@ -1,0 +1,63 @@
+
+Canvas
+----------
+キャンバスはUI要素を表示するための重要なコンポーネント
+Hierarchy->Create->UI->Canvasで作成可能。
+すべてのUI要素はキャンバスの子供にする必要がある
+
+RenderMode
+----------
+●Screen Space Overlay : RenderMode
+	もっとも基本的なRenderModeであり、規定値。
+	これを選択するとUIはシーン上にオーバーレイ表示され、最前面に描画される。
+	カメラなしでも表示できる。
+	このモードの場合、Canvasのサイズは自動的にスクリーンサイズに合うように変更される。
+	また、スクリーンサイズが変更になる場合も自動的に追従する。
+	よくあるGUI（操作ボタンとか）はこれで問題なさそうね。
+
+●Rect Transform
+	Canvasを含むすべてのUI要素はこのコンポーネント(RectTransformComponent)を持ってる。
+	UI要素はこのコンポーネントに基づいて動作する。（らしい、よく理解できんかった）
+
+	RenderModeにScreen Space Overlayを選んでいる場合、Canvasのこのコンポーネントの値はすべて自動的に入力される。（画面サイズとかに基づいて）
+	CanvasのRectTransformを変更する必要があるのは後述するWorldSpaceに置いたときだけかな？
+	Buttonなどの子要素を移動する場合はこのコンポーネントを操作すればいいみたい。
+
+	PixelPerfectオプションがある。
+	選択するとUI要素は描画時に一番近いPixelに合うように調整される。より鮮明にUI要素を描画したいときに選択するといい。
+
+●Screen Space Camera : RenderMode
+	ScreenSpaceOverlayによく似たRenderMode。
+	特定のカメラに連動して動作する。
+	だけどカメラなしでも表示できるっぽい。
+	（Render Cameraをセットしない場合Overlayと同じ動作なのかな？)
+	RenderCameraにカメラをアタッチして使う
+
+	もちろん連動したカメラのViewPort設定などが反映される。
+
+	カメラとの距離はPlaneDistanceで設定可能
+	カメラごとのClearFlagsやCallingMask、カメラ深度なども適用される。
+
+●World Space : RenderMode
+	これを選択するとUI要素はシーン内に他のオブジェクト同様に配置される
+	これはカメラ必須。
+	このモードのときはRectTransformを自由に書き換えることができ、Scene内の好きな場所に配置できる
+	EventCameraにカメラをセットして使う
+	キャラクター上にHPバーを表示したりとか、そういうときに使うのかな。
+
+●Sorting Layer
+	よく分からん
+
+
+※UIの描画順はキャンバスの上から下に向かって手前に表示される
+　例）CanVas
+　　　┗テキストA
+　　　┗テキストB
+　　　┗テキストC
+
+上記はmugenで言うと
+・テキストA：sprpriority = 1（一番奥）
+・テキストB：sprpriority = 2（真ん中）
+・テキストC：sprpriority = 3（手前）
+になる
+

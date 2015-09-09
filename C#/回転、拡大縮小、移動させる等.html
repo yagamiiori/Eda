@@ -1,0 +1,101 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<title>新しいページ 1</title>
+</head>
+
+<body>
+
+<p><font size="2" color="#808080">
+キャラクターを動かすときは、transformとrigidbodyを使う２種類の方法があります。<br>
+位置を直接設定して移動させるやりかた（transform）は、重力を無視した方法です。<br>
+力を加えて移動するやりかた（rigidbody）は、重力世界の自然な移動方法といえます。<br>
+　</font></p>
+<p><span style="font-weight: 700; background-color: #FF0000">&nbsp;transform
+</span></p>
+<blockquote>
+	<p>絶対座標で移動</p>
+	<blockquote>
+		<p>transform.Translate( 0.1f, 0.0f, 0.0f );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#C0C0C0">//現在の位置からワールドX座標に0.1移動させる</font></p>
+	</blockquote>
+	<p>キャラクターから見た方向へ相対的に移動</p>
+	<blockquote>
+		<p>transform.Translate( transform.forward * 0.1f );&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#C0C0C0">//キャラクターを前方に0.1移動させる<br>
+		</font>transform.Translate( transform.right * 0.1f );&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#C0C0C0">//キャラクターを右に0.1移動させる<br>
+		</font>transform.Translate( transform.up * 0.1f );&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#C0C0C0">//キャラクターを上に0.1移動させる</font></p>
+	</blockquote>
+	<p>指定した座標へ向けて指定した量を移動する</p>
+	<blockquote>
+		<p>transform.position = Vector3.MoveTowards (transform.position , new 
+		Vector3( 10, 10, 10) , 0.1f);&nbsp;&nbsp; <font color="#C0C0C0">
+		//絶対座標の(10,10,10)に向かって0.1移動させる</font><br>
+　</p>
+	</blockquote>
+	<p>振り子運動</p>
+	<blockquote>
+		<p>transform.position = new Vector3( Mathf.Sin( Time.time * 2 ) * 5 , 0 , 0 );</p>
+	</blockquote>
+	<p>毎秒1.5の速度で横方向へ移動</p>
+	<blockquote>
+		<p>transform.position = new Vector3( Time.time * 1.5f , 0 , 0 );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<font color="#C0C0C0">//C#の小数には「f」を付けないとエラーになる</font></p>
+	</blockquote>
+	<p>縦にぴょんぴょん</p>
+	<blockquote>
+		<p>transform.position =&nbsp; new Vector3( 0 , Mathf.Abs( Mathf.Sin( Time.time * 
+	6.0f )) , 0 );</p>
+	</blockquote>
+	<p>拡大・縮小</p>
+	<blockquote>
+		<p>transform.localScale =&nbsp; new Vector3( Mathf.Sin( Time.time * 
+	6.0f ) + 1.5f , 1 , 1 );</p>
+	</blockquote>
+	<p>回転</p>
+	<blockquote>
+		<p>transform.Rotate (　0　,　5　,　0　);</p>
+		<p>transform.Rotate (　0　,　90.0f　*　Time.deltaTime ,　0　);　　<font color="#C0C0C0">　//１秒間に９０度回転</font></p>
+		<p>transform.Rotate ( new Vector3( 0 , 90.0f , 0 ) * Time.deltaTime );　<font color="#C0C0C0">　//１秒間に９０度回転</font></p>
+		<p>transform.Rotate ( new Vector3( 0 , 90.0f , 0 ) * Time.deltaTime , 
+		Space.World<font color="#C0C0C0"> </font>);　<font color="#C0C0C0">　//１秒間に９０度回転。ただしワールド座標のY軸で回転</font></p>
+	</blockquote>
+	<p>回転</p>
+	<blockquote>
+		<p>transform.rotation = Quaternion.Euler(45, 45, 0);</p>
+	</blockquote>
+	<p>Y軸周りに回転</p>
+	<blockquote>
+		<p>transform.rotation = Quaternion.AngleAxis (Time.time * 120 , new 
+		Vector3( 0 , 1 , 0));</p>
+	</blockquote>
+	<p>回転の合成 <font color="#808080">（式の右項から回転が実行される）</font></p>
+	<blockquote>
+		<p>transform.rotation = Quaternion.AngleAxis (Time.time * 120 , new 
+		Vector3( 0 , 1 , 0)) * Quaternion.AngleAxis (Time.time * 77 , new 
+		Vector3( 1 , 0 , 0));</p>
+	</blockquote>
+</blockquote>
+
+<p><span style="font-weight: 700; background-color: #FF0000">&nbsp;rigidbody
+</span><span style="font-weight: 700">　</span><font color="#808080">（要rigidbodyコンポーネント
+、useGrabityも関与、パラメータで物体の重さを関与させたりさせなかったり出来る）</font></p>
+<blockquote>
+	<p>速度ベクトルを変更する</p>
+	<blockquote>
+		<p>rigidbody.velocity = new Vector3( 2 , 0 , 0 );　　<font color="#C0C0C0">//X方向に２の
+		速度</font></p>
+	</blockquote>
+	<p>力を加える</p>
+	<blockquote>
+		<p>transform.rigidbody.AddForce ( 2 , 0 , 0 );&nbsp;&nbsp;&nbsp;&nbsp; <font color="#C0C0C0">//X方向に２の力</font></p>
+		<p>　</p>
+	</blockquote>
+</blockquote>
+
+</body>
+
+</html>

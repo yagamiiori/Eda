@@ -1,0 +1,70 @@
+
+
+	// 手牌リスト
+	public static int[] tehai;
+
+	// 役判定リスト
+	public static int[] yakujudge;
+
+	// 手牌枚数14枚分をループし、手牌配列より牌種と枚数を取得
+	for(int i=0; i < 14; i++)
+	{
+		// 萬子
+		if(tehai[i] == Def.M1) yakujudge[1] += 1;
+		if(tehai[i] == Def.M2) yakujudge[2] += 1;
+		if(tehai[i] == Def.M3) yakujudge[3] += 1;
+		if(tehai[i] == Def.M4) yakujudge[4] += 1;
+		if(tehai[i] == Def.M5) yakujudge[5] += 1;
+		if(tehai[i] == Def.M6) yakujudge[6] += 1;
+		if(tehai[i] == Def.M7) yakujudge[7] += 1;
+		if(tehai[i] == Def.M8) yakujudge[8] += 1;
+		if(tehai[i] == Def.M9) yakujudge[9] += 1;
+
+		// 索子
+		if(tehai[i] == Def.S1) yakujudge[11] += 1;
+		if(tehai[i] == Def.S2) yakujudge[12] += 1;
+		if(tehai[i] == Def.S3) yakujudge[13] += 1;
+		if(tehai[i] == Def.S4) yakujudge[14] += 1;
+		if(tehai[i] == Def.S5) yakujudge[15] += 1;
+		if(tehai[i] == Def.S6) yakujudge[16] += 1;
+		if(tehai[i] == Def.S7) yakujudge[17] += 1;
+		if(tehai[i] == Def.S8) yakujudge[18] += 1;
+		if(tehai[i] == Def.S9) yakujudge[19] += 1;
+
+		// 筒子
+		if(tehai[i] == Def.P1) yakujudge[21] += 1;
+		if(tehai[i] == Def.P2) yakujudge[22] += 1;
+		if(tehai[i] == Def.P3) yakujudge[23] += 1;
+		if(tehai[i] == Def.P4) yakujudge[24] += 1;
+		if(tehai[i] == Def.P5) yakujudge[25] += 1;
+		if(tehai[i] == Def.P6) yakujudge[26] += 1;
+		if(tehai[i] == Def.P7) yakujudge[27] += 1;
+		if(tehai[i] == Def.P8) yakujudge[28] += 1;
+		if(tehai[i] == Def.P9) yakujudge[29] += 1;
+
+		// 字牌
+		if(tehai[i] == Def.Z1) yakujudge[21] += 1;
+		if(tehai[i] == Def.Z2) yakujudge[22] += 1;
+		if(tehai[i] == Def.Z3) yakujudge[23] += 1;
+		if(tehai[i] == Def.Z4) yakujudge[24] += 1;
+		if(tehai[i] == Def.Z5) yakujudge[25] += 1;
+		if(tehai[i] == Def.Z6) yakujudge[26] += 1;
+		if(tehai[i] == Def.Z7) yakujudge[27] += 1;
+
+		// 例外？
+		if(tehai[i] == 0) yakujudge[0] += 1;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

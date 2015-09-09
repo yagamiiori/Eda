@@ -1,0 +1,57 @@
+
+EventSystem.current.currentSelectedGameObjectを使う
+
+EventSystem.current.currentSelectedGameObjectの中にUIでタップしたGameObjectが格納される。
+
+
+================================================================
+
+
+１　あなたのボタンのゲームオブジェクトにイベントトリガーコンポーネントを追加します。
+２　[新規追加]ボタンをクリックして、PointerEnterを選択します。
+３　今型PointerEnter（BaseEventData）のイベントのリストに新しい項目を追加するために「+」ボタンをクリックします。
+４　あなたのスクリプトを含むオブジェクトを選択します。
+５　今、関数のリストから呼び出される関数を選択します。
+
+
+PointerEventData pe = new PointerEventData(EventSystem.current);
+     pe.position =  Input.mousePosition;
+ 
+     List<RaycastResult> hits = new List<RaycastResult>();
+     EventSystem.current.RaycastAll( pe, hits );
+ 
+     bool hit = false;
+     GameObject hgo = null;
+     string gos = "gos: ";
+     foreach(RaycastResult h in hits)
+     {
+         GameObject g = h.go;
+         gos += g + "  ";
+         hit = ( g.name != "BackgroundEventCatcher" &&
+                 (g.GetComponent<Button>() ||
+                  g.GetComponent<Canvas>() ||
+                  g.GetComponent<InputField>())
+                );
+         if(hit)
+         {
+             break;
+         }
+     }
+ 
+     if( hit ||
+         EventSystem.current.currentSelectedGameObject != null &&
+         EventSystem.current.currentSelectedGameObject.name != "BackgroundEventCatcher" &&
+        (EventSystem.current.currentSelectedGameObject.GetComponent<Button>() != null ||
+         EventSystem.current.currentSelectedGameObject.GetComponent<Canvas>() != null ||
+         EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() != null) )
+     {
+         keyMode = eKeyInputMode.EnteringText;
+     }
+     else
+     {
+         keyMode = eKeyInputMode.KeysAreCommands;
+     }
+ 
+     Notifications.ShowNotification("hit : " + hit + " of " + hits.Count + " :  " + keyMode + " :  gos " + gos);
+ 
+

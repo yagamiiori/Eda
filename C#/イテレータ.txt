@@ -1,0 +1,53 @@
+
+・イテレーター構文： IEnumerator を簡単に実装するための機能であり
+　配列やそれに類似するデータ構造の各要素に対する繰返し処理の抽象化
+
+・return の代わりに yield return
+
+・staticでも非staticでもどちらでも定義できる
+
+・foreach 文で利用できるコレクションクラスを自作するには
+　IEnumerableインターフェースを継承しGetEnumeratorメソッドをオーバーライドする
+
+・イテレーターはコレクションクラスを実装する際の手間が大幅に削減できるが
+　少々抽象度が高く内容が想定しづらい
+
+・クラス中にイテレーター ブロックと言うものを定義することで
+　foreach 文で利用可能なコレクションクラスを簡単に実装することができます。
+　イテレーターブロックは以下のように一見すると通常のメソッドと似ています。
+
+============================================================================
+ // これがイテレーターブロック
+ // IEnubrableを実装するクラスを自動生成してくれる
+  static public IEnumerable<int> FromTo(int from, int to)
+  {
+    while(from <= to)
+      yield return from++;
+  }
+
+
+ // ↓こんな感じで使う。
+  foreach(int i in FromTo(10, 20))
+  {
+      Console.Write("{0}\n", i);
+  }
+
+============================================================================
+メソッドとの違いは以下の通り
+
+・return の変わりに yield return というキーワードを使う。
+
+・break の変わりに yield break というキーワードを使う。
+
+・戻り値の型が以下のうちのいずれか
+　　System.Collections.IEnumerator
+　　System.Collections.Generic.IEnumerator<T>
+　　System.Collections.IEnumerable
+　　System.Collections.Generic.IEnumerable<T>
+
+============================================================================
+
+
+
+
+

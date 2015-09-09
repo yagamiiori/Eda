@@ -1,0 +1,47 @@
+
+-----------------------------------------
+コントロールのスレッド セーフな呼び出し
+-----------------------------------------
+
+コントロールをスレッド セーフで呼び出すには、次のようにする必要があります。
+
+コントロールのInvokeRequiredプロパティから、スレッドが異なるか確認する。
+コントロールと同一のスレッドで実行されるように処理します。
+スレッドが異なる ： コントロールと同一のスレッドで実行されるように、delegateを使用してInvoke()メソッドから呼び出す。
+スレッドが同一 ： コントロールを直接呼び出す。
+
+---------------
+サンプルコード
+---------------
+
+// 処理対象のWindowsフォームコントロール
+private System.Windows.Forms.TextBox textBox;
+
+// Windowsフォームコントロールに対して非同期な呼び出しを行うためのデリゲート
+delegate void SetTextCallback( string text );
+private void SetText( string text )
+{
+    // 呼び出し元のコントロールのスレッドが異なるか確認をする
+    if( this.textBox.InvokeRequired )
+    {
+        // [スレッドが異なる]
+
+        // 同一メソッドへのコールバックを作成する
+        SetTextCallback delegateMethod = new SetTextCallback( SetText );
+
+        // コントロールの親のInvoke()メソッドを呼び出すことで、呼び出し元の
+        // コントロールのスレッドでこのメソッドを実行する
+        this.Invoke( delegateMethod, new object[] { text } );
+    }
+    else
+    {
+        // [スレッドが同一]
+
+        // コントロールを直接呼び出す
+        this.textBox.Text = text;
+    }
+}
+
+
+http://so-zou.jp/software/tech/programming/c-sharp/thread/invoke-control.htm
+

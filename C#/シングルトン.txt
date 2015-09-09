@@ -1,0 +1,62 @@
+
+========================
+シングルトンクラス側
+========================
+public class SampleSingleton {
+
+    // インスタンスフィールド（static化しないと意味が無い（プログラムの中に実体が1個しか作られないため））
+    private static SampleSingleton mInstance;
+
+    // 静的コンストラクタにする事で外部からのnewを防ぐ
+    private SampleSingleton () {}
+
+    // プロパティ：Instance
+    public static SampleSingleton Instance
+    {
+        get
+        {
+            // インスタンスがない場合
+            if( mInstance == null )
+            {
+                 // インスタンスを生成
+                 mInstance = new SampleSingleton();
+            }
+            return mInstance;
+        }
+    }
+}
+
+
+
+========================
+シングルトンを使う側
+========================
+
+public class Sample : MonoBehaviour {
+
+    // シングルトンクラスフィールド
+    SampleSingleton sample1;
+
+    void Start ()
+    {
+	// プロパティからインスタンスを取得
+        // 普通の「sample1 = new SampleSingleton();」とせずInstanceプロパティを経る事で
+        // 多重起動を抑止する
+        sample1 = SampleSingleton.Instance;
+    }
+}
+
+
+もちろん、普通にシングルトンにしてもおｋ
+当たり前だが速度面ではそっちの方が圧倒的に早いはずだしな
+
+実行速度の話？
+
+そう
+Stage stage = gameObject.GetComponentInParent<Stage>();
+とかやって、先祖からStageを見つけて貰わないといけないからな
+シングルトンなら Stage.Instance の中で static 変数を返せばいいのでかなり高速
+まあ、それが原因でラグる事はまずないとは思うけど
+
+
+

@@ -1,0 +1,1791 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0047)http://yohshiy.blog.fc2.com/blog-entry-212.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="content-language" content="ja">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<!-- 次の meta タグによって最新のレンダリングモードを指定 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="copyright" content="© 2015 プログラマーズ雑記帳">
+
+
+
+<meta name="description" content="今回は C# のインターフェースの
+IDisposable に関する説明です。
+このインターフェースはファイルといった後処理のタイミング管理が必要なクラスで実装します。
+
+
+using
+
+IDisposable を継承すると using (名前空間のものとは別) が使えるようになります。
+まず、この using について説明します。
+
+あるファイルに書き込みを行い、次にそれに読み取る処理を考えます。
+
+
+ {
+     StreamWriter sw = new StreamWrite...">
+<meta name="keywords" content="C#,インターフェース,C#,インターフェース,C# インターフェース - IDisposable">
+
+
+
+
+
+
+<title>
+ C# インターフェース - IDisposable | プログラマーズ雑記帳</title>
+
+<!-- Facebook OGP -->
+<meta property="og:image" content="http://blog-imgs-44.fc2.com/y/o/h/yohshiy/blogicon.png">
+<meta property="og:site_name" content="プログラマーズ雑記帳">
+<meta property="fb:admins" content="100002674937226">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# インターフェース - IDisposable | プログラマーズ雑記帳">
+<meta property="og:url" content="http://yohshiy.blog.fc2.com/blog-entry-212.html">
+<meta property="og:description" content="今回は C# のインターフェースの
+IDisposable に関する説明です。
+このインターフェースはファイルといった後処理のタイミング管理が必要なクラスで実装します。
+
+
+using
+
+IDisposable を継承すると using (名前空間のものとは別) が使えるようになります。
+まず、この using について説明します。
+
+あるファイルに書き込みを行い、次にそれに読み取る処理を考えます。
+
+
+ {
+     StreamWriter sw = new StreamWrite...">
+<link rel="alternate" type="application/rss+xml" href="http://yohshiy.blog.fc2.com/?xml" title="RSS">
+<link rel="alternate" type="application/rss+xml" title="sitemap" href="http://yohshiy.blog.fc2.com/sitemaps.xml">
+<link rel="top" href="http://yohshiy.blog.fc2.com/" title="top">
+<link rel="start" href="http://yohshiy.blog.fc2.com/" title="start">
+<link rel="contents" href="http://yohshiy.blog.fc2.com/archives.html" title="contents">
+<link rel="index" href="http://yohshiy.blog.fc2.com/?all" title="index">
+
+<link rel="next" href="http://yohshiy.blog.fc2.com/blog-entry-214.html" title="ライブラリー、ツールキット、フレームワーク 違いわかる?"><link rel="prev" href="http://yohshiy.blog.fc2.com/blog-entry-211.html" title="C# インターフェース - IEnumerable(T)">
+<link rel="shortcut icon" href="http://blog-imgs-44.fc2.com/y/o/h/yohshiy/favicon.ico" type="image/x-icon">
+
+<!-- コードハイライト用追加部 -->
+<link href="./IDisposableとusing_files/sh_style.css" type="text/css" rel="stylesheet">
+<script src="./IDisposableとusing_files/cb=gapi.loaded_1" async=""></script><script src="./IDisposableとusing_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./IDisposableとusing_files/plusone.js" gapi_processed="true"></script><script id="twitter-wjs" src="./IDisposableとusing_files/widgets.js"></script><script id="facebook-jssdk" src="./IDisposableとusing_files/all.js"></script><script type="text/javascript" async="" src="./IDisposableとusing_files/ga.js"></script><script type="text/javascript" src="./IDisposableとusing_files/sh_main.js"></script>
+<script type="text/javascript" src="./IDisposableとusing_files/sh_cpp.js"></script>
+<script type="text/javascript" src="./IDisposableとusing_files/sh_html.js"></script>
+<script type="text/javascript" src="./IDisposableとusing_files/sh_css.js"></script>
+<script type="text/javascript" src="./IDisposableとusing_files/sh_ruby.js"></script>
+<script type="text/javascript" src="./IDisposableとusing_files/sh_sh.js"></script>
+
+<!-- ==== SNS ボタンのスクリプト部 ==== -->
+
+<!-- ShareThis -->
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="./IDisposableとusing_files/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "9756bf96-e536-441b-8af7-65cf4e20ec2d"}); </script>
+
+
+<!-- ページナビ用 ====-->
+<script type="text/javascript" src="./IDisposableとusing_files/pagenavi.js"></script>
+<script type="text/javascript">
+/* ページナビ用変数 */
+prevpageurl = '';
+nextpageurl = '';
+n = '';
+</script>
+
+<link rel="stylesheet" type="text/css" href="./IDisposableとusing_files/0ece2.css" media="all" title="default">
+
+
+<!-- Google Analytics  -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33275825-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+ 
+<link type="text/css" href="./IDisposableとusing_files/index.css"><script src="./IDisposableとusing_files/comment_toolbar.lang.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, "hiragino kaku gothic pro",meiryo,"ms pgothic",sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><script defer="" type="text/javascript" charset="utf-8" src="./IDisposableとusing_files/json"></script><script defer="" type="text/javascript" charset="utf-8" src="./IDisposableとusing_files/json(1)"></script><script type="text/javascript" src="./IDisposableとusing_files/getAllAppDefault.esi"></script><script type="text/javascript" src="./IDisposableとusing_files/checkOAuth.esi"></script><link rel="stylesheet" type="text/css" href="./IDisposableとusing_files/buttons.120ed90e1b3c2f9b0e4b610b98d4d082.css"><script type="text/javascript" src="./IDisposableとusing_files/getCount2.php"></script></head>
+<body onload="sh_highlightDocument();" data-twttr-rendered="true"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./IDisposableとusing_files/hub.dab02f671b49f4efe4238b9ed55a65b5(1).html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./IDisposableとusing_files/hub.dab02f671b49f4efe4238b9ed55a65b5.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe>
+
+<!-- Header ================ -->
+
+<div class="header">
+  <div id="page_header">
+    <h1>
+      <a title="プログラミング好きのブログです。プログラミング関連の話題や公開ソフトの開発記などを雑多に書いてます。ただ、たまに英語やネット系の話になることも。" accesskey="0" href="http://yohshiy.blog.fc2.com/">プログラマーズ雑記帳</a>
+    </h1>
+  </div>
+
+  <div id="top_menu">
+    <ul>
+    <li><a title="ホーム" href="http://yohshiy.blog.fc2.com/"><img src="./IDisposableとusing_files/home.png" alt="Home"> Home</a></li>
+      <li><a title="記事一覧" href="http://yohshiy.blog.fc2.com/archives.html"><img src="./IDisposableとusing_files/archives.png" alt="Archives"> Title list</a></li>
+      <li><a title="RSS 購読" href="http://yohshiy.blog.fc2.com/?xml" target="_blank"><img src="./IDisposableとusing_files/rss.png" alt="RSS"> RSS</a></li>
+      <li><a title="管理画面" href="http://admin.blog.fc2.com/control.php?" target="_blank"><img src="./IDisposableとusing_files/options.png" alt="Admin"> Admin</a></li>
+      <li>
+        <form action="./IDisposableとusing_files/IDisposableとusing.html" method="get">
+          <input class="menu_search_input" type="text" name="q" maxlength="200" title="サイト内検索">
+          <input class="menu_search_btn" type="image" alt="検索" title="検索" src="./IDisposableとusing_files/search.png">
+        </form>
+    </li>
+    </ul>
+  </div>
+
+</div>
+
+
+<div id="container">
+
+
+<div id="primary">
+<div id="main">
+
+      
+
+
+  
+  <!-- 記事 ================ -->
+
+      <div id="e212" class="article">
+    <!-- パンくずリスト vvvv -->
+    <div class="breadcrumb"><span class="breadcrumb">
+            <a href="http://yohshiy.blog.fc2.com/blog-category-25.html" title="C#">C#</a>
+      &nbsp;»&nbsp;
+            <a href="http://yohshiy.blog.fc2.com/blog-category-26.html" title="インターフェース">インターフェース</a>
+    </span></div>
+    <!-- パンくずリスト ^^^^ -->
+    
+    <div class="content">
+      <h2 class="ctitle entry_header">
+              C# インターフェース - IDisposable            </h2>
+            <div class="entry_info">
+        <img src="./IDisposableとusing_files/tag.png" alt="Tag">
+        <a href="http://yohshiy.blog.fc2.com/?tag=C%23">C#</a>
+        <a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9">インターフェース</a>
+              </div>
+       
+      <div class="entry_body">
+        今回は <a href="http://yohshiy.blog.fc2.com/blog-category-26.html">C# のインターフェース</a>の
+<a href="http://msdn.microsoft.com/ja-jp/library/vstudio/system.idisposable.aspx" target="_blank">IDisposable</a> に関する説明です。<br>
+このインターフェースはファイルといった後処理のタイミング管理が必要なクラスで実装します。
+
+
+<h3>using</h3>
+
+IDisposable を継承すると <strong>using</strong> (名前空間のものとは別) が使えるようになります。
+まず、この using について説明します。<br>
+<br>
+あるファイルに書き込みを行い、次にそれに読み取る処理を考えます。
+
+<pre> {
+     <span class="type">StreamWriter</span> <span class="variable-name">sw</span> = <span class="keyword">new</span> <span class="type">StreamWriter</span>(<span class="string">"TestFile.txt"</span>);
+     <span class="comment-delimiter">// </span><span class="comment">ファイルへの書き込み
+</span>     <span class="variable-name">sw</span>.<span class="function-name">WriteLine</span>(<span class="string">"Hello World!"</span>);
+ }
+<span class="comment-delimiter"> // </span><span class="comment">ファイルの読込
+</span><span class="type"> StreamReader</span> <span class="variable-name">sr</span> = <span class="keyword">new</span> <span class="type">StreamReader</span>(<span class="string">"TestFile.txt"</span>);
+</pre>
+ファイルへの書き込みを行うオブジェクト <var>sw</var> はブロックを抜けると、
+必要がなくなり解放されます。この時ファイルのクローズが行われます。<br>
+ただし、解放の後処理をガベージコレクション(GC)任せにしていると、
+ファイルが閉じられる前にアクセスして、不測の結果を招きかねません。
+<br>
+<br>
+そこで、今度はちゃんとファイルのクローズも呼び出してみます。<br>
+C# では IO ストリーム系のクラスはファイルのクローズ Close()
+とリソースの解放 Dispose() が同じ処理です。
+ここではクローズの処理として Dispose() を使用します。
+<pre> {
+     <span class="type">StreamWriter</span> <span class="variable-name">sw</span> = <span class="keyword">new</span> <span class="type">StreamWriter</span>(<span class="string">"TestFile.txt"</span>);
+     <span class="comment-delimiter">// </span><span class="comment">ファイルへの書き込み
+</span>     <span class="variable-name">sw</span>.<span class="function-name">WriteLine</span>(<span class="string">"Hello World!"</span>);
+ 
+     <span class="variable-name">sw</span>.<span class="function-name">Dispose</span>();               <span class="comment-delimiter">// </span><span class="comment">sw.Close() と同じ
+</span> }
+</pre>
+
+
+これで OK としたいところですが、
+書き込みの処理が複雑になってくると<strong>例外</strong>の発生も考慮する必要がでてきます。<br>
+途中の処理で例外が発生して、抜けることになっても Dispose() は呼び出さないといけません。<br>
+<br>
+これを try, catch, finally で書くと次のようになります。
+
+<pre><span class="type"> StreamWriter</span> <span class="variable-name">sw</span> = <span class="keyword">new</span> <span class="type">StreamWriter</span>(<span class="string">"TestFile.txt"</span>);
+<span class="keyword"> try</span>
+ {
+     <span class="comment-delimiter">// </span><span class="comment">ファイルへの書き込み
+</span>     <span class="variable-name">sw</span>.<span class="function-name">WriteLine</span>(<span class="string">"Hello World!"</span>);
+ }
+<span class="keyword"> catch</span>( <span class="type">Exception</span> <span class="variable-name">e</span> )
+ {
+     <span class="comment-delimiter">// </span><span class="comment">例外処理
+</span> }
+<span class="keyword"> finally</span>
+ {
+     <span class="comment-delimiter">// </span><span class="comment">常に行う終了処理
+</span>     <span class="variable-name">sw</span>.<span class="function-name">Dispose</span>();
+ }
+</pre>
+
+しかし、これでは記述が若干面倒です。
+これを簡易的に記述するのが <strong>using</strong> です。
+
+<pre><span class="keyword"> using</span> (IDisposableを継承したオブジェクト)
+ {
+     <span class="comment-delimiter">// </span><span class="comment">処理
+</span> }
+<span class="comment-delimiter"> // </span><span class="comment">ブロックを抜けるときにオブジェクトの Dispose() メソッドを呼び出す。
+</span></pre>
+
+<pre><span class="keyword"> using</span> (<span class="type">StreamWriter</span> <span class="variable-name">sw</span> = <span class="keyword">new</span> <span class="type">StreamWriter</span>(<span class="string">"TestFile.txt"</span>));
+ {
+     <span class="comment-delimiter">// </span><span class="comment">ファイルへの書き込み
+</span>     <span class="variable-name">sw</span>.<span class="function-name">WriteLine</span>(<span class="string">"Hello World!"</span>);
+ }
+</pre>
+
+実際には何度もアクセスするということがなければ、
+ファイルのクローズも GC まかせでも問題はないかもしれません。<br>
+しかし、修正等でいざアクセスすることになったとき、 GC まかせなので、
+環境によって出たり出なかったりする <em>たちの悪いバグ</em> になる可能性があります。<br>
+<br>
+IDisposable の継承は後処理のタイミング管理が必要というサインです。
+<em>IDisposable を継承したクラスでは必ず using を使う</em>というように心がけた方がいいでしょう。
+
+
+
+<h3>用途</h3>
+
+特殊なファイルの IO で標準のストリームクラスをラップするようなクラスを作ったとします。
+それだとストリームクラスは使いますが using は使えません。<br>
+このような場合には、自作のクラスで IDisposable を継承し、
+それを利用する際に using を使うということになります。<br>
+すなわち、 <em>IDisposable を継承したクラスをメンバーで持つ</em>場合に自身も IDisposable を継承します。
+
+
+<h4>マネージリソースとアンマネージリソース</h4>
+
+C# では通常のオブジェクトは GC で管理される<strong>マネージリソース</strong>です。
+ストリームクラスのようにファイルを扱うようなオブジェクトは<strong>アンマネージリソース</strong>と呼ばれます。<br>
+その他にも C++ 由来のライブラリーなどで、
+メモリー解放用のメソッドを呼び出す必要のあるオブジェクトもアンマネージリソースです。<br>
+<br>
+私としては "アンマネージリソースを持つクラスは全部 IDisposable を実装する"
+ということにはならないと思います。<br>
+アンマネージリソースでも
+ファイナライザー(デストラクター)で解放用メソッドを呼び出せば、
+GC が一緒に解放してくれます。<br>
+<em>後処理のタイミングを制御する必要があるクラス</em>でのみ
+IDisposable を継承するとした方がいいと思います。
+
+<pre><span class="comment-delimiter">// </span><span class="comment">アンマネージリソースを持つクラス
+</span><span class="keyword">class</span> <span class="type">MyResource</span>
+{
+    <span class="comment-delimiter">// </span><span class="comment">アンマネージリソース
+</span>    <span class="keyword">private</span> <span class="type">IntPtr</span> <span class="variable-name">_handle</span>;
+    
+    <span class="comment-delimiter">// </span><span class="comment">ファイナライザー(デストラクター)
+</span>    ~MyResource()
+    {
+        <span class="comment-delimiter">// </span><span class="comment">アンマネージリソースの解放処理
+</span>        CloseHandle(_handle);
+        handle = IntPtr.Zero;
+
+        <span class="comment-delimiter">// </span><span class="comment">(マネージリソースは GC に任せるのでここでは解放しません)
+</span>    }   
+}
+</pre>
+
+
+
+<h3>実装するメソッド</h3>
+
+IDisposable を継承するには
+<a href="http://msdn.microsoft.com/ja-jp/library/vstudio/system.idisposable.dispose.aspx" target="_blank">Dispose()</a>
+メソッドを実装します。
+<pre><span class="type">void</span> <span class="function-name">Dispose</span><span class="show-paren-match">()</span></pre>
+
+<img src="./IDisposableとusing_files/cs_idisposable.png" title="" alt="cs_idisposable.png">
+<!--
+@startuml{images/cs_idisposable.png}
+interface IEnumerable {
+  +{abstract} void Dispose();
+}
+class "後処理のタイミングを管理するクラス" as MyClass
+class MyClass {
+  + void Dispose();
+}
+IEnumerable <|.. MyClass
+@enduml
+-->
+<br>
+<br>
+
+実際には Dispose() でアンマネージリソースだけ解放して、
+残りは GC で解放といったこともできます。<br>
+しかし、 <em>Dispose() ではマネージリソース、アンマネージリソースともに解放する</em>
+というのが勧められているようです。
+
+
+<h3>実装方法</h3>
+
+IDisposable の実装をサンプルを使って説明していきたいと思います。<br>
+最初にサンプルの概略を説明した後、 Dispose() の実装について解説します。
+
+
+<h4>サンプル</h4>
+
+サンプルでは <a href="http://msdn.microsoft.com/ja-jp/library/system.io.streamwriter(v=vs.80).aspx" target="_blank">StreamWriter</a> をラップして、 html ファイルを作成するようなクラスを作成してみました。
+
+<ul>
+  <li><a href="http://myoshida-rp.googlecode.com/svn/trunk/cs/interface/IDisposableSample.cs">IDisposableSample.cs</a></li>
+</ul>
+
+<a href="http://yohshiy.blog.fc2.com/blog-entry-208.html">コンパイル</a>:
+<pre> &gt; csc IDisposableSample.cs</pre>
+
+
+このクラスでは StreamWriter をメンバーとして持ち、
+それを利用して Html のコードの書き込みを行います。<br>
+(CheckDisposed() については後述します)
+
+<pre><span class="keyword">class</span> <span class="type">HtmlFileWriter</span> : <span class="type">IDisposable</span>
+{
+    <span class="comment-delimiter">// </span><span class="comment">後処理の管理が必要なメンバー
+</span>    <span class="type">StreamWriter</span> <span class="variable-name">_writer</span>;
+    <span class="comment-delimiter">// </span><span class="comment">通常のメンバー
+</span>    <span class="type">string</span> <span class="variable-name">_title</span>;
+
+    <span class="comment-delimiter">// </span><span class="comment">:
+</span>        
+    <span class="keyword">public</span> <span class="type">void</span> <span class="function-name">Write</span>(<span class="type">string</span> <span class="variable-name">str</span>)
+    {
+        CheckDisposed();
+        <span class="variable-name">_writer</span>.<span class="function-name">Write</span>(<span class="type">HttpUtility</span>.<span class="function-name">HtmlEncode</span>(str));
+    }   
+
+    <span class="keyword">public</span> <span class="type">void</span> <span class="function-name">WriteRaw</span>(<span class="type">string</span> <span class="variable-name">str</span>)
+    {
+        CheckDisposed();
+        <span class="variable-name">_writer</span>.<span class="function-name">Write</span>(str);
+    }   
+        
+    <span class="keyword">public</span> <span class="type">void</span> <span class="function-name">WriteLine</span>(<span class="type">string</span> <span class="variable-name">str</span> = <span class="string">""</span>)
+    {
+        Write(str);
+        <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">" &lt;br /&gt;"</span>);    
+    }   
+
+    <span class="comment-delimiter">// </span><span class="comment">:
+</span>        
+} <span class="comment-delimiter">// </span><span class="comment">HtmlFileWriter
+</span></pre>
+
+
+ファイルのオープン、クローズ時にはそれぞれ html のヘッダー、フッターを出力します。
+
+<pre><span class="comment-delimiter"> // </span><span class="comment">コンストラクター
+</span><span class="keyword"> public</span> <span class="function-name">HtmlFileWriter</span>(<span class="type">string</span> <span class="variable-name">fpath</span>, <span class="type">string</span> <span class="variable-name">title</span> = <span class="string">"Sample"</span>)
+ {
+     _title = title;
+     _writer = <span class="type">File</span>.<span class="function-name">CreateText</span>(fpath);
+     <span class="function-name">WriteHeader</span>();
+ }
+ 
+<span class="keyword"> private</span> <span class="type">void</span> <span class="function-name">WriteHeader</span>()
+ {
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;html&gt;"</span>);
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;head&gt;"</span>);
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;title&gt; "</span> + _title + <span class="string">" &lt;/title&gt;"</span>);
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;/head&gt;"</span>);
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;body&gt;"</span>);
+ }      
+ 
+<span class="keyword"> private</span> <span class="type">void</span> <span class="function-name">WriteFooter</span>()
+ {
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;/body&gt;"</span>);
+     <span class="variable-name">_writer</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;/html&gt;"</span>);
+ }
+</pre>
+
+
+クラスの使用例と実行時の生成ファイルは次のようになります。
+
+<pre><span class="keyword">static</span> <span class="type">void</span> <span class="function-name">Main</span>(<span class="type">string</span>[] <span class="variable-name">args</span>)
+{
+    <span class="type">string</span> <span class="variable-name">samplefpath</span> = <span class="string">"sample.html"</span>;
+
+    <span class="keyword">using</span> (<span class="type">HtmlFileWriter</span> <span class="variable-name">fp</span> = <span class="keyword">new</span> <span class="type">HtmlFileWriter</span>(samplefpath))
+    {
+        <span class="variable-name">fp</span>.<span class="function-name">WriteLine</span>(<span class="string">"test"</span>);
+        <span class="variable-name">fp</span>.<span class="function-name">WriteLine</span>(<span class="string">"&lt;test&gt;"</span>);
+        <span class="variable-name">fp</span>.<span class="function-name">WriteRaw</span>(<span class="string">"&lt;strong&gt;Test&lt;/strong&gt;"</span>);
+        <span class="variable-name">fp</span>.<span class="function-name">WriteLine</span>();
+    }
+}
+</pre>
+
+sample.html :
+<pre>&lt;<span class="function-name">html</span>&gt;
+&lt;<span class="function-name">head</span>&gt;
+&lt;<span class="function-name">title</span>&gt;<span class="underline"><span class="bold"> Sample </span></span>&lt;/<span class="function-name">title</span>&gt;
+&lt;/<span class="function-name">head</span>&gt;
+&lt;<span class="function-name">body</span>&gt;
+test &lt;<span class="function-name">br</span> /&gt;
+<span class="variable-name">&amp;lt;</span>test<span class="variable-name">&amp;gt;</span> &lt;<span class="function-name">br</span> /&gt;
+&lt;<span class="function-name">strong</span>&gt;<span class="bold">Test</span>&lt;/<span class="function-name">strong</span>&gt; &lt;<span class="function-name">br</span> /&gt;
+&lt;/<span class="function-name">body</span>&gt;
+&lt;/<span class="function-name">html</span>&gt;
+</pre>
+
+
+<h4>IDisposable 実装のテンプレート</h4>
+
+IDisposable の実装については MSDN でテンプレート的なものが示されています。<br>
+これにあわせて実装していきます。
+
+<ul>
+  <li><a href="http://msdn.microsoft.com/ja-jp/library/fs2xkftw.aspx" target="_blank">Dispose メソッドの実装</a></li>
+  <li><a href="http://msdn.microsoft.com/ja-jp/library/vstudio/system.idisposable.dispose.aspx" target="_blank">IDisposable.Dispose メソッド (System)</a></li>
+</ul>
+
+
+<pre><span class="keyword">class</span> <span class="type">HtmlFileWriter</span> : <span class="type">IDisposable</span>
+{
+    <span class="comment-delimiter">// </span><span class="comment">Dispose したかどうか
+</span>    <span class="keyword">private</span> <span class="type">bool</span> <span class="variable-name">_disposed</span> = <span class="constant">false</span>;
+    
+
+    <span class="comment-delimiter">// </span><span class="comment">IDisposable に必須のメソッドの実装
+</span>    <span class="keyword">public</span> <span class="type">void</span> <span class="function-name">Dispose</span>()
+    {
+        Dispose(<span class="constant">true</span>);
+        <span class="comment-delimiter">// </span><span class="comment">Dispose() によってリソースの解放を行ったので、
+</span>        <span class="comment-delimiter">// </span><span class="comment">GC での解放が必要が無いことを GC に通知します。
+</span>        <span class="type">GC</span>.<span class="function-name">SuppressFinalize</span>(<span class="keyword">this</span>);
+    }
+
+    <span class="comment-delimiter">// </span><span class="comment">ファイナライザー(デストラクター)
+</span>    <span class="comment-delimiter">//</span><span class="comment">
+</span>    <span class="comment-delimiter">// </span><span class="comment">Dispose() が呼び出されていない場合のみ
+</span>    <span class="comment-delimiter">// </span><span class="comment">実行されます。
+</span>    ~HtmlFileWriter()
+    {
+        Dispose(<span class="constant">false</span>);
+    }
+
+        
+    <span class="comment-delimiter">// </span><span class="comment">このメソッドの呼び出され方は 2 パターンあります。
+</span>    <span class="comment-delimiter">// </span><span class="comment">
+</span>    <span class="comment-delimiter">// </span><span class="comment">disposing が true であれば、 Dispose() から呼び出されています。
+</span>    <span class="comment-delimiter">//</span><span class="comment">
+</span>    <span class="comment-delimiter">// </span><span class="comment">disposing が false であれば、 ファイナライザー(~HtmlFileWriter)
+</span>    <span class="comment-delimiter">// </span><span class="comment">から呼び出されています。
+</span>    <span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="type">void</span> <span class="function-name">Dispose</span>(<span class="type">bool</span> <span class="variable-name">disposing</span>)
+    {
+        <span class="comment-delimiter">// </span><span class="comment">Dispose がまだ実行されていないときだけ実行
+</span>        <span class="function-name">if</span>(!_disposed)
+        {
+            <span class="comment-delimiter">// </span><span class="comment">disposing が true の場合(Dispose() が実行された場合)は
+</span>            <span class="comment-delimiter">// </span><span class="comment">マネージリソースも解放します。
+</span>            <span class="function-name">if</span>(disposing)
+            {
+                <span class="comment-delimiter">// </span><span class="comment">マネージリソースの解放
+</span>            }
+                
+            <span class="comment-delimiter">// </span><span class="comment">アンマネージリソースの解放
+</span>
+            _disposed = <span class="constant">true</span>;
+        }
+    }
+        
+}
+</pre>
+
+
+解放処理では 2 つのパターンを考えます。
+<ol>
+  <li>Dispose() が明示的に呼ばれる(using を含む)</li>
+  <li>GC で解放される</li>
+</ol>
+
+本来 Dispose() で解放しますが、
+呼ばれずに GC で解放される場合もアンマネージリソースの解放(後処理)について考慮する必要があります。<br>
+このサンプルではフッターの書き込みという後処理は必ずしなければなりません。<br>
+<br>
+1. の場合は Dispose() ですべてのリソースを解放します。<br>
+解放した後は <a href="http://msdn.microsoft.com/ja-jp/library/system.gc.suppressfinalize.aspx" target="_blank">GC.SuppressFinalize()</a> で GC による解放はしないようにしています。<br>
+<br>
+2. の場合にはファイナライザーが呼び出されてリソースを解放します。<br>
+ここではアンマネージリソースのみ解放し、
+マネージリソースはそのまま GC に解放させます。<br>
+<br>
+<br>
+このリソースの解放は Dispose(bool) で行います。
+アンマネージリソースは常に解放し、
+マネージリソースは bool 値で切り替えます。
+
+<pre>        <span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="type">void</span> <span class="function-name">Dispose</span>(<span class="type">bool</span> <span class="variable-name">disposing</span>)
+        {
+            <span class="comment-delimiter">// </span><span class="comment">Dispose がまだ実行されていないときだけ実行
+</span>            <span class="function-name">if</span>(!_disposed)
+            {
+                <span class="comment-delimiter">// </span><span class="comment">disposing が true の場合(Dispose() が実行された場合)は
+</span>                <span class="comment-delimiter">// </span><span class="comment">マネージリソースも解放します。
+</span>                <span class="keyword">if</span>(disposing)
+                {
+                    <span class="comment-delimiter">// </span><span class="comment">マネージリソースの解放
+</span>
+                    <span class="comment-delimiter">// </span><span class="comment">マネージリソースは null を指定
+</span>                    _title = <span class="constant">null</span>;
+                }
+                
+                <span class="comment-delimiter">// </span><span class="comment">アンマネージリソースの解放
+</span>
+                <span class="comment-delimiter">// </span><span class="comment">閉じる前にフッターを書く
+</span>                WriteFooter();
+                <span class="variable-name">_writer</span>.<span class="function-name">Dispose</span>();
+
+                _disposed = <span class="constant">true</span>;
+            }
+        }
+</pre>
+
+
+<h4>Dispose() 後のアクセス</h4>
+
+Dispose() をした後にはリソースはすべて解放されています。
+何か処理をすることは禁止です。<br>
+処理を行うメソッドが呼び出された場合には <a href="http://msdn.microsoft.com/ja-jp/library/system.objectdisposedexception(v=vs.80).aspx" target="_blank">ObjectDisposedException</a>
+の例外を投げるようにしておきます。
+
+<pre><span class="keyword">private</span> <span class="type">void</span> <span class="function-name">CheckDisposed</span>()
+{
+    <span class="keyword">if</span> (_disposed)
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ObjectDisposedException</span>(GetType().FullName);          
+}
+</pre>
+
+
+
+<h4>アンマネージリソースの後処理が必要ない場合</h4>
+
+アンマネージリソースだからといって必ずしも解放時に後処理が必要とは限りません。<br>
+<br>
+サンプルではアンマネージリソースとして StreamWriter を使いました。
+もしフッターの出力という後処理がなければ、
+全部 GC にまかせても、ファイルのクローズまで GC で行なってくれます。<br>
+アンマネージリソースの後処理が必要ない場合には<em>ファイナライザーの定義は不要</em>です。<br>
+<br>
+そのためテンプレートは少し簡単になります。
+<pre><span class="keyword">class</span> <span class="type">HtmlFileWriter</span> : <span class="type">IDisposable</span>
+{
+    <span class="comment-delimiter">// </span><span class="comment">Dispose したかどうか
+</span>    <span class="keyword">private</span> <span class="type">bool</span> <span class="variable-name">_disposed</span> = <span class="constant">false</span>;
+    
+
+    <span class="comment-delimiter">// </span><span class="comment">IDisposable に必須のメソッドの実装
+</span>    <span class="keyword">public</span> <span class="type">void</span> <span class="function-name">Dispose</span>()
+    {
+        <span class="comment-delimiter">// </span><span class="comment">Dispose がまだ実行されていないときだけ実行
+</span>        <span class="function-name">if</span>(!_disposed)
+        {
+            <span class="comment-delimiter">// </span><span class="comment">マネージリソースの解放
+</span>            <span class="comment-delimiter">// </span><span class="comment">アンマネージリソースの解放
+</span>
+            <span class="comment-delimiter">// </span><span class="comment">Dispose() によってリソースの解放を行ったので、
+</span>            <span class="comment-delimiter">// </span><span class="comment">GC での解放が必要が無いことを GC に通知します。
+</span>            <span class="type">GC</span>.<span class="function-name">SuppressFinalize</span>(<span class="keyword">this</span>);
+
+            _disposed = <span class="constant">true</span>;
+        }
+    }
+
+}
+</pre>
+
+
+
+<div class="fc2_footer" style="text-align:left;vertical-align:middle;height:auto;">
+<div class="fc2button-clap" id="fc2button-clap-212" style="vertical-align:top;border:none;display:inline;margin-right:2px;">
+<script type="text/javascript">
+(function(d) {
+var img = new Image();
+d.getElementById("fc2button-clap-212").appendChild(img);
+img.src = 'http://admin.blog.fc2.com/image/w-blue.gif';
+(function(s) { s.cursor = 'pointer'; s.border = 0; s.verticalAlign = 'top'; s.margin = '0'; s.padding = '0'; })(img.style);
+var clap = function() { window.open('ht'+'tp://' + 'blogvote.fc2.com/pickup/yohshiy/212/clap')};
+if (img.addEventListener) { img.addEventListener('click', clap, false); } else if (img.attachEvent) { img.attachEvent('onclick', clap); }
+})(document);
+</script><img src="./IDisposableとusing_files/w-blue.gif" style="cursor: pointer; border: 0px; vertical-align: top; margin: 0px; padding: 0px;">
+</div>
+
+
+</div>
+<dl class="relate_dl"><dt class="relate_dt">関連記事</dt><dd class="relate_dd"><ul class="relate_ul"><li class="relate_li"><a href="http://yohshiy.blog.fc2.com/blog-entry-209.html">C# インターフェース - IComparable, IComparable(T)</a></li><li class="relate_li"><a href="http://yohshiy.blog.fc2.com/blog-entry-210.html">C# インターフェース - IEnumerable と yield</a></li><li class="relate_li"><a href="http://yohshiy.blog.fc2.com/blog-entry-211.html">C# インターフェース - IEnumerable(T)</a></li><li class="relate_li_nolink">C# インターフェース - IDisposable</li></ul></dd></dl>
+
+<!--/* VASCO Javascript Tag v */-->
+
+<script type="text/javascript"><!--//<![CDATA[
+document.MAX_ct0 ='INSERT_CLICKURL_HERE';
+
+if (location.protocol=='https:') {
+} else {
+var m3_u = 'http://vsc.send.microad.jp/delivery/ajs.php';
+var m3_r = Math.floor(Math.random()*99999999999);
+if (!document.MAX_used) document.MAX_used = ',';
+document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+document.write ("?zoneid=18669");
+document.write ('&snr=1&cb=' + m3_r);
+if (document.MAX_used != ',') document.write ("&exclude=" + document.MAX_used);
+document.write (document.charset ? '&charset='+document.charset : (document.characterSet ? '&charset='+document.characterSet : ''));
+document.write ("&loc=" + encodeURIComponent(window.location));
+if (document.referrer) document.write ("&referer=" + encodeURIComponent(document.referrer));
+if (document.context) document.write ("&context=" + encodeURIComponent(document.context));
+if ((typeof(document.MAX_ct0) != 'undefined') && (document.MAX_ct0.substring(0,4) == 'http')) {
+document.write ("&ct0=" + encodeURIComponent(document.MAX_ct0));
+}
+if (document.mmm_fo) document.write ("&mmm_fo=1");
+document.write ("'><\/scr"+"ipt>");
+}
+//]]>--></script><script type="text/javascript" src="./IDisposableとusing_files/ajs.php"></script><style>#fc2_text_ad{margin: 14px 0;}#fc2_text_ad_title{padding-left: 2px;}#fc2_text_ad span {display: block;float: none;background: transparent;margin: 0 0 2px;}#fc2_text_ad a {padding: 2px;display: block;}</style>
+<div id="fc2_text_ad">
+<div id="fc2_text_ad_title">スポンサーサイト</div>
+<script type="text/javascript"> MOredrefncstx_targetName = "_blank";</script><script type="text/javascript" src="./IDisposableとusing_files/embed.js"><!--//--></script><span id="MOredrefncs_ph_1" class="MOredrefncstx text_done"><a class="MOredrefncstx" href="http://ad.m-arata.com/blog.fc2.com/click.cgi?thru=&cref=aHR0cDovL3lvaHNoaXkuYmxvZy5mYzIuY29tL2Jsb2ctZW50cnktMjEyLmh0bWw%3D&ucd=o_TmNmBJVjyh3UIz2teTt746f44898&idx=1" target="_blank">【入学金10万円免除中】ｿﾌﾄﾊﾞﾝｸのサイバー大学なら働きながら大卒資格が取得できる！</a></span>
+<script type="text/javascript"> MOredrefncstx_targetName = "_blank";</script><script type="text/javascript" src="./IDisposableとusing_files/embed(1).js"><!--//--></script><span id="MOredrefncs_ph_2" class="MOredrefncstx text_done"><a class="MOredrefncstx" href="http://ad.m-arata.com/blog.fc2.comd1td/click.cgi?thru=&cref=aHR0cDovL3lvaHNoaXkuYmxvZy5mYzIuY29tL2Jsb2ctZW50cnktMjEyLmh0bWw%3D&ucd=o_TmNmBJVjyh3UIz2teTt746f44898&idx=2" target="_blank">免許証だけで借りれるカードローン知ってる?</a></span>
+<script type="text/javascript"> MOredrefncstx_targetName = "_blank";</script><script type="text/javascript" src="./IDisposableとusing_files/embed(2).js"><!--//--></script><span id="MOredrefncs_ph_3" class="MOredrefncstx text_done"><a class="MOredrefncstx" href="http://ad.m-arata.com/blog.fc2.com7wdc/click.cgi?thru=&cref=aHR0cDovL3lvaHNoaXkuYmxvZy5mYzIuY29tL2Jsb2ctZW50cnktMjEyLmh0bWw%3D&ucd=o_TmNmBJVjyh3UIz2teTt746f44898&idx=3" target="_blank">すぐ借りる、簡単審査・当日融資‎!</a></span>
+</div><div id="beacon_5c3069de69" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./IDisposableとusing_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+<noscript>&lt;a href='http://vsc.send.microad.jp/delivery/ck.php?n=adc72c03&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://vsc.send.microad.jp/delivery/avw.php?zoneid=18669&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=adc72c03&amp;ct0=INSERT_CLICKURL_HERE&amp;snr=1' border='0' alt='' /&gt;&lt;/a&gt;</noscript>
+
+
+      
+                	
+      </div>
+      <!-- entry_body ^^^^ -->    
+      
+      <!-- SNS ボタン -->
+      <div class="sns_area">
+         
+        <!-- Facebook -->
+        <iframe title="Facebook Like" src="./IDisposableとusing_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:105px; height:21px;" allowtransparency="true">
+        </iframe>
+
+        <!-- Google+1 -->
+        <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1421746317822" name="I0_1421746317822" src="./IDisposableとusing_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+
+        <!-- はてな -->
+        <iframe class="hatena-bookmark-button-frame" title="このエントリーをはてなブックマークに追加" frameborder="0" scrolling="no" width="70" height="20" src="javascript:false" style="width: 46px; height: 20px;"></iframe>
+	&nbsp;
+	
+        <!-- Twitter -->
+        <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./IDisposableとusing_files/tweet_button.214e3d3b0c5437701f749bab582597f0.ja.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 126px; height: 20px;"></iframe>
+
+
+        <!-- ShareThis -->
+        <br>
+        <span class="st_delicious_hcount" displaytext="Delicious" st_title="C# インターフェース - IDisposable | プログラマーズ雑記帳" st_url="http://yohshiy.blog.fc2.com/blog-entry-212.html" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets delicious">Delicious</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+        <span class="st_tumblr_hcount" displaytext="Tumblr" st_title="C# インターフェース - IDisposable | プログラマーズ雑記帳" st_url="http://yohshiy.blog.fc2.com/blog-entry-212.html" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets tumblr">Tumblr</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+	<span class="st_diigo_hcount" displaytext="Diigo" st_title="C# インターフェース - IDisposable | プログラマーズ雑記帳" st_url="http://yohshiy.blog.fc2.com/blog-entry-212.html" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets diigo">Diigo</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+	<span class="st_instapaper_hcount" displaytext="Instapaper" st_title="C# インターフェース - IDisposable | プログラマーズ雑記帳" st_url="http://yohshiy.blog.fc2.com/blog-entry-212.html" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets instapaper">Instapaper</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+        <span class="st_sharethis_hcount" displaytext="ShareThis" st_title="C# インターフェース - IDisposable | プログラマーズ雑記帳" st_url="http://yohshiy.blog.fc2.com/blog-entry-212.html" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-sharethis-counter" style="background-image: url(http://w.sharethis.com/images/sharethis_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">6681</span></span></span></span></span></span>
+      </div>
+      <!-- SNS ボタン ^^^^ -->
+
+      <ul class="cfooter entry_footer">
+        <li>
+          2013-02-21        </li>
+                <li> |
+          <a href="http://yohshiy.blog.fc2.com/blog-entry-212.html#cm" title="">コメント(0)</a>
+        </li>
+                                <li> |
+          <a href="http://yohshiy.blog.fc2.com/blog-entry-212.html#tb" title="">トラックバック(0)</a>
+        </li>
+                        <li> |
+          <a href="http://admin.blog.fc2.com/control.php?mode=editor&process=load&eno=212" target="_blank" title="編集(管理用)">Edit</a>
+        </li>
+        <li> |
+          <span class="pagetop"><a href="http://yohshiy.blog.fc2.com/blog-entry-212.html#page_header" title="このページのトップへ"> <img src="./IDisposableとusing_files/pagetop.png" alt="Page Top"> </a></span>
+        </li>
+      </ul>
+      <!-- entry_footer -->
+      <!--
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <rdf:Description
+        rdf:about="http://yohshiy.blog.fc2.com/blog-entry-212.html"
+        trackback:ping="http://yohshiy.blog.fc2.com/tb.php/212-1dd00791"
+        dc:title="C# インターフェース - IDisposable"
+        dc:identifier="http://yohshiy.blog.fc2.com/blog-entry-212.html"
+        dc:subject="インターフェース"
+        dc:description="今回は C# のインターフェースの
+IDisposable に関する説明です。
+このインターフェースはファイルといった後処理のタイミング管理が必要なクラスで実装します。
+
+
+using
+
+IDisposable を継承すると using (名前空間のものとは別) が使えるようになります。
+まず、この using について説明します。
+
+あるファイルに書き込みを行い、次にそれに読み取る処理を考えます。
+
+
+ {
+     StreamWriter sw = new StreamWrite..."
+        dc:creator="yohshiy"
+        dc:date="2013-02-21T23:46:14+09:00" />
+      </rdf:RDF>
+      -->
+    
+    </div>
+    <!-- content end-->
+  
+  
+        <div class="page_navi entry_navi">
+            <a href="http://yohshiy.blog.fc2.com/blog-entry-211.html" title="C# インターフェース - IEnumerable(T)"> Prev. </a>
+      &nbsp;&nbsp;
+            <a href="http://yohshiy.blog.fc2.com/blog-category-26.html" title="インターフェース このカテゴリ一覧を見る">
+        Category
+      </a>
+            &nbsp;&nbsp;
+      <a href="http://yohshiy.blog.fc2.com/blog-entry-214.html" title="ライブラリー、ツールキット、フレームワーク 違いわかる?"> Next&nbsp; </a>
+          </div>
+      </div>
+  
+  
+  <!-- トラックバック ================ -->
+
+    <div id="tb" class="content">
+    <p class="ctitle sub_header">trackback</p>
+        <h3 class="sub_title">新規トラックバック</h3>
+    <p class="trackback_url">
+      <input id="trackback_input" onfocus="this.select()" value="http://yohshiy.blog.fc2.com/tb.php/212-1dd00791" readonly="readonly"><br>
+      <a href="javascript:window.location.replace('http://blog.fc2.com/?url='+window.location.href);" title="">
+        この記事にトラックバックする(FC2ブログユーザー)      </a>
+    </p>
+  </div>
+  <!-- div.content ^^^^ -->  
+  
+  
+  <!-- Facebook コメント================ -->
+    <div id="fc" class="content">
+    <p class="ctitle sub_header">Facebook コメント</p>
+    <div class="sub_body">
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./IDisposableとusing_files/7r8gQb8MIqE.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./IDisposableとusing_files/7r8gQb8MIqE(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><br>
+
+<div class="fb-comments fb_iframe_widget" data-href="http://yohshiy.blog.fc2.com/blog-entry-212.html" data-num-posts="5" data-width="500" fb-xfbml-state="rendered"><span style="height: 110px; width: 500px;"><iframe id="f34b6b67e4" name="fe5ced54c" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./IDisposableとusing_files/comments.html" style="border: none; overflow: hidden; height: 110px; width: 500px;"></iframe></span></div>
+    </div>
+  </div>
+  
+
+  <!-- コメント ================ -->
+
+    
+  <div id="cm" class="content">
+    <p class="ctitle sub_header">コメント</p>
+    
+    <h3 class="sub_title">コメントの投稿</h3>
+    <div class="form">
+      <form action="./IDisposableとusing_files/IDisposableとusing.html" method="post" name="comment_form" id="comment_form">
+        <dl>
+          <dt>
+            <input type="hidden" name="mode" value="regist">
+            <input type="hidden" name="comment[no]" value="212">
+            <label for="name">名前</label>
+          </dt>
+          <dd><input id="name" type="text" name="comment[name]" size="30" value=""></dd>
+          <dt><label for="name">タイトル</label></dt>
+          <dd><input id="subject" name="comment[title]" type="text" size="30" value="No title" onblur="if(this.value == &#39;&#39;) this.value=&#39;No title&#39;;" onfocus="if(this.value == &#39;No title&#39;) this.value=&#39;&#39;;"></dd>
+          <dt><label for="mail">メールアドレス</label></dt>
+          <dd><input id="mail" type="text" name="comment[mail]" size="30" value=""></dd>
+          <dt><label for="url">URL</label></dt>
+          <dd><input id="url" type="text" name="comment[url]" size="30" value=""></dd>
+          <dt>Font &amp; Icon</dt>
+          <dd><script type="text/javascript" src="./IDisposableとusing_files/comment_toolbar_ja.min.js"></script><div id="tools_container" style="position:relative;width:267px;display: inline-block;"><a href="javascript:;" name="fc2CommentToolbar"></a><iframe id="tools_dialog" frameborder="0" sandbox="allow-scripts allow-same-origin" style="height: 30px;border:0 none;overflow: hidden;width: 267px;" src="./IDisposableとusing_files/comment_toolbar.html"></iframe><div id="FC2_comment_palette" style="display: none; position: absolute; top: 27px; left: 0px; z-index: 100000;"><iframe src="./IDisposableとusing_files/palette.html" frameborder="0" style="border: 0 none; height: 200px;"></iframe></div><div id="FC2_comment_icon" style="display: none; position: absolute; top: 27px; left: 0px; z-index: 100000;"><iframe src="./IDisposableとusing_files/icon.html" frameborder="0" style="border: 0 none; height: 391px;width: 267px;"></iframe></div></div></dd>
+          <dt><label for="comment">本文</label></dt>
+          <dd><textarea id="comment" cols="50" rows="5" name="comment[body]"></textarea></dd>
+          <dt><label for="pass">パスワード</label></dt>
+          <dd><input id="pass" type="password" name="comment[pass]" size="20"></dd>
+          <dt>非公開コメント</dt>
+          <dd><input id="himitu" type="checkbox" name="comment[himitu]"><label for="himitu">管理者にだけ表示を許可する</label></dd>
+        </dl>
+        <p class="form_btn"><input type="submit" value="送信"></p>
+      </form>
+    </div>
+  </div>
+  <!-- content ^^^^ -->
+  
+
+  <!-- コメント編集 ================ -->
+
+      
+
+  <!-- 記事一覧 ================ -->
+
+  
+
+  <!-- 検索結果表示 ================ -->
+
+  
+
+  <!-- ページナビ ================ -->
+  
+  <div class="page_navi">
+    </div>
+
+
+  <!-- プラグイン 3 ================ -->
+    
+  
+
+</div><!-- main ^^^^ -->
+</div><!-- primary ^^^^ -->
+
+
+<!-- サイドメニュー ================ -->
+<div class="aside">
+
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left" title="表示中のページのシェアボタンです。トップページやカテゴリーページのシェアにご利用ください。">
+    このページをシェア
+    </div>
+    <div class="sidemenu_body" style="text-align:left">
+<span class="st_hatena_large" displaytext="Hatena" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/hatena_32.png);"></span></span></span>
+<span class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/facebook_32.png);"></span></span></span>
+<span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/twitter_32.png);"></span></span></span>
+<span class="st_delicious_large" displaytext="Delicious" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/delicious_32.png);"></span></span></span>
+<span class="st_tumblr_large" displaytext="Tumblr" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/tumblr_32.png);"></span></span></span>
+<span class="st_diigo_large" displaytext="Diigo" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/diigo_32.png);"></span></span></span>
+<span class="st_instapaper_large" displaytext="Instapaper" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/instapaper_32.png);"></span></span></span>
+<span class="st_sharethis_large" displaytext="ShareThis" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/sharethis_32.png);"></span></span></span>
+    </div>
+  </div>
+
+    
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    アクセスカウンター
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <div class="plugin-counter" style="text-align:left">
+	<script language="JavaScript" type="text/javascript" src="./IDisposableとusing_files/counter.php"></script><script type="text/javascript" language="javascript" src="./IDisposableとusing_files/counter_js.php" charset="UTF-8"></script><a href="http://counter.fc2.com/" target="_blank" onmouseover="_FC2COUNTER12029851_1.show_graph(event);" onmouseout="_FC2COUNTER12029851_1.hide_graph(event);"><span><nobr><img border="0" src="./IDisposableとusing_files/l.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/6.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/8.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/2.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/1.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/3.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/4.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"><img border="0" src="./IDisposableとusing_files/r.gif" alt="FC2無料カウンター" "="" title="FC2無料カウンター" style="display:inline;margin:0px;padding:0px;border:none;"></nobr><span></span></span></a>
+
+	<noscript>&lt;img src="http://counter1.fc2.com/counter_img.php?id=12029851&amp;main=1"&gt;</noscript>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    カレンダー(アーカイブ)
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <script type="text/javascript">
+<!--
+function showhide(id){
+	if(document.getElementById){
+		if(document.getElementById(id).style.display == "block"){
+			document.getElementById(id).style.display = "none";
+		}else{
+		document.getElementById("one").style.display = "none";
+		document.getElementById("two").style.display = "none";
+		document.getElementById("three").style.display = "none";
+		document.getElementById("four").style.display = "none";
+		document.getElementById(id).style.display = "block";
+		}
+	}
+}
+//-->
+</script>
+
+<table style="width:100%;" cellspacing="0" cellpadding="0">
+<tbody><tr height="20">
+<td bgcolor="#ffffe0" align="center" style="width:40%;"><a href="JavaScript:showhide('one')">プルダウン</a></td>
+<td bgcolor="#f0ffff" align="center" style="width:20%;"><a href="JavaScript:showhide('two')">降順</a></td>
+<td bgcolor="#ffefd5" align="center" style="width:20%;"><a href="JavaScript:showhide('three')">昇順</a></td>
+<td bgcolor="#f0fff0" align="center" style="width:20%;"><a href="JavaScript:showhide('four')">年別</a></td>
+</tr>
+</tbody></table>
+
+<div class="plugin-calender" style="text-align:left">
+<br>
+<center>
+<table summary="カレンダー" class="calender">
+<caption>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201412.html">12月</a>
+| 2015年01月 | 
+<a href="http://yohshiy.blog.fc2.com/blog-date-201502.html">02月</a>
+</caption>
+<tbody><tr>
+<th abbr="日曜日" scope="row" id="sun">日</th>
+<th abbr="月曜日" scope="row">月</th>
+<th abbr="火曜日" scope="row">火</th>
+<th abbr="水曜日" scope="row">水</th>
+<th abbr="木曜日" scope="row">木</th>
+<th abbr="金曜日" scope="row">金</th>
+<th abbr="土曜日" scope="row" id="sat">土</th>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr><tr>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>10</td>
+</tr><tr>
+<td>11</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>15</td>
+<td>16</td>
+<td>17</td>
+</tr><tr>
+<td>18</td>
+<td>19</td>
+<td>20</td>
+<td>21</td>
+<td>22</td>
+<td>23</td>
+<td>24</td>
+</tr><tr>
+<td>25</td>
+<td>26</td>
+<td>27</td>
+<td>28</td>
+<td>29</td>
+<td>30</td>
+<td>31</td>
+</tr></tbody></table>
+</center>
+</div>
+
+<div id="one" style="display:block;">
+<table width="100%"><tbody><tr><td>
+<script type="text/javascript">
+<!--
+function jumpmenu(targ,selObj,restore) {
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<br>
+<center>
+<form id="monthly_archives" name="monthly_archives" action="./IDisposableとusing_files/IDisposableとusing.html">
+  <select name="menu" onchange="jumpmenu(&#39;parent&#39;,this,0)" style="width:85%;">
+    <option value="http://yohshiy.blog.fc2.com/" selected="selected"><script type="text/javascript">
+sum=0+3+15+9+74+14+35+7+7+4+3+48+7+8+25+11+2+4+8+4+10+5+4+13+4+25+13+8+4+7+19+9+3+7+6;
+document.write('月別アーカイブ ('+sum+')');
+</script>月別アーカイブ (425)</option>
+    <option value="http://yohshiy.blog.fc2.com/blog-date-201412.html">&nbsp;2014年12月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201411.html">&nbsp;2014年11月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201410.html">&nbsp;2014年10月 (1)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201409.html">&nbsp;2014年09月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201408.html">&nbsp;2014年08月 (1)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201407.html">&nbsp;2014年07月 (6)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201406.html">&nbsp;2014年06月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201405.html">&nbsp;2014年05月 (8)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201404.html">&nbsp;2014年04月 (3)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201403.html">&nbsp;2014年03月 (1)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201402.html">&nbsp;2014年02月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201401.html">&nbsp;2014年01月 (1)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201312.html">&nbsp;2013年12月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201311.html">&nbsp;2013年11月 (3)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201310.html">&nbsp;2013年10月 (6)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201309.html">&nbsp;2013年09月 (5)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201308.html">&nbsp;2013年08月 (3)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201307.html">&nbsp;2013年07月 (3)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201306.html">&nbsp;2013年06月 (5)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201305.html">&nbsp;2013年05月 (5)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201304.html">&nbsp;2013年04月 (4)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201303.html">&nbsp;2013年03月 (6)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201302.html">&nbsp;2013年02月 (6)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201301.html">&nbsp;2013年01月 (5)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201212.html">&nbsp;2012年12月 (11)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201211.html">&nbsp;2012年11月 (15)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201210.html">&nbsp;2012年10月 (16)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201209.html">&nbsp;2012年09月 (9)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201208.html">&nbsp;2012年08月 (7)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201207.html">&nbsp;2012年07月 (14)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201206.html">&nbsp;2012年06月 (9)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201205.html">&nbsp;2012年05月 (1)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201204.html">&nbsp;2012年04月 (6)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201203.html">&nbsp;2012年03月 (9)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201202.html">&nbsp;2012年02月 (2)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201201.html">&nbsp;2012年01月 (5)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201112.html">&nbsp;2011年12月 (20)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201111.html">&nbsp;2011年11月 (20)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201110.html">&nbsp;2011年10月 (7)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201109.html">&nbsp;2011年09月 (30)</option><option value="http://yohshiy.blog.fc2.com/blog-date-201108.html">&nbsp;2011年08月 (3)</option>  </select>
+</form>
+</center>
+<br>
+</td></tr></tbody></table>
+</div>
+
+<div id="two" style="display:none;">
+<table width="100%"><tbody><tr><td>
+<div style="height:90px; overflow:auto;">
+<ul><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201412.html" title="2014年12月 (2)">2014年12月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201411.html" title="2014年11月 (2)">2014年11月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201410.html" title="2014年10月 (1)">2014年10月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201409.html" title="2014年09月 (2)">2014年09月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201408.html" title="2014年08月 (1)">2014年08月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201407.html" title="2014年07月 (6)">2014年07月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201406.html" title="2014年06月 (2)">2014年06月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201405.html" title="2014年05月 (8)">2014年05月 (8)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201404.html" title="2014年04月 (3)">2014年04月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201403.html" title="2014年03月 (1)">2014年03月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201402.html" title="2014年02月 (2)">2014年02月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201401.html" title="2014年01月 (1)">2014年01月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201312.html" title="2013年12月 (2)">2013年12月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201311.html" title="2013年11月 (3)">2013年11月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201310.html" title="2013年10月 (6)">2013年10月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201309.html" title="2013年09月 (5)">2013年09月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201308.html" title="2013年08月 (3)">2013年08月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201307.html" title="2013年07月 (3)">2013年07月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201306.html" title="2013年06月 (5)">2013年06月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201305.html" title="2013年05月 (5)">2013年05月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201304.html" title="2013年04月 (4)">2013年04月 (4)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201303.html" title="2013年03月 (6)">2013年03月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201302.html" title="2013年02月 (6)">2013年02月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201301.html" title="2013年01月 (5)">2013年01月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201212.html" title="2012年12月 (11)">2012年12月 (11)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201211.html" title="2012年11月 (15)">2012年11月 (15)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201210.html" title="2012年10月 (16)">2012年10月 (16)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201209.html" title="2012年09月 (9)">2012年09月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201208.html" title="2012年08月 (7)">2012年08月 (7)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201207.html" title="2012年07月 (14)">2012年07月 (14)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201206.html" title="2012年06月 (9)">2012年06月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201205.html" title="2012年05月 (1)">2012年05月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201204.html" title="2012年04月 (6)">2012年04月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201203.html" title="2012年03月 (9)">2012年03月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201202.html" title="2012年02月 (2)">2012年02月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201201.html" title="2012年01月 (5)">2012年01月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201112.html" title="2011年12月 (20)">2011年12月 (20)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201111.html" title="2011年11月 (20)">2011年11月 (20)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201110.html" title="2011年10月 (7)">2011年10月 (7)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201109.html" title="2011年09月 (30)">2011年09月 (30)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201108.html" title="2011年08月 (3)">2011年08月 (3)</a>
+</li></ul>
+</div>
+</td></tr></tbody></table>
+</div>
+
+<div id="three" style="display:none;">
+<table style="width:100%;"><tbody><tr><td>
+<div style="height:90px; overflow:auto;">
+<ul id="Ax"><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201108.html" title="2011年08月 (3)">2011年08月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201109.html" title="2011年09月 (30)">2011年09月 (30)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201110.html" title="2011年10月 (7)">2011年10月 (7)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201111.html" title="2011年11月 (20)">2011年11月 (20)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201112.html" title="2011年12月 (20)">2011年12月 (20)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201201.html" title="2012年01月 (5)">2012年01月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201202.html" title="2012年02月 (2)">2012年02月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201203.html" title="2012年03月 (9)">2012年03月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201204.html" title="2012年04月 (6)">2012年04月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201205.html" title="2012年05月 (1)">2012年05月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201206.html" title="2012年06月 (9)">2012年06月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201207.html" title="2012年07月 (14)">2012年07月 (14)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201208.html" title="2012年08月 (7)">2012年08月 (7)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201209.html" title="2012年09月 (9)">2012年09月 (9)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201210.html" title="2012年10月 (16)">2012年10月 (16)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201211.html" title="2012年11月 (15)">2012年11月 (15)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201212.html" title="2012年12月 (11)">2012年12月 (11)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201301.html" title="2013年01月 (5)">2013年01月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201302.html" title="2013年02月 (6)">2013年02月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201303.html" title="2013年03月 (6)">2013年03月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201304.html" title="2013年04月 (4)">2013年04月 (4)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201305.html" title="2013年05月 (5)">2013年05月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201306.html" title="2013年06月 (5)">2013年06月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201307.html" title="2013年07月 (3)">2013年07月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201308.html" title="2013年08月 (3)">2013年08月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201309.html" title="2013年09月 (5)">2013年09月 (5)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201310.html" title="2013年10月 (6)">2013年10月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201311.html" title="2013年11月 (3)">2013年11月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201312.html" title="2013年12月 (2)">2013年12月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201401.html" title="2014年01月 (1)">2014年01月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201402.html" title="2014年02月 (2)">2014年02月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201403.html" title="2014年03月 (1)">2014年03月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201404.html" title="2014年04月 (3)">2014年04月 (3)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201405.html" title="2014年05月 (8)">2014年05月 (8)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201406.html" title="2014年06月 (2)">2014年06月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201407.html" title="2014年07月 (6)">2014年07月 (6)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201408.html" title="2014年08月 (1)">2014年08月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201409.html" title="2014年09月 (2)">2014年09月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201410.html" title="2014年10月 (1)">2014年10月 (1)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201411.html" title="2014年11月 (2)">2014年11月 (2)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-date-201412.html" title="2014年12月 (2)">2014年12月 (2)</a>
+</li></ul>
+</div>
+<script type="text/javascript"><!--
+function RvA() {
+var A=document.getElementById('Ax').getElementsByTagName('LI');
+var B=""; var k=A.length; var l=Math.floor(k/2); k--;
+for(i=0;i<l;i++) {
+B=A[i].innerHTML;A[i].innerHTML=A[k-i].innerHTML;A[k-i].innerHTML=B;}
+}
+if (document.getElementById) {RvA()}
+--></script>
+</td></tr></tbody></table>
+</div>
+
+<div id="four" style="display:none;">
+<table style="width:100%;"><tbody><tr><td>
+<div style="height:90px; overflow:auto;">
+<script type="text/javascript"><!--
+var AcvR = 0;
+var AcvRck = "";
+//--></script><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script><strong>2014<small>年</small></strong><br>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201412.html" title="2014年12月 (2)">&nbsp;&nbsp;12月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201411.html" title="2014年11月 (2)">&nbsp;&nbsp;11月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201410.html" title="2014年10月 (1)">&nbsp;&nbsp;10月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201409.html" title="2014年09月 (2)">&nbsp;&nbsp;09月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201408.html" title="2014年08月 (1)">&nbsp;&nbsp;08月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201407.html" title="2014年07月 (6)">&nbsp;&nbsp;07月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201406.html" title="2014年06月 (2)">&nbsp;&nbsp;06月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201405.html" title="2014年05月 (8)">&nbsp;&nbsp;05月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201404.html" title="2014年04月 (3)">&nbsp;&nbsp;04月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201403.html" title="2014年03月 (1)">&nbsp;&nbsp;03月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201402.html" title="2014年02月 (2)">&nbsp;&nbsp;02月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2014){
+document.write(AcvRck + "<strong>2014<small>年</small></strong><br />");
+AcvR = 2014;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201401.html" title="2014年01月 (1)">&nbsp;&nbsp;01月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script><br><strong>2013<small>年</small></strong><br>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201312.html" title="2013年12月 (2)">&nbsp;&nbsp;12月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201311.html" title="2013年11月 (3)">&nbsp;&nbsp;11月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201310.html" title="2013年10月 (6)">&nbsp;&nbsp;10月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201309.html" title="2013年09月 (5)">&nbsp;&nbsp;09月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201308.html" title="2013年08月 (3)">&nbsp;&nbsp;08月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201307.html" title="2013年07月 (3)">&nbsp;&nbsp;07月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201306.html" title="2013年06月 (5)">&nbsp;&nbsp;06月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201305.html" title="2013年05月 (5)">&nbsp;&nbsp;05月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201304.html" title="2013年04月 (4)">&nbsp;&nbsp;04月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201303.html" title="2013年03月 (6)">&nbsp;&nbsp;03月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201302.html" title="2013年02月 (6)">&nbsp;&nbsp;02月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2013){
+document.write(AcvRck + "<strong>2013<small>年</small></strong><br />");
+AcvR = 2013;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201301.html" title="2013年01月 (5)">&nbsp;&nbsp;01月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script><br><strong>2012<small>年</small></strong><br>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201212.html" title="2012年12月 (11)">&nbsp;&nbsp;12月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201211.html" title="2012年11月 (15)">&nbsp;&nbsp;11月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201210.html" title="2012年10月 (16)">&nbsp;&nbsp;10月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201209.html" title="2012年09月 (9)">&nbsp;&nbsp;09月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201208.html" title="2012年08月 (7)">&nbsp;&nbsp;08月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201207.html" title="2012年07月 (14)">&nbsp;&nbsp;07月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201206.html" title="2012年06月 (9)">&nbsp;&nbsp;06月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201205.html" title="2012年05月 (1)">&nbsp;&nbsp;05月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201204.html" title="2012年04月 (6)">&nbsp;&nbsp;04月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201203.html" title="2012年03月 (9)">&nbsp;&nbsp;03月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201202.html" title="2012年02月 (2)">&nbsp;&nbsp;02月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2012){
+document.write(AcvRck + "<strong>2012<small>年</small></strong><br />");
+AcvR = 2012;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201201.html" title="2012年01月 (5)">&nbsp;&nbsp;01月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2011){
+document.write(AcvRck + "<strong>2011<small>年</small></strong><br />");
+AcvR = 2011;
+AcvRck = '<br />';
+}//--></script><br><strong>2011<small>年</small></strong><br>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201112.html" title="2011年12月 (20)">&nbsp;&nbsp;12月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2011){
+document.write(AcvRck + "<strong>2011<small>年</small></strong><br />");
+AcvR = 2011;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201111.html" title="2011年11月 (20)">&nbsp;&nbsp;11月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2011){
+document.write(AcvRck + "<strong>2011<small>年</small></strong><br />");
+AcvR = 2011;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201110.html" title="2011年10月 (7)">&nbsp;&nbsp;10月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2011){
+document.write(AcvRck + "<strong>2011<small>年</small></strong><br />");
+AcvR = 2011;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201109.html" title="2011年09月 (30)">&nbsp;&nbsp;09月</a><wbr><script type="text/javascript"><!--
+if (AcvR != 2011){
+document.write(AcvRck + "<strong>2011<small>年</small></strong><br />");
+AcvR = 2011;
+AcvRck = '<br />';
+}//--></script>
+<a href="http://yohshiy.blog.fc2.com/blog-date-201108.html" title="2011年08月 (3)">&nbsp;&nbsp;08月</a><wbr><br>
+</div>
+</td></tr></tbody></table>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    最新記事
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <ul>
+<li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-288.html" title="データ共有の新潮流 - アクター, Agent, STM">データ共有の新潮流 - アクター, Agent, STM (12/24)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-287.html" title="エディターを乗り物に例えると">エディターを乗り物に例えると (12/17)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-286.html" title="Haskell の Windows へのインストールと Emacs モードの設定">Haskell の Windows へのインストールと Emacs モードの設定 (11/17)</a>
+</li></ul>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    カテゴリー
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <div>
+<div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-0.html" title="未分類">未分類 (3)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-11.html" title="ソフトウェア">ソフトウェア (15)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-22.html" title="PlantUML">PlantUML (9)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-1.html" title="Redmine">Redmine (74)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-12.html" title="Redmine入門">Redmine入門 (14)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-2.html" title="プラグイン開発記">プラグイン開発記 (35)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-23.html" title="お勧めプラグイン">お勧めプラグイン (7)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-31.html" title="MS Office">MS Office (7)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-32.html" title="Word の小技">Word の小技 (4)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-33.html" title="Excel の小技">Excel の小技 (3)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-4.html" title="Emacs">Emacs (48)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-18.html" title="公開 lisp">公開 lisp (7)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-30.html" title="環境設定のための Emacs Lisp 入門">環境設定のための Emacs Lisp 入門 (8)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-17.html" title="プログラミング">プログラミング (25)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-27.html" title="プログラミング言語">プログラミング言語 (11)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-6.html" title="XPプログラミング">XPプログラミング (2)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-8.html" title="国際化">国際化 (4)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-5.html" title="Ruby">Ruby (8)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-29.html" title="Clojure">Clojure (4)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-3.html" title="C++">C++ (10)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-9.html" title="キャスト">キャスト (5)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-7.html" title="Visual Studio">Visual Studio (4)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-25.html" title="C#">C# (13)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-26.html" title="インターフェース">インターフェース (4)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-20.html" title="JavaScript">JavaScript (25)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-24.html" title="Google Chart Tools">Google Chart Tools (13)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-28.html" title="altJS(JavaScript代替言語)">altJS(JavaScript代替言語) (8)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-34.html" title="Dart">Dart (4)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-21.html" title="Step by step 正規表現入門">Step by step 正規表現入門 (7)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-13.html" title="インターネット">インターネット (19)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-14.html" title="ブログカスタマイズ">ブログカスタマイズ (9)</a>
+</div><div style="text-align:left">
+┣<a href="http://yohshiy.blog.fc2.com/blog-category-15.html" title="web制作">web制作 (3)</a>
+</div><div style="text-align:left">
+┗<a href="http://yohshiy.blog.fc2.com/blog-category-16.html" title="SNS">SNS (7)</a>
+</div><div style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-category-19.html" title="英語">英語 (6)</a>
+</div></div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    はてな新着記事
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <div class="plugin-freearea" style="text-align:left">
+  <script language="javascript" type="text/javascript" src="./IDisposableとusing_files/widget.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript">
+Hatena.BookmarkWidget.url   = "http://yohshiy.blog.fc2.com/";
+Hatena.BookmarkWidget.title = " 新着エントリー";
+Hatena.BookmarkWidget.sort  = "hot";
+Hatena.BookmarkWidget.width = 0;
+Hatena.BookmarkWidget.num   = 3;
+Hatena.BookmarkWidget.theme = "notheme";
+Hatena.BookmarkWidget.load();
+</script><div id="hatena-bookmark-widget0" class="hatena-bookmark hatena-bookmark-widget-notheme"><div class="hatena-bookmark-widget-title"><a href="http://b.hatena.ne.jp/entrylist?url=http://yohshiy.blog.fc2.com/&sort=hot"><img src="./IDisposableとusing_files/favicon.gif"> 新着エントリー</a></div><div class="hatena-bookmark-widget-body"><ul><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-273.html">Emacs における日本語文字コードの設定 | プログラマーズ雑...</a><span class="hatena-bookmark-count"><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-273.html">4users</a></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-264.html">Emacs における C, C++ 系モードのインデント設定 | プログラマ...</a><span class="hatena-bookmark-count"><em><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-264.html">5users</a></em></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-263.html">C# の delegate と event | プログラマーズ雑記帳</a><span class="hatena-bookmark-count"><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-263.html">4users</a></span></li></ul></div><div class="hatena-bookmark-widget-footer"><a href="http://b.hatena.ne.jp/"><span>Hatena::Bookmark</span></a></div></div>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    はてな人気記事
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <div class="plugin-freearea" style="text-align:left">
+  <script language="javascript" type="text/javascript" src="./IDisposableとusing_files/widget.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript">
+Hatena.BookmarkWidget.url   = "http://yohshiy.blog.fc2.com";
+Hatena.BookmarkWidget.title = " 人気エントリー";
+Hatena.BookmarkWidget.sort  = "count";
+Hatena.BookmarkWidget.width = 0;
+Hatena.BookmarkWidget.num   = 7;
+Hatena.BookmarkWidget.theme = "notheme";
+Hatena.BookmarkWidget.load();
+</script><div id="hatena-bookmark-widget1" class="hatena-bookmark hatena-bookmark-widget-notheme"><div class="hatena-bookmark-widget-title"><a href="http://b.hatena.ne.jp/entrylist?url=http://yohshiy.blog.fc2.com&sort=count"><img src="./IDisposableとusing_files/favicon.gif"> 人気エントリー</a></div><div class="hatena-bookmark-widget-body"><ul><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-215.html">雑把の UI アーキテクチャー史(MVCからMVVMへ) | プログラマー...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-215.html">223users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-183.html">続々出てきた JavaScript 系新言語。どれを使う? | プログラマ...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-183.html">143users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-152.html">PlantUML の使い方 | プログラマーズ雑記帳</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-152.html">74users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-239.html">Windows にいろんな Ruby をインストール(MatzRuby, IronRuby, JRuby, To...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-239.html">49users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-238.html">雑把の仮想マシン(JVM, .NET, BEAM, スクリプト言語, LLVM) | プロ...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-238.html">46users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-195.html">Google Chart Tools の使い方 | プログラマーズ雑記帳</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-195.html">38users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://yohshiy.blog.fc2.com/blog-entry-216.html">意外と知らない かもしれない Redmine の機能 14 選 | プログラ...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://yohshiy.blog.fc2.com/blog-entry-216.html">36users</a></strong></span></li></ul></div><div class="hatena-bookmark-widget-footer"><a href="http://b.hatena.ne.jp/"><span>Hatena::Bookmark</span></a></div></div>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    シリーズもの
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <ul>
+<li style="text-align:left"><a href="http://yohshiy.blog.fc2.com/blog-category-12.html" title="Redmine入門" target="_blank">Redmine入門</a></li><li style="text-align:left"><a href="http://yohshiy.blog.fc2.com/blog-category-21.html" title="Step by step 正規表現入門" target="_blank">Step by step 正規表現入門</a></li><li style="text-align:left"><a href="http://yohshiy.blog.fc2.com/blog-category-30.html" title="環境設定のための Emacs Lisp 入門" target="_blank">環境設定のための Emacs Lisp 入門</a></li><li style="text-align:left"><a href="http://yohshiy.blog.fc2.com/blog-entry-152.html" title="PlantUML の使い方" target="_blank">PlantUML の使い方</a></li><li style="text-align:left"><a href="http://yohshiy.blog.fc2.com/blog-entry-195.html" title="Google Chart Tools の使い方" target="_blank">Google Chart Tools の使い方</a></li><li style="text-align:left"><a href="http://www.r-labs.org/projects/r-labs/wiki/%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E9%96%8B%E7%99%BA%E3%82%AC%E3%82%A4%E3%83%89" title="Rails を知らない人のための Redmine プラグイン開発ガイド(r-labs)" target="_blank">Rails を知らない人のための Redmine プラグイン開発ガイド(r-labs)</a></li><li><a href="http://yohshiy.blog.fc2.com/?admin">管理画面</a></li>
+</ul>
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <a href="javascript:window.location.replace('http://blog.fc2.com/?linkid=yohshiy');">このブログをリンクに追加する</a>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    タグ
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <p class="plugin-tag" style="text-align:left">
+	<a href="http://yohshiy.blog.fc2.com/?tag=%E4%BD%BF%E3%81%84%E6%96%B9">使い方</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Redmine">Redmine</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Emacs">Emacs</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%AC%E3%82%A4%E3%83%89">ガイド</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">インストール</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E9%96%8B%E7%99%BA%E8%A8%98">開発記</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Ruby">Ruby</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=JavaScript">JavaScript</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Rails">Rails</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E7%94%A8%E8%AA%9E%E9%9B%86%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3">用語集プラグイン</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3">プラグイン</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=C%2B%2B">C++</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=altjs">altjs</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=C%23">C#</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%83%BC">ライブラリー</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Redmine%E5%85%A5%E9%96%80">Redmine入門</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Redmine%E3%82%A4%E3%83%B3%E3%83%95%E3%82%A9%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">Redmineインフォメーション</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=VS">VS</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B0%E3%83%A9%E3%83%95">グラフ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=FC2%E3%83%96%E3%83%AD%E3%82%B0">FC2ブログ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%84%E3%83%BC%E3%83%AB">ツール</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=TestLinkLink">TestLinkLink</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB">コンパイル</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%AF%E3%82%A4%E3%82%BA">クイズ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E8%A8%80%E8%AA%9E%E6%AF%94%E8%BC%83">言語比較</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E5%9B%BD%E9%9A%9B%E5%8C%96">国際化</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%96%E3%83%AD%E3%82%B0">ブログ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88">テキスト</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=UML">UML</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%9B%B8%E3%81%8D%E6%96%B9">書き方</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6">ブラウザ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=SNS">SNS</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE">正規表現</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Dart">Dart</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=JVM%E8%A8%80%E8%AA%9E">JVM言語</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=K2Editor">K2Editor</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Qt">Qt</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Word">Word</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=web%E5%88%B6%E4%BD%9C">web制作</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9">インターフェース</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E7%A7%80%E4%B8%B8">秀丸</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Javascript">Javascript</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%81%E3%82%B1%E3%83%83%E3%83%88">チケット</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Wiki">Wiki</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E8%A1%A8">表</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=ex-html-mode.el">ex-html-mode.el</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Clojure">Clojure</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Excel">Excel</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E6%AF%94%E8%BC%83">ライブラリ比較</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">関数型プログラミング</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">バージョン管理システム</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=TypeScript">TypeScript</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=routes">routes</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=GUI%E6%AF%94%E8%BC%83">GUI比較</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=.NET">.NET</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B3%E3%83%BC%E3%83%89%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88">コードハイライト</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=TestLink">TestLink</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=HTML5">HTML5</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=gem">gem</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Bookmarklet">Bookmarklet</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=node.js">node.js</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E7%BD%AE%E6%8F%9B">置換</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Windows">Windows</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E9%96%A2%E6%95%B0%E5%9E%8B">関数型</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%BC">コンピューター</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%96%E3%83%AD%E3%82%B0%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA">ブログカスタマイズ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=lisp">lisp</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E8%8B%B1%E8%AA%9E">英語</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=grep">grep</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3">コマンドライン</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%A8%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97">エスケープ</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=eshell">eshell</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Subversion">Subversion</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Boost">Boost</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF">ジェネリック</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%96%87%E5%AD%97%E3%82%B3%E3%83%BC%E3%83%89">文字コード</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%97%A5%E6%9C%AC%E8%AA%9E">日本語</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%A4%9C%E7%B4%A2">検索</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%AF%94%E8%BC%83">比較</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E9%9B%A3%E8%AA%AD%E5%8C%96">難読化</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%B1%8E%E5%8C%96">汎化</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Google">Google</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=CSS3">CSS3</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Graphviz">Graphviz</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Doxygen">Doxygen</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E9%85%8D%E7%BD%AE%E5%9B%B3">配置図</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=CoffeeScript">CoffeeScript</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Notes">Notes</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E5%9B%B3">パッケージ図</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E5%9B%B3">オブジェクト図</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E8%A8%AD%E5%AE%9A">設定</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E6%AD%B4%E5%8F%B2">歴史</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%88%E3%83%A9%E3%83%83%E3%82%AB%E3%83%BC">トラッカー</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=PlantUML">PlantUML</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9">ライセンス</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=html">html</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=css">css</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E5%8D%98%E8%AA%9E%E5%A2%83%E7%95%8C">単語境界</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=Markdown">Markdown</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=GUI">GUI</a>&nbsp;<a href="http://yohshiy.blog.fc2.com/?tag=%E3%82%AC%E3%83%B3%E3%83%88%E3%83%81%E3%83%A3%E3%83%BC%E3%83%88">ガントチャート</a>&nbsp;</p>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    ブロとも一覧
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <a href="http://enokie.blog.fc2.com/" target="_blank"><img src="./IDisposableとusing_files/MeScopes.jpg" width="100" height="68.9075630252" title="nabezoco" border="0"></a><br>
+  <a href="http://enokie.blog.fc2.com/" target="_blank">nabezoco</a><br><a href="http://tsurujiro.blog.fc2.com/" target="_blank"><img src="./IDisposableとusing_files/Cs.jpg" width="100" height="93.2773109244" title="tsurujirospark" border="0"></a><br>
+  <a href="http://tsurujiro.blog.fc2.com/" target="_blank">A級プログラマーへの道</a><br>    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    ブロとも申請フォーム
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <p class="plugin-friends" style="text-align:left"><a href="http://yohshiy.blog.fc2.com/?mode=friends">この人とブロともになる</a></p>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    最新コメント
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <ul>
+<li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-163.html#comment53" title="No title">:1 KB って何バイト？ (01/04)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-3.html#comment51" title="Re: Redmine 2.5"><span class="fc2_owner_comment" style="font-weight:bold;">yohshiy</span>:公開中の Redmine プラグイン (08/28)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-3.html#comment50" title="Redmine 2.5">URAS:公開中の Redmine プラグイン (08/28)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-107.html#comment45" title="Re: No title"><span class="fc2_owner_comment" style="font-weight:bold;">yohshiy</span>:フォントの埋め込みと Google Web Fonts (06/13)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-246.html#comment43" title="Re: No title"><span class="fc2_owner_comment" style="font-weight:bold;">yohshiy</span>:Julia : スクリプト言語最速? 手軽さと速さを求めた科学技術計算向け言語 (05/20)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-246.html#comment42" title="No title">nico:Julia : スクリプト言語最速? 手軽さと速さを求めた科学技術計算向け言語 (05/17)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-246.html#comment41" title="No title">nico:Julia : スクリプト言語最速? 手軽さと速さを求めた科学技術計算向け言語 (05/17)</a>
+</li></ul>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    最新トラックバック
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <ul>
+<li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-187.html#trackback7" title="まとめ【Redmine お勧めプラグ】">まっとめBLOG速報:まとめ【Redmine お勧めプラグ】 (11/18)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-188.html#trackback6" title="まとめ【Redmine お勧めプラグ】">まっとめBLOG速報:まとめ【Redmine お勧めプラグ】 (11/18)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-131.html#trackback5" title="メタディスクリプション">SEO（検索エンジン最適化）:メタディスクリプション (07/29)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-120.html#trackback4" title="まとめteみた.【Redmine 1.4 の Windows でのインストール】">まとめwoネタ速suru:まとめteみた.【Redmine 1.4 の Windows でのインストール】 (04/18)</a>
+</li><li style="text-align:left">
+<a href="http://yohshiy.blog.fc2.com/blog-entry-118.html#trackback3" title="まとめteみた.【FC2 ブログの検索フォームの改良と自作】">まとめwoネタ速suru:まとめteみた.【FC2 ブログの検索フォームの改良と自作】 (04/15)</a>
+</li></ul>
+    </div>
+      </div>
+  
+  
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    おすすめ
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <div class="plugin-catamazon" style="text-align:left"><div style="width:90%;"><a href="http://blog.fc2.com/goods/4274068579/yohshiy-22" target="_blank"><img src="./IDisposableとusing_files/51RCHbILAFL._SL160_.jpg" alt="７つの言語 ７つの世界" border="0"></a><br><a href="http://blog.fc2.com/goods/4274068579/yohshiy-22" target="_blank">７つの言語 ７つの世界</a></div><br><div style="width:90%;"><a href="http://blog.fc2.com/goods/4774120391/yohshiy-22" target="_blank"><img src="./IDisposableとusing_files/51X5N99RQ0L._SL160_.jpg" alt="UNIXプログラミングの道具箱―プロフェッショナルが明かす研ぎ澄まされたツール群の使いこなし" border="0"></a><br><a href="http://blog.fc2.com/goods/4774120391/yohshiy-22" target="_blank">UNIXプログラミングの道具箱―プロフェッショナルが明かす研ぎ澄まされたツール群の使いこなし</a></div><br><div style="width:90%;"><a href="http://blog.fc2.com/goods/4877832718/yohshiy-22" target="_blank"><img src="./IDisposableとusing_files/41EreB6PKkL._SL160_.jpg" alt="やさしいEmacs‐Lisp講座" border="0"></a><br><a href="http://blog.fc2.com/goods/4877832718/yohshiy-22" target="_blank">やさしいEmacs‐Lisp講座</a></div><br><div style="width:90%;"><a href="http://blog.fc2.com/goods/4894714353/yohshiy-22" target="_blank"><img src="./IDisposableとusing_files/51QX865WRYL._SL160_.jpg" alt="Modern C++ Design―ジェネリック・プログラミングおよびデザイン・パターンを利用するための究極のテンプレート活用術 (C++ In‐Depth Series)" border="0"></a><br><a href="http://blog.fc2.com/goods/4894714353/yohshiy-22" target="_blank">Modern C++ Design―ジェネリック・プログラミングおよびデザイン・パターンを利用するための究極のテンプレート活用術 (C++ In‐Depth Series)</a></div><br><div style="width:90%;"><a href="http://blog.fc2.com/goods/4894714515/yohshiy-22" target="_blank"><img src="./IDisposableとusing_files/51TFT3FMS1L._SL160_.jpg" alt="Effective C++ 原著第3版 (ADDISON-WESLEY PROFESSIONAL COMPUTING SERIES)" border="0"></a><br><a href="http://blog.fc2.com/goods/4894714515/yohshiy-22" target="_blank">Effective C++ 原著第3版 (ADDISON-WESLEY PROFESSIONAL COMPUTING SERIES)</a></div><br></div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    FC2投票
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <script type="text/javascript" charset="shift_jis" src="./IDisposableとusing_files/poll.php"></script><form method="post" name="fc2_vote_12029851_3" action="http://vote1.fc2.com/poll.php" target="_blank" style="margin:0px;"><div style="color:#000000;font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;border:1px solid #000000;text-align:left;width:180px"><div style="color:#ffffff;background-color:#669999;padding:3px 0px 3px 4px"><a href="http://vote.fc2.com/" target="_blank" style="color:#ffffff;text-decoration:none">FC2無料投票レンタル</a></div><div style="background-color:#eeeeee;padding:4px 2px 4px 4px">使っている JavaScript 系新(変換)言語は ?</div><div style="border-top:1px solid #000000;padding:2px 2px 6px 2px;text-align:center;background-color:#ffffff"><table style="border:0px;border-spacing:0px;border-collapse:collapse;margin:auto;width:174px;table-layout:fixed"><tbody><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="1" id="fc2_vote_12029851_3_1"><label for="fc2_vote_12029851_3_1" style="cursor:pointer;">Dart</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="2" id="fc2_vote_12029851_3_2"><label for="fc2_vote_12029851_3_2" style="cursor:pointer;">TypeScript</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="3" id="fc2_vote_12029851_3_3"><label for="fc2_vote_12029851_3_3" style="cursor:pointer;">CoffeeScript</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="4" id="fc2_vote_12029851_3_4"><label for="fc2_vote_12029851_3_4" style="cursor:pointer;">JSX</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="5" id="fc2_vote_12029851_3_5"><label for="fc2_vote_12029851_3_5" style="cursor:pointer;">Haxe</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="6" id="fc2_vote_12029851_3_6"><label for="fc2_vote_12029851_3_6" style="cursor:pointer;">その他</label></td></tr></tbody></table><input type="hidden" name="uid" value="12029851"><input type="hidden" name="no" value="3"><input type="hidden" name="mode" value="on"><input type="hidden" name="charset" value="UTF-8"></div><div style="border-top:1px solid #000000;background-color:#eeeeee;padding:4px 4px 4px 0px;text-align:right"><div style="padding:1px 0px 0px 6px;text-align:left">25文字以内のコメント</div><div style="padding:0px 0px 2px 8px;text-align:left"><input type="text" name="com" id="fc2_vote_12029851_3com" style="width:164px;height:20px;"></div><div style="padding:8px 0px 0px 8px;float:left"><a href="http://vote1.fc2.com/poll.php?mode=result&uid=12029851&no=3" style="color:#777777;" target="_blank">投票結果</a></div><input type="button" value="投票" id="fc2_vote_12029851_3_button" style="height:23px;" disabled=""></div></div></form><img src="./IDisposableとusing_files/counter_img.php" width="1" height="1">
+<noscript>&lt;a href="http://vote.fc2.com/" target="_blank"&gt;FC2投票&lt;/a&gt;</noscript>
+<div style="text-align:center;">
+	<a href="http://analysis.fc2.com/" target="_blank">無料</a><a href="http://analysis.fc2.com/" target="_blank">アクセス解析</a>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    FC2投票
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <script type="text/javascript" charset="shift_jis" src="./IDisposableとusing_files/poll(1).php"></script><form method="post" name="fc2_vote_12029851_2" action="http://vote1.fc2.com/poll.php" target="_blank" style="margin:0px;"><div style="color:#000000;font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;border:1px solid #000000;text-align:left;width:180px"><div style="color:#ffffff;background-color:#669999;padding:3px 0px 3px 4px"><a href="http://vote.fc2.com/" target="_blank" style="color:#ffffff;text-decoration:none">FC2無料投票レンタル</a></div><div style="background-color:#eeeeee;padding:4px 2px 4px 4px">興味のあるプログラミング言語は ?</div><div style="border-top:1px solid #000000;padding:2px 2px 6px 2px;text-align:center;background-color:#ffffff"><table style="border:0px;border-spacing:0px;border-collapse:collapse;margin:auto;width:174px;table-layout:fixed"><tbody><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="1" id="fc2_vote_12029851_2_1"><label for="fc2_vote_12029851_2_1" style="cursor:pointer;">C, C++</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="2" id="fc2_vote_12029851_2_2"><label for="fc2_vote_12029851_2_2" style="cursor:pointer;">C#</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="3" id="fc2_vote_12029851_2_3"><label for="fc2_vote_12029851_2_3" style="cursor:pointer;">Java</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="4" id="fc2_vote_12029851_2_4"><label for="fc2_vote_12029851_2_4" style="cursor:pointer;">Objective-C</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="5" id="fc2_vote_12029851_2_5"><label for="fc2_vote_12029851_2_5" style="cursor:pointer;">Ruby</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="6" id="fc2_vote_12029851_2_6"><label for="fc2_vote_12029851_2_6" style="cursor:pointer;">Python</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="7" id="fc2_vote_12029851_2_7"><label for="fc2_vote_12029851_2_7" style="cursor:pointer;">emacs-lisp</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="8" id="fc2_vote_12029851_2_8"><label for="fc2_vote_12029851_2_8" style="cursor:pointer;">JavaScript</label></td></tr><tr><td style="font:12px/13px &#39;MS UI Gothic&#39;,&#39;Osaka&#39;;color:#000000;text-align:left;overflow:hidden"><input type="radio" name="poll" value="9" id="fc2_vote_12029851_2_9"><label for="fc2_vote_12029851_2_9" style="cursor:pointer;">PHP</label></td></tr></tbody></table><input type="hidden" name="uid" value="12029851"><input type="hidden" name="no" value="2"><input type="hidden" name="mode" value="on"><input type="hidden" name="charset" value="UTF-8"></div><div style="border-top:1px solid #000000;background-color:#eeeeee;padding:4px 4px 4px 0px;text-align:right"><div style="padding:1px 0px 0px 6px;text-align:left">25文字以内のコメント</div><div style="padding:0px 0px 2px 8px;text-align:left"><input type="text" name="com" id="fc2_vote_12029851_2com" style="width:164px;height:20px;"></div><div style="padding:8px 0px 0px 8px;float:left"><a href="http://vote1.fc2.com/poll.php?mode=result&uid=12029851&no=2" style="color:#777777;" target="_blank">投票結果</a></div><input type="button" value="投票" id="fc2_vote_12029851_2_button" style="height:23px;" disabled=""></div></div></form><img src="./IDisposableとusing_files/counter_img.php" width="1" height="1">
+<noscript>&lt;a href="http://vote.fc2.com/" target="_blank"&gt;FC2投票&lt;/a&gt;</noscript>
+<div style="text-align:center;">
+	<a href="http://analysis.fc2.com/" target="_blank">無料</a><a href="http://analysis.fc2.com/" target="_blank">アクセス解析</a>
+</div>
+    </div>
+      </div>
+  
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    プロフィール
+    </div>
+        <div class="sidemenu_body" style="text-align:left">
+    <p class="plugin-myimage" style="text-align:left">
+<img src="./IDisposableとusing_files/blogicon.png" alt="yohshiy">
+</p>
+<p style="text-align:left">
+Author:yohshiy<br>
+職業プログラマー。<br>仕事は主に C++ ですが、軽い言語マニアなので、色々使っています。<br><br>はてブ:<a href="http://b.hatena.ne.jp/yohshiy/bookmark" target="_blank">yohshiy のブックマーク</a><br>Twitter:<a href="http://www.twitter.com/yohshiy" target="_blank">@yohshiy</a> <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./IDisposableとusing_files/follow_button.331904cc91ddebde387d36578bfb9deb.ja.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 85px; height: 20px;"></iframe> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+    </div>
+      </div>
+  
+    
+  <div class="sidemenu">
+    <div class="sidemenu_title" style="text-align:left">
+    サイト紹介
+    </div>
+    <div class="sidemenu_body" style="text-align:left">
+    プログラミング好きのブログです。プログラミング関連の話題や公開ソフトの開発記などを雑多に書いてます。ただ、たまに英語やネット系の話になることも。    </div>
+  </div>
+
+</div>
+
+
+</div><!-- container ^^^^  -->
+
+
+<!-- フッター ================ -->
+
+<div class="footer">
+  <p>Powered by <a href="http://blog.fc2.com/" title="FC2 BLOG">FC2 Blog</a></p>
+  <p><script type="text/javascript" charset="utf-8" language="JavaScript" src="./IDisposableとusing_files/comment.js"></script> 	<script type="text/javascript" src="./IDisposableとusing_files/blog_res.js"></script></p>
+  <address>Copyright © プログラマーズ雑記帳 All Rights Reserved.</address>
+  <p>
+    <strong>&lt;免責事項&gt;</strong>
+    当サイトの情報やコードの利用により生じた損失や損害などについては、
+    いかなる場合も一切の責任を負いません。
+  </p>
+</div>
+
+
+<!-- ==== SNS ==== -->
+<!-- Twitter  -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<!-- はてな -->
+<script type="text/javascript" src="./IDisposableとusing_files/bookmark_button.js" charset="utf-8" async="async"></script>
+
+
+<!-- Google+1 -->
+<!-- 最後の +1 ボタン タグの後に次のタグを貼り付けてください。 -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'ja'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- For Grow
+<script type="text/javascript" src="http://growbutton.com/javascripts/button.js?apikey=a57f6250-3c72-012f-064d-12313f00aced&insert=false"></script>
+ -->
+
+
+<div id="stcpDiv" style="position: absolute; top: -1999px; left: -1988px;">IDisposable</div><iframe id="stSegmentFrame" name="stSegmentFrame" src="./IDisposableとusing_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><iframe name="oauth2relay513706434" id="oauth2relay513706434" src="./IDisposableとusing_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div id="stwrapper" class="stwrapper stwrapper5x" style="display: none; z-index: 89999999;"><iframe allowtransparency="true" id="stLframe" class="stLframe stframe5x" name="stLframe" frameborder="0" scrolling="no" width="514px" height="419px" src="./IDisposableとusing_files/index.8d662777a51932a2b8e3613b046be262.html" style="top: 0px; left: 0px;"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();" style="height: 100%; width: 100%; opacity: 0.6; position: fixed; display: none; left: 0px; top: 0px; z-index: 89999990; background-color: rgb(0, 0, 0);"></div></body></html>

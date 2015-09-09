@@ -1,0 +1,51 @@
+
+
+・まずここ　http://qiita.com/gamesonytablet/items/20b25ad9729e4a353c96
+
+
+・表示優先度→canvas下だとヒエラルキの上位のものから順に書かれていく
+　　　　　　　sortinglayerとsortingorderを指定してやるしかない
+　　　　　　　s~layer orderが同じスプライトはカメラとの距離でソートされてる気がする
+
+
+・Triggerは物理作用を起こさない当たり判定
+
+
+・gameObject → コンポーネント(transformなども)が保持しているGameObjectのインスタンス
+　GameObject → クラス
+
+・mousePositionは画面の1,2ピクセルの座標でゲーム中のワールド座標とは違う
+
+・Vector3.fowardは自分から見て前じゃなく東西南北みたいな方角を示してる
+　自分から見て前はtransform.forward
+
+
+・Animatorを持つオブジェクトを非アクティブにするとAnimatorはリセットされる
+　対処：http://tsubakit1.hateblo.jp/entry/2015/02/05/111819
+
+・シーンチェンジするとチェンジ後のシーンが暗くなる
+　ソリューション：http://stackoverflow.com/questions/28951537/untiy-5-scene-darkens-when-switching-scenes
+
+・コライダーはゲームオブジェクト1つ
+
+・Rigitbodyに干渉するにはTransformでオブジェクトを動かしてはダメ
+
+・rigidbody系は、updateじゃなくfixed updateの中で操作する
+	RigidBodyって何かっていうと
+	物理エンジンにしたがって自動でTransformを動かすコンポーネント、
+	な訳だがこれはFixedUpdate()の周期で動作する。
+	だから物理エンジンがらみのものはFixedUpdate()に書く。
+
+・カメラ操作系は、updateじゃなくfixed updateの中で操作する
+
+・OnTriggerStay2Dは接触してるコライダーの位置が一定時間変わらない時、
+　負荷軽減のため接触判定がオフになる（OnTriggerStay2Dを勝手に抜ける）
+
+・Time.deltaTimeはそれがfixedUpdate()で呼ばれているかUpdate()で呼ばれているかを
+　自動で判別して正しい差分時間を与えてくれる。Time.fixedDeltaTimは使わない。
+
+・this.gameObject.transformとthis.gameObject.GetComponent<Transform>() は同じコスト
+　要するにいちいちthis.transform…と書くのは低速化するのでtransformはキャッシュすべき
+　参考：http://www.slideshare.net/RyoheiTokimura/ss-35321624の25ページ目とか
+　　　　http://qiita.com/crow_ver6/items/3dc6ba29062d397bbf60
+

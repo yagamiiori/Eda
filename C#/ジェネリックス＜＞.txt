@@ -1,0 +1,27 @@
+
+・ 型だけ違って処理の内容が同じようなものを作るときに使う
+・比較などの演算子は使えなくなってしまうので、 わざわざ CompareTo を使う必要があったりする
+
+・ジェネリッククラス： IComparable<T> { int CompareTo(T x, T y); }
+・ジェネリックメソッド： T max<T>(T x, T y) { ... }
+
+
+参考：http://ufcpp.net/study/csharp/sp2_generics.html
+
+
+	void Start()
+	{
+		indexPair(card1); // ジェネリックスメソッドコールするとこは何もしなくていい
+		indexPair(card2);
+	}
+
+	// ジェネリックスメソッドはメソッド名の後に<T>と引数にもT
+	public void indexPair<T>(T c)
+	{
+		T cardtype;
+		cardtype = c;
+
+	}
+
+
+

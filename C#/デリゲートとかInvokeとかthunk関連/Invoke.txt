@@ -1,0 +1,13 @@
+
+・コントロールの基になるウィンドウハンドルを所有するスレッド上で
+　指定した引数リストを使用して、指定したデリゲートを実行します
+
+http://www.atmarkit.co.jp/fdotnet/dotnettips/312ctrlinvoke/ctrlinvoke.html
+
+
+
+
+
+
+
+

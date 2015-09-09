@@ -1,0 +1,28 @@
+
+参考：http://ufcpp.net/study/csharp/RmBoxing.html
+
+
+値型(スタック上にある値)から参照型(ヒープ上にある値)へ変換される事。
+ヒープに新たに領域を確保して値をコピーする。
+また、型情報も付与される。
+
+
+	int x = 5;
+	object y = x;   // int を object に。ボックス化が起きる。
+	int z = (int)y; // object から元の型に。ボックス化解除。
+
+------------------------------------------------------------------------------------------------------------
+    public struct Int32 : IComparable, IFormattable, IConvertible, IComparable<Int32>, IEquatable<Int32>
+    {
+        public override bool Equals(object obj);
+        public override Int32 GetHashCode();
+        public override string ToString();
+        // 以下略
+    }
+
+上記はint型(値型)の定義だが、このoverrideは参照型で定義されている
+virtualに対するオーバーライドである
+
+
+
+

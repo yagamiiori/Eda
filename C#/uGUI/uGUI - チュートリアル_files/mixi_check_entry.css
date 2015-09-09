@@ -1,0 +1,1588 @@
+@charset "euc-jp";
+
+/*------------------------------------------------------------ default settings */
+/*-------------------------------------------------- reset */
+html{
+overflow-y:scroll;
+}
+
+body{
+background:#FFF;
+color:#333;
+font-size:12px;
+*font-size:78%;
+}
+
+body,div,h1,h2,h3,h4,h5,h6,p,ul,ol,li,dl,dt,dd,form,fieldset,legend,input,textarea,pre,code,blockquote{
+margin:0;
+padding:0;
+}
+
+br{
+letter-spacing:0;
+}
+
+fieldset,img{
+border:0;
+}
+
+li{
+list-style:none;
+}
+
+caption,th{
+text-align:left;
+}
+
+h1,h2,h3,h4,h5,h6,th{
+font-style:normal;
+font-weight:normal;
+font-size:100%;
+}
+
+input,textarea,select{
+color:#333;
+font-family:inherit;
+font-weight:inherit;
+font-size:inherit;
+}
+
+select{
+background-color:#FFF !important;
+}
+
+address,caption,cite,code,dfn,var{
+font-style:normal;
+font-weight:normal;
+}
+
+abbr,acronym{
+border:0;
+font-variant:normal;
+}
+
+del,u{
+text-decoration:none;
+}
+
+em{
+font-style:normal;
+}
+
+#contents,
+#footer{
+background:#FFF;
+}
+
+/*-------------------------------------------------- layout */
+body{
+text-align:center;
+}
+
+#page{
+width:632px;
+margin:0 auto;
+text-align:left;
+}
+
+/*-------------------------------------------------- text */
+body{
+line-height:1.5;
+letter-spacing:0.05em;
+}
+
+.userInput{
+line-height:1.2;
+word-break:break-all;
+}
+
+a:link{color:#258fb8;}
+a:visited{color:#258fb8;}
+a:hover{color:#996600;}
+a:active{color:#996600;}
+a:focus{color:#996600;}
+
+/*-------------------------------------------------- form */
+/*safari setting*/
+html[xmlns*=""] body:last-child input[type="file"]{
+border:none;
+background-color:transparent;
+}
+
+*input[type="file"]{
+padding:2px;
+border:1px solid #DFDFDF;
+background-color:#fdf9f2;
+}
+
+html*input[type="file"]{
+background-color:transparent;
+}
+
+/*---------------------------------------- text */
+input.inputText,
+textarea{
+height:18px;
+line-height:18px;
+margin:1px 0;
+*margin:0;
+padding:0 2px;
+border:1px solid #DFDFDF;
+}
+
+/*---------------------------------------- checkbox */
+input.inputCheck{
+margin-right:5px;
+*margin:0 3px 1px 0;
+padding:0;
+vertical-align:middle;
+}
+
+/*------------------------------------------------------------ common */
+/*-------------------------------------------------- header */
+body{
+background:url(/img/basic/mixicheck_entry/bg_header001.gif) repeat-x left top;
+}
+
+#header{
+height:41px;
+}
+
+#header h1.headerLogo{
+padding:10px 20px 0;
+}
+
+/*-------------------------------------------------- contents */
+#contents{
+width:592px;
+min-height:341px;
+_height:341px;
+padding:0 20px 30px;
+}
+
+#contents:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+/*-------------------------------------------------- footer */
+#footer{
+margin:0 20px;
+padding:15px 0 0;
+background:url(/img/basic/mixicheck_entry/line_hr_dot001.gif) repeat-x left top;
+}
+
+#footer p.copy{
+float:left;
+width:537px;
+color:#999;
+}
+
+#footer p.footerLogo{
+float:left;
+width:55px;
+text-align:right;
+}
+
+/*------------------------------------------------------------ components */
+/*-------------------------------------------------- section01 */
+div.section01{
+margin:0 10px;
+}
+
+/*---------------------------------------- sectionHead */
+div.section01 div.sectionHead{
+background:url(/img/basic/mixicheck_entry/bg_section_head001.gif) no-repeat left top;
+}
+
+div.section01 div.sectionHead h3{
+height:24px;
+line-height:24px;
+padding-left:22px;
+font-weight:bold;
+}
+
+/*---------------------------------------- sectionBody */
+div.section01 div.sectionBody{
+border:1px solid #dedede;
+}
+
+/*-------------------------------------------------- messageArea */
+div.messageArea{
+padding:10px 20px;
+background:#f8f8f8;
+}
+
+div.messageArea div.messageAreaBody{
+padding:28px 0 25px;
+border:1px solid #dedede;
+background:#fff url(/img/basic/mixicheck_entry/bg_message_info001.gif) repeat left top;
+}
+
+/*-------------------------------------------------- formButtons01 */
+.formButtons01{
+text-align:center;
+}
+
+/*---------------------------------------- formBt */
+.formBt01,
+.formBt02{
+line-height:1.8;
+*line-height:1.2;
+margin:0 4px;
+padding:0 20px;
+*padding:0 5px;
+cursor:pointer;
+}
+
+.formBt01{
+color:#fff;
+border:1px solid #45362f;
+background:#5b524d;
+}
+
+.formBt02{
+color:#575350;
+border:1px solid #6d5a53;
+background:#e5e4e2;
+}
+
+/*-------------------------------------------------- message01 */
+div.message01{
+margin:30px 10px 20px;
+}
+
+/*---------------------------------------- messageInfo */
+div.messageInfo01,
+div.messageInfo02{
+padding:24px 0;
+border:1px solid #dfdfdf;
+background:url(/img/basic/mixicheck_entry/bg_message_info001.gif) repeat left top;
+}
+
+div.messageInfo01 p{
+text-align:center;
+}
+
+div.messageInfo02 h2{
+min-height:35px;
+_height:35px;
+padding:7px 0 0 95px;
+background:url(/img/basic/mixicheck_entry/icon_message_info001.gif) no-repeat 55px top;
+font-weight:bold;
+}
+
+div.messageInfo02 p{
+padding:0 30px 0 95px;
+}
+
+div.messageInfo02 p.note{
+padding-top:8px;
+color:#666;
+font-size:83%;
+}
+
+/*---------------------------------------- messageError01 */
+div.messageError01{
+padding:1px;
+border:1px solid #ccc;
+}
+
+div.messageError01 div{
+padding:11px 0;
+border:1px solid #ccc;
+background:#eee;
+}
+
+div.messageError01 div p.errorHead{
+min-height:30px;
+_height:30px;
+padding:11px 0 0 172px;
+background:url(/img/basic/mixicheck_entry/icon_message_error001.gif) no-repeat 120px top;
+font-weight:bold;
+}
+
+div.messageError01 div p.errorHead em{
+color:#f00;
+}
+
+/*-------------------------------------------------- inlineAlert01 */
+.inlineAlert01,
+.inlineAlert02{
+padding:1px 0 1px 20px;
+color:#f00;
+background:url(/img/basic/mixicheck_entry/icon_alert001.gif) no-repeat left top;
+}
+
+.inlineAlert02{
+padding:2px 0 2px 20px;
+font-size:83%;
+font-weight:bold;
+}
+
+/*-------------------------------------------------- naviLink01 */
+.naviLink01{
+padding-top:17px;
+text-align:center;
+}
+
+.naviLink01 li{
+padding-bottom:10px;
+}
+
+/*------------------------------------------------------------ individual */
+/*-------------------------------------------------- introduction */
+div.introduction{
+float:left;
+width:347px;
+padding-top:30px;
+}
+
+div.introduction h2{
+padding-bottom:15px;
+}
+
+div.introduction p.introText{
+height:69px;
+*height:71px;
+font-size:116%;
+}
+
+div.introduction p.introText02{
+height:57px;
+font-size:116%;
+}
+
+div.introduction .reportInfo{
+width:327px;
+margin:27px 0 0 0;
+padding-top:3px;
+background:url(/img/basic/mixicheck_entry/info_bg_top.gif) no-repeat 0 0;
+font-size:83%;
+}
+
+div.introduction .reportInfo p{
+padding:5px 10px 8px;
+background:#F6F0F0 url(/img/basic/mixicheck_entry/info_bg_bottom.gif) no-repeat 0 100%;
+}
+
+/*-------------------------------------------------- login */
+div.login{
+float:left;
+width:225px;
+padding:30px 0 3px;
+background:url(/img/basic/mixicheck_entry/bg_login_bottom001.gif) no-repeat left bottom;
+}
+
+/*---------------------------------------- loginBody */
+div.login div.loginBody{
+padding-top:3px;
+background:url(/img/basic/mixicheck_entry/bg_login_top001.gif) no-repeat left top;
+}
+
+/*---------------------------------------- loginInfo, loginForm */
+div.login div.loginInfo,
+div.login div.loginForm{
+border-right:1px solid #ccc;
+border-left:1px solid #ccc;
+background:#f8f7f3;
+}
+
+div.login div.loginInfo{
+padding-top:9px;
+}
+
+div.login div.loginInfo p.note{
+padding-bottom:12px;
+border-bottom:1px solid #ccc;
+text-align:center;
+}
+
+div.login div.loginForm{
+min-height:196px;
+_height:196px;
+padding:7px 12px 9px;
+*padding-bottom:8px;
+}
+
+/*------------------------------ entry */
+div.login div.loginForm dl.entry dt{
+line-height:1;
+padding:2px 0;
+}
+
+div.login div.loginForm dl.entry dd input{
+width:193px;
+}
+
+/*------------------------------ pwReminder */
+div.login div.loginForm p.pwReminder{
+font-size:83%;
+}
+
+/*------------------------------ autoLogin */
+div.login div.loginForm p.autoLogin{
+padding:3px 0;
+*padding:2px 0 0;
+}
+
+/*------------------------------ button */
+div.login div.loginForm p.button{
+padding:11px 0 13px;
+text-align:center;
+}
+
+/*------------------------------ resister */
+div.login div.loginForm p.resister{
+padding-top:11px;
+background:url(/img/basic/mixicheck_entry/line_hr_dot001.gif) repeat-x left top;
+text-align:center;
+}
+
+div.login div.loginForm p.resister a{
+padding-left:8px;
+background:url(/img/basic/mixicheck_entry/icon_general001.gif) no-repeat left 3px;
+}
+
+/*-------------------------------------------------- loginError */
+/*---------------------------------------- loginForm */
+div.messageArea div.loginError dl.loginForm{
+width:370px;
+margin:0 auto;
+border:1px solid #fbb14e;
+border-top:none;
+background:#fff url(/img/basic/common/bg_edit_list001.gif) repeat-y left top;
+}
+
+div.messageArea div.loginError dl.loginForm:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+div.messageArea div.loginError dl.loginForm dt,
+div.messageArea div.loginError dl.loginForm dd{
+float:left;
+padding:10px;
+border-top:1px solid #fbb14e;
+}
+
+div.messageArea div.loginError dl.loginForm dt{
+width:121px;
+}
+
+div.messageArea div.loginError dl.loginForm dd{
+width:209px;
+}
+
+div.messageArea div.loginError dl.loginForm dd input{
+width:203px;
+}
+
+/*---------------------------------------- autoLogin */
+div.messageArea div.loginError p.autoLogin{
+padding-top:12px;
+text-align:center;
+}
+
+/*---------------------------------------- pwReminder */
+div.messageArea div.loginError p.pwReminder{
+padding:2px 0 9px;
+*padding-top:0;
+font-size:83%;
+text-align:center;
+}
+
+/*-------------------------------------------------- itemArea */
+div.itemArea{
+width:592px;
+padding-top:12px;
+}
+
+div.itemArea:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+/*---------------------------------------- title */
+div.itemArea h2.title{
+padding-bottom:10px;
+font-size:116%;
+font-weight:bold;
+}
+
+/*---------------------------------------- itemImage */
+div.itemArea div.itemImage{
+float:left;
+width:88px;
+padding-bottom:10px;
+}
+
+/*------------------------------ selectImage */
+div.itemArea div.itemImage div.selectImage{
+position:relative;
+padding-top:6px;
+}
+
+/*-------------------- imgSelector */
+div.selectImage div.imgSelector{
+position:absolute;
+top:13px;
+left:-2px;
+height:112px;
+background:url(/img/basic/mixicheck_entry/bg_img_selector_left001.gif) no-repeat left top;
+}
+
+div.selectImage div.imgSelector div{
+padding:18px 5px 12px 12px;
+background:url(/img/basic/mixicheck_entry/bg_img_selector_right001.gif) no-repeat right top;
+}
+
+div.selectImage div.imgSelector div table{
+border-collapse:collapse;
+border-spacing:0;
+}
+
+div.selectImage div.imgSelector div table td{
+padding:3px 10px 3px 3px;
+text-align:center;
+vertical-align:middle;
+}
+
+div.selectImage div.imgSelector div table td.on{
+padding:0 7px 0 0;
+}
+
+div.selectImage div.imgSelector div table td.on img{
+border:3px solid #808080;
+}
+
+div.selectImage div.imgSelector div table td.focus{
+padding:0 7px 0 0;
+}
+
+div.selectImage div.imgSelector div table td.focus img{
+border:3px solid #c0c0c0;
+}
+
+/*---------------------------------------- itemBody */
+div.itemArea div.itemBody{
+padding-bottom:10px;
+}
+
+div.itemArea div.itemBody p.text{
+padding-bottom:10px;
+*padding-bottom:5px;
+}
+
+div.itemArea div.itemBody address{
+font-size:83%;
+}
+
+div.itemArea div.itemBody address img{
+margin-right:8px;
+vertical-align:middle;
+}
+
+div.itemArea div.itemBody .supplement01{
+padding:10px 0 0;
+color:#666;
+font-size:83%;
+}
+
+/*-------------------------------------------------- itemComment */
+div.itemComment{
+margin-bottom:30px;
+padding-bottom:3px;
+background:url(/img/basic/mixicheck_entry/bg_item_comment_bottom001.gif) no-repeat left bottom;
+}
+
+div.itemComment div.commentForm{
+padding-top:3px;
+background:url(/img/basic/mixicheck_entry/bg_item_comment_top001.gif) no-repeat left top;
+}
+
+div.itemComment div.commentForm div.formBody{
+width:570px;
+padding:7px 10px;
+*padding-top:6px;
+border-right:1px solid #e5e5e5;
+border-left:1px solid #e5e5e5;
+}
+
+div.itemComment div.commentForm div.formBody:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+div.itemComment div.commentForm div.formBody div.image{
+float:left;
+width:50px;
+*padding-top:1px;
+}
+
+div.itemComment div.commentForm div.formBody div.entry{
+float:left;
+width:520px;
+}
+
+div.itemComment div.commentForm div.formBody div.entry textarea{
+width:514px;
+height:38px;
+margin:0;
+overflow-x:hidden;
+}
+
+div.itemComment div.commentForm div.formBody div.entry textarea.defaultText{
+color:#999;
+}
+
+div.itemComment div.commentForm div.formBody div.entry p.error{
+padding-top:4px;
+*padding-top:2px;
+}
+
+/*-------------------------------------------------- terms */
+p.terms{
+padding:18px 0 11px;
+color:#999;
+font-size:83%;
+text-align:center;
+}
+
+/*-------------------------------------------------- pubRange */
+div.pubRange{
+position:relative;
+float:right;
+width:232px;
+}
+
+div.pubRange p{
+float:right;
+_width:1px;
+background:url(/img/basic/mixicheck_entry/bg_pub_range001.gif) no-repeat left top;
+white-space:nowrap;
+}
+
+div.pubRange p a{
+display:block;
+height:24px;
+line-height:24px;
+padding:0 24px 0 11px;
+background:url(/img/basic/mixicheck_entry/bg_pub_range_arrow001.gif) no-repeat right top;
+color:#333;
+font-size:83%;
+text-decoration:none;
+}
+
+div.pubRange p a:visited{
+color:#333;
+}
+
+div.pubRange p.on{
+background:url(/img/basic/mixicheck_entry/bg_pub_range_ro001.gif) no-repeat left top;
+}
+
+div.pubRange p.on a{
+background:url(/img/basic/mixicheck_entry/bg_pub_range_arrow_ro001.gif) no-repeat right top;
+}
+
+/*---------------------------------------- layer */
+div.pubRange div.layer{
+position:absolute;
+bottom:24px;
+border:1px solid #999;
+background:#f8f8f8;
+}
+
+div.pubRange div.layer ul{
+padding:5px 0;
+}
+
+div.pubRange div.layer ul li a{
+display:block;
+_height:1px;
+padding:3px 5px 1px 20px;
+*padding:0 5px 0 20px;
+_padding:1px 5px 2px 20px;
+color:#333;
+background:url(/img/basic/mixicheck_entry/icon_layer_list001.gif) no-repeat 14px 8px;
+font-size:83%;
+text-decoration:none;
+}
+
+div.pubRange div.layer ul li a:hover{
+color:#fff;
+background:#666 url(/img/basic/mixicheck_entry/icon_layer_list_on001.gif) no-repeat 14px 8px;
+}
+
+/*------------------------------ range */
+div.pubRange div.range{
+right:0;
+width:148px;
+}
+
+div.pubRange div.range ul li.on a,
+div.pubRange div.range ul li.directory a:hover{
+color:#fff;
+background:#666 url(/img/basic/mixicheck_entry/icon_select_layer_on001.gif) no-repeat 5px 7px;
+}
+
+/*------------------------------ group */
+div.pubRange div.group{
+right:149px;
+}
+
+div.pubRange div.wide{
+width:378px;
+}
+
+div.pubRange div.narrow{
+width:189px;
+}
+
+div.pubRange div.group:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+div.pubRange div.group ul{
+float:left;
+width:189px;
+}
+
+div.pubRange div.group ul li a{
+overflow-x:hidden;
+*overflow-x:visible;
+word-break:break-all;
+}
+
+/*-------------------------------------------------- checkButton */
+div.checkButton{
+float:right;
+width:360px;
+text-align:right;
+}
+
+
+
+/*------------外部ボタン共通-------------*/
+body.pluginBody{
+background:none;
+text-align:left;
+}
+
+
+/*==== favoriteContainer01：イイネ ====*/
+.interactiveArea .favoriteContainer01{
+position:relative;
+height:20px;
+overflow:hidden;
+color:#666;
+font-size:10px;
+white-space:nowrap;
+}
+
+.interactiveArea .favoriteContainer01:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+.interactiveArea .favoriteContainer01 a,
+.interactiveArea .favoriteContainer01 span,
+.interactiveArea .favoriteContainer01 .count,
+.interactiveArea .favoriteContainer01 p.error{
+display:block;
+background:url(/img/basic/mixicheck_entry/favorite_button003-.png) no-repeat;
+_background:url(/img/basic/mixicheck_entry/favorite_button003-.gif) no-repeat;
+}
+
+.interactiveArea .favoriteContainer01 strong{
+font-size:12px;
+}
+
+
+/*---- favoriteContainer01 createFavoriteButton：イイネボタン ----*/
+.interactiveArea .favoriteContainer01 p.createFavoriteButton{
+position:absolute;
+top:0;
+left:0;
+text-indent:-9999px;
+}
+
+.interactiveArea .favoriteContainer01 p.createFavoriteButton a{
+width:65px;
+height:19px;
+overflow:hidden;
+background-position:0 0;
+}
+
+.interactiveArea .favoriteContainer01 p.createFavoriteButton a:hover{
+background-position:0 -20px;
+}
+
+.interactiveArea .favoriteContainer01 p.createFavoriteButton a.simple{
+width:58px;
+}
+
+
+/*---- favoriteContainer01 count：人数吹き出し ----*/
+.interactiveArea .favoriteContainer01 p.count{
+position:absolute;
+top:0;
+left:65px;
+max-width:63px;
+height:18px;
+padding:1px 3px 0;
+letter-spacing:0.03em;
+background-position:100% 0;
+}
+
+
+/*---- favoriteContainer01 undo：イイネ完了と取り消し ----*/
+.interactiveArea .favoriteContainer01 p.undo a{
+position:absolute;
+top:0;
+left:0;
+width:20px;
+height:20px;
+background-position:0 -40px;
+text-indent:-9999px;
+}
+
+.interactiveArea .favoriteContainer01 p.undo a.iineIcon{
+background-position:0 -100px;
+}
+
+.interactiveArea .favoriteContainer01 p.undo a.undoIcon{
+background-position:0 -60px;
+}
+
+.interactiveArea .favoriteContainer01 p.undo span{
+position:absolute;
+top:0;
+left:20px;
+height:18px;
+padding:2px 5px 0 0;
+background-position:100% -40px;
+}
+
+.interactiveArea .favoriteContainer01 p.undo span.iineText{
+width:33px;
+background-position:-20px -100px;
+text-indent:-9999px;
+}
+
+
+/*---- favoriteContainer01 error：表示エラー ----*/
+.interactiveArea .favoriteContainer01 p.error{
+width:110px;
+height:20px;
+background-position:0 -80px;
+text-indent:-9999px;
+}
+
+
+/*==== favoriteContainer02：イイネ ====*/
+.interactiveArea .favoriteContainer02{
+position:relative;
+height:20px;
+margin-bottom:5px;
+overflow:hidden;
+color:#666;
+white-space:nowrap;
+}
+
+.interactiveArea .favoriteContainer02:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+.interactiveArea .favoriteContainer02.vertical{
+position:relative;
+height:60px;
+}
+
+.interactiveArea .favoriteContainer02 a,
+.interactiveArea .favoriteContainer02 span,
+.interactiveArea .favoriteContainer02 .count01,
+.interactiveArea .favoriteContainer02 .count01 strong,
+.interactiveArea .favoriteContainer02 .count02,
+.interactiveArea .favoriteContainer02 p.error{
+display:block;
+background:url(/img/basic/mixicheck_entry/favorite_button004.png) no-repeat;
+_background:url(/img/basic/mixicheck_entry/favorite_button004.gif) no-repeat;
+}
+
+
+/*---- favoriteContainer02 createFavoriteButton：イイネボタン ----*/
+.interactiveArea .favoriteContainer02 p.favoriteButton{
+position:absolute;
+top:0;
+left:0;
+text-indent:-9999px;
+}
+
+.interactiveArea .favoriteContainer02 p.favoriteButton a{
+width:70px;
+height:20px;
+overflow:hidden;
+background-position:0 0;
+}
+
+.interactiveArea .favoriteContainer02 p.favoriteButton a:hover{
+background-position:0 -20px;
+}
+
+.interactiveArea .favoriteContainer02.vertical p.favoriteButton{
+margin-top:40px;
+}
+
+
+/*---- favoriteContainer02 count01：人数吹き出し ----*/
+.interactiveArea .favoriteContainer02 p.count01{
+position:absolute;
+top:0;
+left:70px;
+height:20px;
+padding:0 0 0 12px;
+background-position:3px 100%;
+}
+
+.interactiveArea .favoriteContainer02 p.count01 strong{
+_position:relative;
+float:left;
+height:20px;
+line-height:20px;
+max-width:63px;
+margin-right:-1px;
+padding:0 4px 0 0;
+letter-spacing:0.03em;
+background-position:100% 100%;
+}
+
+.interactiveArea .favoriteContainer02 p.count01.fix strong{
+width:44px;
+overflow:hidden;
+text-align:center;
+}
+
+
+/*---- favoriteContainer02 count02：人数吹き出し ----*/
+.interactiveArea .favoriteContainer02.vertical p.count02{
+position:absolute;
+top:0;
+left:0;
+width:70px;
+height:37px;
+line-height:35px;
+padding:0;
+background-position:0 -100px;
+text-align:center;
+letter-spacing:0.03em;
+}
+
+
+/*---- favoriteContainer02 undo：イイネ完了と取り消し ----*/
+.interactiveArea .favoriteContainer02 p.favoriteButton.undo{
+width:70px;
+}
+
+.interactiveArea .favoriteContainer02 p.favoriteButton.undo a{
+float:left;
+width:20px;
+height:20px;
+background-position:0 -40px;
+text-indent:-9999px;
+}
+
+.interactiveArea .favoriteContainer02 p.favoriteButton.undo a:hover{
+background-position:0 -60px;
+}
+
+.interactiveArea .favoriteContainer02 p.favoriteButton.undo span{
+float:left;
+width:50px;
+height:20px;
+background-position:-20px -40px;
+}
+
+
+/*---- favoriteContainer02 error：表示エラー ----*/
+.interactiveArea .favoriteContainer02 p.favoriteButton.error{
+width:70px;
+height:20px;
+background-position:0 -80px;
+}
+
+.interactiveArea .favoriteContainer02.vertical p.favoriteButton.error{
+margin-top:40px;
+}
+
+
+/*------------commentContainer01：コメント入力-------------*/
+.commentContainer01{
+position: absolute;
+top: -6px;
+left: 0px;
+width:265px;
+padding-top:3px;
+background:url(/img/basic/mixicheck_entry/comment_content_top001.gif) no-repeat 0 0;
+}
+
+.commentContainer01 .contents{
+padding:3px 5px 6px;
+*padding:2px 5px 6px;
+background:url(/img/basic/mixicheck_entry/comment_content_bottom001.gif) no-repeat 0 100%;
+}
+
+.commentContainer01 input.comment{
+border:1px solid #ccc;
+width:247px;
+height:15px;
+vertical-align:middle;
+padding:3px;
+}
+
+.commentContainer01 input.defaultText{
+color:#999;
+}
+
+.commentContainer01 .submitArea{
+position:relative;
+width:255px;
+margin-top:3px;
+*margin-top:2px;
+text-align:right;
+}
+
+.commentContainer01 .submitArea input{
+vertical-align:bottom;
+}
+
+.commentContainer01 .submitArea p.alert{
+position:absolute;
+top:0;
+left:0;
+padding-left:20px;
+background:url(/img/basic/mixicheck_entry/icon_alert001.gif) no-repeat 0 0;
+font-size:10px;
+font-weight:bold;
+color:#F00;
+}
+
+
+/*------------commentContainer02：コメント入力-------------*/
+.commentContainer02{
+width:400px;
+padding-top:2px;
+background:url(/img/basic/mixicheck_entry/comment_content_top002.gif) no-repeat 0 0;
+}
+
+.commentContainer02 .commentWrapper{
+padding-bottom:2px;
+background:url(/img/basic/mixicheck_entry/comment_content_bottom002.gif) no-repeat 0 100%;
+}
+
+.commentContainer02 .commentWrapper .contents{
+padding:0 15px 13px; 
+background:#FFF;
+border-right:1px solid #CCC;
+border-left:1px solid #CCC;
+}
+
+.commentContainer02 .message{
+padding-top:13px;
+}
+
+.commentContainer02 .close{
+padding:2px 4px 0 0;
+text-align:right;
+}
+
+.commentContainer02 .close a{
+display:inline-block;
+padding:2px;
+}
+
+.commentContainer02 .balloonTitle{
+margin-bottom:5px;
+padding-left:18px;
+background:url(/img/basic/mixicheck_entry/icon_mixi_logo001.gif) no-repeat 0 0;
+font-size:83%;
+color:#666;
+}
+
+.commentContainer02 .postMain{
+zoom:1;
+}
+
+.commentContainer02 .postMain:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+.commentContainer02 .thumbnail{
+float:left;
+width:40px;
+}
+
+.commentContainer02 .inputArea{
+position:relative;
+float:right;
+width:323px;
+height:58px;
+}
+
+.commentContainer02 .inputArea textarea{
+margin:0;
+width:317px;
+height:38px;
+overflow:auto;
+}
+
+.commentContainer02 .inputArea textarea.defaultText{
+color:#999;
+}
+
+.commentContainer02 .inputArea .alert{
+position:absolute;
+bottom:0;
+left:0;
+margin-top:2px;
+padding-left:20px;
+background:url(/img/basic/mixicheck_entry/icon_alert001.gif) no-repeat 0 0;
+font-size:10px;
+font-weight:bold;
+color:#F00;
+}
+
+.commentContainer02 .source{
+max-height:110px;
+*height:110px;
+overflow:auto;
+margin-top:2px;
+font-size:10px;
+}
+
+.commentContainer02 .source p.title{
+margin-bottom:5px;
+font-weight:bold;
+}
+
+.commentContainer02 .source p.photo{
+float:left;
+padding:0 8px 3px 0;
+}
+
+.commentContainer02 .source p.description{
+padding-bottom:3px;
+}
+
+.commentContainer02 .source p.url img{
+vertical-align:middle;
+margin-right:5px;
+}
+
+.commentContainer02 .submitArea{
+margin-top:5px;
+text-align:right;
+}
+
+
+/*------------messageArea：コメント完了-------------*/
+.commentContainer01 p.message{
+padding-left:5px;
+text-align:center;
+}
+
+
+/*------------friendList：友人一覧-------------*/
+.friendContainer01 ul.friendList{
+zoom:1;
+}
+
+.friendContainer01 ul.friendList:after{
+content:".";
+display:block;
+clear:both;
+height:0;
+visibility:hidden;
+}
+
+.friendContainer01 ul.friendList li{
+float:left;
+width:40px;
+margin-right:5px;
+text-indent:-9999px;
+}
+
+.friendContainer01 ul.friendList li.last{
+margin:0;
+}
+
+.friendContainer01 ul.friendList li a{
+display:block;
+height:40px;
+overflow:hidden;
+background:no-repeat 50% 50%;
+}
+
+
+/*------------nameContainer01：ニックネーム-------------*/
+.nameContainer01 {
+position:absolute;
+top:0;
+}
+
+.nameContainer01 span{
+display:block;
+line-height:18px;
+padding:0 5px;
+border:1px solid #ccc;
+background:#FFF;
+}
+
+/*==== followButton ====*/
+.pageFollowButton{
+overflow:hidden;
+}
+
+.simple{
+height:50px;
+}
+
+.simple.withFollowers{
+height:110px;
+}
+
+.rich{
+border:solid 1px #ddd;
+border-radius:3px;
+background:#fff;
+}
+
+.rich .inner{
+height:82px;
+border-top:solid 4px #e0c074;
+padding:12px 12px 10px;
+}
+
+.rich.withFollowers .inner{
+height:118px;
+}
+
+.rich.withThumbnail .thumbnail{
+float:left;
+}
+
+.rich.withThumbnail .title,
+.rich.withThumbnail .followButton,
+.rich.withThumbnail .followers,
+.rich.withThumbnail .footer{
+margin-left:50px;
+}
+
+
+/*---- title ----*/
+.title{
+line-height:1.2;
+word-break:break-all;
+word-wrap:break-word;
+}
+
+.title a{
+font-size:116%;
+font-weight:bold;
+color:#333;
+text-decoration:none;
+}
+
+.simple .title p{
+overflow:hidden;
+height:1.2em;
+}
+
+.simple .title .caption{
+margin-left:5px;
+font-size:83%;
+}
+
+.rich .title{
+background:url(http://img.mixi.net/img/basic/icon/mixipoint002.gif) 0 0 no-repeat;
+text-indent:20px;
+height:2.6em;
+overflow:hidden;
+}
+
+
+/*---- followButton ----*/
+.followButton{
+position:relative;
+margin-top:5px;
+}
+
+.followButton .button,
+.followButton .counter{
+position:absolute;
+top:0;
+}
+
+.followButton .button{
+left:0;
+}
+
+.followButton .button a{
+display:block;
+background-repeat:no-repeat;
+background-position:0 0;
+text-decoration:none;
+}
+
+.followButton .button a.loginLink,
+.followButton .button a.followLink,
+.followButton .button a.unfollowLink, 
+.followButton .button a.unfollowLink:hover,
+.followButton .button a.errorLink,
+.followButton .button a.followingLabel{
+display:none;
+}
+
+.followButton .button a.loginLink,
+.followButton .button a.followLink,
+.followButton .button a.unfollowLink{
+cursor:pointer;
+}
+
+.followButton .button a span{
+visibility:hidden;
+}
+
+.followButton .counter,
+.followButton .counter strong{
+display:inline-block;
+*display:inline;
+*zoom:1;
+}
+
+.followButton .counter strong{
+margin-left:13px;
+padding-right:5px;
+font-size:12px;
+color:#666;
+}
+
+.followButton01,
+.followButton01 .button,
+.followButton01 .button a,
+.followButton01 .counter{
+height:20px;
+}
+
+.followButton01 .button{
+width:70px;
+}
+
+.followButton01 .button a{
+background:url(/img/basic/mixicheck_entry/page_follow_button001.png);
+}
+
+.followButton01 .button a:hover{
+background-position:0 -20px;
+}
+
+.followButton01 .button a.unfollowLink, 
+.followButton01 .button a.followingLabel{
+background-position:0 -40px;
+}
+
+.followButton01 .button a.unfollowLink:hover{
+background-position:0 -60px;
+}
+
+.followButton01 .button a.errorLink{
+background-position:0 -80px;
+}
+
+.followButton01 .counter,
+.followButton01 .counter strong{
+height:20px;
+line-height:20px;
+}
+
+.followButton01 .counter{
+left:70px;
+background:url(/img/basic/mixicheck_entry/page_follow_button001.png) 5px -100px no-repeat;
+}
+
+.followButton01 .counter strong{
+background:#fff url(/img/basic/mixicheck_entry/page_follow_button001.png) 100% -100px no-repeat;
+}
+
+.followButton02,
+.followButton02 .button,
+.followButton02 .button a,
+.followButton02 .counter{
+height:23px;
+}
+
+.followButton02 .button{
+width:89px;
+}
+
+.followButton02 .button a{
+background:url(/img/basic/mixicheck_entry/page_follow_button_rich001.png);
+}
+
+.followButton02 .button a:hover{
+background-position:0 -25px;
+}
+
+.followButton02 .button a.unfollowLink, 
+.followButton02 .button a.followingLabel{
+background-position:0 -50px;
+}
+
+.followButton02 .button a.unfollowLink:hover{
+background-position:0 -75px;
+}
+
+.followButton02 .button a.errorLink{
+background-position:0 -100px;
+}
+
+.followButton02 .counter,
+.followButton02 .counter strong{
+height:23px;
+line-height:23px;
+}
+
+.followButton02 .counter{
+left:89px;
+background:url(/img/basic/mixicheck_entry/page_follow_button_rich001.png) 5px -125px no-repeat;
+}
+
+.followButton02 .counter strong{
+background:#fff url(/img/basic/mixicheck_entry/page_follow_button_rich001.png) 100% -125px no-repeat;
+}
+
+
+/*---- followers ----*/
+.followers{
+margin-top:5px;
+}
+
+.followers .thumbnailList{
+list-style:none;
+overflow:hidden;
+}
+
+.followers .thumbnailList li{
+float:left;
+padding-left:5px;
+text-align:center;
+}
+
+.followers .thumbnailList li.first{
+padding-left:0;
+}
+
+.followers .thumbnailList li a{
+display:table-cell;
+vertical-align:middle;
+}
+
+.simple .followers,
+.simple .followers .thumbnailList,
+.simple .followers .thumbnailList a{
+height:40px;
+}
+
+.simple .followers .thumbnailList li,
+.simple .followers .thumbnailList li a{
+width:40px;
+}
+
+.simple .followers .thumbnailList a img{
+max-width:40px;
+max-height:40px;
+}
+
+.rich .followers,
+.rich .followers .thumbnailList,
+.rich .followers .thumbnailList a{
+height:30px;
+}
+
+.rich .followers .thumbnailList li,
+.rich .followers .thumbnailList li a{
+width:30px;
+}
+
+.rich .followers .thumbnailList a img{
+max-width:30px;
+max-height:30px;
+}
+
+
+/*---- footer ----*/
+.footer{
+position:relative;
+color:#999;
+font-size:83%;
+}
+
+.footer a{
+color:#999;
+text-decoration:none;
+}
+
+.footer .links a:hover{
+text-decoration:underline;
+}
+
+.footer .credit{
+position:absolute;
+top:0;
+right:0;
+}
+
+.simple .footer{
+margin-top:5px;
+}
+
+.rich .footer{
+margin-top:8px;
+}
+
+
+/*==== followMixipage====*/
+.followMixipage p{
+padding-top:240px;
+background:url(http://img.mixi.net/img/basic/mixicheck_entry/mixipage_follow_image001.gif) 50% 0 no-repeat;
+text-align:center;
+font-size:116%;
+}

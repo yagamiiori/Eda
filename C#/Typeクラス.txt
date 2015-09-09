@@ -1,0 +1,7 @@
+
+参考：Typeクラスのメソッドとプロパティ
+　　　http://msdn.microsoft.com/ja-jp/library/system.type(v=vs.110).aspx
+
+
+
+

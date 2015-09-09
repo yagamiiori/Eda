@@ -1,0 +1,12 @@
+
+------------------
+値の取り出し
+・textプロパティを使う
+------------------
+	using UnityEngine.UI;
+
+	// ゲトコンだからといってComponent iとしない事に注意！それだと.textで取れない
+	InputField i = GetComponent<InputField> ();
+	Debug.Log (i.text);
+
+

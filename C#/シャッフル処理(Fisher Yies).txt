@@ -1,0 +1,21 @@
+
+    // ----------------------------------------------------------------
+    // シャッフル処理実施関数（Fisher-Yates）
+    // ----------------------------------------------------------------
+    private static void Shuffle(int[] c)
+    {
+        int[] cardlist = c;             //引数の配列を格納
+        var rnd = new System.Random();  //ランダムクラスをインスタンス化
+
+        var n = cardlist.Length;        //インデックス数を取得
+
+        // インデックス数分をループ（n-1しないと(n - cnt)の結果が0になる）
+        for (int cnt = n-1; cnt > 0; cnt--)
+        {
+            // NextDouble()は0～1間の実数リテラルを得る
+            int j = (int)(rnd.NextDouble() * (n - cnt));
+            int tmp = cardlist[cnt];
+            cardlist[cnt] = cardlist[j];
+            cardlist[j] = tmp;
+        }
+    }

@@ -1,0 +1,4 @@
+
+// プレハブ表示（Resourcesフォルダからの相対パス / 位置 / 回転）
+Instantiate(Resources.Load("prefabs/char1_2D"), transform.position, Quaternion.identity);
+

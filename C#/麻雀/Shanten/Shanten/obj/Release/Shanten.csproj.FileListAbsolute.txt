@@ -1,0 +1,8 @@
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\bin\Release\problems\normal.txt
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\bin\Release\Shanten.exe
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\bin\Release\Shanten.pdb
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\obj\Release\ResolveAssemblyReference.cache
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\obj\Release\Shanten.Properties.Resources.resources
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\obj\Release\Shanten.csproj.GenerateResource.Cache
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\obj\Release\Shanten.exe
+C:\ao\Visual Studio 2008\Projects\Shanten\Shanten\obj\Release\Shanten.pdb

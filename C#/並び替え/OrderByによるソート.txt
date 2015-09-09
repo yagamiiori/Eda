@@ -1,0 +1,13 @@
+
+OrderBy			昇順にソート
+OrderByDescending	降順にソート
+ThenBy			昇順にソート（第2キー以降）
+ThenByDescending	降順にソート（第2キー以降）
+
+
+    // dataフィールドの文字列の長さでソートし、さらに、アイウエオ順でソート
+    wordArray = wordArray.OrderBy(n => n.data.Length)
+                         .ThenBy(n => n.data)
+                         .ToArray();
+
+

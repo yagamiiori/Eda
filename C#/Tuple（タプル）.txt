@@ -1,0 +1,17 @@
+
+・色々な型のデータを1つのフィールドにまとめるクラス
+
+================================================================================
+        // タプルテスト（明示的に型を指定）
+        Tuple<string, int, DateTime> myBag2;
+        myBag2 = Tuple.Create<string, int, DateTime>("name", 42, DateTime.Now);
+
+
+	// 3つの型のオブジェクトを1つにまとめる
+	var myBag = Tuple.Create("お名前", 42, DateTime.Now); 
+
+
+	// 【参考】Tupleクラスのコンストラクタを使用
+	var myBag3 = new Tuple<string, int, DateTime>("name", 42, DateTime.Now);
+
+

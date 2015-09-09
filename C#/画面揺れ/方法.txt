@@ -1,0 +1,7 @@
+
+1. iTweenを使う（導入後以下をコール）
+　　iTween.ShakePosition(camera,iTween.Hash("y",0.6f,"time",0.5f));
+
+2. 手ブレ風に揺らす（参考：http://tsubakit1.hateblo.jp/entry/2014/09/01/003023）
+　　テストC#ソースフォルダ内の「画面揺れ表現Envshake.cs」にコピペ済み
+

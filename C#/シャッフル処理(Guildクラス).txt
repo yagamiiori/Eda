@@ -1,0 +1,28 @@
+
+    public static int[] cardlist = {                  // リスト
+                                       1,
+                                       2,
+                                       3
+                                   };
+
+    public List<object> list = new List<object>();
+
+    // シャッフル処理実施関数コール
+    Fisher(cardlist);
+
+    // ----------------------
+    // シャッフル処理実施関数
+    // ----------------------
+    private static void Fisher(int[] c)
+    {
+        int[] cardlist = c; //引数の配列を格納
+
+        // 1回じゃ偏りが生じるっぽいので念のため何度かシャッフルを繰り返す
+        for (int cnt = 0; cnt < 10; cnt++)
+        {
+            DeckList.cardlist = cardlist.OrderBy(i => Guid.NewGuid()).ToArray();
+        }
+    }
+
+
+

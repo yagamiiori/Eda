@@ -1,0 +1,25 @@
+
+・Application.ExternalCall
+　→Unity側からWeb(JS)側の関数をコールする
+　　例：Application.ExternalCall( "SayHello", "The game says hello!" );
+	第一引数：関数名、第二引数：引数
+
+・SendMessage
+　→Web(JS)側からUnity側の関数をコールする
+　　例：
+	var u = new UnityObject2();
+	u.initPlugin(jQuery("#unityPlayer")[0], "Example.unity3d");
+	function SaySomethingToUnity()
+	{
+		u.getUnity().SendMessage("MyObject", "MyFunction", "Hello!!");
+	}
+
+・Application.ExternalEval
+　→Unity側から任意のブラウザのコードをコールする
+　　（Webページに関数を定義できない場合、これを使用してJSを実行できる）
+　　例：
+	Application.ExternalEval
+	(
+	    "if(document.domain != 'unity3d.com') { document.location='http://unity3d.com'; }"
+	);
+

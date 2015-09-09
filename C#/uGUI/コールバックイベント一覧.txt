@@ -1,0 +1,28 @@
+コールバックイベント一覧
+・これを継承するとスクリプトからコールバックイベントを取れる。
+・uGUIコンポーネントと同じコンポーネントにアタッチされているオブジェクトは
+　特定のインターフェースを継承しているとUI操作時にコールバックを返してくれるようになる。
+
+IPointerEnterHandler	 - OnPointerEnter - Called when a pointer enters the object
+IPointerExitHandler	 - OnPointerExit - Called when a pointer exits the object
+IPointerDownHandler	 - OnPointerDown - Called when a pointer is pressed on the object
+IPointerUpHandler	 - OnPointerUp - Called when a pointer is released (called on the original the pressed object)
+IPointerClickHandler	 - OnPointerClick - Called when a pointer is pressed and released on the same object
+IInitializePotentialDragHandler - OnInitializePotentialDrag - Called when a drag target is found, can be used to initialise values
+IBeginDragHandler	 - OnBeginDrag - Called on the drag object when dragging is about to begin
+IDragHandler		 - OnDrag - Called on the drag object when a drag is happening
+IEndDragHandler		 - OnEndDrag - Called on the drag object when a drag finishes
+IDropHandler		 - OnDrop - Called on the object where a drag finishes
+IScrollHandler		 - OnScroll - Called when a mouse wheel scrolls
+IUpdateSelectedHandler	 - OnUpdateSelected - Called on the selected object each tick
+ISelectHandler		 - OnSelect - Called when the object becomes the selected object
+IDeselectHandler	 - OnDeselect - Called on the selected object becomes deselected
+IMoveHandler		 - OnMove - Called when a move event occurs (left, right, up, down, ect)
+ISubmitHandler		 - OnSubmit - Called when the submit button is pressed
+ICancelHandler		 - OnCancel - Called when the cancel button is pressed
+InputModules
+
+http://docs.unity3d.com/460/Documentation/Manual/SupportedEvents.html
+http://tsubakit1.hateblo.jp/entry/2014/12/23/233000
+
+

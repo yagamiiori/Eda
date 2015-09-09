@@ -1,0 +1,10 @@
+
+var Block : GameObject;
+var Block_c : GameObject;
+var Materials : Material[] = new Material[6];
+var MaterialNo : int;
+
+Block_c = Instantiate(Block, transform.position, transform.rotation);
+Block_c.renderer.material = Instantiate(Materials[MaterialNo]);
+
+

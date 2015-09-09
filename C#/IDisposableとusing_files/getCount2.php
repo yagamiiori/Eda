@@ -1,0 +1,1 @@
+(function(){stButtons.processCB({"yahoo":476,"google":6197,"clicks_total":6677,"hatena":4,"copy":3,"twitter":1,"total":6681,"shares":{"copy":3,"all":4,"twitter":1},"url":"http:\/\/yohshiy.blog.fc2.com\/blog-entry-212.html","ourl":"http:\/\/yohshiy.blog.fc2.com\/blog-entry-212.html#sthash.BLdbcIIL"})})();

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://blog.asial.co.jp/712 -->
+<html lang="ja" xmlns:fb="http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/cb=gapi.loaded_1" async=""></script><script src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/cb=gapi.loaded_0" async=""></script>
+        <meta charset="UTF-8">
+                <meta name="description" content="アシアルのメンバーが、PHPやデータベース、サーバ、モバイル、スマートフォンをテーマにした開発テクニックから、セミナー情報やシリコンバレー研修、会社での日常の様子などを熱く語ります。">
+        <meta name="keywords" content="PHP,symfony,JavaScript,Flex,MySQL,Linux,Mac,iPhone,Android,HTML5,CSS3,Asial,アシアル">
+        
+        <title>UMLを描こう - Vol.1 クラス図 : アシアルブログ</title>
+
+        <link rel="icon" href="http://blog.asial.co.jp/favicon.ico" type="image/png">
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://blog.asial.co.jp/rss/rss2.0.php">
+        <link rel="stylesheet" href="http://blog.asial.co.jp/css/reset.css">
+        <link rel="stylesheet" href="http://blog.asial.co.jp/css/lst.css">
+        <link rel="stylesheet" href="http://blog.asial.co.jp/css/style.css">
+        <link rel="stylesheet" href="http://blog.asial.co.jp/css/highlight.css">
+        <link rel="stylesheet" type="text/css" href="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/jquery.suggest.css">
+        <link rel="stylesheet" type="text/css" href="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/lightbox.css">
+
+        <!--[if lte IE 8]>
+        <script src="/js/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script id="facebook-jssdk" async="" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/all.js"></script><script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/HatenaStar.js" async=""></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/widgets.js" async=""></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/url_breaker.js"></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/lightbox.js"></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/jquery.suggest.js"></script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/jquery.gafunc.min.js"></script>
+    <script src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/entries.json" type="text/javascript"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, "hiragino kaku gothic pro",meiryo,"ms pgothic",sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+    <body>
+    
+    <!--facebook recommended bar -->
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/xRlIuTsSMoE.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/xRlIuTsSMoE(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f30967713c" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/ping.html" style="display: none;"></iframe></div></div></div>
+    <script>
+    setTimeout(function() {
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id; js.async=true;
+          js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=119397471553468";
+          fjs.parentNode.insertBefore(js, fjs);
+          setTimeout(function() {
+             $('.fb-recommendations-bar').css('display', 'block');
+          }, 6000);
+      }(document, 'script', 'facebook-jssdk'));
+    }, 0);
+    </script>
+
+    <div class="fb-recommendations-bar" data-href="http://blog.asial.co.jp/" data-read-time="5" data-site="blog.asial.co.jp" style="display: block;"></div>
+
+        <header id="top" class="mainHeader clearfix">
+                        <a href="http://blog.asial.co.jp/"><h1>Asial Blog</h1></a>
+            <nav>
+                <ul class="flChild clearfix">
+                    <li>
+                        <dl>
+                            <dt>Corporate Site</dt>
+                            <dd class="companyLogo"><a href="http://www.asial.co.jp/" target="_blank" title="アシアル株式会社">アシアル株式会社</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>Twitter</dt>
+                            <dd class="twitter"><a href="http://twitter.com/asialnews" target="_blank" title="asialnewsをフォローする">asialnewsをフォローする</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>RSS</dt>
+                            <dd class="rss"><a href="http://blog.asial.co.jp/rss/rss2.0.php" target="_blank" title="RSSはこちら">RSSはこちら</a></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <form method="get" action="http://blog.asial.co.jp/search.php">
+                                                        <dl>
+                                <dt>SEARCH</dt>
+                                <dd class="search flChild">
+                                    <input type="text" name="words" value="" class="search-words" id="text_search" placeholder="検索したい文字列を入力" autocomplete="off">
+                                    <input type="image" name="submit_search" value="submit" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/search.png" alt="検索">
+                                </dd>
+                            </dl>
+                        </form>
+                    </li>
+                    <li class="mr10">
+                        <dl>
+                            <dt>LANGUAGE</dt>
+                            <dd class="lang flChild clearfix">
+                                <a class="jp selected" href="http://blog.asial.co.jp/" title="日本語">JP</a>
+                                <a class="en " href="http://blog.asial.co.jp/?lang=en" title="English">EN</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </nav>
+            
+            
+            <a class="recruitBtn" href="http://www.asial.co.jp/recruit" target="_blank" title="Recruit! Asialで一緒に働きませんか？">Recruit! Asialで一緒に働きませんか？</a>
+                    </header><div class="layoutFull posR clearfix">
+    <div class="sideArea">
+    
+        <nav class="articleType">
+        <section class="all selected">
+                        <a href="http://blog.asial.co.jp/"><h2 class="arrow">すべて</h2></a>
+                    </section>
+        <section class="backend1">
+            <a href="http://blog.asial.co.jp/category/12"><h2 class="arrow">バックエンド<br><span>(プログラミング)</span></h2></a>
+            <ul>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1415"><span class="newIcon">new</span>【Android】はじめてのカスタムURLスキーム</a>
+                </li>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1392">PHPで日付時刻の処理を書くなら Carbon がおすすめ</a>
+                </li>
+                                <li class="arrow borderBNone clearfix">
+                    <a href="http://blog.asial.co.jp/1391">非エンジニアのWebディレクターにオススメのGUIツール(Windows) MySQL/PostgreSQL編</a>
+                </li>
+                            </ul>
+        </section>
+        <section class="backend2">
+            <a href="http://blog.asial.co.jp/category/13"><h2 class="arrow">バックエンド<br><span>(インフラ)</span></h2></a>
+            <ul>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1322">メールサーバーの設定まとめ(postfixとdovecot)</a>
+                </li>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1212">走れ！ラズベリーパイ！第二話「車体とステアリング」</a>
+                </li>
+                                <li class="arrow borderBNone clearfix">
+                    <a href="http://blog.asial.co.jp/1189">はじめてのAmazon VPC</a>
+                </li>
+                            </ul>
+        </section>
+        <section class="frontend">
+            <a href="http://blog.asial.co.jp/category/14"><h2 class="arrow">フロントエンド<br><span>(HTML5)</span></h2></a>
+            <ul>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1411">Monaca/Cordovaですぐに使えるアニメーションライブラリまとめ</a>
+                </li>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1385">Onsen UIをタブレットデバイスでも使おう</a>
+                </li>
+                                <li class="arrow borderBNone clearfix">
+                    <a href="http://blog.asial.co.jp/1380">GapDebugを使えばWindowsでもiOSアプリの実機デバッグができます</a>
+                </li>
+                            </ul>
+        </section>
+        <section class="design">
+            <a href="http://blog.asial.co.jp/category/15"><h2 class="arrow">デザイン・UI</h2></a>
+            <ul>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1400">【jQuery Tips】スクロールで画像がめくれる動きを表現する</a>
+                </li>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1370">Onsen UIをWebサイトで使ってみよう</a>
+                </li>
+                                <li class="arrow borderBNone clearfix">
+                    <a href="http://blog.asial.co.jp/1358">社内勉強会での「チームで作る!イケてるデザイン」の資料を公開しました</a>
+                </li>
+                            </ul>
+        </section>
+        <section class="monaca">
+            <a href="http://blog.asial.co.jp/category/21"><h2 class="arrow">Monaca</h2></a>
+            <ul>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1414">Onsen UI活用インタビュー「オハログで快眠生活を ! 」</a>
+                </li>
+                                <li class="arrow clearfix">
+                    <a href="http://blog.asial.co.jp/1404">MonacaアプリでInstagramに写真を投稿する！</a>
+                </li>
+                                <li class="arrow borderBNone clearfix">
+                    <a href="http://blog.asial.co.jp/1410">第6回Apache Cordova勉強会 に参加してきました</a>
+                </li>
+                            </ul>
+        </section>
+        <section class="daily">
+            <a href="http://blog.asial.co.jp/category/1"><h2 class="arrow">その他、日常</h2></a>
+        </section>
+    </nav>
+
+    <aside>
+        <section class="memberList grayArea clearfix">
+    <h2>人物紹介</h2>
+    <ul>
+                        <li class=""><a href="http://blog.asial.co.jp/user/3"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/3.png" alt="icon" title="田中正裕"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/4"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/4.png" alt="icon" title="松田惇"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/6"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/6.png" alt="icon" title="小林有佳"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/7"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/7.png" alt="icon" title="中川善樹"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/8"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/8.png" alt="icon" title="牧野克俊"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/9"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/9.png" alt="icon" title="森川穣"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/10"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/10.png" alt="icon" title="海原才人"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/14"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/14.png" alt="icon" title="古見澤宏"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/16"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/16.png" alt="icon" title="笹亀弘"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/17"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/17.png" alt="icon" title="門脇優児"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/20"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/20.png" alt="icon" title="岡本雄樹"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/22"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/22.png" alt="icon" title="橋本章史"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/23"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/23.png" alt="icon" title="和田記光"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/25"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/25.png" alt="icon" title="鴨田健次"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/26"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/26.png" alt="icon" title="浦本和裕"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/27"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/27.png" alt="icon" title=" 久保田光則"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/28"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/28.png" alt="icon" title="井川数志"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/31"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/31.png" alt="icon" title="斉藤勝也"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/33"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/33.png" alt="icon" title="塚田亮一"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/40"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/40.png" alt="icon" title="山田 健一"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/44"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/44.png" alt="icon" title="花崎奈穂子"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/45"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/45.png" alt="icon" title="高橋裕也"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/48"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/48.png" alt="icon" title="宇都宮諒"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/49"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/49.png" alt="icon" title="四方裕"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/54"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/54.png" alt="icon" title="生形可奈子"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/55"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/55.png" alt="icon" title="坂本龍介"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/57"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/57.png" alt="icon" title="髙橋真央"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/58"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/58.png" alt="icon" title="内藤謙一"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/59"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/59.png" alt="icon" title="渡辺卓弥"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/63"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/63.png" alt="icon" title="Andreas Argelius"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/64"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/64.png" alt="icon" title="MOONGIFT 中津川篤司"></a></li>
+                                <li class="mr0 "><a href="http://blog.asial.co.jp/user/65"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/65.png" alt="icon" title="細井一穂"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/66"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/66.png" alt="icon" title="Andi Pavllo"></a></li>
+                                <li class=""><a href="http://blog.asial.co.jp/user/67"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/67.png" alt="icon" title="Fran Dios"></a></li>
+                    </ul>
+</section>
+        <section class="archives grayArea clearfix">
+    <h2>アーカイブ</h2>
+    <div class="dateArea clearfix">
+        <a href="http://blog.asial.co.jp/archive/2015/07"><h3 class="fl f20px">2015/07</h3></a>
+        <ul class="fr flChild">
+            <li class="mr5"><a class="previous" href="http://blog.asial.co.jp/archive/2015/06" title="前月へ">前月へ</a></li>
+            <li><a class="next" href="http://blog.asial.co.jp/archive/2015/08" title="次月へ">次月へ</a></li>
+        </ul>
+    </div>
+    <ul class="calendar clearfix">
+                <li>S</li>
+                <li>M</li>
+                <li>T</li>
+                <li>W</li>
+                <li>T</li>
+                <li>F</li>
+                <li class="mr0">S</li>
+                                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                    1
+                </li>
+                <li>
+                    <a href="http://blog.asial.co.jp/2015/07/2" class="item">2</a>
+                </li>
+                <li>
+                    3
+                </li>
+                <li class="mr0">
+                    4
+                </li>
+                                <li>
+                    5
+                </li>
+                <li>
+                    6
+                </li>
+                <li>
+                    7
+                </li>
+                <li>
+                    8
+                </li>
+                <li>
+                    <a href="http://blog.asial.co.jp/2015/07/9" class="item">9</a>
+                </li>
+                <li>
+                    <a href="http://blog.asial.co.jp/2015/07/10" class="item">10</a>
+                </li>
+                <li class="mr0">
+                    11
+                </li>
+                                <li>
+                    12
+                </li>
+                <li>
+                    13
+                </li>
+                <li>
+                    14
+                </li>
+                <li>
+                    15
+                </li>
+                <li>
+                    16
+                </li>
+                <li>
+                    17
+                </li>
+                <li class="mr0">
+                    18
+                </li>
+                                <li>
+                    19
+                </li>
+                <li>
+                    20
+                </li>
+                <li>
+                    21
+                </li>
+                <li>
+                    22
+                </li>
+                <li>
+                    23
+                </li>
+                <li>
+                    24
+                </li>
+                <li class="mr0">
+                    25
+                </li>
+                                <li>
+                    26
+                </li>
+                <li>
+                    27
+                </li>
+                <li>
+                    28
+                </li>
+                <li>
+                    29
+                </li>
+                <li>
+                    30
+                </li>
+                <li>
+                    31
+                </li>
+                <li class="mr0">
+                </li>
+                                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                    </ul>
+    <ul class="monthList">
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/07">2015年07月 (3)</a>
+        </li>
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/06">2015年06月 (12)</a>
+        </li>
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/05">2015年05月 (6)</a>
+        </li>
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/04">2015年04月 (12)</a>
+        </li>
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/03">2015年03月 (6)</a>
+        </li>
+                <li>
+            <a class="arrow" href="http://blog.asial.co.jp/archive/2015/02">2015年02月 (7)</a>
+        </li>
+                <li><a class="arrow" href="http://blog.asial.co.jp/list.php">過去のアーカイブ</a></li>
+    </ul>
+</section>
+                
+    
+<script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/school_list.php"></script><link media="all" rel="stylesheet" href="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/school_list(1).php" type="text/css"> <section id="SchoolInfo-143663054855a13e1409195"> <h2> <a href="http://hp.asial.jp/school/" target="_blank"> <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/title.png" alt="アシアルスクール情報"> </a> </h2> <div id="SchoolInfoConts-143663054855a13e1409195"> <a href="javascript:void(0)" id="ticker-previous-143663054855a13e1409195"> <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/btn03.png"> <span> <p>previous</p> </span> </a> <ul id="vertical-ticker-143663054855a13e1409195"> <li> <article> <header> <a class="linkOO" target="_blank" href="http://www.asial.co.jp/school/course_detail/13"> <h3>HTML5×CSS 入門講座</h3> </a> </header> <div> <p>HTML5とCSSの知識はWeb制作の共通言語</p> <p class="SIday">07/28（火）～ 07/28（火）</p> </div> </article> </li> <li> <article> <header> <a class="linkOO" target="_blank" href="http://www.asial.co.jp/school/course_detail/22"> <h3>JavaScript＆jQuery入門講座</h3> </a> </header> <div> <p>JavaScriptとjQueryを1日で学ぶ</p> <p class="SIday">07/29（水）～ 07/29（水）</p> </div> </article> </li> </ul> <a href="javascript:void(0)" id="ticker-next-143663054855a13e1409195"> <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/btn04.png"> <span> <p>Next</p> </span> </a> </div> </section>
+
+<section class="mb20">
+    <ul class="flChild clearfix">
+        <li class="mr4 mb15"><a href="http://www.asial.co.jp/school/juku.php" target="_blank" title="アシアル塾"><img width="250" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/Design-250x208.png" alt="アシアル塾" style="vertical-align:bottom;"></a></li>
+    </ul>
+</section>        <section class="mb20">
+    <ul class="flChild clearfix">
+        <li class="mr4 mb15"><a href="http://www.asial.co.jp/newsletter/" target="_blank" title="アシアルニュースレター"><img width="250" height="100" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/adv3.png" alt="アシアルニュースレター" style="vertical-align:bottom;"></a></li>
+        <li class="mr4"><a href="http://www.asial.co.jp/recruit/" target="_blank" title="アシアル採用情報"><img width="250" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/adv1.png" alt="アシアル採用情報" style="vertical-align:bottom;"></a></li>
+    </ul>
+</section>
+                            <section class="news grayPanel mb20">
+    <h2>ASIAL NEWS</h2>
+    <div id="newsTweetConts"> 
+        <ul class="newsList pa10">
+                        <li>
+                <article>
+                    <header>
+                        <a class="linkOO" href="http://www.asial.co.jp/pressrelease/whatsnew.php"><h3>Facebookページでアシアルの情報を配信中</h3></a>
+                    </header>
+                    <div>
+                        <p>アシアルが開催するスクールやセミナー、ブログの更新情報などをFacebookで配信中。お得なクーポンや無料イベント情報もこちらでチェック！</p>
+                    </div>
+                                    </article>
+            </li>
+                        <li>
+                <article>
+                    <header>
+                        <a class="linkOO" href="http://www.asial.co.jp/pressrelease/whatsnew.php"><h3>スマートフォン＆モバイルEXPOに出展します</h3></a>
+                    </header>
+                    <div>
+                        <p>5月14日〜16日に開催されるスマートフォン＆モバイルEXPOに出展します。会場は東京ビッグサイトになります。</p>
+                    </div>
+                                    </article>
+            </li>
+                        <li>
+                <article>
+                    <header>
+                        <a class="linkOO" href="http://www.asial.co.jp/pressrelease/whatsnew.php"><h3>ABC2014 Springに出展します</h3></a>
+                    </header>
+                    <div>
+                        <p>3月21日に秋葉原で開催されるAndroid Bazaar and Conference 2014 Springに出展します。当日は弊社の生形が講演を行います。会場は秋葉原ダイビル＋UDXになります。</p>
+                    </div>
+                                    </article>
+            </li>
+                    </ul>
+    </div>
+</section>                                <section class="categoryList grayArea clearfix">
+    <h2>タグ</h2>
+    <ul class="flChild f10px clearfix">
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Android" title="Android">Android</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Debian" title="Debian">Debian</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Flash" title="Flash">Flash</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Flex" title="Flex">Flex</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/HTML5" title="HTML5">HTML5</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/JavaScript" title="JavaScript">JavaScript</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Linux" title="Linux">Linux</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Mac" title="Mac">Mac</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Monaca" title="Monaca">Monaca</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/PHP" title="PHP">PHP</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/Tech" title="Tech">Tech</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/iPhone" title="iPhone">iPhone</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/symfony" title="symfony">symfony</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E3%82%A2%E3%82%B7%E3%82%A2%E3%83%AB" title="アシアル">アシアル</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9" title="サービス">サービス</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%83%90%E3%83%AC%E3%83%BC" title="シリコンバレー">シリコンバレー</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3" title="デザイン">デザイン</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E6%97%85%E8%A1%8C" title="旅行">旅行</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E6%97%A5%E5%B8%B8" title="日常">日常</a></li>
+            <li class="w50p"><a class="arrow" href="http://blog.asial.co.jp/category/%E7%A4%BE%E9%95%B7BLOG" title="社長BLOG">社長BLOG</a></li>
+        </ul>
+</section>
+            </aside>
+</div>    <div class="contentsArea">
+        
+                <article class="articlePanel ">
+    <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<rdf:Description
+    rdf:about="http://blog.asial.co.jp//article.php?id=712"
+    trackback:ping="http://blog.asial.co.jp//tb.php?id=712"
+    dc:title="UMLを描こう - Vol.1 クラス図"
+    dc:identifier="http://blog.asial.co.jp//article.php?id=712"
+    dc:subject="バックエンド（プログラミング）"
+    dc:description="はじめましての方は，はじめまして！&amp;lt;br /&amp;gt;
+4月からアシア..."
+    dc:creator="浦本和裕"
+    dc:date="" />
+</rdf:RDF>
+-->
+    <header class="mb30">
+        <div class="metadata flChild f12px clearfix">
+                                                    <time datetime="2010-06-30"><span class="fwB dispB f18px mb10">2010</span><span class="fwB dispB f28px">06/30</span></time>
+            <ul class="mt-10" style="width:600px;white-space:nowrap;">
+                                <li><a class="userName linkOO" href="http://blog.asial.co.jp/user/26"><img width="30" height="30" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/26.png" alt=""><span class="ml10">浦本和裕</span></a></li>
+
+                                <li><a class="linkOO" href="javascript:void(0)" rel="http://blog.asial.co.jp/712#comment">コメント(0)</a></li>
+                <li><span class="social_cont social_area_712 loaded" data-entry-id="712"><span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/712"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/712"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/712"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span><iframe src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowtransparency="true"></iframe><span style="display: inline-block; width:70px"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1436630550044" name="I0_1436630550044" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></span></span><span class="social_cont2 social_area_2_712"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/tweet_button.9b77a1cb4bd14da06dfa5e2f65422c91.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="position: static; visibility: visible; width: 78px; height: 20px;"></iframe>&nbsp;<span class="hatenastar" style="position: relative; top: -7px;"><span class="hatena-star-comment-container"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/comment.gif" tabindex="0" alt="Comments" title="Comments" class="hatena-star-comment-button" style="cursor: pointer; margin: 0px; padding: 0px; border: none; vertical-align: middle; display: none;"></span><span class="hatena-star-star-container"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/add.gif" tabindex="0" alt="Add Star" title="Add Star" class="hatena-star-add-button" style="cursor: pointer; margin: 0px 3px; padding: 0px; border: none; vertical-align: middle;"><a href="http://www.hatena.ne.jp/mabots/"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/star.gif" tabindex="0" class="hatena-star-star" style="padding: 0px; border: none;" alt="mabots" title=""></a></span></span></span></li>
+            </ul>
+
+
+            <script>
+                $(function() {
+                                        var $_parent = $('.social_area_2_712');
+                    $_parent.append(
+$('<a href="http://twitter.com/share" class="twitter-share-button"data-text="UMLを描こう - Vol.1 クラス図 @asialnews #asial"data-url="http://blog.asial.co.jp/712"data-count="horizontal"data-lang="en">Tweet</a>')
+);
+                    $_parent.append('&nbsp;<span class="hatenastar" style="position: relative; top: -7px;"></span>');
+                });
+
+                function showSNSButton_712() {
+                    
+                    var $_parent = $('.social_area_712');
+
+                    // hatena
+                    $_parent.append(
+                        $('<span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/712"><img src="http://b.hatena.ne.jp/entry/image/http://blog.asial.co.jp/712"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/712"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加" /></a></span>')
+                    );
+                    // facebook
+                    $_parent.append(
+                    $('<iframe src="//www.facebook.com/plugins/like.php?href=http://blog.asial.co.jp/712&amp;width=50&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;send=false&amp;appId=" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>')
+                    /*
+                     $('<iframe src="http://www.facebook.com/plugins/like.php?href=http://blog.asial.co.jp/712&amp;layout=button_count&amp;show_faces=true&amp;width=50&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:70px; height:20px;" allowTransparency="true"></iframe>')
+                    $('<fb:like href="http://blog.asial.co.jp/712" send="false" layout="button_count" width="450" show_faces="true"></fb:like>')
+                    */
+                    );
+                    // twitter
+                    /*
+                    $_parent.append(
+$('<a href="http://twitter.com/share" class="twitter-share-button"data-text="UMLを描こう - Vol.1 クラス図 @asialnews #asial"data-url="http://blog.asial.co.jp/712"data-count="horizontal"data-lang="en">Tweet</a>')
+);
+*/
+                    // google plus
+                    $_parent.append(
+                        $('<span style="display: inline-block; width:70px"><g:plusone size="medium" href="http://blog.asial.co.jp/712"></g:plusone></span>')
+                    );
+
+                    $('head').append($('<script type="text/javascript" src="http://apis.google.com/js/plusone.js"><\/script>'));
+
+                    // delicious
+                    /*
+                    $_parent.append(
+                        $('<span class="del-icon"><a href="javascript:window.open(\'http://del.icio.us/post?url=http://blog.asial.co.jp/712\');void(0);" title="del.icio.usに登録"><img src="/image/icon/sbm/delicious.gif" alt="button" title="del.icio.usに登録" /></a></span>') 
+                    );
+                    */
+
+        
+                //});
+                }
+            </script>
+        </div>
+        <h2 class="lh1_2em">  <a href="javascript:void(0)" rel="http://blog.asial.co.jp/712">UMLを描こう - Vol.1 クラス図</a></h2>
+        <dl class="f12px lh1em flChild clearfix">
+            <dt class="mr5">カテゴリ : </dt>
+            <dd><a class="linkOO" href="http://blog.asial.co.jp/category/12">バックエンド（プログラミング）</a></dd>
+            <dt class="borderLSolidGray ml10 pl10">タグ : </dt>
+                                    <dd class="mh5"><a class="linkOO" href="http://blog.asial.co.jp/category/Tech">Tech</a></dd>
+                                                <dd class="mh5"><a class="linkOO" href="http://blog.asial.co.jp/category/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E8%A8%AD%E8%A8%88">オブジェクト指向設計</a></dd>
+                                                <dd class="mh5"><a class="linkOO" href="http://blog.asial.co.jp/category/UML">UML</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </dl>
+    </header>
+        <div class="blogEntry">はじめましての方は，はじめまして！<br>
+4月からアシアルに入社した浦本と申します。<br>
+<br>
+まずは簡単に自己紹介させていただきます。<br>
+アシアルに入社する前は，電気通信大学 情報工学科の鈴木研究室で，ネットワークやオブジェクト指向開発プロセスに関する研究を行っていました。<br>
+在学中よりフリーランスWeb開発をやっていて，開発経験は今年で5年目になります。<br>
+最近では，個人的に<a target="_blank" href="http://www.springsource.org/">Spring Framework</a>にはまっております。<br>
+どうぞ宜しくお願い致します。<br>
+<br>
+さて，今回はUML(Unified Modeling Language)について取り上げたいと思います。<br>
+<br>
+<strong>UMLとは？</strong><br>
+UMLとは，システムの設計を様々な切り口でモデル化し図示するためのグラフィカル言語です。<br>
+オブジェクト指向設計では，設計概念を表す何らかの設計図が必ず必要になります。<br>
+なぜならば，コードだけでは，コンポーネントの構成や，オブジェクトの相互作用を<br>
+分かりやすく表現できないからです。<br>
+特に，ある程度規模の大きなシステム開発においては，設計図が無い場合，<br>
+拡張性やメンテナンス性に乏しいクラスの山が作られがちです。<br>
+設計図が無いと，システムが要求を満たしていることを保証するユニットテストも行えません。<br>
+そこで，オブジェクト指向設計を，標準化された図として表現できるUMLが役に立つわけです。<br>
+<br>
+<strong>最低限必要なのはクラス図とシーケンス図</strong><br>
+UMLには10種類以上もの図があるのですが，もちろん全て覚える必要はありません。<br>
+システムの詳細設計ドキュメントを読み書きする際に最低限知っておくべき図は，クラス図とシーケンス図の2種類です。<br>
+クラス図はクラスの静的な設計を表し，シーケンス図はオブジェクトの動的な設計を表します。<br>
+<br>
+今回は，クラス図について説明します。<br>
+<br>
+<strong>3秒で分かるクラス図</strong><br>
+クラス図とは，クラスの構成やクラス間の関係を記述するための図です。<br>
+<br>
+クラスを表現するには，長方形を描いて，上から「クラス名」「属性」「メソッド」を記述します。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file.php"><br>
+属性とメソッドの前には，以下のアクセス修飾子を指定できます：<br>
++ public<br>
+- private<br>
+# protected<br>
+<br>
+属性の型や，メソッドのパラメタの型，メソッドの戻り値の型は，<br>
+コロン区切りで後ろに記述します。<br>
+<br>
+abstractクラスや，abstractメソッドは斜体で表します。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(1).php"><br>
+<br>
+static属性や，staticメソッドには下線を付けます。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(2).php"><br>
+<br>
+インターフェイスもクラスと同様に描けます。<br>
+インターフェイス名の上には≪interface≫を付けます。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(3).php"><br>
+インターフェイスのメソッドはabstractメソッドと決まっているので，<br>
+斜体にする必要はありません。<br>
+ちなみに≪～≫はステレオタイプといって，<br>
+図の要素に補足的な情報を付加するときに記述します。<br>
+<br>
+クラス図では，クラス同士を線でつなぐことで，<br>
+以下のように様々な「リレーションシップ」を示すことができます。<br>
+<br>
+generalization(汎化)は，継承関係を表します。<br>
+下図ですと，class AjaxResponse extends Responseという意味です。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(4).php"><br>
+<br>
+realization(実現)は，簡単にいえばimplementsに対応します。<br>
+下図ですと，class JapaneseMailer implements IMailerという意味です。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(5).php"><br>
+<br>
+association(関連)は，要するに「has」です。<br>
+下図ですと，Userの属性として，Accountを持っているという意味になります。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(6).php"><br>
+<br>
+aggregation(集約)は，associationの特別なケースで，<br>
+単なるhasではなく，構成員として持っているという意味になります。<br>
+下図ですと，「WishlistはProductを構成員としてたくさん持っている」という意味になります。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(7).php"><br>
+ポイント：<br>
+・Wishlistが削除されても，Productは削除されません。<br>
+・1つのProductが複数のWishlistに所属することができます。<br>
+<br>
+composition(合成集約)は，aggregationの特別なケースで，より結びつきが強くなります。<br>
+下図ですと，「Orderは一心同体の関係でOrderItemをたくさん持っている」という意味になります。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(8).php"><br>
+ポイント：<br>
+・Orderが削除されると，OrderItemも削除されます。<br>
+・1つのOrderItemが複数のOrderに所属することはありません。<br>
+<br>
+dependency(依存)は，その他の雑多な依存関係を表します。<br>
+下図ですと，「PurchaseControllerは，属性としてCartを持っているわけではないが，一時的にCartを参照している」という意味になります。<br>
+<img class="no-outline" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/read_file(9).php"><br>
+<br>
+リレーションシップの選択でややこしいのは<br>
+aggregationかcompositionかの判断なのですが，<br>
+迷うぐらいならaggregationにしておけば大丈夫です。<br>
+<br>
+<strong>その他の仕様</strong><br>
+以上で，クラス図の基本を説明しました。<br>
+その他のクラス図の細かな仕様はググってみてください。<br>
+<br>
+<strong>UMLを描画できるソフト</strong><br>
+無料で使える描画ソフトとしては，Change Visionの<a target="_blank" href="http://astah.change-vision.com/">astah* community</a>があります。<br>
+また，本格的な業務向け製品としては，Sparx Systemsの<a href="http://www.sparxsystems.com/" target="_blank">Enterprise Architect</a>があります。<br>
+<br>
+<strong>まとめ</strong><br>
+今回はUMLの主要な図の一つであるクラス図を取り上げました。<br>
+活用例を見たい場合は"class diagram"とかで画像検索してください。<br>
+<br>
+皆さんもぜひ，UMLをバリバリ描いて，特定の言語に依存しないオブジェクト指向設計を実践してみてください。<br>
+コードとにらめっこするよりも，はるかに設計ノウハウが身につくはずです。<br>
+<br>
+<strong>次回の予定</strong><br>
+シーケンス図について説明する予定です。<br>
+<br>
+<strong>参考文献</strong><br>
+・UML spec. <a href="http://www.omg.org/spec/UML/2.3">http://www.omg.org/spec/UML/2.3</a></div>
+        <footer class="clearfix">
+                <section class="mt30 mb20 f12px lh1em footerMeta clearfix">
+            <ul class="fr flChild clearfix">
+                                <li><a href="http://blog.asial.co.jp/user/26"><img class="borderSolidGray" width="42" height="42" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/26.png" alt=""></a></li>
+                <li class="mt30 pl10"><a class="linkOO" href="http://blog.asial.co.jp/user/26">浦本和裕</a></li>
+                                <li class="mt30 ml5 ph5 borderRSolidGray borderLSolidGray"><a class="linkOO" href="javascript:void(0)" rel="http://blog.asial.co.jp/712#comment">コメント(0)</a></li>
+            </ul>
+        </section>
+                                                                                                    <section class="related borderTDotGray">
+                    <a href="http://www.asial.co.jp/recruit/">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/adv5.png" alt="asial" style="margin: 20px 0 10px 0;">
+                    </a>
+                    <h3 class="f20px pv20">関連するアシアルHP</h3>
+                    <script>
+    jQuery(function(){
+        var params = {};
+                params['menu_panel'] = '3,5';
+                var $_elm = $('#panel_712').empty();
+        $.ajax({
+            type: 'POST',
+                        url: 'http://www.asial.co.jp/ajax/relatedPanel.php',
+                        data: params,
+            dataType: 'jsonp',
+            success: function(json){
+                if (!json.length) {
+                    $_elm.parent().remove();      
+                }
+                for (var i = 0, l = json.length; i < l; i++) {
+                    var item = json[i],
+                        $_child = $('<li>').append(
+                            $('<a>').addClass('panelLink').attr({
+                                'href': item.url,  
+                                'target': item.target
+                            }).append(
+                                $('<img>').attr('src', item.image)
+                            ).append(
+                                $('<div>').addClass('summary').append(
+                                    $('<h3>').html(item.title)
+                                ).append(
+                                    $('<p>').html(item.text)
+                                )
+                            )
+                        );
+
+                    $_elm.append($_child);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR, textStatus, errorThrown);    
+                $_elm.parent().remove();      
+            }
+        });
+    });
+</script>
+<ul id="panel_712" class="relatedHPPanel mb30 clearfix"><li><a class="panelLink" href="http://www.asial.co.jp/business/system" target="_blank"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/3(1).png"><div class="summary"><h3>Webシステム構築・コンサルティング</h3><p>確かな開発力・技術力と共に、お客様のシステム価値を最大限に発揮させるWebシステムを構築します。</p></div></a></li><li><a class="panelLink" href="http://www.asial.co.jp/business/web" target="_blank"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/5.png"><div class="summary"><h3>Webサービス＆携帯サービス</h3><p>アシアルが手がけるコンシューマー向けサービスを紹介します。</p></div></a></li></ul>
+                </section>
+                                        <section class="companyInfo ">
+                            <h3 class="f20px pv20">アシアルの会社情報</h3>
+                <p>アシアル株式会社はPHP、HTML5、JavaScriptに特化したWebエンジニアリング企業です。ユーザーエクスペリエンス設計から大規模システム構築まで、<a class="linkOO" target="_blank" href="http://www.asial.co.jp/company/member/">アシアルメンバー</a>が各々の専門性を通じてインターネットの進化に貢献します。</p>
+                <a class="fr arrow linkOO" href="http://www.asial.co.jp/company" target="_blank">会社情報詳細</a>
+                        </section>
+                        <section class="latestArticle mt30">
+            <h3 class="f20px pv20">最近の記事</h3>
+            <ul>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1416">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/49.png" width="20" height="20" alt="icon" title="四方裕">
+                        Macに複数バージョンのXcodeをインストールする理由と方法について
+                    </a>
+                    <span class="date"> [2015年07月10日 : 四方裕]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1416"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1416"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1416"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1415">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/65.png" width="20" height="20" alt="icon" title="細井一穂">
+                        【Android】はじめてのカスタムURLスキーム
+                    </a>
+                    <span class="date"> [2015年07月09日 : 細井一穂]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1415"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1415"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1415"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1414">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/67.png" width="20" height="20" alt="icon" title="Fran Dios">
+                        Onsen UI活用インタビュー「オハログで快眠生活を ! 」
+                    </a>
+                    <span class="date"> [2015年07月02日 : Fran Dios]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1414"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1414"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1414"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1413">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/6.png" width="20" height="20" alt="icon" title="小林有佳">
+                        2015年4月-6月におけるアシアルの活動 : スマートフォン&amp;モバイルEXPO、Cordova勉強会、AngularU 他。
+                    </a>
+                    <span class="date"> [2015年06月30日 : 小林有佳]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1413"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1413"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1413"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1411">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/64.png" width="20" height="20" alt="icon" title="MOONGIFT 中津川篤司">
+                        Monaca/Cordovaですぐに使えるアニメーションライブラリまとめ
+                    </a>
+                    <span class="date"> [2015年06月29日 : MOONGIFT 中津川篤司]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1411"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1411"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1411"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1385">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/64.png" width="20" height="20" alt="icon" title="MOONGIFT 中津川篤司">
+                        Onsen UIをタブレットデバイスでも使おう
+                    </a>
+                    <span class="date"> [2015年06月24日 : MOONGIFT 中津川篤司]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1385"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1385"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1385"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1404">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/59.png" width="20" height="20" alt="icon" title="渡辺卓弥">
+                        MonacaアプリでInstagramに写真を投稿する！
+                    </a>
+                    <span class="date"> [2015年06月24日 : 渡辺卓弥]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1404"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1404"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1404"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1410">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/64.png" width="20" height="20" alt="icon" title="MOONGIFT 中津川篤司">
+                        第6回Apache Cordova勉強会 に参加してきました
+                    </a>
+                    <span class="date"> [2015年06月23日 : MOONGIFT 中津川篤司]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1410"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1410"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1410"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li class="mb10">
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1401">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/64.png" width="20" height="20" alt="icon" title="MOONGIFT 中津川篤司">
+                        Monacaを使ってKintoneを手軽にアプリ化しましょう
+                    </a>
+                    <span class="date"> [2015年06月18日 : MOONGIFT 中津川篤司]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1401"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1401"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1401"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                                <li>
+                    <a class="fwB pr10" href="http://blog.asial.co.jp/1407">
+                        <img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/65.png" width="20" height="20" alt="icon" title="細井一穂">
+                        Monaca: ハイパフォーマンスWebView(Crosswalk WebView) バージョン13へのアップデートのお知らせ
+                    </a>
+                    <span class="date"> [2015年06月16日 : 細井一穂]</span>
+                    <span class="hatebu-icon"><a href="http://b.hatena.ne.jp/entry/http://blog.asial.co.jp/1407"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/1407"></a>&nbsp;<a href="http://b.hatena.ne.jp/entry/add/http://blog.asial.co.jp/1407"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/button-only.gif" width="20" height="20" style="border: none;" class="hatebu" alt="このエントリーをはてなブックマークに追加" title="このエントリーをはてなブックマークに追加"></a></span>
+                </li>
+                            </ul>
+        </section>
+            </footer>
+</article>        <nav class="pager alignC mb50 clearfix">
+    <p></p>
+</nav>                            <aside class="books mb70 clearfix">
+            <h2 class="f20px mb20">アシアル書籍情報</h2>
+            <ul class="flChild">
+
+                <li class="mr15">
+                    <a href="http://www.amazon.co.jp/dp/4774144371?tag=asite-22&camp=243&creative=1615&linkCode=as1&creativeASIN=4798114383&adid=05N847CHN2GH2G3N526H&" target="_blank">
+                        <article>
+                            <img width="127px" height="150px" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/book-perfect.jpg" alt="symfony×PHP" class="ad_php_books">
+                            <section class="alignL f12px">
+                                <h3 class="mv8">パーフェクトPHP</h3>
+                                <p class="mb8">総ページ数592ページ、PHPの言語仕様から最新技術までを網羅した究極のPHP本(PHP5.3対応)。</p>
+				<br><br>
+                                <strong>全国書店にて発売中</strong>
+                            </section>
+                        </article>
+                    </a>
+                </li>
+
+                <li class="mr15">
+                    <a href="http://www.amazon.co.jp/dp/4844332953/" target="_blank">
+                        <article>
+                            <img width="118px" height="150px" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/php_bookcover2.png" alt="イラストでよくわかるPHP はじめてのWebプログラミング入門" class="ad_php_books">
+                            <section class="alignL f12px">
+                                <h3 class="mv8">イラストでよくわかるPHP はじめてのWebプログラミング入門</h3>
+                                <p class="mb8">未経験者にお勧めの入門書籍！<br><br></p>
+				<br>
+				<br>
+                                <strong>全国書店にて発売中</strong>
+                            </section>
+                        </article>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="http://www.amazon.co.jp/Android%E5%AF%BE%E5%BF%9C-HTML5-%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E3%82%A2%E3%83%97%E3%83%AA%E9%96%8B%E7%99%BA-Software-Design/dp/4774162116" target="_blank">
+                        <article>
+                            <img width="106px" height="150px" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/book-html5hybrid.png" alt="[iOS/Android対応] HTML5 ハイブリッドアプリ開発[実践]入門" class="ad_php_books">
+                            <section class="alignL f12px">
+                                <h3 class="mv8">[iOS/Android対応] HTML5 ハイブリッドアプリ開発[実践]入門</h3>
+                                <p class="mb8">HTML5を使ってiOS/Androidアプリを開発するための体系的な知識と実践的なノウハウが詰まった一冊。<br><br></p>
+                                <strong>全国書店にて発売中</strong>
+                            </section>
+                        </article>
+                    </a>
+                </li>
+
+		
+            </ul>
+        </aside>            </div>
+</div>
+        <footer class="mainFooter">
+            <div class="layoutFull posR">
+                <a class="toPageTop over clear" href="javascript:void(0)" alt="Top" rel="http://blog.asial.co.jp/712#top">Top</a> 
+                <div class="fr flChild">
+                    <small>COPYRIGHT ASIAL CORPORATION ALL RIGHT RESERVED.</small>
+                    <a class="companyLink" target="_blank" href="http://www.asial.co.jp/">アシアル株式会社</a>
+                </div>
+            </div>
+        </footer>
+        <script src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/smoothScroll.js"></script>
+                <script src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/urchin.js" type="text/javascript" id="google-analytics" async=""></script>
+        <script type="text/javascript">
+        $('#google-analytics').on('load', function() {
+            _uacct = "UA-526750-9";
+            urchinTracker();
+            $('#google-analytics').off('load');
+        });
+        </script>
+                <script type="text/javascript">
+            Hatena.Star.SiteConfig = {
+                entryNodes: {
+                    'article.articlePanel': {
+                        uri: 'h2 a',
+                        title: 'h2',
+                        container: '.social_cont2 .hatenastar'
+                    }
+                }
+            };
+        </script>
+        <script type="text/javascript" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/plusone.js" async="" gapi_processed="true">
+            {lang: 'ja'}
+        </script>
+        <script type="text/javascript">
+            jQuery(function() {
+                $("#text_search").suggest("suggest.php",{});
+            });
+
+            $(window).bind('scroll.social_cont, load.social_cont', function() {
+                var list = $('.social_cont'), len = list.length, i;
+                for (i = 0; i < len; i++) {
+                    var $el = $(list[i]);
+                    if ($el.hasClass('loaded')) continue;
+                    if($(window).scrollTop() > $el.offset().top - $(window).height()) {
+                        $el.addClass('loaded');
+                        var funcName = 'showSNSButton_' + $el.data('entry-id');
+                        window[funcName] ? window[funcName]() : null;
+                    }
+                }
+            });
+
+
+        </script>
+    
+
+<div id="lightboxOverlay" style="display: none;"></div><div id="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image"><div class="lb-nav"><a class="lb-prev"></a><a class="lb-next"></a></div><div class="lb-loader"><a class="lb-cancel"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/loading.gif"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"><img src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/close.png"></a></div></div></div></div><ul class="ac_results" style="top: 213px; left: 882.5px;"></ul><iframe name="oauth2relay458175443" id="oauth2relay458175443" src="./UMLを描こう - Vol.1 クラス図 _ アシアルブログ_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

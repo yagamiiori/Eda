@@ -1,0 +1,17 @@
+
+①クリップとソースのフィールドを定義する
+    public AudioClip testSE;     　　// サウンド用フィールド
+    public AudioSource audioSource;  // オーディオソース
+
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+②オーディオソースコンポを取得する
+    audioSource = this.GetComponent<AudioSource>();
+
+↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+②鳴らす
+    audioSource.clip = testSE;
+    audioSource.Play(); ←音が重ならない（BGMはこっち）
+//  AudioSource.PlayOneShot; ←こっちは音が重なる（SEとかで使うならこっち）
+

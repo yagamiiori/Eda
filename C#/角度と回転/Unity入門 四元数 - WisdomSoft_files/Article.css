@@ -1,0 +1,290 @@
+﻿table
+{
+	border-style:solid;
+	border-width:1px;
+	border-color:black;
+
+	border-collapse: collapse;
+}
+
+th
+{
+	border-style:solid;
+	border-width:1px;
+	border-color:black;
+
+	border-collapse: collapse;
+}
+
+td
+{
+	border-style:solid;
+	border-width:1px;
+	border-color:black;
+
+	border-collapse: collapse;
+}
+
+p
+{
+	text-indent:1em;	
+}
+
+/* 記事の主題 */
+.ArticleTitle
+{
+	padding: 4px 0px 4px 8px;
+	margin: 0px;
+	background: #C0C0FF;
+	
+	border-left-style:solid;
+	border-left-width:10px;
+	border-left-color:#8080FF;
+}
+
+/* 記事の著者 */
+.Authors
+{
+}
+
+/* 記事の情報ブロック */
+.ArticleInformation
+{
+}
+
+/* 記事の概要 */
+.ArticleDescription
+{
+	margin: 8px;
+	padding: 8px;
+	
+	border-style: solid;
+	border-color: black;
+	border-width: 2px;
+}
+
+/* 記事の更新時間 */
+.ArticleCreatedDateTime
+{
+	
+}
+
+/* 全てのセクションを囲むブロック */
+.Sections
+{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+/* Web でのみ有効な要素 */
+.WebOnly
+{
+	
+}
+
+/*スクリプトなどの動的コンテンツを含む*/
+.Dynamic
+{
+	
+}
+
+/*広告バー*/
+.AdBar
+{
+	margin: 0px;
+	padding: 16px;
+	background-color: #F0F0FF;
+	
+	border-top-style: solid;
+	border-top-color: #C0C0FF;
+	border-bottom-style: solid;
+	border-bottom-color: #C0C0FF;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	text-align: center;
+}
+
+
+/* セクションタイトル */
+.SectionTitle
+{
+	border-left-color:#A0A0FF;
+	border-left-style:solid;
+	border-left-width:10px;
+	
+	border-bottom-color:#A0A0FF;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	
+	margin-left: 0px;
+	margin-top: 8px;
+	
+	padding-left: 8px;
+}
+
+/* セクションの内容 */
+.SectionContents
+{
+	margin-left: 16px;
+}
+
+/*名前と値の組み合わせの情報（辞書）におけるキー*/
+.KeyText
+{
+	font-weight:bold;
+	
+	margin-top: 8px;
+	margin-bottom: 0px;
+
+}
+
+/* 画像など記事に埋め込まれるオブジェクト */
+div.Item
+{
+	margin-bottom:16px;
+}
+
+/* オブジェクト名・キャプション */
+.ItemName
+{
+	border-left-style: solid;
+	border-left-color: black;
+	border-left-width: 16px;
+
+	padding-left: 4px;
+	margin-bottom: 0px;
+}
+
+/* 埋め込まれたオブジェクト自身 */
+.ItemObject
+{
+	margin: 0px 0px 8px 0px;
+}
+
+/* 記事の索引対象となるキーワード */
+.Keyword
+{
+	font-weight: bolder;
+}
+
+/* 記事の脚注 */
+.Comment
+{
+	
+}
+
+/*  記事内のチップス・余談 */
+.Tips
+{
+	margin: 0px;
+	border-style: double;
+	border-width: 4px;
+	background-color: #E0E0FF;
+	padding: 8px;
+}
+
+/* コマンド文字 */
+.Command
+{
+	margin: 0px;
+	background-color: #000000;
+	color: #FFFFFF;
+	padding: 8px;
+}
+
+/* 構文 */
+.Grammar
+{
+	border-color: Black;
+	border-style: solid;
+	border-width: 1px;
+
+	background-color:#FFFFE0;
+	
+	margin:0px;
+	padding: 8px;
+}
+
+/* 構文キーワード */
+.GrammarKeyword
+{
+	font-weight:bolder;
+	color:blue;
+}
+
+/* 構文参照 */
+.GrammarReference
+{
+	font-style:italic;
+}
+
+/* 構文省略可能 */
+.GrammarOptional
+{
+}
+
+/* プログラムコード */
+.Code
+{
+	margin: 0px;
+	border-color: Black;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #E0FFE0;
+	padding: 8px;
+}
+
+/* コード中のキーワード */
+.CodeKeyword
+{
+	color:blue;
+}
+
+/* コード中の文字列リテラル */
+.CodeString
+{
+	color:maroon;
+}
+
+/* コード中のコメント */
+.CodeComment
+{
+	color:green;
+}
+
+/*警告*/
+.Caution
+{
+	border-color: #000000;
+	border-width: medium;
+	padding: 8px;
+	background: yellow;
+	color: black;
+	font-weight: bold;
+	border-top-style: solid;
+	border-bottom-style: solid;
+}
+
+.PageLink 
+{
+	margin: 8px;
+}
+.PrevLink
+{
+	margin-right: 8px;
+}
+.BackLink 
+{
+	margin-right: 4px;
+	margin-left: 4px;
+}
+.NextLink
+{
+	margin-left: 8px;
+}
+.Snippet
+{
+	padding: 8px;
+	border-width: 5px;
+	border-left-style: solid;
+}

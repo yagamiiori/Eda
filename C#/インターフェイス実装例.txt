@@ -1,0 +1,43 @@
+
+◆① インターフェイスを定義
+interface Test{
+
+	// メソッドを定義（戻り値も明記必須！）
+	int Testmethod();
+}
+
+↓
+
+◆②クラス定義に継承させる
+　例）public class Container : MonoBehaviour, Test {
+
+↓
+
+◆③クラス内に実装
+
+	// メソッドを実装（戻り値も明記必須！）
+	int Test.Testmethod()
+	{
+		int x = 10;
+		int y = 10;
+
+		return x*y; //int型戻り値なのでreturnする
+	}
+
+↓
+
+◆④クラスメソッドでコール
+　（※クラス内はフィールドとメソッドを定義する事しかできない！下記をクラス内に直で書いたらエラーになる。
+　　　コールはクラスメソッド内で行う）
+	void Awake () {
+
+		int end;
+
+		// インターフェイスのインスタンス取得
+		Test awk = new ContainerClass();
+
+		// インターフェイスメソッドコール
+		end = awk.Testmethod();
+
+
+

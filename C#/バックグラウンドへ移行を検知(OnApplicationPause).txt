@@ -1,0 +1,20 @@
+
+OnApplicationPause(bool pause)を使えばapplicationWillResignActiveと
+applicationDidBecomeActive(AndroidだとonPauseとonResume)を検知することができます。
+
+
+	void OnApplicationPause (bool pauseStatus)
+	{
+		if (pauseStatus) {
+			Debug.Log("applicationWillResignActive or onPause");
+		} else {
+			Debug.Log("applicationDidBecomeActive or onResume");
+		}
+	}
+
+	※引数pauseStatusでバックグラウンドへの移行とフォアグラウンドへの復帰を判別します。
+
+参考：http://programming-ios.com/unity-background-detect/
+
+
+

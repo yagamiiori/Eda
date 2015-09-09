@@ -1,0 +1,15 @@
+
+・DrawCall・・・OpenGP/Direct3Dなどの描画APIを叩く命令。
+・多いと重くなるので極力減らさなければならない
+
+--------------
+DrawCall減らす方法
+--------------
+・ Meshは極力1マテリアル/1テクスチャの使用にとどめる
+・TransformのScaleは1固定にする（1以外にすると増える）
+・動かないGameObjectはインスペクタのStaticのチェックボックスをONにする
+
+・Shadow mapはDraw Callを消費する
+・ProjectorはDraw Callを消費する
+・TerrainはDraw Callを消費する
+

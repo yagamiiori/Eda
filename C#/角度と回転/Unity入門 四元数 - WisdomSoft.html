@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://www.wisdomsoft.jp/41.html -->
+<html lang="ja"><!-- #BeginTemplate "Templates/テンプレート.dwt" --><!-- DW6 --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Unity入門 四元数 - WisdomSoft_files/cb=gapi.loaded_1" async=""></script><script src="./Unity入門 四元数 - WisdomSoft_files/cb=gapi.loaded_0" async=""></script><script async="" type="text/javascript" src="./Unity入門 四元数 - WisdomSoft_files/ca-pub-9470114503820768.js"></script>
+	
+	<meta charset="UTF-8">
+
+	<meta name="robots" content="index,follow">
+
+	<!-- Windows Store -->
+	<meta name="msApplication-ID" content="10000.WisdomSoft">
+	<meta name="msApplication-PackageFamilyName" content="10000.WisdomSoft_wvw1jggtg9592">
+
+	<!--iOS Safari-->
+	<link rel="apple-touch-icon" href="http://www.wisdomsoft.jp/apple-touch-icon.png">
+
+	<!-- #BeginEditable "DocumentHeader" -->
+	<meta name="ArticleType" content="Article">
+
+	<meta name="author" content="赤坂玲音">	
+	<link rel="author" href="http://www.wisdomsoft.jp/119.html">
+
+	<meta name="keywords" content="Unity,Mono,C#,四元数">
+	<meta name="description" content="3次元空間上の軸に対する回転量を四元数を用いて表現できます。">
+
+	
+	<link rel="contents" href="http://www.wisdomsoft.jp/35.html">
+	<link rel="first" href="http://www.wisdomsoft.jp/36.html">
+	<link rel="prev" href="http://www.wisdomsoft.jp/40.html">
+	<link rel="next" href="http://www.wisdomsoft.jp/42.html">
+	<!-- #EndEditable -->
+
+	<link rel="index" href="http://www.wisdomsoft.jp/429.html">
+	<link rel="start" href="http://www.wisdomsoft.jp/">
+	<link rel="help" href="http://www.wisdomsoft.jp/7.html">
+
+	<link rel="shortcut icon" href="http://www.wisdomsoft.jp/favicon.ico" type="image/vnd.microsoft.icon">
+	<link rel="icon" href="http://www.wisdomsoft.jp/favicon.ico" type="image/vnd.microsoft.icon">
+
+	<link rel="alternate" type="application/atom+xml" href="http://feeds.feedburner.com/Wisdomsoft" title="WisdomSoft">
+
+	<link href="./Unity入門 四元数 - WisdomSoft_files/Layout.css" rel="stylesheet" type="text/css">
+	<link href="./Unity入門 四元数 - WisdomSoft_files/Article.css" rel="stylesheet" type="text/css">
+
+	<!-- #BeginEditable "DocumentTitle" -->
+	<title>Unity入門/四元数 - WisdomSoft</title>
+	<!-- #EndEditable -->
+
+	<script type="text/javascript" async="" src="./Unity入門 四元数 - WisdomSoft_files/platform.js" gapi_processed="true"></script><script type="text/javascript" async="" src="./Unity入門 四元数 - WisdomSoft_files/ga.js"></script><script src="./Unity入門 四元数 - WisdomSoft_files/jquery-1.11.0.min.js"></script>
+
+	<script type="text/javascript" src="./Unity入門 四元数 - WisdomSoft_files/DocumentWriter.js"></script>
+	<script type="text/javascript">
+<!--
+
+//Google Analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-2336053-1']);
+_gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageLoadTime']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+// -->
+	</script>
+
+</head>
+
+<body data-twttr-rendered="true">
+
+<table class="DocLayout">
+	<!--Top-->
+	<tbody><tr>
+		<td class="DocLayoutTop" colspan="3">
+			<div class="DocumentHeader">
+				<a href="http://www.wisdomsoft.jp/"><img src="./Unity入門 四元数 - WisdomSoft_files/TitleLogo.png" alt="WisdomSoft - for your serial experiences." style="margin:0px; border-style: none;"></a>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<!--Left -->
+		<td class="DocLayoutLeft" rowspan="2"><aside>
+			<div class="Widget">
+				<div class="WidgetHeader">サイト内検索</div>
+				<div class="WidgetContents">
+					<form action="http://www.wisdomsoft.jp/528.html" id="cse-search-box" style="margin:0;">
+					  <div>
+					    <input type="hidden" name="cx" value="partner-pub-9470114503820768:1239122970">
+					    <input type="hidden" name="cof" value="FORID:10">
+					    <input type="hidden" name="ie" value="UTF-8">
+					    <input type="text" name="q" size="22" style="border: 1px solid rgb(126, 157, 185); padding: 2px; background: url(http://www.google.co.jp/cse/intl/ja/images/google_custom_search_watermark.gif) 0% 50% no-repeat rgb(255, 255, 255);">
+					    <input type="submit" name="sa" value="検索">
+					  </div>
+					<input name="siteurl" type="hidden" value="www.wisdomsoft.jp/41.html"><input name="ref" type="hidden" value="www.google.co.jp/"><input name="ss" type="hidden" value=""></form>
+
+					<script type="text/javascript" src="./Unity入門 四元数 - WisdomSoft_files/brand"></script>
+
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">書籍</div>
+				<div class="WidgetContents">
+					<div class="List">
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/189.html">読本C</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/1.html">読本Java</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/8.html">WPFプログラミング入門</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/479.html">C#ゲームプログラミング</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/529.html">XNAゲームプログラミング</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/558.html">Javaアプリケーション作成講座</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/629.html">これからはじめるVisual C++2010 基礎編</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">プログラミング言語</div>
+				<div class="WidgetContents">
+					<div class="List">
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/367.html">C入門</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/369.html">C++入門</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/371.html">C++/CLI入門</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/363.html">C++/CX入門</a></div>
+						<div class="ListItem">
+							<div class="List">
+								<div class="ListHeader"><a href="http://www.wisdomsoft.jp/31.html">.NET Framework</a></div>
+								<div class="ListItem"><a href="http://www.wisdomsoft.jp/14.html">C#入門</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">API・フレームワーク</div>
+				<div class="WidgetContents">
+					<div class="List">
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/417.html">Windows API</a></div>
+						<div class="ListItem">
+							<div class="List">
+								<div class="ListHeader"><a href="http://www.wisdomsoft.jp/31.html">.NET Framework</a></div>
+								<div class="ListItem"><a href="http://www.wisdomsoft.jp/15.html">Windowsフォーム</a></div>
+								<div class="ListItem"><a href="http://www.wisdomsoft.jp/151.html">XNA Framework</a></div>
+							</div>
+						</div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/313.html">Windows Runtime</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/200.html">Kinect for Windows SDK</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">Web</div>
+				<div class="WidgetContents">
+					<div class="List">
+							<div class="ListItem"><a href="http://www.wisdomsoft.jp/469.html">HTML</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">ゲーム</div>
+				<div class="WidgetContents">
+					<div class="List">
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/35.html">Unity入門</a>	</div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/438.html">DirectX</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/151.html">XNA Framework</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">その他・雑記</div>
+				<div class="WidgetContents">
+					<div class="List">
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/235.html">コラム</a></div>
+						<div class="ListItem"><a href="http://www.wisdomsoft.jp/265.html">イベント</a></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Widget">
+				<div class="WidgetHeader">アプリケーション</div>
+				<div class="WidgetContents">
+					<div>
+						<a href="http://www.wisdomsoft.jp/437.html">
+							<img src="./Unity入門 四元数 - WisdomSoft_files/WindowsStore.scale-100.png" alt="Windows ストアアプリ" style="border-style:none" height="150" width="150">
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!--
+
+			<div class="Widget">
+				<div class="List">
+					<div class="ListHeader">■アーキテクチャ</div>
+					<div class="ListItem">
+						<div class="ListHeader">UML入門</div>
+						<div class="ListItem">静的構造図</div>
+						<div class="ListItem">ユースケース図</div>
+						<div class="ListItem">振る舞い図</div>
+					</div>
+				</div>
+			</div>
+			-->
+
+		</aside></td>
+
+		<!--Center-->
+		<td class="DocLayoutCenter">
+			<div class="Contents">
+				<article>
+					<header>
+						<h1 class="ArticleTitle" id="articleTitle">
+							<!-- #BeginEditable "ArticleTitle" -->
+								四元数
+								<!-- #EndEditable -->
+						</h1>
+						<div class="ArticleInformation">
+							<span>
+								<strong>著者</strong>： <span class="Authors">
+									<!-- #BeginEditable "Author" -->
+									<a href="http://www.wisdomsoft.jp/119.html">赤坂玲音</a>
+									<!-- #EndEditable -->
+								</span>
+								<strong>公開日</strong>：
+								<!-- #BeginEditable "CreatedDateTime" -->
+								<span class="ArticleCreatedDateTime">
+								<time datetime="2011-11-14" id="articleCreatedDateTime">
+									2011/11/14
+								</time>
+								</span>
+								<!-- #EndEditable -->
+							</span>
+						</div>
+
+						<div class="ArticleDescription">
+							<!-- #BeginEditable "ArticleDescription" -->
+							3次元空間上の軸に対する回転量を四元数を用いて表現できます。
+							<!-- #EndEditable -->
+						</div>
+
+						<!--
+						<div class="ArticleTags">
+							Tags...
+						</div>
+						-->
+
+						<div class="SocialButtons">
+							<!--Twitter-->
+							<span id="TwitterButton" style="margin-right:0;">
+								<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Unity入門 四元数 - WisdomSoft_files/tweet_button.b44aac737ba5fb3711801841c2833c12.ja.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 124px; height: 20px;"></iframe>
+								<script type="text/javascript" src="./Unity入門 四元数 - WisdomSoft_files/widgets.js"></script>
+							</span>
+
+							<!--はてな-->
+							<span class="HatenaButton" style="margin-right:0;"><iframe class="hatena-bookmark-button-frame" title="このエントリーをはてなブックマークに追加" frameborder="0" scrolling="no" width="50" height="20" src="javascript:false" style="width: 50px; height: 20px;"></iframe><script type="text/javascript" src="./Unity入門 四元数 - WisdomSoft_files/bookmark_button.js" charset="utf-8" async="async"></script></span>
+
+							<!--Facebook-->
+							<span class="FacebookButton" style="margin-right:0;"><iframe src="./Unity入門 四元数 - WisdomSoft_files/like.html" style="display:inline; border:none; overflow:hidden; padding:0px; margin:0px; width:100px; height:21px;" seamless="seamless"></iframe></span>
+
+							<!--Google plus-->
+							<span class="GooglePlusButton" style="margin-right:0;"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1426057729361" name="I0_1426057729361" src="./Unity入門 四元数 - WisdomSoft_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></span>
+
+							<span id="FeedButton" style="margin-right:0;">
+								<a href="http://feeds.feedburner.com/Wisdomsoft"><img src="./Unity入門 四元数 - WisdomSoft_files/feedicon.png" alt="Feed" style="border-style:none"></a>
+							</span>
+						</div>
+
+					</header>
+
+					<div class="Sections">
+						<!-- #BeginEditable "ArticleContents" -->
+						<section>
+							<h2 class="SectionTitle">回転を表現する</h2>
+							<div class="SectionContents">
+								<p>オブジェクトの向きや回転における角度は Unity 
+								ツール（Inspertor）上ではオイラー角が使われています。オイラー角は 3D 空間上の X 
+								軸、Y 軸、Z 軸それぞれの角度を指定することで方向を表します。スクリプトでは Vector3 
+								型で表現でき、私たち人間にとって直感的で扱いやすいデータです。しかし、オイラー角にはジンバルロックと呼ばれる難しい問題が付きまといます。</p>
+								<p>そこで、多くの 3D グラフィックス API と同じように、Unity 
+								では四元数を用いて角度を表現します。スクリプトからオブジェクトの角度を指定するには <span class="Keyword">UnityEngine.Quaternion 
+										構造体</span>を利用する方法が一般的です。</p>
+								<div class="Item">
+									<div class="ItemName">UnityEngine.Quaternion 
+										構造体</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public struct Quaternion</pre></div>
+								</div>
+								<p>この構造体のコンストラクタはオーバーロードされており、各要素を初期化する値を指定できます。</p>
+								<div class="Item">
+									<div class="ItemName">Quaternion 構造体のコンストラクタ</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public Quaternion(float x, float y, float z, float w)</pre>
+									</div>
+								</div>
+								<p>x パラメータには X 要素の値を、y パラメータには Y 要素の値を、z パラメータには 
+								Z 要素の値、w パラメータには W 要素の値を、それぞれ指定します。</p>
+								<p>各要素の値はフィールドで公開されています。X 要素の値は 
+								<span class="Keyword">x フィールド</span>から、Y 要素の値は  
+								<span class="Keyword">y 
+								フィールド</span>から、Z 要素の値は <span class="Keyword">z 
+								フィールド</span>から、W 要素の値は <span class="Keyword">w 
+								フィールド</span>から設定または取得できます。</p>
+								<div class="Item">
+									<div class="ItemName">Quaternion 
+										構造体 x フィールド</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public float x</pre></div>
+								</div>
+								<div class="Item">
+									<div class="ItemName">Quaternion 
+										構造体 y フィールド</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public float y</pre></div>
+								</div>
+								<div class="Item">
+									<div class="ItemName">Quaternion 
+										構造体 z フィールド</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public float z</pre></div>
+								</div>
+								<div class="Item">
+									<div class="ItemName">Quaternion 
+										構造体 w フィールド</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public float w</pre></div>
+								</div>
+								<p>構造体のメンバだけを見ると Vector4 構造体との違いがないため Quaternion 
+								構造体の役割に疑問を持つかもしれません。ここで四元数の詳細は割愛しますが、Quaternion 
+								構造体はベクトルではなくベクトルの回転を表現するものであり、その性質は複素数学と深い関係があります。</p>
+								<div class="Item" id="コード1">
+									<div class="ItemName">コード1</div>
+									<div class=" ItemObject"><pre class="Code">using UnityEngine;
+
+public class Test : MonoBehaviour
+{
+    void Start()
+    {
+        Quaternion q = new Quaternion(0, 0, 0, 1);
+        print("q=" + q);
+    }
+}</pre></div>
+								</div>
+								<div class="Item">
+									<div class="ItemName">実行結果</div>
+									<div class=" ItemObject">
+										<img alt="コード1 実行結果" src="./Unity入門 四元数 - WisdomSoft_files/41.1.png"></div>
+								</div>
+
+								<p><a href="http://www.wisdomsoft.jp/41.html#コード1">コード1</a>はコンストラクタで初期化した Quaternion 
+								構造体の値を出力しています。単にフィールドの値を出力しただけでは四元数の役割を理解することは難しいかもしれません。</p>
+							</div>
+						</section>
+						
+						<section>
+							<h2 class="SectionTitle">オイラー角との変換</h2>
+							<div class="SectionContents">
+								<p>Quaternion 
+								構造体は四元数を表しているため、フィールドの値はオイラー角のように単純に角度を保存するものではありません。多くの人にとって、四元数の値が表す回転は直感的なものではないでしょう。四元数からオイラー角を求める、またはその逆を行うには、オイラー角との変換を計算しなければなりません。</p>
+								<p>Unity では Quaternion 
+								構造体がオイラー角との変換処理を行う機能を提供しています。オイラー角を表す 3 
+								次元ベクトルから四元数を生成するには <span class="Keyword">Euler() 
+								メソッド</span>を使います。</p>
+								<div class="Item">
+									<div class="ItemName">Quaternion 構造体 Euler() メソッド</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public static Quaternion Euler(float x, float y, float z)</pre>
+									</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public static Quaternion Euler(Vector3 euler)</pre>
+									</div>
+								</div>
+
+								<p>Euler() メソッドは Quaternion 
+								構造体の静的メソッドで、オイラー角から対応する Quaternion 
+								構造体の値を生成してくれます。</p>
+								<p>もしくは <span class="Keyword">eulerAngles プロパティ</span>を通すことで 
+								Quaternion 構造体の値に対してオイラー角の値で設定または取得ができます。</p>
+								<div class="Item">
+									<div class="ItemName">Quaternion 構造体 eulerAngles プロパティ</div>
+									<div class=" ItemObject">
+										<pre class="Grammar">public Vector3 eulerAngles { get; set; }</pre>
+									</div>
+								</div>
+
+								<p>
+								もちろん四元数とオイラー角の変換には計算コストがかかるため、アニメーションの処理といった連続して値が更新されるコードではオイラー角との変換は避け、四元数のみを使うべきでしょう。</p>
+								<div class="Item" id="コード2">
+									<div class="ItemName">コード2</div>
+									<div class=" ItemObject"><pre class="Code">using UnityEngine;
+
+public class Test : MonoBehaviour
+{
+	void Start()
+	{
+		Quaternion q = Quaternion.Euler(45, 90, 180);
+		print("q=" + q);
+		print("X=" + q.eulerAngles.x);
+		print("Y=" + q.eulerAngles.y);
+		print("Z=" + q.eulerAngles.z);
+	}
+}</pre>
+									</div>
+								</div>
+								<div class="Item">
+									<div class="ItemName">実行結果</div>
+									<div class=" ItemObject">
+										<img alt="コード2 実行結果" src="./Unity入門 四元数 - WisdomSoft_files/41.2.png"></div>
+								</div>
+
+								<p><a href="http://www.wisdomsoft.jp/41.html#コード2">コード2</a>はオイラー角から Quaternion 構造体の値を生成し、その後 
+								eulerAngles プロパティを通して各軸の角度を取得して出力しています。</p>
+							</div>
+						</section>
+						<!-- #EndEditable -->
+					</div>
+
+					<footer>
+						<div id="footer" class="Footer">
+							<div class="GoogleAdsense">
+								<script async="" src="./Unity入門 四元数 - WisdomSoft_files/adsbygoogle.js"></script>
+<!-- コンテンツ下部の広告 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-9470114503820768" data-ad-slot="6632084445" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+							</div>
+
+							<p class="PageLink">
+								<span class="PrevLink">
+									<!-- #BeginEditable "PrevLink" -->
+								<a href="http://www.wisdomsoft.jp/40.html">前のページ</a>
+									<!-- #EndEditable -->
+								</span>
+								<span class="BackLink">
+									<!-- #BeginEditable "BackLink" -->
+								<a href="http://www.wisdomsoft.jp/35.html">戻る</a>
+									<!-- #EndEditable -->
+								</span>
+								<span class="NextLink">
+									<!-- #BeginEditable "NextLink" -->
+								<a href="http://www.wisdomsoft.jp/42.html">次のページ</a>
+									<!-- #EndEditable -->
+								</span>
+							</p>
+
+							<div class="SosialLinks"> 
+								<div><img src="./Unity入門 四元数 - WisdomSoft_files/socialBar.png" alt="ソーシャルでもWisdomSoft。フォローして最新記事をチェック。"></div>
+								<div>
+									<a href="https://twitter.com/wisdomsoft">
+									<img src="./Unity入門 四元数 - WisdomSoft_files/twitter.scale-100.png" alt="Twitter" class="MetroTile" style="width: 150px; height: 150px"></a>
+									<a href="http://www.facebook.com/pages/WisdomSoft/189044671165675">
+									<img src="./Unity入門 四元数 - WisdomSoft_files/f_logo.scale-100.png" alt="Facebook" class="MetroTile" style="width: 150px; height: 150px"></a>
+									<a href="https://plus.google.com/b/110444165422991366532/">
+									<img src="./Unity入門 四元数 - WisdomSoft_files/gPlus.scale-100.png" alt="Google+" class="MetroTile" style="width: 150px; height: 150px"></a>
+								</div>
+							</div>
+						</div>
+					</footer>
+				</article>
+			</div>
+		</td>
+
+		<!--Right-->
+		<td class="DocLayoutRight" rowspan="2">
+			<aside>
+				<div class="Widget">
+					<div class="WidgetHeader">ピックアップ</div>
+                    <div class="WidgetContents">
+						<div class="PickUpItems"><div><a href="http://go.microsoft.com/?linkid=9773120" target="_blank"><img src="./Unity入門 四元数 - WisdomSoft_files/hh140859.180x150_claudia(ja-jp,MSDN.10).gif" width="180" height="150" alt="MSDN クラウド 技術解説コミック新登場 クラウド ガール - 窓と雲と碧い空 - " style="border-style:none"></a></div></div>
+					</div>
+				</div>
+
+				<div class="Widget">
+					<div class="WidgetHeader">広告</div>
+					<div class="WidgetContents">
+						<script async="" src="./Unity入門 四元数 - WisdomSoft_files/adsbygoogle.js"></script>
+<!-- サイドバー広告 -->
+<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-9470114503820768" data-ad-slot="7977438900" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</div>
+				</div>
+				
+				<div class="Widget">
+					<div class="WidgetHeader">おすすめ</div>
+					<div class="WidgetContents">
+						<div class="WishList"><div><a href="http://www.amazon.co.jp/gp/product/4844334425/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4844334425"><img src="./Unity入門 四元数 - WisdomSoft_files/q" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4798038326/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4798038326"><img src="./Unity入門 四元数 - WisdomSoft_files/q(1)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(1)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4798125822/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4798125822"><img src="./Unity入門 四元数 - WisdomSoft_files/q(2)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(2)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4774154385/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4774154385"><img src="./Unity入門 四元数 - WisdomSoft_files/q(3)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(3)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4873115736/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4873115736"><img src="./Unity入門 四元数 - WisdomSoft_files/q(4)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(4)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4873115833/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4873115833"><img src="./Unity入門 四元数 - WisdomSoft_files/q(5)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(5)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4839942390/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4839942390"><img src="./Unity入門 四元数 - WisdomSoft_files/q(6)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(6)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4798119598/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4798119598"><img src="./Unity入門 四元数 - WisdomSoft_files/q(7)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(7)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4797366761/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4797366761"><img src="./Unity入門 四元数 - WisdomSoft_files/q(8)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(8)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/4864010056/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=4864010056"><img src="./Unity入門 四元数 - WisdomSoft_files/q(9)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(9)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/489100455X/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=489100455X"><img src="./Unity入門 四元数 - WisdomSoft_files/q(10)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(10)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/0321751043/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=0321751043"><img src="./Unity入門 四元数 - WisdomSoft_files/q(11)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(11)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/B00DMW7HXQ/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=B00DMW7HXQ"><img src="./Unity入門 四元数 - WisdomSoft_files/q(12)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(12)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/B00BQ6YDAA/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=B00BQ6YDAA"><img src="./Unity入門 四元数 - WisdomSoft_files/q(13)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(13)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/B0074BN0VO/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=B0074BN0VO"><img src="./Unity入門 四元数 - WisdomSoft_files/q(14)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(14)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div><div><a href="http://www.amazon.co.jp/gp/product/B0058R99GQ/ref=as_li_ss_il?ie=UTF8&tag=wisdo-22&linkCode=as2&camp=247&creative=7399&creativeASIN=B0058R99GQ"><img src="./Unity入門 四元数 - WisdomSoft_files/q(15)" alt="" style="border:none"></a><img src="./Unity入門 四元数 - WisdomSoft_files/ir(15)" width="1" height="1" alt="" style="border:none !important; margin:0px !important;"></div></div>
+					</div>
+				</div>
+			</aside>
+		</td>
+	</tr>
+	<!--Bottom-->
+	<tr>
+		<td class="DocLayoutBottom">
+			<div class="SiteInformationBar">
+				<a href="http://www.wisdomsoft.jp/429.html">索引</a> | <a href="http://www.wisdomsoft.jp/0.html">お問い合わせ</a> | <a href="http://www.wisdomsoft.jp/7.html">ヘルプ</a> | <a href="http://www.wisdomsoft.jp/6.html">利用規約</a> | <a href="http://www.wisdomsoft.jp/436.html">プライバシー</a>
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<!-- Begin Google Plus Button Footer -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'ja'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<!-- End Google Plus Button Footer -->
+
+
+
+<!-- #EndTemplate -->
+<iframe name="oauth2relay850585824" id="oauth2relay850585824" src="./Unity入門 四元数 - WisdomSoft_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

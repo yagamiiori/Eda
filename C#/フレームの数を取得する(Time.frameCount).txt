@@ -1,0 +1,5 @@
+
+# Time.frameCount
+if (Time.frameCount % 4 == 0 ) {} # 4ƒtƒŒ[ƒ€‚²‚Æ‚Ìˆ—‚Ì—á
+
+

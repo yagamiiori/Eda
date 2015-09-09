@@ -1,0 +1,32 @@
+
+●GetTypeメソッド
+　例）Type t = Type.GetType(test);
+-----------------------
+　動的な型を取得する。
+
+●typeof演算子
+　例）typeof ("あいうえお")
+-----------------------
+　静的な型を取得する。戻り値はデータを示す「文字列」である。
+　typeofは必ずstringを返す。
+
+typeofが返す文字列
+===================================
+未定義　：　"undefined"
+Null　　：　"object"
+真偽値　：　"boolean"
+数値　　：　"number"
+文字列　：　"string"
+関数　　：　"function"
+その他　：　"object"
+　※詳細は→https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/typeof
+
+・Type クラスの ToString() は情報を格納しているクラスの名前を返す
+
+・Type クラスには、型情報を取得する様々なプロパティが存在する
+
+
+参考：Typeクラスのメソッドとプロパティ
+　　　http://msdn.microsoft.com/ja-jp/library/system.type(v=vs.110).aspx
+
+

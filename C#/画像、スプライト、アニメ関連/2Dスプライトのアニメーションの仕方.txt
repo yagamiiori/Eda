@@ -1,0 +1,48 @@
+
+参考：http://japan.unity3d.com/developer/document/tutorial/2d-shooting-game/game/05.html
+
+◆アニメーションの仕方
+・画像取り込む
+・全ての画像のインスペクターのTexture Typeを「Sprite」に変更
+・ヒエラルキーからSpriteを作る
+・ProjectからAnimationを作る
+・作ったアイコンをドラッグしてヒエラルキーのSpriteを持つオブジェクトにアタッチする
+・ProjectのAnimationと同じ場所にControllerファイルができる
+・Controllerファイルをダブルクリックしてタイムラインを出す
+・タイムライン上に最初に取り込んだアニメーション画像をD&Dで追加していく
+
+
+ステートの切り替え
+
+ステートをステートマシン画面で作る
+↓
+ステート右クリック→パスを作る
+↓
+左上のParametersからbootを選択して名前をつける
+↓
+ステートから伸びる矢印をクリック
+↓
+インスペクタのConditionsからtrueかfalseを選択
+↓
+※ここまででステートマシンの設定は完了
+　（ステートのインスペクタのTransitionsのSoloはチェック入れない。遷移しなくなる）
+　（デフォルトステートはステート右クリックからSet as Layer Default Stateを選択、オレンジ色に光る）
+↓
+スクリプトで以下を書く
+===========================================================================================
+        //上に移動する場合
+        if (input_UD == 1)
+        {
+            vel.y = speed;	// 移動
+            vel.x = 0;
+            transform.Translate(vel);
+
+            anim.SetBool("Tina_Down", false);	// ステートパラメータを制御
+            anim.SetBool("Tina_FwdBack", false);
+            anim.SetBool("Tina_Up", true);
+        }
+===========================================================================================
+
+
+
+
