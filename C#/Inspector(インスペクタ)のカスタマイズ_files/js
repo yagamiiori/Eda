@@ -1,0 +1,8 @@
+document.writeln('<script type="text/javascript">');
+document.writeln('if (!window.OX_ads) { OX_ads = []; }');
+document.writeln('OX_ads.push({ "auid" : "429894" });');
+document.writeln('</script>');
+document.writeln('<script type="text/javascript">');
+document.writeln('document.write(\'<scr\'+\'ipt src="http://ox-d.openx.jp/w/1.0/jstag"><\\/scr\'+\'ipt>\');');
+document.writeln('</script>');
+document.writeln('<noscript><iframe id="51ac15f824fce" name="51ac15f824fce" src="http://ox-d.openx.jp/w/1.0/afr?auid=429894&cb=INSERT_RANDOM_NUMBER_HERE" frameborder="0" scrolling="no" width="160" height="600"><a href="http://ox-d.openx.jp/w/1.0/rc?cs=51ac15f824fce&cb=INSERT_RANDOM_NUMBER_HERE" ><img src="http://ox-d.openx.jp/w/1.0/ai?auid=429894&cs=51ac15f824fce&cb=INSERT_RANDOM_NUMBER_HERE" border="0" alt=""></a></iframe></noscript>');

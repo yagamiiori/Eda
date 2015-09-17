@@ -1,0 +1,41 @@
+
+----------------------------
+以下の3つの方法がある。
+----------------------------
+
+1.メンバー変数にGameObjectをエディタから登録
+ 一番わかりやすくて、速度も良さそう。ただ大量に設定する場合に心が折れてしまう。
+ また複数人で編集している場合、つけ忘れたり、いつの間にか外れていたりするので自動的に設定したい。
+
+2.親のGameObjectからTransform.Find
+	// parentはTargetの親のGameObject
+	GameObject g = parent.transform.Find("Target").gameObject;
+
+3.最初はアクティブにしておく
+
+-----------------------
+Find系の速度調査
+-----------------------
+GameObject
+└Target
+と配置。
+void Start ()
+{
+    float start = Time.realtimeSinceStartup;
+    for (int i = 0; i < 10000; i++)
+    {
+        GameObject g = GameObject.Find("Target");
+    }
+    start = Time.realtimeSinceStartup - start;
+    Debug.Log(start);
+}
+結果：
+	GameObject.Find 　　　 : 0.002311897
+	GameObject.FindWithTag : 0.003102157
+	Transform.Find 　　　　: 0.003460165
+
+Transform.Findが思いのほか遅かった。
+見つけた後にgameObjectプロパティにアクセスしているせいかもしれない。
+
+
+

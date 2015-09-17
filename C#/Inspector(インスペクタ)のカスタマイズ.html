@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0052)http://unity-xeion.seesaa.net/article/422307056.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"><script async="" src="./Inspector(インスペクタ)のカスタマイズ_files/analytics.js"></script><script defer="" async="" src="./Inspector(インスペクタ)のカスタマイズ_files/trac.js"></script><script defer="" async="" src="./Inspector(インスペクタ)のカスタマイズ_files/ads.js"></script>
+
+<title>Unity/C# - Inspector表示の変更①: Unityのゲーム作りブログ</title>
+<meta name="description" content="Unity/C# - Inspector表示の変更①,Unityでゲーム作りを行っている紹介サイトです。">
+<meta name="keywords" content="ゲーム　UnityUnity、ゲーム、プログラム、C#">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta property="og:title" content="Unity/C# - Inspector表示の変更①">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://unity-xeion.seesaa.net/article/422307056.html">
+<meta property="og:image" content="http://unity-xeion.up.seesaa.net/image/Unity_598.jpg">
+<meta property="og:description" content="Unity初心者の為の記事一覧へ Unityで製作したゲーム一覧へ  今回は、《 Inspector 》で表示される各項目の表示方法を変更してみたいと思います。  ">
+<meta property="og:site_name" content="Unityのゲーム作りブログ">
+
+<link rel="stylesheet" href="./Inspector(インスペクタ)のカスタマイズ_files/styles-index.css" type="text/css">
+<link rel="stylesheet" href="./Inspector(インスペクタ)のカスタマイズ_files/user-common.css" type="text/css">
+<link rel="alternate" href="http://unity-xeion.seesaa.net/index.rdf" type="application/rss+xml" title="RSS">
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow-x:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, "hiragino kaku gothic pro",meiryo,"ms pgothic",sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body><script type="text/javascript" async="" src="./Inspector(インスペクタ)のカスタマイズ_files/widgets.js" id="twitter-wjs"></script><script type="text/javascript" async="" src="./Inspector(インスペクタ)のカスタマイズ_files/sdk.js" id="facebook-jssdk"></script><script type="text/javascript" async="" src="./Inspector(インスペクタ)のカスタマイズ_files/bookmark_button.js" id="hatena-js"></script><script type="text/javaScript">seesaa_site_id = 'unity-xeion'; seesaa_floating = false;</script>
+<a href="javascript:document.cookie='force_pc=0; max-age=15768000; path=/'; document.cookie='force_sp=1; max-age=15768000; path=/'; document.location='/?from_pc'" style="display: block; width: 100%; min-width: 1070px; text-decoration: none;"><div id="iphone-link" style="display:none; font-family: sans-serif; padding: 28px 0; width: 100%; color: #FFF; background: #333; min-height: 80px; line-height: 80px; box-sizing: border-box; font-size: 48px; font-weight: 700; text-decoration:none;">スマートフォン専用ページを表示</div></a>
+<script type="text/javascript"><!--
+if ((0 <= navigator.userAgent.indexOf('iPhone')) || (0 <= navigator.userAgent.indexOf('Android'))) { document.getElementById('iphone-link').style.display = 'block'; }
+//--></script>
+<!-- common header -->
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/common_header.js" charset="Shift_JIS"></script>
+<script type="text/javascript">renderCmnHeader('#333333', '#ffffff', '1.gif');</script><link rel="stylesheet" href="./Inspector(インスペクタ)のカスタマイズ_files/common-header.css" type="text/css"><style type="text/css">#common-header a.seesaa-adLink,#common-header a.adTitle{color: #333333;}#common-header .bgcolor{background: #ffffff;}</style><div id="common-header"><div class="wrap bgcolor">  <div class="leftbox">    <div class="logo">      <a href="http://blog.seesaa.jp/"><img src="./Inspector(インスペクタ)のカスタマイズ_files/1.gif" alt="Seesaaブログ" border="0"></a>    </div>    <div class="prbox bgcolor">      <div class="pr1 bgcolor" id="common-header-ads"><iframe name="maad" src="./Inspector(インスペクタ)のカスタマイズ_files/ot_square.html" width="237" height="18" scrolling="no" frameborder="no" marginwidth="0" marginheight="0" allowtransparency="true"></iframe></div>      <div class="pr2 bgcolor"><script src="./Inspector(インスペクタ)のカスタマイズ_files/AdLantisLoader.js" type="text/javascript" charset="utf-8"></script><!-- Begin: Adlantis, Zone: [ユーザブログ共通ヘッダーテキスト] --><div class="pr2adlantis"><div class="adlantiss_frame zid_yQ96kOGdbqT6C9Cbb9xECQ%3D%3D color_#333333 container_div autosize loaded" id="adbox_0"><iframe frameborder="0" marginheight="0" marginwidth="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Inspector(インスペクタ)のカスタマイズ_files/load_iframe(1).html"></iframe></div></div><!-- End: Adlantis --></div>      <div class="both"></div>    </div>    <div class="both"></div>  </div>  <div class="rightbox bgcolor"><div id="sbContainer" class="seesaaSearchBox"><form class="form" method="post" action="http://blog.seesaa.jp/tag/pages/search"><input value="sjis" name="charset" type="hidden"><input value="articles" name="service" type="hidden"><input value="photos" name="service" type="hidden"><input value="videos" name="service" type="hidden"><input value="audios" name="service" type="hidden"><input type="text" name="q" value="コスプレ" id="common-header-ads-input" class="input"><button type="submit" class="button"></button><div class="clear"></div></form></div>  <script type="text/javascript"><!--
+  var seesaa_sb_keywords    =  ["ダイエット","アフィリエイト","引越し見積もり","アパート探し","マンション投資","新入学","春休み","地震対策","地震予知","iPhoneアプリ","海外旅行","旅行","ペット用品","置き換えダイエット","AKB48","メタボ","自動車免許","FX","iPhone5","コスプレ"];  var seesaa_sb_blog_url    = "http://blog.seesaa.jp";   var seesaa_sb_tag_url     = "http://blog.seesaa.jp/tag";   //--></script>  <script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/common_header_sb.js" charset="Shift_JIS"></script>  <link rel="stylesheet" href="./Inspector(インスペクタ)のカスタマイズ_files/common_header_sb.css" type="text/css">  </div>  <div class="both"></div></div></div>
+<!-- common header -->
+
+
+<div id="container">
+<script type="text/javascript" language="JavaScript" src="./Inspector(インスペクタ)のカスタマイズ_files/ad_plugin.js"></script>
+<div id="banner">
+<h1><a href="http://unity-xeion.seesaa.net/" accesskey="1">Unityのゲーム作りブログ</a></h1>
+
+<span class="description">Unityでゲーム作りを行っている紹介サイトです。<br></span>
+
+
+
+</div>
+
+
+<div id="content"><div id="viasearch-ad-area" class="viasearch-ad">
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/square_viasearch_seesaa_fluct.js" charset="UTF-8"></script><link type="text/css" href="./Inspector(インスペクタ)のカスタマイズ_files/fluct.css" rel="stylesheet"><script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource"></script> <img src="./Inspector(インスペクタ)のカスタマイズ_files/pixel" width="1" height="1" style="display:none;position:absolute;border:none;padding:0;margin:0;"> 
+<script type="text/javascript"> 
+//<![CDATA[ 
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000036695'); 
+//]]> 
+</script><div id="fluct_ad_unit_1000036695" class="fluct_ad_container"><script type="text/javascript">
+if (!window.OX_ads) { OX_ads = []; }
+OX_ads.push({ "auid" : "537285915" });
+</script>
+<script type="text/javascript">
+document.write('<scr'+'ipt src="http://ox-d.openx.jp/w/1.0/jstag"><\/scr'+'ipt>');
+</script><script src="./Inspector(インスペクタ)のカスタマイズ_files/jstag"></script><img src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(1)" style="display:none;position:absolute;border:none;padding:0;margin:0;" width="0" height="0" border="0"><script type="text/javascript" id="ox_acj_990764349" src="./Inspector(インスペクタ)のカスタマイズ_files/acj"></script><div style="width:300px;">
+<script type="text/javascript" language="JavaScript">
+ yads_ad_ds ='86051_34387';</script>
+<script type="text/javascript" language="JavaScript" src="./Inspector(インスペクタ)のカスタマイズ_files/yads.js"></script><script type="text/javascript" language="JavaScript" src="./Inspector(インスペクタ)のカスタマイズ_files/yads_vimps-1.2.2.js"></script><script src="./Inspector(インスペクタ)のカスタマイズ_files/tag"></script><div style="text-align:center;"><iframe src="./Inspector(インスペクタ)のカスタマイズ_files/yads-iframe.html" style="border:none; clear:both; display:block; margin:auto; overflow:hidden; " allowtransparency="true" frameborder="0" height="250" id="yads_237106-0" name="yads_237106-0" scrolling="no" width="300"></iframe></div>
+</div><div style="position:absolute;left:0px;top:0px;visibility:hidden;"><img src="./Inspector(インスペクタ)のカスタマイズ_files/ri"></div>
+<noscript>&lt;iframe id="b2075f7002" name="b2075f7002" src="http://ox-d.openx.jp/w/1.0/afr?auid=537285915&amp;cb=INSERT_RANDOM_NUMBER_HERE" frameborder="0" scrolling="no" width="300" height="250"&gt;&lt;a href="http://ox-d.openx.jp/w/1.0/rc?cs=b2075f7002&amp;cb=INSERT_RANDOM_NUMBER_HERE" &gt;&lt;img src="http://ox-d.openx.jp/w/1.0/ai?auid=537285915&amp;cs=b2075f7002&amp;cb=INSERT_RANDOM_NUMBER_HERE" border="0" alt=""&gt;&lt;/a&gt;&lt;/iframe&gt;</noscript></div> 
+</div>
+
+<!-- Content -->
+<div class="navi">
+<a href="http://unity-xeion.seesaa.net/article/420654660.html">&lt;&lt;</a> <a href="http://unity-xeion.seesaa.net/article/420654660.html">FPS作成--(26)仕上げ</a> | <a href="http://unity-xeion.seesaa.net/">TOP</a>
+ | <a href="http://unity-xeion.seesaa.net/article/422857708.html">Unityで２Ｄアクションゲーム制作中①</a> <a href="http://unity-xeion.seesaa.net/article/422857708.html">&gt;&gt;</a></div>
+
+
+<div class="blog">
+
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:Trackback="http://madskills.com/public/xml/rss/module/Trackback/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="http://unity-xeion.seesaa.net/article/422307056.html"
+    trackback:ping="http://blog.seesaa.jp/tb/422307056"
+    dc:title="Unity/C# - Inspector表示の変更①"
+    dc:identifier="http://unity-xeion.seesaa.net/article/422307056.html"
+    dc:description="Unity初心者の為の記事一覧へUnityで製作したゲーム一覧へ今回は、《 Inspector 》で表示される各項目の表示方法を変更してみたいと思います。《 Inspector 》の表示についてpublic型で宣言した変数は、《 Inspector 》に表示されます。例えば、以下のプログラムを作成し、ゲーム上のオブジェクトに追加すると、《 Inspector 》では以下の様に表示されます。using UnityEngine;using System.Collections;p.."
+    dc:creator="漆之黒褐"
+    dc:subject="Unity"
+    dc:date="2015-07-13T21:14:42+09:00"
+/>
+</rdf:RDF>
+-->
+<h2 class="date">2015年07月13日</h2>
+<div class="blogbody">
+<h3 class="title"><a href="./Inspector(インスペクタ)のカスタマイズ_files/Inspector(インスペクタ)のカスタマイズ.html" class="title">Unity/C# - Inspector表示の変更①</a></h3>
+<div class="text"><div style="text-align:right;"><a href="http://unity-xeion.seesaa.net/article/408913219.html">Unity初心者の為の記事一覧へ</a></div><br><div style="text-align:right;"><a href="http://unity-xeion.seesaa.net/article/409833384.html">Unityで製作したゲーム一覧へ</a></div><br><br>今回は、《 Inspector 》で表示される各項目の表示方法を変更してみたいと思います。<br><br><table width="100%"><tbody><tr><td bgcolor="#AAAAAA" align="left"><font size="+2">《 Inspector 》の表示について</font></td></tr></tbody></table><br><br>public型で宣言した変数は、《 Inspector 》に表示されます。<br><br>例えば、以下のプログラムを作成し、ゲーム上のオブジェクトに追加すると、《 Inspector 》では以下の様に表示されます。<br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_1 : MonoBehaviour {<br>	public int sample_int;<br>	public float sample_float;<br>	public string sample_string;<br>	public GameObject	sample_gameobject;<br><br>	public enum SAMPLE_ENUM{<br>		NONE , NUM,<br>	}<br>	public SAMPLE_ENUM sample_enum;<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_598.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_598.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br><br>特に何も設定しなくとも、各変数の型に応じて《 Inspector 》上に入力フィールド／選択フィールドが形成されます。<br><br><br>今回は、この《 Inspector 》で表示される各項目の表示方法を変更してみたいと思います。<br><br>ちなみに色々と工夫すれば、以下の様な一風変わった《 自作Inspector 》表示も出来るようになります。<br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_599.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_599.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>上記には、『ボタンを押すと指定した関数実行』『折り畳む事が出来る』『２列以上の変数表示が出来る』などなどが盛り込まれています。<br><br><br><br><table width="100%"><tbody><tr><td bgcolor="#AAAAAA" align="left"><font size="+2">属性(Attribute)を追加する</font></td></tr></tbody></table><br><br>《 Inspector 》表示は、簡単なものであれば標準で使用可能な<font color="#FF0000">属性(Attribute)</font>を追加してやる事で出来ます。<br><font color="#FF0000">属性(Attribute)</font>は、クラスや変数を宣言する前に [ ] で囲んで記述したものです。<br><br>例えば、以下の様に書きます。<br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_2 : MonoBehaviour {<br>	[SerializeField] private int sample_int;<br>	[Space(15)]<br>	[Range(0.0f , 5.0f)] public float sample_float;<br>	[Header("----------------------")]<br>	[Multiline(2)] public string sample_string1;<br>	[TextArea(2, 5)] public string sample_string2;<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_600.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_600.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>[ ] で囲んだ<font color="#FF0000">属性(Attribute)</font>を付けた事で、《 Inspector 》の表示が変わりました。<br>ここで使用した<font color="#FF0000">属性(Attribute)</font>は、具体的には以下の特性を持っています。<br><font color="#0000FF"><br>[SerializeField]　：　private型でも表示させる<br><br>[Space(15)]　：　指定数値分、スペース(行間)を開ける<br><br>[Range(0.0f , 5.0f)]　：　スライダーを表示。範囲は0～5<br><br>[Header("----------------------")]　：　指定した文字列を表示<br><br>[Multiline(2)] public string sample_string1;　：　テキスト入力フィールド。カッコ内は表示する行数。右端の折り返しなし。<br><br>[TextArea(2, 5)] public string sample_string2;　：テキスト入力フィールド。カッコ内は表示する行数(最小値 , 最大値)。右端で折り返す<br></font><br><br>これまでは private型 は《 Inspector 》に表示される事はありませんでしたが、[SerializeField]という<font color="#FF0000">属性(Attribute)</font>を記述する事で、《 Inspector 》に表示させる事が出来るようになります。<br><br>変数が多くなってくると、[Space(10)]を使って空行を作ってみたり、[Header("タイトル")]を使ってグループタイトルを記述するような事も出来ます。<br><br>《 Inspector 》上で弄りたい数値を範囲指定する[Range(0.0f , 5.0f)]を使う事で、最小値／最大値を明示しておく事も出来ます。あと数値を変更しやすくなります。<br><br>１行で収まらないテキストを表示させたいなら、[Multiline(2)]や[TextArea(2, 5)]を使って、最初から入力フィールドを拡張しておく事も出来ます。<br><br><hr><br><br><br>このように、Unityで最初から用意されている<font color="#FF0000">属性(Attribute)</font>を付ける事で、意図的に《 Inspector 》表示を変更する事が出来ます。<br><br>また、これらの<font color="#FF0000">属性(Attribute)</font>は、[ ]内で , を使う事で、複数個指定する事が出来ます。<br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_3 : MonoBehaviour {<br>	[SerializeField , Range(0,5)] private int sample_int;<br>	[Space(10) , Tooltip("説明文です")] public float sample_float;<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_601.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_601.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>１行目では、private型を表示させる[SerializeField]と、スライダー表示する[Range(0,5)]を組み合わせています。<br>２行目では、直前に空行を入れる[Space(10)]と、《 Inspector 》上でカーソルを変数にあわせると文章を表示させる[Tooltip("説明文です")]を組み合わせています。<br><br><font color="#FF0000">属性(Attribute)</font>は、直後にある変数に対して効果を及ぼすため、[ , ]内でまとめる事も出来ますし、[Space(10)][Tooltip("説明文です")]と書いても問題ありません。<br>余談ですが、[Tootip()]で改行等したい場合には[Tooltip("説明文です\n見てね")]のように \n などの文字コードが普通に使えます。<br><br><br><hr><br><br>private型を《 Inspector 》に表示させる方法があるならば、逆にpublic型を表示させない方法もあります。<br><br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_4 : MonoBehaviour {<br>	[HideInInspector] public int sample_int;<br>	[System.NonSerialized] public float sample_float;<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_602.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_602.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>上記は、どちらも<br><br><br>このように、public型を《 Inspector 》に表示させない<font color="#FF0000">属性(Attribute)</font>です。<br><br>２つの違いですが、[HideInInspector]の場合は、この属性を付ける前に《 Inspector 》上で値を変更していると、その値は保持されます。<br>逆に[System.NonSerialized]の場合は、この属性を付ける前に《 Inspector 》上で値を変更していても、なかった事にされて初期値に戻ります。<br><br>public型の変数でも『弄る必要が無い』『弄らせたくない』『表示しても仕方がない』変数の場合に使用するといいでしょう。<br>また、使う場合には後者を使用した方が問題が無くて良いかと思います。<br><br><br><hr><br><br>クラスの変数を表示させる事も出来ます。<br><br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_5 : MonoBehaviour {<br>	public SampleClass1 sampleClass1;<br>	public SampleClass2 sampleClass2;<br>	[SerializeField]public SampleClass1 sampleClass3;<br>	[System.NonSerialized]public SampleClass2 sampleClass4;<br>}<br><br><br><br>public class SampleClass1{<br>	public int sample_int;<br>	public float sample_float;<br>}<br><br><br>[System.Serializable]<br>public class SampleClass2{<br>	public int sample_int;<br>	public float sample_float;<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_603.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_603.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>SampleClass1クラスは、何もつけずにクラスを作成しています。<br>SampleClass2クラスは、[System.Serializable]を付けたうえでクラスを作成しています。<br><br>そのままの状態で、 SampleProgram_5クラス(コンポーネント)の１行目と２行目で両クラスを宣言した結果、SampleClass2クラスだけが《 Inspector 》上で表示されています。<br>SampleClass1クラスはこれまで通り、public型でも《 Inspector 》上には表示されます。<br><br>ならばSampleClass1クラスの前にprivate型変数を表示させた時と同様に[SerializeField]を付けてみますが、それでもやはり《 Inspector 》上には表記されません。<br>つまり、クラス作成時に許可が出ていないと、宣言時に[SerializeField]を付けて表示する様に仕向けても意味がないという事です。<br><br>逆に、SampleClass2クラスの前に[System.NonSerialized]を追加して非表示にする事は出来ます。<br><br><br>自作クラスを変数をして使いたい場合には、このような手法を使う事で《 Inspector 》上に各変数を表示させることも出来るようになります。<br><br><br><br><table width="100%"><tbody><tr><td bgcolor="#AAAAAA" align="left"><font size="+2">その他、色々な属性(Attribute)</font></td></tr></tbody></table><br><br><font color="#FF0000">属性(Attribute)</font>については、<a href="http://docs.unity3d.com/ja/current/ScriptReference/AddComponentMenu.html">公式マニュアル</a>を見るなり、説明をしている他のサイト<a href="http://tsubakit1.hateblo.jp/entry/2015/01/03/203843">例えばこことか</a>で説明されています。<br><br><br>それほど多いわけではありませんが、それらの中で役立つかな？というものを幾つかピックアップして此処でも紹介しておきます。<br><br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>[SelectionBase]<br>public class SampleProgram_6 : MonoBehaviour {<br>	本文...<br>}<br></pre><br><br>クラス(コンポーネント)の前に[SelectionBase]を付けておくと、そのクラス(コンポーネント)を所持しているオブジェクトをUnity上でクリックした際、例え子オブジェクトを選択した事となっても《 Hierarchy 》で親オブジェクトを選択します。<br>シーン上にオブジェクトが増えてくると、子オブジェクトにして整理する様になると思いますが、その時に画面上をクリックすると、《 Hierarchy 》上のオブジェクトツリーが展開されてイラッとくる事が多くなります。<br>それが嫌な方は、クラス(コンポーネント)の前に[SelectionBase]を付けておくと、むやみやたらとツリー展開しなくなります。<br><br><hr><br><br>Unity上でプログラム内の関数を任意のタイミングで実行したい場合には、以下の方法があります。<br><br><pre style="background-color:#FEFFA5;  padding:10px;  border:dot 1px;  overflow:scroll"><br>using UnityEngine;<br>using System.Collections;<br><br>public class SampleProgram_5 : MonoBehaviour {<br><br>	[ContextMenu("サンプル")]<br>	public void sample_Mesod(){<br>	}<br>}<br></pre><br><br><img src="./Inspector(インスペクタ)のカスタマイズ_files/Unity_604.jpg" width="50%" height="50%" onclick="location.href = &#39;http://unity-xeion.seesaa.net/upload/detail/image/Unity_604.jpg.html&#39;; return false;" style="cursor:pointer;"><br><br>関数の前に[ContextMenu("表示する名前")]を書いておくと、《 Inspector 》上で右上のメニュー(歯車)を選択した時に出るメニューに、その関数を実行するための項目が追加されます。<br>冒頭で紹介した『ボタン表示』ではありませんが、似たような機能はこの<font color="#FF0000">属性(Attribute)</font>を使う事で可能です。<br><br>余談ですが、[ContextMenu("サンプル/１番")]のようにバックスラッシュを使って階層化する事が出来る……様に思えますが、こちらは実装されていません。<br>メニュー表記は「サンプル」が表示され、横に　<img src="./Inspector(インスペクタ)のカスタマイズ_files/F04A.gif" alt="右向き三角１" width="15" height="15" border="0">　が表示されて下層メニューを実行出来そうに見えますが、実際には実装されていないため下層メニューは展開されませんし実行も出来ません。<br><br><br><br><hr><br><br><br>以上の様に、Unityで標準搭載されている<font color="#FF0000">属性(Attribute)</font>は数は少ないですが、使用方法も簡単なので、《 inspector 》表記をちょっと変える程度には役立ちます。<br><br>また、今回は説明致しませんが、『ボタンを押すと指定した関数実行』『折り畳む事が出来る』『２列以上の変数表示が出来る』などなど、『カスタム属性の作成』『表記方法のカスタム化』も出来ます。<br>こちらはプログラムする必要があるため、少し難度が高くなります。<br>次回はそちらに関しても少しだけご紹介致したいと思います。<br><br><br><br>今回の説明に関しては以上です。<br><br><br><br><br><a href="http://unity-xeion.seesaa.net/article/420654660.html">前回　：　FPS作成--(26)仕上げ</a><br><a href="http://unity-xeion.seesaa.net/article/423164906.html">次回　：　Unity/C# - Inspector表示の変更②</a><br><br><a href="http://unity-xeion.seesaa.net/article/408913219.html">Unity初心者の為の記事一覧へ</a><br><a href="http://unity-xeion.seesaa.net/article/409833384.html">Unityで製作したゲーム一覧へ</a><br><a href="http://unity-xeion.seesaa.net/">ブログTOPへ</a><br><br><br><br><br><br><a name="more"></a><div class="tag-word">タグ：<a href="http://unity-xeion.seesaa.net/tag/%83Q%81%5B%83%80">ゲーム</a> <a href="http://unity-xeion.seesaa.net/tag/unity">unity</a> <a href="http://unity-xeion.seesaa.net/tag/C%23">C#</a> <a href="http://unity-xeion.seesaa.net/tag/%83v%83%8D%83O%83%89%83%80">プログラム</a> </div>
+ 
+
+<div class="bookmark" data-url="http://unity-xeion.seesaa.net/article/422307056.html" data-subject="Unity/C# - Inspector表示の変更①"><div class="sns_box hatenaHeightBookmark"><iframe class="hatena-bookmark-button-frame" title="このエントリーをはてなブックマークに追加" frameborder="0" scrolling="no" width="80" height="60" src="javascript:false" style="width: 80px; height: 60px;"></iframe></div><div class="sns_box facebookHeightBookmark"><div class="fb-like fb_iframe_widget" layout="box_count" data-href="http://unity-xeion.seesaa.net/article/422307056.html" data-send="false" data-width="120" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=216026118496977&amp;container_width=0&amp;href=http%3A%2F%2Funity-xeion.seesaa.net%2Farticle%2F422307056.html&amp;layout=box_count&amp;locale=ja_JP&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=120"><span style="vertical-align: bottom; width: 69px; height: 61px;"><iframe name="f21480d79c" width="120px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Inspector(インスペクタ)のカスタマイズ_files/like.html" style="border: none; visibility: visible; width: 69px; height: 61px;" class=""></iframe></span></div></div><div class="sns_box twitterHeightBookmark"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Inspector(インスペクタ)のカスタマイズ_files/tweet_button.8d007ddfc184e6776be76fe9e5e52d69.ja.html" style="position: static; visibility: visible; width: 68px; height: 61px;" data-url="http://unity-xeion.seesaa.net/article/422307056.html"></iframe></div><div class="seesaaBookmarks" style="position: relative; height: 63px;"><img style="position:absolute; bottom:0;" src="./Inspector(インスペクタ)のカスタマイズ_files/bookmark.gif" alt="ブックマークボタン"></div></div>
+
+<div class="listCategoryArticle">
+【Unityの最新記事】<br>
+<ul>
+
+<li><a href="http://unity-xeion.seesaa.net/article/423164906.html">Unity/C# - Inspector表示の変更②</a></li>
+
+<li><a href="http://unity-xeion.seesaa.net/article/420654660.html">FPS作成--(26)仕上げ</a></li>
+
+<li><a href="http://unity-xeion.seesaa.net/article/420381528.html">FPS作成--(25)GameOver処理</a></li>
+
+<li><a href="http://unity-xeion.seesaa.net/article/420156919.html">FPS作成--(24)敵の出現処理</a></li>
+
+<li><a href="http://unity-xeion.seesaa.net/article/419931132.html">FPS作成--(23)接触判定の改善</a></li>
+
+</ul>
+</div>
+
+</div>
+<div class="posted">posted by 漆之黒褐 at 21:14| <a href="http://unity-xeion.seesaa.net/article/422307056.html#comment">Comment(0)</a>
+
+| <a href="http://unity-xeion.seesaa.net/article/422307056.html#trackback">TrackBack(0)</a>
+| <a href="http://unity-xeion.seesaa.net/category/23522260-1.html">Unity</a>
+| <a href="http://blog.seesaa.jp/cms/fan/regist/input?fan_blog_name=unity-xeion" title="このブログの読者になる"><img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_read.gif" alt="このブログの読者になる" border="0"></a>
+| <a href="http://blog.seesaa.jp/cms/home/switch?goto=/cms/fan/blog_reader/list%3Fblog_id=5478333" title="更新情報をチェックする"><img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_received.gif" alt="更新情報をチェックする" border="0"></a>
+</div>
+
+</div>
+
+</div>
+
+
+<div id="comments">
+
+<a name="comment"></a>
+
+<div class="comments-head">この記事へのコメント</div>
+
+<div class="comments-head">コメントを書く</div>
+<form action="http://unity-xeion.seesaa.net/pages/user/comments2/regist/input" method="post" name="comment-form">
+<div class="comments-body">
+お名前: <br>
+<input type="text" name="article_child__writer" size="50" value=""><br>
+メールアドレス: <br>
+<input type="text" name="article_child__email" size="50" value=""><br>
+ホームページアドレス: <br>
+<input type="text" name="article_child__homepage" size="50" value=""><br>
+コメント: <br>
+<textarea name="article_child__body" rows="10" cols="45"></textarea><br>
+<input type="hidden" name="article_child__article_id" value="422307056">
+<input type="hidden" name="article_id" value="422307056">
+<input name="need_confirm" type="submit" class="input-submit" value="確認する"><input name="posted" type="submit" class="input-submit" value="書き込む">
+</div>
+</form>
+</div>
+
+<div id="trackback">
+この記事へのトラックバックURL<br>http://blog.seesaa.jp/tb/422307056<br>
+
+<hr>
+この記事へのトラックバック<br>
+</div>
+
+
+<div id="balloonBox"></div>
+<script type="text/javascript" charset="utf-8" src="./Inspector(インスペクタ)のカスタマイズ_files/bl-bookmarks.js"></script>
+<script type="text/javascript" charset="utf-8">
+var bookmark_services = "hah,twh,fbh,go,mi,hthSP,twhSP,fbhSP,lihSP".split('-').join('').split(",");
+var seesaaBookmarks = new blBookmarks({bookmark_services:bookmark_services, blog_url:"http://blog.seesaa.jp"});
+seesaaBookmarks.exe();
+</script>
+<!-- /Content -->
+
+
+</div>
+
+<div id="links">
+<div class="sidetitle">プロフィール</div>
+<div class="side">
+
+名前:漆之黒褐<br>
+
+性別:男<br>
+
+一言:趣味で小説も書いています。<br>
+<a href="http://unity-xeion.seesaa.net/foaf.rdf"><img border="0" src="./Inspector(インスペクタ)のカスタマイズ_files/foaf.gif"></a></div>
+
+<div class="sidetitle">リンク集</div>
+<div class="side">
+<a href="http://mypage.syosetu.com/300293/" target="_blank">漆之黒褐　(『小説家になろう』掲載サイト)</a><br>
+</div>
+
+<div class="sidetitle">検索</div>
+<div class="side">
+<form method="get" action="http://match.seesaa.jp/ot_listing.pl" class="sASform" name="form173222752" id="form173222752" onsubmit="return sfcheck(&#39;form173222752&#39;)">
+<table class="seesaaArticleSearch">
+<tbody><tr>
+<td colspan="4"><input value="" name="keyword" type="text" size="20" class="inputkeyword">&nbsp;<input value="検索" type="submit" class="input-submit"></td>
+</tr>
+<tr>
+<td class="sASnone"><input type="radio" name="vs" value="" id="radio1173222752" checked="checked"></td>
+<td class="sASweb"><label for="radio1173222752">ウェブ</label></td>
+<td class="sASnone"><input type="radio" name="vs" value="http://unity-xeion.seesaa.net/" id="radio2173222752"></td>
+<td class="sASarticle"><label for="radio2173222752">記事</label></td>
+</tr>
+</tbody></table>
+<input type="hidden" name="tid" value="seesaa_hotspot"><input type="hidden" name="hid" value="167"><input type="hidden" name="c" value="12"><input type="hidden" name="search" value="1"><input type="hidden" name="ic" value="shift-jis">
+</form>
+<style type="text/css">
+.inputkeyword{width:90px;}
+.seesaaArticleSearch{border-collapse:collapse;overflow:hidden;font-size:12px;text-align:left;width:98%;}
+.seesaaArticleSearch td{padding:0;}
+.sASnone{width:7px;}
+.sASnone img{border:none;background:none;border:solid 0px #000;}
+.sASweb{width:65px;background:url(http://blog.seesaa.jp/img/ico_y.gif) no-repeat 0 3px;border:solid 0px #000;white-space:nowrap;}
+.sASweb label{padding-left:25px;padding-right:5px;}
+.sASarticle{width:40px;border:solid 0px #000;white-space:nowrap;}
+.sASarticle label{padding-left:2px;}
+.sASform{margin:0;padding:0;overflow:hidden;display:block;width:98%;}
+</style>
+<script type="text/javaScript"><!--
+article_search_blogurl = 'http://unity-xeion.seesaa.net/';
+//--></script>
+<script type="text/javaScript" src="./Inspector(インスペクタ)のカスタマイズ_files/article_search.js"></script>
+</div>
+
+<div class="sidetitle">ファン</div>
+<div class="side">
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_message.gif" width="15" height="11" class="fanIco1" align="middle">&nbsp;<a href="http://blog.seesaa.jp/cms/fan/message/input?blog_name=unity-xeion">メッセージを送る</a><br>
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_read.gif" width="15" height="12" class="fanIco2" align="middle">&nbsp;<a href="http://blog.seesaa.jp/cms/fan/regist/input?fan_blog_name=unity-xeion">このブログの読者になる</a><br>
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_received.gif" width="16" height="14" class="fanIco2" align="middle">&nbsp;<a href="http://blog.seesaa.jp/cms/home/switch?goto=/cms/fan/blog_reader/list%3Fblog_id=5478333">更新情報をチェックする</a><br>
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_bookmark.gif" width="16" height="14" class="fanIco2" align="middle">&nbsp;<a href="http://unity-xeion.seesaa.net/article/422307056.html#" title="Unityのゲーム作りブログ" id="seesaaFanBookmarkLink173222761">ブックマークする</a><br>
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/fan_friend.gif" width="16" height="14" class="fanIco2" align="middle">&nbsp;<a href="mailto:?body=http://unity-xeion.seesaa.net/">友達に教える</a><br>
+</div>
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/fan.js"></script>
+
+<div class="sidetitle">最近のコメント</div>
+<div class="side">
+<a href="http://unity-xeion.seesaa.net/article/415357324.html#comment">FPS作成--(3)プレイヤーの向き変更</a> by 漆之黒褐 (08/02)<br>
+<a href="http://unity-xeion.seesaa.net/article/415357324.html#comment">FPS作成--(3)プレイヤーの向き変更</a> by  (08/02)<br>
+<a href="http://unity-xeion.seesaa.net/article/416055626.html#comment">FPS作成--(6)動作と視点切り替え</a> by 漆之黒褐 (08/01)<br>
+<a href="http://unity-xeion.seesaa.net/article/416055626.html#comment">FPS作成--(6)動作と視点切り替え</a> by  (08/01)<br>
+<a href="http://unity-xeion.seesaa.net/article/419715251.html#comment">FPS作成--(22)敵の作成とアニメーション</a> by blendegg (07/28)<br>
+</div>
+
+<div class="sidetitle">最近の記事</div>
+<div class="side">
+(07/28)<a href="http://unity-xeion.seesaa.net/article/423164906.html">Unity/C# - Inspector表示の変更②</a><br>
+(07/23)<a href="http://unity-xeion.seesaa.net/article/422857708.html">Unityで２Ｄアクションゲーム制作中①</a><br>
+(07/13)<a href="./Inspector(インスペクタ)のカスタマイズ_files/Inspector(インスペクタ)のカスタマイズ.html">Unity/C# - Inspector表示の変更①</a><br>
+(06/14)<a href="http://unity-xeion.seesaa.net/article/420654660.html">FPS作成--(26)仕上げ</a><br>
+(06/09)<a href="http://unity-xeion.seesaa.net/article/420381528.html">FPS作成--(25)GameOver処理</a><br>
+</div>
+
+<script type="text/javascript" language="javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/tag_cloud.js"></script>
+<div class="sidetitle">タグクラウド</div>
+<div class="side-tag">
+<div id="tag_cloud_173222759" style="word-break:break-all;">
+<a href="http://unity-xeion.seesaa.net/tag/C%23" class="_tag" title="C#/100" rel="nofollow" style="font-size: 15px;">C#</a> <a href="http://unity-xeion.seesaa.net/tag/unity" class="_tag" title="unity/102" rel="nofollow" style="font-size: 16px;">unity</a> <a href="http://unity-xeion.seesaa.net/tag/%83Q%81%5B%83%80" class="_tag" title="ゲーム/102" rel="nofollow" style="font-size: 16px;">ゲーム</a> <a href="http://unity-xeion.seesaa.net/tag/%83u%83%8D%83b%83N%95%F6%82%B5" class="_tag" title="ブロック崩し/27" rel="nofollow" style="font-size: 11px;">ブロック崩し</a> <a href="http://unity-xeion.seesaa.net/tag/%83v%83%8D%83O%83%89%83%80" class="_tag" title="プログラム/98" rel="nofollow" style="font-size: 15px;">プログラム</a> </div>
+<script type="text/javascript" language="javascript"><!--
+tag_cloud("tag_cloud_173222759");
+--></script>
+</div>
+
+<div class="sidetitle">カテゴリ</div>
+<div class="side">
+<a href="http://unity-xeion.seesaa.net/category/23466135-1.html">日記</a>(1)<br>
+<a href="http://unity-xeion.seesaa.net/category/23466138-1.html">ゲーム</a>(33)<br>
+<a href="http://unity-xeion.seesaa.net/category/23522260-1.html">Unity</a>(72)<br>
+<a href="http://unity-xeion.seesaa.net/category/23917984-1.html">mysql</a>(1)<br>
+</div>
+
+<div class="sidetitle">過去ログ</div>
+<div class="side">
+<a href="http://unity-xeion.seesaa.net/archives/201507-1.html">2015年07月</a>(3)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201506-1.html">2015年06月</a>(5)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201505-1.html">2015年05月</a>(8)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201504-1.html">2015年04月</a>(8)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201503-1.html">2015年03月</a>(11)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201502-1.html">2015年02月</a>(13)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201501-1.html">2015年01月</a>(12)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201412-1.html">2014年12月</a>(13)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201411-1.html">2014年11月</a>(20)<br>
+<a href="http://unity-xeion.seesaa.net/archives/201410-1.html">2014年10月</a>(14)<br>
+</div>
+
+<div class="side">
+<!-- Fluct グループ名「Seesaaブログ_フィルタ：160&times;600（右カラム下_フィルタ）」 -->
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(2)"></script> <img src="./Inspector(インスペクタ)のカスタマイズ_files/pixel" width="1" height="1" style="display:none;position:absolute;border:none;padding:0;margin:0;">;
+<!-- Fluct ユニット名「Seesaaブログ_フィルタ：160&times;600（右カラム下_フィルタ）」 -->
+<script type="text/javascript">
+//<![CDATA[
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000035673');
+//]]>
+</script><script type="text/javascript">
+if (!window.OX_ads) { OX_ads = []; }
+OX_ads.push({ "auid" : "537239288" });
+</script>
+<script type="text/javascript">
+document.write('<scr'+'ipt src="http://ox-d.openx.jp/w/1.0/jstag"><\/scr'+'ipt>');
+</script><script src="./Inspector(インスペクタ)のカスタマイズ_files/jstag"></script><script type="text/javascript" id="ox_acj_8063586313" src="./Inspector(インスペクタ)のカスタマイズ_files/acj(1)"></script><!-- admax -->
+<script src="./Inspector(インスペクタ)のカスタマイズ_files/1a0a6e99e068f56799dfe948bb80ff3b"></script><span id="ninja_iframe_1" style="width:160px; height:600px;"><iframe src="./Inspector(インスペクタ)のカスタマイズ_files/1a0a6e99e068f56799dfe948bb80ff3b.html" width="160" height="600" scrolling="no" noresize="" frameborder="0" allowtransparency="true"></iframe></span>
+<!-- admax --><div style="position:absolute;left:0px;top:0px;visibility:hidden;"><img src="./Inspector(インスペクタ)のカスタマイズ_files/ri(1)"></div>
+<noscript>&lt;iframe id="3a7b54d8b4" name="3a7b54d8b4" src="http://ox-d.openx.jp/w/1.0/afr?auid=537239288&amp;cb=INSERT_RANDOM_NUMBER_HERE" frameborder="0" scrolling="no" width="160" height="600"&gt;&lt;a href="http://ox-d.openx.jp/w/1.0/rc?cs=3a7b54d8b4&amp;cb=INSERT_RANDOM_NUMBER_HERE" &gt;&lt;img src="http://ox-d.openx.jp/w/1.0/ai?auid=537239288&amp;cs=3a7b54d8b4&amp;cb=INSERT_RANDOM_NUMBER_HERE" border="0" alt=""&gt;&lt;/a&gt;&lt;/iframe&gt;</noscript><img src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(3)" width="0" height="0" style="position:absolute;border:none;padding:0;margin:0;">
+</div>
+
+<div class="side">
+<div align="center">
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/banner.js"></script><script src="./Inspector(インスペクタ)のカスタマイズ_files/AdLantisLoader(1).js" type="text/javascript" charset="utf-8"></script>    <!-- Begin: Adlantis, Zone: [繝ｦ繝ｼ繧ｶ繝ｼ繝悶Ο繧ｰ蜀&#65533;ヰ繝翫&#65533;&#65533;域立繝悶Ο繝斐ち&#65533;云 -->    <div class="adlantiss_frame zid_ZH0EkBjkUN8Pd%2BtmAIuBSg%3D%3D color_#0000FF-#000000-#F9F9F9-#999999-#008000 container_iframe loaded" id="adbox_1"><iframe frameborder="0" marginheight="0" marginwidth="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Inspector(インスペクタ)のカスタマイズ_files/load_iframe.html" style="width: 120px; height: 240px;"></iframe></div>    <!-- End: Adlantis -->
+</div>
+</div>
+
+<div class="sidetitle">商品紹介</div>
+<div class="side">
+<!-- Rakuten Widget FROM HERE --><script type="text/javascript">rakuten_design="slide";rakuten_affiliateId="0b326401.d0e8ee2f.0b326567.21e11dd1";rakuten_items="ctsmatch";rakuten_genreId="0";rakuten_size="148x600";rakuten_target="_blank";rakuten_theme="gray";rakuten_border="on";rakuten_auto_mode="off";rakuten_genre_title="off";rakuten_recommend="on";rakuten_ver="20100708";rakuten_pointbackId="_RTmtlk20010075";</script><script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/rakuten_widget.js"></script><iframe width="148" height="600" frameborder="0" scrolling="no" allowtransparency="true" id="rakuten_mw_iframe07607801441870306865" src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(14).html"></iframe><!-- Rakuten Widget TO HERE -->
+</div>
+
+<div class="syndicate">
+<a href="http://unity-xeion.seesaa.net/index.rdf">RDF Site Summary</a><br>
+<a href="http://unity-xeion.seesaa.net/index20.rdf">RSS 2.0</a><br>
+</div>
+
+
+
+</div>
+
+<div id="footer">
+<div class="powered">
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td><a href="http://blog.seesaa.jp/tag/"><img src="./Inspector(インスペクタ)のカスタマイズ_files/seesaablog.gif" width="138" height="22" border="0" alt="Powered by Seesaa"></a></td>
+</tr> 
+<tr>
+<td><div style="background-color:#9C9C9C;text-align:center;font-size:10px;padding:3px;margin:0px;"><a href="http://blog.seesaa.jp/tag" style="color:#FFF;">Seesaa</a><a href="http://blog.seesaa.jp/" style="color:#FFF;">ブログ</a></div></td>
+</tr>
+</tbody></table>
+</div>
+
+
+</div>
+
+</div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="./Inspector(インスペクタ)のカスタマイズ_files/44OwK74u0Ie.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="./Inspector(インスペクタ)のカスタマイズ_files/44OwK74u0Ie(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><div style="position:absolute;left:0px;top:0px;visibility:hidden;"><img src="./Inspector(インスペクタ)のカスタマイズ_files/sync" width="0" height="0" alt=""><img src="./Inspector(インスペクタ)のカスタマイズ_files/sync(1)" width="0" height="0" alt=""><img src="./Inspector(インスペクタ)のカスタマイズ_files/pub" width="0" height="0" alt=""><img src="./Inspector(インスペクタ)のカスタマイズ_files/push_sync" width="0" height="0" alt=""><img src="./Inspector(インスペクタ)のカスタマイズ_files/csync" width="0" height="0" alt=""></div>
+
+<!-- common footer -->
+<!-- nazoru search -->
+<script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/trace_searcher.js" charset="Shift_JIS"></script>
+<script type="text/javascript">setupTraceSearcher('http://blog.seesaa.jp', 'yahoo,searchjp,amazon,twitter,blog');</script><link rel="stylesheet" type="text/css" href="./Inspector(インスペクタ)のカスタマイズ_files/trace_searcher.css"><div id="trace-searcher" class="seesaaNazoru" style="display: none;"><div id="trace-searcher-word" class="seesaaNazoruWord"></div><div class="seesaaNazoruWrap"><div id="trace-searcher-search-title" class="seesaaNazoruSearch">検索する</div><ul id="trace-searcher-search-list" class="seesaaNazoruSearchList"><li class="seesaaNazoruSearchYahoo"><a id="floating-yahoo-keyword" target="_blank" href="">ウェブで検索</a></li><li class="seesaaNazoruSearchAmazon"><a id="floating-amazon-keyword" target="_blank">Amazonで検索</a></li></ul><div class="seesaaNazoruPost">投稿する</div><ul class="seesaaNazoruPostList"><li id="floating-twitter-kyeword-item" class="seesaaNazoruPostTwitter"><a id="floating-twitter-keyword" target="_blank">Twitterに投稿</a></li><li class="seesaaNazoruPostBlog"><a id="floating-blog-keyword" target="_blank">Seesaaブログに投稿</a></li></ul></div></div>
+<!-- nazoru search -->
+<img src="./Inspector(インスペクタ)のカスタマイズ_files/trac" width="0" height="0" style="width: 0px; height: 0px; border-style: none; display: block; line-height: 0px;">
+<script type="text/javascript"><!--
+var adArea  = document.getElementById('viasearch-ad-area');
+var content = document.getElementById('content');
+if(content && adArea){
+  if(content.firstChild) {
+    content.insertBefore(adArea, content.firstChild);
+  }
+  else {
+    content.appendChild(adArea);
+  }
+}
+--></script>
+<div style="display:none;"></div>
+
+<script type="text/javascript">
+if(screen.width > 768) {
+document.write('<scr' + 'ipt type="text/javascript" src="http://sh.adingo.jp/?G=1000032261&guid=ON"></scr' + 'ipt>');
+} else {
+document.write('<scr' + 'ipt type="text/javascript" src="http://sh.adingo.jp/?G=1000032260&guid=ON"></scr' + 'ipt>');
+
+}
+</script><script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(4)"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+
+if(screen.width > 768) {
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000050023');
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000050024');
+}
+
+else {
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000050021');
+if(typeof(adingoFluct)!="undefined") adingoFluct.showAd('1000050022');
+
+}
+//]]>
+</script><div id="fluct_ad_unit_1000050023" class="fluct_ad_container"><img src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(5)" style="display:none;position:absolute;border:none;padding:0;margin:0;" width="0" height="0" border="0"></div><div id="fluct_ad_unit_1000050024" class="fluct_ad_container"><img src="./Inspector(インスペクタ)のカスタマイズ_files/saved_resource(6)" style="display:none;position:absolute;border:none;padding:0;margin:0;" width="0" height="0" border="0"></div><script type="text/javascript" src="./Inspector(インスペクタ)のカスタマイズ_files/analytics-seesaa-net.js"></script>
+
+<script src="./Inspector(インスペクタ)のカスタマイズ_files/load_script" type="text/javascript" charset="UTF-8"></script><script src="./Inspector(インスペクタ)のカスタマイズ_files/load_script(1)" type="text/javascript" charset="UTF-8"></script></body><script type="text/javascript" charset="utf-8" src="./Inspector(インスペクタ)のカスタマイズ_files/adlantis.www.js"></script><script type="text/javascript" charset="utf-8" src="./Inspector(インスペクタ)のカスタマイズ_files/swfobject.js"></script></html>

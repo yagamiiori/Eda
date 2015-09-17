@@ -1,0 +1,346 @@
+/* font size & font family */
+body                        {font-family:",l,r ,ofSfVfbfN";font-size:small;}
+#banner                     {font-family:"Verdana" sans-serif;}
+#banner h1 a                {font-size:x-large;}
+.tag-title                  {font-size:x-large;}
+#banner .description        {font-size:normal;}
+.sidetitle                  {font-size:large;}
+.syndicate                  {font-size:normal;}
+.date                       {font-size:small;}
+h3.title                    {font-size:large;}
+.listCategoryArticle ul li  {font-size:x-small;}
+.tag-word                   {font-size:x-small;}
+.posted                     {font-size:x-small;}
+#calendar th                {font-size:small; _font-size:80%;}
+.calendarday                {font-size:small; _font-size:80%;}
+.comments-body              {font-size:x-small;}
+
+
+
+body { text-align: center;
+       margin: 0;
+       padding: 0;
+       color: #222;
+       background: url(http://blog.seesaa.jp/img/bg/blogtheme/bg.gif) repeat-x top #93c6e7; }
+a:link { color: #2d5c9b }
+a:visited { color: #2d5c9b }
+a:hover { text-decoration: none }
+h2,
+h3 { padding: 0;
+     margin: 0; }
+#container { width: 900px;
+             text-align: left;
+             margin: 0 auto; }
+#banner { padding: 50px 0px;
+          border-top: 5px solid #333;
+          display: table;}
+#banner h1 a { color: #333;
+               text-decoration: none;
+               width: 900px;
+               overflow: hidden; }
+#banner h1 { margin: 0;
+             display: table;}
+#banner .description { color: #888;
+                       font-weight: normal;
+                       padding-left: 0px; }
+.navi { text-align: center;
+        padding-bottom: 14px; }
+.navi a { text-decoration: none }
+#links-left {  }
+#links {width: 200px;
+              float: left;
+              padding: 15px 0px;
+              line-height: 1.5;
+              margin-left: 15px;
+              margin-bottom: 10px;
+              background: #fff;
+              -moz-border-radius: 10px;
+              -webkit-border-radius: 10px;
+              border-radius: 10px; }
+.sidetitle { height: 25px;
+             padding: 0px 15px 10px 15px;
+             color: #777;}
+.side { padding: 0 15px 15px 15px }
+.side-tag { margin-top: 0px;
+            padding: 0px 15px 15px 15px; }
+#content { width: 685px;
+           float: left; }
+.blog { padding: 15px;
+        margin-bottom: 15px;
+        background: #fff;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px; }
+.date { font-weight: normal;
+        background-repeat: no-repeat;
+        background-position: top left;
+        padding: 0px;
+        font-size: 12px;
+        color: #583822; }
+.blogbody { margin-bottom: 0px }
+h3.title { margin: 0 0px 10px;
+           padding: 0px 0px 3px 0px;
+           line-height: 1.5;
+           color: #2d5c9b;
+           font-weight: bold; }
+a.title { text-decoration: none;
+          color: inherit; }
+.text:after { content: ".";
+              display: block;
+              clear: both;
+              height: 0;
+              visibility: hidden; }
+.text { margin: 0 0 0 0px;
+        color: inherit;
+        padding: 0px 15px 10px 0px;
+        line-height: 1.5;
+        font-weight: normal;
+        background-color: #fff;
+        min-height: 1px; }
+* html .text { height: 1px;
+               _height: 100%;
+               /*\*//*/: ;
+               height: auto;
+               overflow: hidden;
+               /**/: ; }
+.text blockquote { border: 1px solid #f8f8f8;
+                   margin: 10px;
+                   padding: 8px 12px;
+                   color: inherit;
+                   border: solid 1px #f8f8f8;
+                   -webkit-border-radius: 10px;
+                   -moz-border-radius: 10px;
+                   border-radius: 10px;
+                   background-color: #f8f8f8; }
+.tag-word { margin: 0px 0px 0px 0px;
+            line-height: 1.4em;
+            text-align: right; }
+.tag-word a { color: #E7142D }
+.bookmark { margin-top: 5px }
+.posted { text-align: right;
+          margin-bottom: 0px;
+          color: inherit; }
+.posted a { color: #2d5c9b }
+#footer { clear: both }
+.powered { padding: 20px 0px 20px 0px;
+           text-align: center; }
+.powered table { margin: 0px auto }
+.syndicate { margin-right: 10px;
+             text-align: center; }
+#calendar { text-align: center;
+            padding: 15px;}
+#calendar table { width: 100%;
+                  _width: 90%;
+                  margin: 0px auto; }
+.calendarhead { color: inherit;
+                text-align: center;
+                padding: 10px 0px 5px 0px;
+                margin-bottom: 0px;
+                font-weight: bold; }
+.calendarhead a { text-decoration: none;
+                  color: inherit; }
+.calendarhead .calendarday a { text-decoration: none;
+                               display: inline;
+                               color: #E7142D; }
+#calendar th { color: #C7DC68 }
+.calendarday { padding: 0px 0px 5px;
+               color: inherit;
+               text-align: center; }
+.calendarday a { font-weight: bold;
+                 display: block;
+                 text-decoration: underline;
+                 padding: 0px 0;
+                 color: #E95295; }
+input { max-width: 200px }
+#comments .input-submit { background: url(http://blog.seesaa.jp/img/bg/super_simple/btn_bg.jpg) no-repeat;
+                          width: 69px;
+                          height: 29px;
+                          border: 0;
+                          color: #fff;
+                          font-weight: bold;
+                          cursor: pointer;
+                          margin-right: 5px; }
+#comments { padding: 15px 15px 15px 15px;
+            margin-top: 25px;
+            background: #fff;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            margin-bottom: 20px; }
+#comments form { margin: 0px;
+                 padding: 0px 10px; }
+textarea { width: 95%;
+           margin-bottom: 5px; }
+.comments-head { margin: 0 0px 10px;
+                 padding: 0px 0px 3px 0px;
+                 line-height: 1.5;
+                 font-size: 14px;
+                 background-repeat: repeat-x;
+                 background-position: bottom center;
+                 color: #E7142D;
+                 font-weight: bold;
+                 border-bottom: dotted 1px #333; }
+.comments-body { margin: 0px;
+                 padding: 0px; }
+.comments-body .text { border: 1px solid #f8f8f8;
+                       margin: 0px;
+                       padding: 8px 12px;
+                       color: inherit;
+                       border: solid 1px #f8f8f8;
+                       -webkit-border-radius: 10px;
+                       -moz-border-radius: 10px;
+                       border-radius: 10px;
+                       background-color: #f8f8f8; }
+.comments-post { padding: 5px 10px;
+                 text-align: right;
+                 margin-bottom: 25px;
+                 color: #888; }
+#trackback { padding: 15px 15px 15px 15px;
+             margin-top: 25px;
+             background: #fff;
+             -webkit-border-radius: 10px;
+             -moz-border-radius: 10px; }
+.copyright { text-align: center }
+.diet-content { padding-left: 10px }
+#diet-foods { padding-left: 10px }
+.food-title { width: 20%;
+              clear: left;
+              float: left; }
+.food-content { width: 75%;
+                padding-top: 10px; }
+#diet-container { border: 1px solid #999;
+                  padding: 5px;
+                  margin-bottom: 5px; }
+.diet-title { padding: 2px 10px 2px 5px;
+              margin-top: 5px; }
+.diet-content { padding-left: 10px }
+#diet-foods { padding-left: 10px }
+.food-title { width: 20%;
+              clear: left;
+              float: left; }
+.food-content { width: 75%;
+                padding-top: 10px; }
+.tag { margin-top: 0px;
+       padding: 10px;
+       margin-left: 0px;
+       background: #fff;
+       -moz-border-radius: 10px;
+       -webkit-border-radius: 10px;
+       border-radius: 10px; }
+#tag_cloud { border: 1px solid #CCC;
+             padding: 10px;
+             text-align: left;
+             position: relative; }
+#tag_cloud a { padding: 2px }
+.tag-title { font-weight: bold;
+             text-align: left; }
+.tag-body { margin: 10px 0px;
+            padding: 10px 0px 0px 0px;
+            position: relative; }
+.tag-service { text-align: left;
+               font-weight: bold;
+               border-bottom: 1px solid #CCC;
+               padding: 0px 0px 5px 0px;
+               clear: left;
+               position: relative; }
+.tag-search { text-align: right;
+              padding: 5px 0px;
+              margin-bottom: 10px;
+              font-weight: bold;
+              position: relative; }
+.tag-article { padding: 0px 10px 10px 10px;
+               text-align: left;
+               position: relative; }
+.tag-article-title { text-align: left;
+                     padding: 0px 0px 5px 0px;
+                     font-weight: bold;
+                     position: relative; }
+.tag-article-posted { font-weight: normal;
+                      position: relative; }
+.tag-article-summary { padding: 0px 10px;
+                       line-height: 1.4em;
+                       position: relative; }
+.tag-more { text-align: right;
+            margin: 10px 0px;
+            clear: left;
+            position: relative; }
+.tag-photos { float: left;
+              margin: 10px 5px;
+              position: relative;
+              width: 140px;
+              height: 200px; }
+.tag-photos-title { line-height: 1.4em;
+                    padding: 5px 0px;
+                    text-align: left;
+                    position: relative; }
+.tag-audios { margin: 5px;
+              position: relative; }
+.tag-audios-title { text-align: left;
+                    font-weight: bold;
+                    padding: 0px 0px 5px 0px;
+                    position: relative; }
+.tag-audios-posted { font-weight: normal;
+                     position: relative; }
+.tag-videos { float: left;
+              margin: 10px 5px;
+              position: relative; }
+.tag-videos-title { line-height: 1.4em;
+                    padding: 5px 0px;
+                    text-align: left;
+                    position: relative; }
+.tag-navi { clear: left;
+            text-align: center;
+            margin: 10px 0px;
+            position: relative; }
+.listCategoryArticle { margin-top: 5px;
+                       padding: 5px;
+                       border: solid 1px #FFE2E2; }
+.listCategoryArticle ul { list-style: none;
+                          padding: 0;
+                          margin: 0 0 0 10px;
+                          text-align: left;
+                          list-style-position: outside; }
+.listCategoryArticle ul li { margin: 0;
+                             background: url(http://blog.seesaa.jp/img/listCategoryArticle.gif) no-repeat 0 2px;
+                             padding-left: 12px;
+                             line-height: 1.4; }
+#links,
+#links-left,
+.side,
+#content,
+.blog,
+.blogbody,
+.text { overflow: hidden }
+.seesaaArticleSearch { width: 100% }
+/* twitter quote */
+.tweetBlockQuote { margin-bottom: 10px;
+                   overflow: hidden;
+                   width: 98%; }
+.tweetBlockQuote img { border: 0 }
+.tweetBlockQuote .tweetImg { padding: 0px;
+                             width: 53px;
+                             text-align: left;
+                             overflow: hidden;
+                             vertical-align: top;
+                             float: left;
+                             margin-right: 7px; }
+.tweetBlockQuote .tweetMain { padding: 5px;
+                              border: solid 1px #ddd;
+                              background: #fff;
+                              color: #000;
+                              overflow: hidden;
+                              vertical-align: top;
+                              float: left;
+                              width: 70%; }
+.tweetBlockQuote .tweetMain a.tweetOwner { color: #E86390;
+                                           font-weight: bold;
+                                           text-decoration: none; }
+.tweetBlockQuote .tweetMain a.tweetFriends { font-weight: bold;
+                                             color: #26A6DC;
+                                             text-decoration: none; }
+.tweetBlockQuote .tweetMain .tweetText { color: #000 }
+.tweetBlockQuote .tweetMain .tweetText a { color: #000;
+                                           text-decoration: underline; }
+.tweetBlockQuote .tweetMain .tweetDate { color: #9C9C9C }
+.tweetBlockQuote .tweetBoth { clear: both }
+/* twitter quote */
+

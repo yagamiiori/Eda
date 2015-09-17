@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0388)http://i.yimg.jp/images/listing/tool/yads/yads-iframe.html?s=86051_34387-42885&t=f&ssl=0&fr_id=yads_237106-0&xd_support=1&fl_support=18&fr_support=1&enc=SHIFT_JIS&pv_ts=1441870307857-4164730&tag_path=http%3a%2f%2fyads.yahoo.co.jp%2ftag&oi_path=http%3a%2f%2fyads.yahoo.co.jp%2foi&page=1&u=http%3a%2f%2funity-xeion.seesaa.net%2farticle%2f422307056.html&ref=https%3a%2f%2fwww.google.co.jp%2f -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body style="background-color: transparent; padding: 0px; margin: 0px; text-align: center;">
+
+<div style="margin-left: auto; margin-right: auto;">
+
+<div id="yads-pr-label" style="font-family: &#39;MS PGothic&#39;,sans-serif; font-size: 12px; color: #555555; height:15px; line-height:15px; overflow:hidden; display:none;">PR</div>
+
+<script type="text/javascript">
+var proto, url; 
+if (location.protocol == 'https:') {
+  proto = "https:";
+} else {
+  proto = "http:";
+}
+url = proto + "//yads.c.yimg.jp/js/yads.js";
+
+document.write("<scri" + "pt type=\"text/javascript\" src=\"" + url + "\"></scri" + "pt>");
+</script><script type="text/javascript" src="yads.js"></script>
+
+
+<script type="text/javascript">
+function escapeString(in_str) {
+  return in_str.replace(/</g, "&lt;")
+               .replace(/>/g, "&gt;")
+               .replace(/"/g, "&quot;")
+               .replace(/'/g, "&#39;");
+}
+
+function isSubDomain(in_check, in_trust) {
+  var t = in_trust.split('.');
+  var c = in_check.split('.');
+  if (t.length > c.length) {
+    return false;
+  }
+  for (var i = 0; i < t.length; i++) {
+    if (t[t.length - 1 - i] != c[c.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isSafeUrl(in_url) {
+  var e = in_url.split('/');
+  if (e[0].indexOf(':') > 0) {
+    if ((e[0].indexOf('http') == 0) || e[0].indexOf('https') == 0) {
+      if (!e[2]) {
+          return false;
+      }
+      var whitelist = [
+        'yahoo.co.jp'
+      ];
+      for (var i = 0; i < whitelist.length; i++) {
+        if (isSubDomain(e[2], whitelist[i])) {
+            return true;
+        }
+      }
+      return false;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+function parseQuery(in_url) {
+  var ret = {};
+  var tmp = in_url.split('?');
+  if (tmp.length != 2) {
+    return ret;
+  }
+
+  var params = tmp[1].split('&');
+  for (var i = 0; i < params.length; i++) {
+    var fldVal = params[i].split('=');
+    if (fldVal.length == 1) {
+      ret[fldVal[0]] = '';
+    } else {
+      ret[fldVal[0]] = escapeString(window.decodeURIComponent(fldVal[1]));
+    }
+  }
+  return ret;
+}
+
+var gAdTagCreater = {
+  printScript : function() { 
+    var url_strings = [];
+    var url_params = parseQuery(location.href);
+    var entry = (function(in_url) {
+      if (typeof(in_url) == "undefined" || !isSafeUrl(in_url)) {
+        return "";
+      }
+      return in_url;
+    })(url_params['tag_path']);
+
+    if (entry == "") {
+      return;
+    }
+
+    for (var f in url_params) {
+      if (f != 'tag_path') {
+        var v = url_params[f];
+        url_strings.push(f + '=' + window.encodeURIComponent(v));
+      }
+    }
+
+    document.write('<script type="text/javascript" src="' + 
+                   entry +
+                   '?' +
+                   url_strings.join('&') +
+                   '"></scr' + 'ipt>' );
+  },
+  set : function() {
+    this.printScript();
+  }
+};
+
+</script>
+<script type="text/javascript">
+
+gAdTagCreater.set();
+
+</script><script type="text/javascript" src="tag(1)"></script><script src="oi" charset="SHIFT_JIS" type="text/javascript"></script> <div class="yads_ydn_frame_image" style="width:300px;height:250px;margin:auto;display:block;"><div data-i="1" data-i-url="https://feedback.promotionalads.yahoo.co.jp/fdbk?p=lrmI0E4eImE7s0LI07XtTTxtS0XEYNx43lnZHv.uWxgE9py3Dmm3gYvf6OcYoEJnuFc-&amp;a1=4DjCb0UaIzjDUzDWuWZf5vAsxA8EA1amrIhjhFoThduXFAXw1BmM4hVvqAN1kbERkn5SmuipSqP4ozBPuq3XAaMz&amp;c=.WfBejE1HgjBYPXC" data-i-linktarget="_top" data-i-hidedelayseconds="2000" style="position:relative;overflow:hidden;text-align:left;" data-i-position="TR"><a href="http://rd.ane.yahoo.co.jp/rd?ep=gAUviB5N4hhF29.fQ5xbc405SW3xmIkEEYBc0xUu2gdFocGKJnWRrvbcwD8IPqi74dqsFrMCBnoGe0sThBiSuv5ynIcFSP3QLDVDd37tgpDatuvt97GZZpmvJBLXlDlRM6n15aGMc2IIlau.VrXF_lIqZEiL3EAsXMKyNed4Eukw8eQE&a=2lil3xc_xD54tkaz0g--&ctv_optmz=KkBl3YI9&cv_label=M5CPcMlN9g8G&disp_atime=CO4PPSs9kmv80sA7okCW&ifa=DWVDHWM-&s=MByyE7A.njm4mQ--&tpl_id=hG3Hmrg8&tpl_path=DWVDHWM-&t=QTE.Uwlhwyu9&vflg=hG3Hmrg8&C=9&D=1&I=&RI=777a841e5ef40e76ebbd2a415af2e320&S=124a4090a104&as=2&etlid=0&f=65536&ff=1&fq_d=1,2,2,0&fq_m=7,17,17,0&fq_w=3,8,8,0&g=4&lp=http%3a//lp.sold-out.co.jp/kpdf_app%3futm_source=ydn%26utm_medium=display%26utm_campaign=pickypicks%26utm_content=ydn&maf=3&mid=1001795&o=9&p=9&qfid=32275&r=10&rfm=1_2&sfid=32275&skwid=0&F=0&tlid=1000451471&u=_OTHER_&yads_ds=86051_34387" target="_top"><img src="588c94accc6a8873741ed202fcd5cbb1.png" width="300" height="250" border="0"></a><div class="i-ico" style="position: absolute; text-align: left; left: 100%; top: -0.33px;"><a href="https://feedback.promotionalads.yahoo.co.jp/fdbk?p=lrmI0E4eImE7s0LI07XtTTxtS0XEYNx43lnZHv.uWxgE9py3Dmm3gYvf6OcYoEJnuFc-&a1=4DjCb0UaIzjDUzDWuWZf5vAsxA8EA1amrIhjhFoThduXFAXw1BmM4hVvqAN1kbERkn5SmuipSqP4ozBPuq3XAaMz&c=.WfBejE1HgjBYPXC" target="_top" style="height: 15px; font-size: 11px; cursor: pointer; text-decoration: none;"><span style="position: absolute; height: 15px; width: 113px; margin-left: -17px; left: 0px; border-bottom-left-radius: 4px; opacity: 0.8; transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1); background-color: rgb(255, 255, 255);"></span><span style="overflow: hidden; position: absolute; display: block; height: 15px; width: 90px; visibility: hidden; left: -109px;"><span style="font-family: sans-serif; color: rgb(0, 0, 0); text-decoration: none; line-height: 17px; vertical-align: middle; white-space: nowrap; display: block; position: absolute; left: 92px; transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1); width: 90px;">Yahoo! JAPAN広告</span></span><i style="margin: 1px 1px 1px -15px; position: absolute;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13"><image width="13" height="13" href="data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0D%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2016.0.4%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0D%0A%3C%21DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.0%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FTR%2F2001%2FREC-SVG-20010904%2FDTD%2Fsvg10.dtd%22%3E%0D%0A%3Csvg%20version%3D%221.0%22%20id%3D%22layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%0D%0A%09%20y%3D%220px%22%20width%3D%2213px%22%20height%3D%2213px%22%20viewBox%3D%220%200%2013%2013%22%20enable-background%3D%22new%200%200%2013%2013%22%20xml%3Aspace%3D%22preserve%22%3E%0D%0A%3Cg%3E%0D%0A%09%3Cpath%20fill%3D%22%23696969%22%20d%3D%22M6.5%2C13c0.685%2C0%2C1.328-0.267%2C1.811-0.75l3.94-3.938c0.999-0.999%2C0.999-2.624%2C0-3.622L8.311%2C0.75%0D%0A%09%09C7.828%2C0.267%2C7.185%2C0%2C6.5%2C0S5.172%2C0.267%2C4.688%2C0.75L0.749%2C4.689c-0.999%2C0.998-0.999%2C2.623%2C0%2C3.622l3.939%2C3.938%0D%0A%09%09C5.172%2C12.733%2C5.815%2C13%2C6.5%2C13z%20M6.498%2C6.135c-0.42%2C0-0.792%2C0.34-0.792%2C0.758v3.904c0%2C0.096-0.039%2C0.186-0.103%2C0.248%0D%0A%09%09c-0.064%2C0.064-0.153%2C0.104-0.25%2C0.104c-0.098%2C0-0.187-0.039-0.251-0.104L1.54%2C7.521c-0.562-0.563-0.562-1.478%2C0-2.04l3.94-3.939%0D%0A%09%09C5.752%2C1.27%2C6.115%2C1.119%2C6.5%2C1.119s0.747%2C0.15%2C1.02%2C0.422l3.94%2C3.939c0.562%2C0.562%2C0.562%2C1.477%2C0%2C2.04l-3.562%2C3.524%0D%0A%09%09c-0.064%2C0.064-0.153%2C0.104-0.251%2C0.104c-0.097%2C0-0.186-0.039-0.25-0.104c-0.063-0.062-0.104-0.152-0.104-0.248V6.893%0D%0A%09%09c0-0.418-0.371-0.758-0.79-0.758H6.498z%22%2F%3E%0D%0A%09%3Ccircle%20fill%3D%22%23696969%22%20cx%3D%226.5%22%20cy%3D%223.922%22%20r%3D%221.146%22%2F%3E%0D%0A%3C%2Fg%3E%0D%0A%3C%2Fsvg%3E"></image></svg></i></a></div></div></div> 
+
+</div>
+
+
+</body></html>

@@ -1,0 +1,168 @@
+#trace-searcher {
+	line-height:1.2;
+	width:164px;
+	text-align:center;
+	display:none;
+	position:absolute;
+	top:150px;
+	z-index:1000;
+}
+#trace-searcher h2{
+	padding:0;
+	margin:0;
+	background:none;
+	position:static;
+	
+}
+#trace-searcher .seesaaNazoruWrap{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/bg.png) bottom center no-repeat;
+	margin:0 auto;
+	text-align:left;
+	width:164px;
+	padding:0px;
+}
+#trace-searcher .seesaaNazoruWord{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/t.png) no-repeat;
+	padding:5px 5px 5px 5px;
+	margin:0;
+	color:#000;
+	font-size:12px;
+	font-weight:bold;
+	text-align:left;
+	position:static;
+}
+
+#trace-searcher .seesaaNazoruSearchList
+,#trace-searcher .seesaaNazoruPostList{
+	list-style:none;
+	padding:0px;
+	margin:0px;
+	text-align:left;
+	list-style-position:outside;
+}
+
+#trace-searcher .seesaaNazoruSearchList{
+	border-bottom:solid 1px #2E406E;
+	margin:0 7px;
+	padding:5px 1px 5px 5px;
+}
+#trace-searcher .seesaaNazoruPostList{
+	margin:0 7px;
+	padding:5px 1px 6px 5px;
+	margin-bottom:5px;
+}
+
+#trace-searcher .seesaaNazoruSearchYahoo
+,#trace-searcher .seesaaNazoruSearchSearchjp
+,#trace-searcher .seesaaNazoruSearchAmazon
+,#trace-searcher .seesaaNazoruSearchNaver
+,#trace-searcher .seesaaNazoruPostTwitter
+,#trace-searcher .seesaaNazoruPostBlog{
+	font-family:"Hiragino Kaku Gothic Pro",Osaka ,Arial, sans-serif;
+	$font-family:"Hiragino Kaku Gothic Pro",Osaka;
+	text-align:left;
+	margin:0px;
+	font-size:12px;
+}
+#trace-searcher .seesaaNazoruSearchYahoo a
+,#trace-searcher .seesaaNazoruSearchSearchjp a
+,#trace-searcher .seesaaNazoruSearchAmazon a
+,#trace-searcher .seesaaNazoruSearchNaver a
+,#trace-searcher .seesaaNazoruPostTwitter a
+,#trace-searcher .seesaaNazoruPostBlog a{
+	text-align:left;
+	margin:0px;
+	padding:5px 5px 5px 23px;
+	color:#D9DEE0;
+	display:block;
+}
+#trace-searcher .seesaaNazoruSearchYahoo a{
+	background:none;
+}
+#trace-searcher .seesaaNazoruSearchSearchjp a{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/ico_searchjp.gif) 0 4px no-repeat;
+}
+#trace-searcher .seesaaNazoruSearchAmazon a{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/ico_amazon.gif) 0 4px no-repeat;
+}
+#trace-searcher .seesaaNazoruSearchNaver a{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/ico_naver.gif) 0 4px no-repeat;
+}
+#trace-searcher .seesaaNazoruPostTwitter a{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/ico_twitter.gif) 0 4px no-repeat;
+}
+#trace-searcher .seesaaNazoruPostBlog a{
+	background:url(http://blog.seesaa.jp/img/trace_searcher/ico_seesaablog.gif) 0 4px no-repeat;
+}
+#trace-searcher .seesaaNazoruSearchYahoo a:active
+,#trace-searcher .seesaaNazoruSearchSearchjp a:active
+,#trace-searcher .seesaaNazoruSearchAmazon a:active
+,#trace-searcher .seesaaNazoruSearchNaver a:active
+,#trace-searcher .seesaaNazoruPostTwitter a:active
+,#trace-searcher .seesaaNazoruPostBlog a:active{
+	color:#D9DEE0;
+}
+#trace-searcher .seesaaNazoruSearchYahoo a:visited
+,#trace-searcher .seesaaNazoruSearchSearchjp a:visited
+,#trace-searcher .seesaaNazoruSearchAmazon a:visited
+,#trace-searcher .seesaaNazoruSearchNaver a:visited
+,#trace-searcher .seesaaNazoruPostTwitter a:visited
+,#trace-searcher .seesaaNazoruPostBlog a:visited{
+	color:#D9DEE0;
+}
+#trace-searcher .seesaaNazoruSearchYahoo a:hover{
+	background:#2E406E ;
+	color:#fff;
+}
+#trace-searcher .seesaaNazoruSearchSearchjp a:hover{
+	background:#2E406E url(http://blog.seesaa.jp/img/trace_searcher/ico_searchjp.gif) 0 4px no-repeat;
+	color:#fff;
+}
+#trace-searcher .seesaaNazoruSearchAmazon a:hover{
+	background:#2E406E url(http://blog.seesaa.jp/img/trace_searcher/ico_amazon.gif) 0 4px no-repeat;
+	color:#fff;
+}
+#trace-searcher .seesaaNazoruSearchNaver a:hover{
+	background:#2E406E url(http://blog.seesaa.jp/img/trace_searcher/ico_naver.gif) 0 4px no-repeat;
+	color:#fff;
+}
+#trace-searcher .seesaaNazoruPostTwitter a:hover{
+	background:#2E406E url(http://blog.seesaa.jp/img/trace_searcher/ico_twitter.gif) 0 4px no-repeat;
+	color:#fff;
+}
+#trace-searcher .seesaaNazoruPostBlog a:hover{
+	background:#2E406E url(http://blog.seesaa.jp/img/trace_searcher/ico_seesaablog.gif) 0 4px no-repeat;
+	color:#fff;
+}
+
+#trace-searcher .seesaaNazoruSearch
+,#trace-searcher .seesaaNazoruPost{
+	font-size:12px;
+	padding:0;
+	margin:0;
+	color:#fff;
+	font-weight:bold;
+	display:none;
+}
+
+
+
+/*
+<div id="trace-searcher" class="seesaaNazoru">
+  <h2 class="seesaaNazoruWord">WORD</h2>
+  <div class="seesaaNazoruWrap">
+    <h2 class="seesaaNazoruSearch">検索する</h2>
+    <ul class="seesaaNazoruSearchList">
+      <li class="seesaaNazoruSearchYahoo"><a id="floating-yahoo-keyword" target="_blank">Yahoo!で検索</a></li>
+      <li class="seesaaNazoruSearchSearchjp"><a id="floating-searchjp-keyword" target="_blank">Yahoo!で検索</a></li>
+      <li class="seesaaNazoruSearchAmazon"><a id="floating-amazon-keyword" target="_blank">Amazonで検索</a></li>
+      <li class="seesaaNazoruSearchNaver"><a id="floating-naver-keyword" target="_blank">画像を検索</a></li>
+    </ul>
+    <h2 class="seesaaNazoruPost">投稿する</h2>
+    <ul class="seesaaNazoruPostList">
+      <li class="seesaaNazoruPostTwitter"><a id="floating-twitter-keyword" target="_blank">Twitterに投稿</a></li>
+      <li class="seesaaNazoruPostBlog"><a id="floating-blog-keyword" target="_blank">Seesaaブログに投稿</a></li>
+    </ul>
+  </div>
+</div>
+*/

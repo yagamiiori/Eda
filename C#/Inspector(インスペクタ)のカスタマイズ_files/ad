@@ -1,0 +1,40 @@
+dnllotgrmbphvuxwfcbdcall(
+ {"adLength":"2",
+ "ads":[   {
+     "adIndex":"1",
+     "ccid":"1",
+     "adType":"u",
+     "imageTypeId":"5",
+     "adTitle":"ここに広告を出稿したい！",
+     "adBodyText1":"リクルートの地域密着型広告ドコイク？アドネットワーク",
+     "adBodyText2":"",
+     "clickUrl":"http://nw.ads.doko.jp/ADCLICK/CID=00378a510000000000000000/IMPK=cuamapak/SITE=IGKAULI/PREF=13/CITY=13117/M4=53394533/GEO=1/G1=12/G2=-1/DEV=p",
+     "objectUrl":{"a":"","b":"","d":""
+     },
+     "subImageUrl":"",
+     "adFooterText":"",
+     "adGenre":"",
+     "geoType":"j",
+     "potitionX":"",
+     "potitionY":""
+   },
+   {
+     "adIndex":"2",
+     "ccid":"2",
+     "adType":"u",
+     "imageTypeId":"5",
+     "adTitle":"地域密着型エリア広告配信",
+     "adBodyText1":"リクルートの地域密着型広告ドコイク？アドネットワーク",
+     "adBodyText2":"",
+     "clickUrl":"http://nw.ads.doko.jp/ADCLICK/CID=0146ec760000000000000000/IMPK=cuamapak/SITE=IGKAULI/PREF=13/CITY=13117/M4=53394533/GEO=1/G1=12/G2=-1/DEV=p",
+     "objectUrl":{"a":"","b":"","d":""
+     },
+     "subImageUrl":"",
+     "adFooterText":"",
+     "adGenre":"",
+     "geoType":"j",
+     "potitionX":"",
+     "potitionY":""
+   }
+ ]}
+);

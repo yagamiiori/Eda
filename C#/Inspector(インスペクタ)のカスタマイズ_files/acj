@@ -1,0 +1,24 @@
+OX_990764349({
+  "ads":{
+    "medium":"w",
+    "record_tmpl":"http://ox-d.openx.jp/{medium}/1.0/{rtype}?ts={txn_state}",
+    "adunits" : [
+      {
+        "auid":"537285915",
+        "chain":[
+          {
+            "is_fallback":1,
+            "ad_id":"0",
+            "width":"300",
+            "height":"250",
+            "html":"<div style=\"width:300px;\">\n<script type=\"text/javascript\" language=\"JavaScript\">\n yads_ad_ds ='86051_34387';</script>\n<script type=\"text/javascript\" language=\"JavaScript\" src=\"http://yads.c.yimg.jp/js/yads.js\"></script>\n</div>",
+            "target":"_blank",
+            "ts":"1fHJpZD1jZGI5N2YzYi01ODk4LTQwZjEtYTA5Ny1lNzA0NDlmZGM0ZmF8cnQ9MTQ0MTg3MDU1MnxhdWlkPTUzNzI4NTkxNXxhdW09RE1JRC5XRUJ8c2lkPTUzNzE0NjI3M3xwdWI9MTA4MzM3fHBjPUpQWXxyYWlkPTFiYjNmYjdiLTY1MmMtNGY3ZC04YWNmLTBiY2ZhMjE1NTBhOXx1cj0yTm04cjZ6YXd6",
+            "type":"html",
+            "ad_url":"<div style=\"width:300px;\">\n<script type=\"text/javascript\" language=\"JavaScript\">\n yads_ad_ds ='86051_34387';</script>\n<script type=\"text/javascript\" language=\"JavaScript\" src=\"http://yads.c.yimg.jp/js/yads.js\"></script>\n</div>"
+          }
+        ]
+      }
+    ]
+  }
+});

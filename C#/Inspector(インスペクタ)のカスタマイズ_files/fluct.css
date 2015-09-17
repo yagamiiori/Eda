@@ -1,0 +1,87 @@
+#viasearch-ad-area{
+width:380px;
+//display:none;
+margin:0px auto;
+text-align:center;
+}
+#viasearch-ad-area .seesaa-adLink{
+display:block;
+padding:5px;
+overflow:hidden;
+cursor:pointer;
+background-color:#fff;
+text-align:left;
+}
+
+#viasearch-ad-area a.seesaa-adLink:link {text-decoration:none;}
+#viasearch-ad-area a.seesaa-adLink:visited {text-decoration:none;}
+#viasearch-ad-area a.seesaa-adLink:hover {text-decoration:none;}
+
+#viasearch-ad-area .adBoth{
+clear:both;
+display:block;
+}
+#viasearch-ad-area .adTitle{
+color:#106fce;
+border:0px;
+padding:0 0 2px 0;
+margin:0px;
+display:block;
+font-weight:bold;
+font-size:12px;
+visibility:visible;
+position:static;
+text-decoration:underline;
+font-family:verdana,arial,sans-serif;
+vertical-align:baseline;
+}
+#viasearch-ad-area .adText{
+color:#000000;
+border:0px;
+padding:0px;
+margin:0px;
+display:block;
+font-size:12px;
+visibility:visible;
+position:static;
+font-family:verdana,arial,sans-serif;
+line-height:14px;
+}
+#viasearch-ad-area .adUrl{
+color:#008000;
+padding:0px 3px;
+margin:0px;
+font-size:10px;
+display: block;
+}
+#viasearch-ad-area .adImage{
+float:left;
+padding:0px 0px;
+text-align:center;
+width: 100px;
+margin-right:5px;
+display: block;
+}
+#viasearch-ad-area .adImage img{
+border:solid 1px #000000;
+padding:1px;
+}
+#viasearch-ad-area .adSponsor{
+text-align:right;
+font-size:10px;
+padding:1px 3px 1px 3px;
+height:15px;
+display:block;
+}
+#viasearch-ad-area .adSponsorUrl{
+color:#106fce;
+padding:0px;
+margin:0px;
+text-decoration:none;
+display:block;
+}
+#viasearch-ad-area .adHr{
+height:1px;
+background:#fff;
+overflow:hidden;
+}

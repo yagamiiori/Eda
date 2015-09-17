@@ -1,0 +1,34 @@
+.seesaaSearchBox {                                  
+	   float:right;				    
+	   width:240px;				    
+	   border:solid 0px #000;		    
+}						    
+.seesaaSearchBox .input {			    
+	   border:solid 1px #999;		    
+	   background-color:#fff;		    
+	    background-image:url(common_header_sb1.gif);  
+	    background-repeat:no-repeat;	    
+	    background-position:1px 1px;	    
+	    padding-left:20px;			    
+	   width:130px;				    
+	    vertical-align:middle;		    
+}						    
+.seesaaSearchBox .button{			    
+	   clear:both;				    
+	   width:47px;				    
+	   height:19px;				    
+	   background:url(common_header_sb.gif) no-repeat;
+	   border:0;				    
+	    margin-left:2px;			    
+	   padding:0;				    
+	    vertical-align:middle;		    
+	   cursor:pointer;			    
+}						    
+.seesaaSearchBox .form{			    
+	   padding:0;				    
+	   margin:0;				    
+}						    
+						    
+.seesaaSearchBox-clear{			    
+	   clear:both;				    
+}						    

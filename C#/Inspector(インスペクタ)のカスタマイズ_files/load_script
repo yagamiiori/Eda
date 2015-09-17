@@ -1,0 +1,20 @@
+(function(){
+  var __zz = function() {
+    var __o = jp.atlantis.mashiron.ads['ads0'];
+    if (typeof __o == 'undefined') {
+      setTimeout(__zz, 99);
+    } else {
+      try {
+        __o.setVars({
+    "type": "externalNetwork",
+    "width": 400,
+    "height": 20,
+    "iframeLocation": "http://ad.adlantis.jp/ad/load_iframe?key=MjA5NjVfMF8zNjg4XzU%253D%250A"});
+      } catch(e) {
+        setTimeout(__zz, 99);
+      }
+      return true;
+    }
+  };
+  __zz.apply();
+})();

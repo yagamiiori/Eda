@@ -1,0 +1,24 @@
+OX_4554460944({
+  "ads":{
+    "medium":"w",
+    "record_tmpl":"http://ox-d.openx.jp/{medium}/1.0/{rtype}?ts={txn_state}",
+    "adunits" : [
+      {
+        "auid":"429894",
+        "chain":[
+          {
+            "is_fallback":1,
+            "ad_id":"0",
+            "width":"160",
+            "height":"600",
+            "html":"<script type=\"text/javascript\">\n<!--\nfunction randomAdv() {\n  m = 0, x = 0, y = 0;\n  ad  = new Array();\n  adv = new Array();\n  hit = new Array();\n  hit[0] = 2; adv[0] = \"<script type=\\\"text/javascript\\\" src=\\\"http://1391.gsspcln.jp/t/033/891/a1033891.js\\\"></script>\";\n  hit[1] = 8; adv[1] = \"<script type=\\\"text/javascript\\\" src=\\\"http://sh.adingo.jp/?G=1000011011&guid=ON\\\"></script><script type=\\\"text/javascript\\\" src=\\\"http://sh.adingo.jp/show.php?uid=1000015025\\\"></script>\";\n  for(i=0; i<=hit.length - 1; i++) {\n    m += hit[i];\n  }\n  n = Math.floor(Math.random() * m);\n  n++;\n  for(i=0; i<=hit.length - 1; i++) {\n    x = y;\n    y += hit[i];\n    if(x<n && n<=y) ad = adv[i];\n  }\n  document.write(ad);\n}\nrandomAdv();\n//-->\n</script>",
+            "target":"_blank",
+            "ts":"1fHJpZD1jMjY0NGU0Zi0yMTBmLTQ1MzItOGMyZC1lNmM5NzEyYTlmOWN8cnQ9MTQ0MTg3MDU1NHxhdWlkPTQyOTg5NHxhdW09RE1JRC5XRUJ8c2lkPTk0MDI1fHB1Yj0xMTc0ODV8cGM9SlBZfHJhaWQ9MTkyMjc3ZjEtNWEzMy00OTMxLTg3ZTUtZDYzMjA2ZjhhZTg4fHVyPWJSRjFwMUh0Z3M",
+            "type":"html",
+            "ad_url":"<script type=\"text/javascript\">\n<!--\nfunction randomAdv() {\n  m = 0, x = 0, y = 0;\n  ad  = new Array();\n  adv = new Array();\n  hit = new Array();\n  hit[0] = 2; adv[0] = \"<script type=\\\"text/javascript\\\" src=\\\"http://1391.gsspcln.jp/t/033/891/a1033891.js\\\"></script>\";\n  hit[1] = 8; adv[1] = \"<script type=\\\"text/javascript\\\" src=\\\"http://sh.adingo.jp/?G=1000011011&guid=ON\\\"></script><script type=\\\"text/javascript\\\" src=\\\"http://sh.adingo.jp/show.php?uid=1000015025\\\"></script>\";\n  for(i=0; i<=hit.length - 1; i++) {\n    m += hit[i];\n  }\n  n = Math.floor(Math.random() * m);\n  n++;\n  for(i=0; i<=hit.length - 1; i++) {\n    x = y;\n    y += hit[i];\n    if(x<n && n<=y) ad = adv[i];\n  }\n  document.write(ad);\n}\nrandomAdv();\n//-->\n</script>"
+          }
+        ]
+      }
+    ]
+  }
+});

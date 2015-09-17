@@ -1,0 +1,24 @@
+OX_8063586313({
+  "ads":{
+    "medium":"w",
+    "record_tmpl":"http://ox-d.openx.jp/{medium}/1.0/{rtype}?ts={txn_state}",
+    "adunits" : [
+      {
+        "auid":"537239288",
+        "chain":[
+          {
+            "is_fallback":1,
+            "ad_id":"0",
+            "width":"160",
+            "height":"600",
+            "html":"<!-- admax -->\n<script src=\"http://adm.shinobi.jp/s/1a0a6e99e068f56799dfe948bb80ff3b\"></script>\n<!-- admax -->",
+            "target":"_blank",
+            "ts":"1fHJpZD1mOTZiNjVlOS00Zjg4LTQ1NjEtOTMwNi04OTY3MzVkM2U1MjJ8cnQ9MTQ0MTg3MDU1M3xhdWlkPTUzNzIzOTI4OHxhdW09RE1JRC5XRUJ8c2lkPTUzNzE0NjI3M3xwdWI9MTA4MzM3fHBjPUpQWXxyYWlkPTM0NzRlMTJhLTJiZWYtNDNlNi1iMWUyLTlkYTY4N2I1MTFmMnx1cj0xUjBvbkV2N0xG",
+            "type":"html",
+            "ad_url":"<!-- admax -->\n<script src=\"http://adm.shinobi.jp/s/1a0a6e99e068f56799dfe948bb80ff3b\"></script>\n<!-- admax -->"
+          }
+        ]
+      }
+    ]
+  }
+});

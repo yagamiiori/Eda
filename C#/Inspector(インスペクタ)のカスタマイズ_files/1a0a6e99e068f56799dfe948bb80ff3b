@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ninja_ads_count = typeof(ninja_ads_count) == 'undefined' ? 1 : ninja_ads_count + 1;
+(function(d){
+    
+    var cookie_name = 'ninja_adm_uid';
+    var cookies = document.cookie + ";";
+    var index = cookies.indexOf(cookie_name + "=");
+    if (index == -1) {
+        document.cookie = 'ninja_adm_uid=76d02c1b-463f-4948-908b-7c9725256dce; expires=Fri Sep 09 07:31:51 GMT 2016; ';
+    }
+    
+    document.write('<span id="ninja_iframe_' + ninja_ads_count + '" style="width:160px; height:600px;"><!--http://adm.shinobi.jp/a/1a0a6e99e068f56799dfe948bb80ff3b--></span>');
+    var script = d.createElement('script');
+    var head = d.getElementsByTagName('head')[0];
+    script.defer = 'defer';
+    script.async = 'async';
+    script.src  = 'http://st.shinobi.jp/img/services/admax/js/ads.js';
+    head.insertBefore(script, head.firstChild);
+
+    
+    var ninja_script = d.createElement('script');
+    ninja_script.defer = 'defer';
+    ninja_script.async = 'async';
+    ninja_script.src  = 'http://st.shinobi.jp/img/services/admaxdsp/static/javascripts/trac.js';
+    head.insertBefore(ninja_script, head.firstChild);
+    var bd = d.createElement('div');
+    bd.setAttribute('style','position:absolute;left:0px;top:0px;visibility:hidden;');
+    bd.innerHTML = '<img src="http://sync.fout.jp/sync?xid=ninja" width="0" height="0" alt="" /><img src="http://admax.socdm.com/rtb/sync?proto=admax&sspid=admax" width="0" height="0" alt="" /><img src="http://sync.shinobi.jp/pub?ssp=admax" width="0" height="0" alt="" /><img src="http://bypass.ad-stir.com/push_sync?xid=admax" width="0" height="0" alt="" /><img src="http://rs.adapf.com/ninjaadmax/csync?uid=76d02c1b-463f-4948-908b-7c9725256dce" width="0" height="0" alt="" />'; 
+    document.body.appendChild(bd);
+    
+})(document);
+
+
