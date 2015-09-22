@@ -1,7 +1,15 @@
 
-
 ・まずここ　http://qiita.com/gamesonytablet/items/20b25ad9729e4a353c96
 
+・Findはヒエラルキを上に遡る必要がある位置は検索対象外となる
+	CanvasA
+	└ObjectA　Find("BBB")　取れない
+	CanvasB
+	└ObjectB.name="BBB"
+
+	CanvasA
+	└ObjectA　Find("BBB")　取れる
+	└ObjectB.name="BBB"
 
 ・表示優先度→canvas下だとヒエラルキの上位のものから順に書かれていく
 　　　　　　　sortinglayerとsortingorderを指定してやるしかない
