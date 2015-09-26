@@ -1,0 +1,8 @@
+
+stream reader‚Æstream writer‚ðŽg‚¤
+---------------------------------------
+https://msdn.microsoft.com/ja-jp/library/db5x7c0d(v=vs.80).aspx
+https://msdn.microsoft.com/ja-jp/library/6ka1wd3w(v=vs.80).aspx
+
+playerprefs‚ðŽg‚¤
+---------------------------------------
