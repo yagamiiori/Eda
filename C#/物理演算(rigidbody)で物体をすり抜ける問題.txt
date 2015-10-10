@@ -1,0 +1,14 @@
+
+「Collision Detection」を「Continuous Dynamic」に変えたら解決するかも
+
+衝突判定と物体すり抜け問題は、
+大昔からセットで語られる、バディみたいなもんらしい。
+
+Unity/マニュアルPhysics3D/物理演算リファレンス/リジッドボディ
+http://docs.unity3d.com/ja/current/Manual/class-Rigidbody.html
+
+によれば、
+普段は精度悪いけど軽い方の処理をするから、必要なときだけ高精度の処理を選択してね！
+ってことっぽい
+
+

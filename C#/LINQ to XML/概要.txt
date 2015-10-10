@@ -1,0 +1,13 @@
+
+XMLを扱う（操作する）ためにLINQを使う手法。
+
+プリプロセッサ
+using System.Xml.Linq;
+
+参考：http://www.atmarkit.co.jp/fdotnet/joyofprogram/20080418linqtoxml01/linqtoxml01_03.html
+
+
+スキーマ：xmlの仕様。DTDというスキーマに従ってxmlを書くがDTDは省略可。
+
+
+
