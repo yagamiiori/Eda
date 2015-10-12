@@ -1,0 +1,77 @@
+------------
+XmlDocument
+------------
+XMLファイルを作成する場合に使用する。
+        XmlDocument document = new XmlDocument();
+        XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+        XmlElement root = document.CreateElement("UBTProject");  // ルート要素
+        document.AppendChild(declaration);                       // 指定したノードを子ノードとして追加
+        document.AppendChild(root);
+
+------------
+XElement.Load
+------------
+URIで指定されたファイル、TextReader、またはXmlReaderから新しいXElementを作成する。
+	XElement document = XElement.Load("var.xml");
+
+------------
+XElement
+------------
+XML 要素を表す。
+
+------------
+Element
+------------
+指定した XName の最初の子要素を (ドキュメント順に) 取得する。
+指定した名前の要素がない場合、null を返す。
+	XElement srcTree = new XElement("Root",
+	    new XElement("Element1", 1),
+	    new XElement("Element2", 2),
+	    new XElement("Element3", 3), ★
+	    new XElement("Element4", 4),
+	    new XElement("Element5", 5)
+	);
+	XElement xmlTree = new XElement("Root",
+	    new XElement("Child1", 1),
+	    new XElement("Child2", 2),
+	    new XElement("Child3", 3),
+	    new XElement("Child4", 4),
+	    new XElement("Child5", 5),
+	    srcTree.Element("Element3")	// これは★の値「3」が取れるのではなく「<Element3>3</Element3>」という文字列で取られる。
+	);
+
+------------
+Elements
+------------
+この要素またはドキュメントの子要素の「コレクション」をドキュメント順に返す
+	XElement xmlTree = new XElement("Root",
+	    new XElement("Child1", 1),
+	    new XElement("Child2", 2),
+	    new XElement("Child3", 3)
+	);
+	IEnumerable<XElement> elements =
+	    from el in xmlTree.Elements() // xmlTree内の全エレメントをコレクションで取得する
+	    select el;
+	foreach (XElement el in elements)
+	    Console.WriteLine(el);
+
+------------
+Descendants
+------------
+このドキュメントまたは要素の子孫要素のフィルター処理された「コレクション」をドキュメント順に返す。
+一致するXNameを持つ要素のみがコレクションに含められる。
+	XElement xmlTree = new XElement("Root",
+	    new XAttribute("Att1", "AttributeContent"),
+	    new XElement("Child",	★
+	        new XText("Some text"),
+	        new XElement("GrandChild", "element content")
+	    )
+	);
+	IEnumerable<XElement> de =
+	    from el in xmlTree.Descendants("Child") // ★の要素配下をコレクションで取得する
+	    select el;
+	foreach (XElement el in de)
+	    Console.WriteLine(el.Name);
+
+
+
