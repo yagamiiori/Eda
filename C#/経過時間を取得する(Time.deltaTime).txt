@@ -1,4 +1,0 @@
-
-# Time.deltaTime
-var time : float = Time.deltaTime;
-

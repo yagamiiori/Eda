@@ -1,0 +1,13 @@
+参考：http://kanonji.info/blog/2015/01/29/%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%B8%E3%83%A3%E3%83%A02015%E3%81%A7%E6%82%A9%E3%82%93%E3%81%A0%E4%BA%8B%E3%81%A8%E3%81%8Bphoton%E3%81%A8%E3%81%8B%E6%8A%80/
+　　　http://mrcrystd.blogspot.jp/2013/12/photoncloud.html
+
+・Photonで同期しているオブジェクトはPhotonViewコンポーネントがattachされている。
+・Roomを作成したクライアントが、マスタークライアントになる。
+・マスタークライアントが退室・切断したら、他のクライアントの1つがマスタークライアントになる。
+・Photonで同期してるオブジェクトはPhotonNetwork.Destroy()で削除する
+・Photonで同期するオブジェクトは、PhotonNetwork.Instantiate()で作成する
+・シーンに属するオブジェクトはPhotonNetwork.InstantiateSceneObject()で作成する
+・デフォルト設定では、部屋から退室したり接続が切れたりしたら、そのクライアントが作成した同期してるオブジェクトは削除される
+・シーン遷移をしても、Roomから出たりPhotonから切断したりしない
+・PhotonViewにはトランスフォーム、リジッドボディ、スクリプトなどを格納することができ、これが同期の対象となる。
+

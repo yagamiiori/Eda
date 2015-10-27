@@ -1,0 +1,9 @@
+https://ikoan310.wordpress.com/2015/10/05/unityphoton%E3%81%AEismessagequeuerunning/
+https://doc.photonengine.com/ja/onpremise/current/reference/client-connection-handling
+http://chronote.hatenablog.com/
+
+
+RPC は各クライアントの一致する PhotonView に対して行われるため、
+シーンロード中に呼び出す時など、状況が揃わない場合は実行されない。
+対策としてはisMessageQueueRunning = false;でシーンロード前にメッセージキューを停止させる。
+

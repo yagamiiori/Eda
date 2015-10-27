@@ -1,0 +1,10 @@
+
+// photonViewを取得し、自分のオブジェクトでなければスクリプト停止
+private PhotonView myPV;
+
+myPV = PhotonView.Get(this);
+
+if(!myPV.isMine){
+this.enabled = false;
+}
+

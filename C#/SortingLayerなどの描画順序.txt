@@ -1,0 +1,16 @@
+
+◆Unityのスプライトの描画順は「SortingLayer、Order In Layer、Z値」の順番で設定する
+
+SortingLayerですが、実はLineRendererやParticleRenderer、Trail Rendererといった
+SpriteRenderer以外にも適応されます。
+正しくは透明やブレンドを利用するレンダラーはSorting LayerがDefaultに設定されており
+その描画順に影響を受けます。
+
+そのためDefaultより前のSortingLayerが指定されたスプライトがある場合、
+例えZ値的に手前にあったとしても奥に描画されます。
+
+
+
+
+参考：http://tsubakit1.hateblo.jp/entry/2015/01/05/233000
+

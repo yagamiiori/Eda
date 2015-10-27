@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7 -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><title>よくわかるA*(A-star)アルゴリズム (Unity2Dのサンプルコードつき) - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="
+A*(A-star)アルゴリズムとは
+
+A*アルゴリズムとは、探索アルゴリズムの一種です。経路をノードで表現して、スタートノード（開始地点）からゴールノード（目標地点）までの経路を計算し、この経路が最短であることを保証するアルゴリズムとなります。そしてスタートからゴールまでの間に障害物があってもちゃんと迂回してくれます。
+
+
+
+
+サンプル
+
+サンプルはこちらのページにあります。
+http://2dgames.jp/unity/astar/
+ページを開くとランダムでスタ..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="2dgames_jp" name="twitter:creator"><meta content="よくわかるA*(A-star)アルゴリズム (Unity2Dのサンプルコードつき) - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-896943050e55832a8cc2200eedf875d9.png" property="og:image"><meta content="## A*(A-star)アルゴリズムとは
+A*アルゴリズムとは、探索アルゴリズムの一種です。経路をノードで表現して、スタートノード（開始地点）からゴールノード（目標地点）までの経路を計算し、この経路が最短であることを保証するアルゴリ..." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link href="http://qiita.com/icons/favicons/public/production.ico?v=4" rel="shortcut icon" type="image/x-icon"><link href="http://qiita.com/icons/favicons/public/apple-touch-icon.png" rel="apple-touch-icon"><link href="./よくわかるA_(A-star)アルゴリズム_files/font-awesome.min.css" rel="stylesheet"><link rel="stylesheet" media="all" href="./よくわかるA_(A-star)アルゴリズム_files/public_vender-4ee18457170f78c2ea70254b1e71ee98.css"><link rel="stylesheet" media="all" href="./よくわかるA_(A-star)アルゴリズム_files/application-be1af0bb76d2bb7085e31f7d72aefc80.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="><script src="./よくわかるA_(A-star)アルゴリズム_files/cb=gapi.loaded_1" async=""></script><script src="./よくわかるA_(A-star)アルゴリズム_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./よくわかるA_(A-star)アルゴリズム_files/button.aec556e1a316f63b43fda3ae1e6a3e10.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow-x:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://m-static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head><body class=" with-js"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./よくわかるA_(A-star)アルゴリズム_files/hub.713c824928d25a67b253b39a6299bc2d(1).html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./よくわかるA_(A-star)アルゴリズム_files/hub.713c824928d25a67b253b39a6299bc2d.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/gtm.js"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/analytics.js"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/all.js" id="facebook-jssdk"></script><script async="" src="./よくわかるA_(A-star)アルゴリズム_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script type="text/javascript" async="" src="./よくわかるA_(A-star)アルゴリズム_files/mixpanel-2.2.min.js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+
+  // Application Namespace
+  var Qiita = {
+    startTime: Date.now(),
+    controllerPath: 'public/items',
+    controllerAction: 'public/items#show',
+    controller: 'items',
+    action: 'show',
+    env: 'production',
+    flash: {},
+    config: {
+      mixpanel: {"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"}
+    },
+
+    // Fake jQuery
+    // Emulate $.ready(fn) in views before load jQuery.
+    _q: [],
+    // The ready function that collect calls and put it in the queue
+    ready: function (func) {
+      if (typeof func==='function') Qiita._q.push(func);
+      // return jQl in order to support jQuery(document).ready()
+      return Qiita
+    },
+    // Run all queues inline $.ready() calls in the right order and purge the
+    // queue
+    unqueue: function () {
+      for (var i = 0, l = Qiita._q.length; i < l; i++) Qiita._q[i]();
+      Qiita._q = [];
+    }
+  };
+
+
+
+  var $ = Qiita.ready, jQuery = $;
+</script>
+<header class="navbar navbar-default navbar-static-top" role="navigation"><div class="container"><div class="navbar-header navigationBar_header"><a class="navbar-brand siteBrand-public" href="http://qiita.com/"><img class="siteBrand-publicLogo" src="./よくわかるA_(A-star)アルゴリズム_files/siteid-reverse-ddc187656dcf8859d033e242f3232ce8.png"></a></div><form class="navbar-form navbar-left hidden-xs searchForm js-globalSearchForm" action="http://qiita.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓"><div class="searchForm_queryWrapper"><input type="text" name="q" id="q" placeholder="キーワードを入力" class="form-control searchForm_query js-globalSearchForm_query"><div class="searchForm_wiseSearchButton js-wise-search"><i class="fa fa-caret-down"></i><i class="fa fa-spinner fa-spin"></i></div><div class="searchQuerySupport js-globalSearchForm_stockedSearch"><div class="searchQuerySupport_userSearch"><label class="searchQuerySupport_label">ユーザーを指定</label><input class="js-user-query searchQuerySupport_input" placeholder="例) qiitan"></div><div class="searchQuerySupport_tagSearch"><label class="searchQuerySupport_label">タグを指定</label><input class="js-tag-query searchQuerySupport_input" placeholder="例) Ruby フレームワーク"></div><div class="searchQuerySupport_sort"><div class="searchQuerySupport_sortLabel">ソート</div><select class="js-sort-type" name="sort"><option selected="selected" value="rel">関連度順</option><option value="created">新規投稿順</option><option value="stock">ストック数降順</option></select></div><label class="checkbox searchQuerySupport_stocked"><input type="checkbox" name="stocked" id="stocked" value="1" class="js-stock-only searchQuerySupport_checkbox">ストックした投稿で絞り込む</label></div></div><input type="submit" name="commit" value="検索" class="btn btn-default btn-sm searchForm_submitBtn js-globalSearchForm_submitBtn"></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">募集</div><a target="_blank" class="navbar-link" href="https://www.wantedly.com/projects/26851">学生歓迎！アシスタントデザイナー募集</a></div><ul class="nav navbar-nav navbar-right navigationBar_menu"><li><a track="click" data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2F2dgames_jp%2Fitems%2Ff29e915357c1decbc4b7">ログイン</a></li></ul><a class="btn btn-warning navbar-btn navbar-right" track="click" data-event-name="Signup Button Click" data-label="SignupButtonAtNavbar" href="http://qiita.com/signup?redirect_to=%2F2dgames_jp%2Fitems%2Ff29e915357c1decbc4b7">ユーザ登録</a></div></header><div id="main"><ol class="itemBreadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="http://qiita.com/"><span itemprop="name">Qiita</span></a><meta content="1" itemprop="position"></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="http://qiita.com/items"><span itemprop="name">投稿</span></a><meta content="2" itemprop="position"></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="http://qiita.com/tags/%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0"><span itemprop="name">アルゴリズム</span></a><meta content="3" itemprop="position"></li></ol><article itemscope="" itemtype="http://schema.org/Article"><div class="itemsShowHeader"><div class="container"><div class="row"><div class="col-sm-9"><h1 class="itemsShowHeaderTitle_title" itemprop="name">よくわかるA*(A-star)アルゴリズム (Unity2Dのサンプルコードつき)</h1><ul class="list-unstyled list-inline itemsShowHeaderTags"><li class="itemsShowHeaderTags_list"><div class="tagIcon"><a class="tagIcon_base" href="http://qiita.com/tags/%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0"><img alt="アルゴリズム" class="tagIcon_img" src="./よくわかるA_(A-star)アルゴリズム_files/medium.jpg"><div class="tagIcon_name">アルゴリズム</div><div class="tagIcon_count">201</div></a></div></li><li class="itemsShowHeaderTags_list"><div class="tagIcon"><a class="tagIcon_base" href="http://qiita.com/tags/unity2d"><img alt="Unity2D" class="tagIcon_img" src="./よくわかるA_(A-star)アルゴリズム_files/medium(1).jpg"><div class="tagIcon_name">Unity2D</div><div class="tagIcon_version">4.6.1</div><div class="tagIcon_count">72</div></a></div></li><li class="itemsShowHeaderTags_list"><div class="tagIcon"><a class="tagIcon_base" href="http://qiita.com/tags/unity"><img alt="Unity" class="tagIcon_img" src="./よくわかるA_(A-star)アルゴリズム_files/medium(2).jpg"><div class="tagIcon_name">Unity</div><div class="tagIcon_version">4.6.1</div><div class="tagIcon_count">1273</div></a></div></li></ul><ul class="list-unstyled list-inline itemsShowHeaderTitle_status"><li><a href="http://qiita.com/2dgames_jp"><img class="itemsShowHeaderTitle_authorIcon" src="./よくわかるA_(A-star)アルゴリズム_files/2enmgxmb51efz44z1n2z_normal.png" alt="2enmgxmb51efz44z1n2z normal"></a><a href="http://qiita.com/2dgames_jp">2dgames_jp</a>が<time datetime="2015-01-19T08:41:58+09:00" itemprop="datePublished">2015/01/19</time>に投稿(<time datetime="2015-01-24T01:52:52+09:00" itemprop="dateModified">2015/01/24</time>に編集)</li><li><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7/revisions">編集履歴(2)</a></li><li class="hidden-xs"><a href="http://qiita.com/drafts/f29e915357c1decbc4b7/edit">編集リクエストを作成する</a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><i class="fa fa-stock"></i><span class="js-stocksCount">71</span></div><div class="itemsShowHeaderStock_countText">ストック</div></li><li><div class="itemsShowHeaderStock_count" content="0 UserComments" itemprop="interactionCount"><i class="fa fa-comment-o"></i>0</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul><span class="js-stockButton itemStockButton" data-counter=".js-stocksCount" data-path="/2dgames_jp/items/f29e915357c1decbc4b7" data-position="top" data-uuid="f29e915357c1decbc4b7"><form class="button_to" method="post" action="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7/stock"><button class="btn btn-default btn-block itemStockButton_button-stock" type="submit"><i class="fa fa-stock unstock hidden-sm"></i>ストック</button><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="></form><div class="btn btn-primary btn-block itemStockButton_button-stocking">ストック済み</div><form class="button_to" method="post" action="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7/unstock"><button class="btn btn-danger btn-block itemStockButton_button-unstock" type="submit">解除</button><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="></form></span></div><ul class="list-unstyled list-inline itemsShowHeaderStock_stockUsers"><li><a title="ww24" href="http://qiita.com/ww24"><img alt="ww24" src="./よくわかるA_(A-star)アルゴリズム_files/medium.png"></a></li><li><a title="yuunya" href="http://qiita.com/yuunya"><img alt="yuunya" src="./よくわかるA_(A-star)アルゴリズム_files/4e075d661a2b4c9adc8cd760e16bc377"></a></li><li><a title="p_nix" href="http://qiita.com/p_nix"><img alt="p_nix" src="./よくわかるA_(A-star)アルゴリズム_files/026_normal.JPG"></a></li><li><a title="moro84" href="http://qiita.com/moro84"><img alt="moro84" src="./よくわかるA_(A-star)アルゴリズム_files/04_normal.jpg"></a></li><li><a title="karinharp" href="http://qiita.com/karinharp"><img alt="karinharp" src="./よくわかるA_(A-star)アルゴリズム_files/gd5mrqfK_normal.png"></a></li><li><a title="abpla" href="http://qiita.com/abpla"><img alt="abpla" src="./よくわかるA_(A-star)アルゴリズム_files/d7ef8bdc6fad4e07cda1df2592354df0"></a></li><li><a title="sora0077@github" href="http://qiita.com/sora0077@github"><img alt="sora0077@github" src="./よくわかるA_(A-star)アルゴリズム_files/5010388ffe9101a3dfce88ef8816efc6"></a></li><li><a title="Favi_ty" href="http://qiita.com/Favi_ty"><img alt="Favi_ty" src="./よくわかるA_(A-star)アルゴリズム_files/22d4b538c49d91437820984b303e771d_normal.png"></a></li><li><a title="ktz_alias" href="http://qiita.com/ktz_alias"><img alt="ktz_alias" src="./よくわかるA_(A-star)アルゴリズム_files/y.upup.be2_normal.jpg"></a></li><li><a title="7L4QOI" href="http://qiita.com/7L4QOI"><img alt="7L4QOI" src="./よくわかるA_(A-star)アルゴリズム_files/kmaeda_z_160_normal.jpg"></a></li><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7/stockers"><i class="fa fa-ellipsis-h"></i></a></ul></div></div></div></div><div class="container itemsShowBody"><div class="row scroll-chaser-wrapper" style="position: relative;"><div class="col-sm-9 itemsShowBody_articleColumn"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-f29e915357c1decbc4b7" itemprop="articleBody"><h2>
+<span id="aa-starアルゴリズムとは" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#aa-star%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E3%81%A8%E3%81%AF"><i class="fa fa-link"></i></a>A*(A-star)アルゴリズムとは</h2>
+
+<p>A*アルゴリズムとは、探索アルゴリズムの一種です。経路をノードで表現して、スタートノード（開始地点）からゴールノード（目標地点）までの経路を計算し、この経路が最短であることを保証するアルゴリズムとなります。そしてスタートからゴールまでの間に障害物があってもちゃんと迂回してくれます。</p>
+
+<p><img src="./よくわかるA_(A-star)アルゴリズム_files/9b025efe-1ce1-255c-e330-f860ad5308b2.png" alt="astar.png"></p>
+
+<h2>
+<span id="サンプル" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB"><i class="fa fa-link"></i></a>サンプル</h2>
+
+<p>サンプルはこちらのページにあります。<br>
+<a href="http://2dgames.jp/unity/astar/">http://2dgames.jp/unity/astar/</a><br>
+ページを開くとランダムでスタートとゴールが決まり、キャラクターがゴールへ向かって動きます。ゴールにたどりつくと、「もう１回」ボタンが表示されるので、それを押すと再びスタートとゴールがランダムで配置されます。<br>
+なお、Unity(C#)で実装したプロジェクトつきです。こちらのソースコードは自由につかってもらって構いません。ただし画像の2次使用は禁止します。</p>
+
+<h2>
+<span id="aの実装" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#a%E3%81%AE%E5%AE%9F%E8%A3%85"><i class="fa fa-link"></i></a>A*の実装</h2>
+
+<h3>
+<span id="フィールドの定義" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AE%E5%AE%9A%E7%BE%A9"><i class="fa fa-link"></i></a>フィールドの定義</h3>
+
+<p>まずはフィールド（地形）をどのように探索するのかを定義します。<br>
+<img src="./よくわかるA_(A-star)アルゴリズム_files/de761546-4215-2140-c492-b6c8263c0aa5.png" alt="grid.png"><br>
+今回はわかりやすいように「5x5」の2次元のXYの正方形グリッドとしました。Sがスタート地点、Gがゴール、灰色の部分が移動不可能で、そして移動コストはすべて「1」となります。そして斜め移動を許可します。</p>
+
+<p>もし有機的で複雑な地形を扱う場合は、リンク付きノードの経路（リンクを管理する仕組み）を用意する必要があります。</p>
+
+<h3>
+<span id="ノードデータの設計" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%83%8E%E3%83%BC%E3%83%89%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E8%A8%AD%E8%A8%88"><i class="fa fa-link"></i></a>ノードデータの設計</h3>
+
+<p>通過可能なノードデータ (Nodeクラス) は以下のように定義します。</p>
+
+<ul>
+<li>XY座標</li>
+<li>ステータス（Nonw -&gt; Open -&gt; Closed)</li>
+<li>実コスト</li>
+<li>推定コスト（ヒューリスティック・コスト）</li>
+<li>親Nodeクラスのポインタ</li>
+</ul>
+
+<p>ステータスとはノードの状態をあらわします。初期状態はNoneとなっていて、Open、Closed、という状態へ遷移していきます。実コストは移動するための実際のコストです。推定コストというのがA*のキモとなります。これは「ゴールまでおそらくこれぐらいの移動コストがかかるだろう」という推測の値となります。最後の親Nodeポインタは、経路を求めるときに役に立ちます。</p>
+
+<h3>
+<span id="探索を開始" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E6%8E%A2%E7%B4%A2%E3%82%92%E9%96%8B%E5%A7%8B"><i class="fa fa-link"></i></a>探索を開始</h3>
+
+<p>まずはスタート地点 (1,1) のノードを作成し、状態をNoneからOpenにします。ノードをOpenするときに以下の処理を行います<br>
+<img src="./よくわかるA_(A-star)アルゴリズム_files/5cf139ef-fa45-c0ee-76d0-24432a6cae46.png" alt="grid2.png"></p>
+
+<ul>
+<li>実コストを求める（開始地点なので「0」）</li>
+<li>推定コストを求める
+
+<ul>
+<li>斜め移動を許可する場合は以下の式で求める (tx/tyはゴール、x/yは基準ノード)
+
+<ul>
+<li>dx = tx - x = (4 - 1) = 3</li>
+<li>dy = ty - y = (4 - 1) = 3</li>
+<li>dx と dy を比較して高い値が推定コストとなる (ここでは「3」が推定コストとなる）</li>
+</ul>
+</li>
+<li>なお縦横(4方向)移動のみ許可する場合、推定コストは dx + dy</li>
+</ul>
+</li>
+<li>スコアを求める
+
+<ul>
+<li>スコアの値は「実コスト＋推定コスト」= 0 + 3 = 3
+
+<ul>
+<li>よってスコアは「3」となる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>親Nodeポインタは開始地点なので null</li>
+</ul>
+
+<h3>
+<span id="周りをopenする" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%91%A8%E3%82%8A%E3%82%92open%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>周りをOpenする</h3>
+
+<p>次に周りをOpenします。</p>
+
+<p><img src="./よくわかるA_(A-star)アルゴリズム_files/33e3ebf5-440a-7cfb-a40b-b12d1fe12603.png" alt="grid3.png"></p>
+
+<p>斜め移動を許可しているので周り8方向を開きます。なお縦横移動のみ許可している場合は4方向だけ開きます。<br>
+周り8方向をOpenすると結果は以下のようになります。</p>
+
+<p><img src="./よくわかるA_(A-star)アルゴリズム_files/f8169ca7-d443-7abb-a700-3fbaad20ced2.png" alt="grid4.png"></p>
+
+<p>一歩進んだので、実コストが「1」増えています。今回はすべての移動コストを1としていますが、もし森は2必要、山岳は3必要、という数値があればそれを使用します。</p>
+
+<p>スタート地点のノードは、周りをOpenするという役目を終えたので、Closed状態にしておきます。なおOpenできるのは、「移動可能な地形かつNone状態のノード」のみとなります。</p>
+
+<p>そして、Openしたノードには親ノード（スタート地点のノード）のポインタを設定して、Openリストというものに入れておきます。これは次にOpenするノードの基準ノードを検索するための一時的な箱となります。</p>
+
+<h3>
+<span id="基準ノードの判定" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%88%A4%E5%AE%9A"><i class="fa fa-link"></i></a>基準ノードの判定</h3>
+
+<p>基準ノードの判定は、「スコアが最も小さいノード」を選びます。ここまででは(1,2)のスコア(S)が「4」となっており最小です。なので、このノードの周りをOpenします。</p>
+
+<p><img src="./よくわかるA_(A-star)アルゴリズム_files/0a227828-2eef-4f11-991d-cab67dff1654.png" alt="grid5.png"></p>
+
+<p>とは言うもののOpenできるのは(0,3)のみです。ここをOpenするとスコアは6になります。なお基準ノードは周りをOpenしたらClosedにしておきます。</p>
+
+<p>そうするとスコアが「5」のものがいくつか存在します。どれも周りにOpenできるものがないので次々にClosedしていきます。このように「基準ノードを検索 &gt; 周りをOpen &gt; 基準ノードをClosed」を繰り返していきます。</p>
+
+<h3>
+<span id="基準ノードを検索--周りをopen--基準ノードをclosedを繰り返すと" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%82%92%E6%A4%9C%E7%B4%A2--%E5%91%A8%E3%82%8A%E3%82%92open--%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%82%92closed%E3%82%92%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%99%E3%81%A8"><i class="fa fa-link"></i></a>「基準ノードを検索 &gt; 周りをOpen &gt; 基準ノードをClosed」を繰り返すと……</h3>
+
+<p><img src="./よくわかるA_(A-star)アルゴリズム_files/6cae69de-2078-caf3-70c5-1dbf8abd7928.png" alt="grid6.png"></p>
+
+<p>こんな感じでゴールまでたどりつくことができます。</p>
+
+<h3>
+<span id="経路を取得するには" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E7%B5%8C%E8%B7%AF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF"><i class="fa fa-link"></i></a>経路を取得するには</h3>
+
+<p>ゴール座標にたどりついたとき、ゴールノードを取得できているはずです。このノードから親ノードポインタを再帰的にたどると、スタートノードまでたどりつきます。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre> ゴール ...................................... スタート
+ (4,4) -&gt; (4,3) -&gt; (3,2) -&gt; (3,1) -&gt; (2,0) -&gt; (1,1)
+</pre></div></div>
+
+<p>これはC#のコードであれば、以下のように記述できるはずです。</p>
+
+<div class="code-frame" data-lang="csharp"><div class="highlight"><pre><span class="c1">/// パスを取得する</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">GetPath</span><span class="p">(</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Point2</span><span class="p">&gt;</span> <span class="n">pList</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// リストに座標情報を追加していく</span>
+  <span class="n">pList</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">Point2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">));</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">_parent</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 再帰的に親ノードをたどる</span>
+    <span class="n">_parent</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(</span><span class="n">pList</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p>これで逆順の座標リストが手に入るので、あとはList.Reverse()してやると、スタート地点の座標からゴール地点までの座標リストとなります。</p>
+
+<p>以上で、A*アルゴリズムの実装方法の説明は終わりとなります。</p>
+
+<hr>
+
+<p>＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃<br>
+以下は補足事項です<br>
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃</p>
+
+<hr>
+
+<h2>
+<span id="最適化のヒント" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E3%83%92%E3%83%B3%E3%83%88"><i class="fa fa-link"></i></a>最適化のヒント</h2>
+
+<p>A*は結構重たい処理でCPU時間をかなり消費します。そのため実際にゲームに組み込む場合は以下のことに注意します</p>
+
+<ul>
+<li>計算で求めた移動経路はキャッシュしておく（毎フレーム計算しないようにする）</li>
+<li>時間がかかる場合には、途中で計算をやめて次フレームに処理をまわす</li>
+<li>遠すぎる場合は計算しない。他のAIルーチン（巡回ルートを通るなど）に切り替えるようにする
+
+<ul>
+<li>遠すぎる場合は途中まで計算して、その暫定結果から経路を決める、という方法もあります (最短ではないもののある程度は正しい経路となる)
+
+<ul>
+<li> ただし、迷路のような障害物が多い場合はうまくいきませんが……</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>そしてやや高度なテクニックですが、「グリッドよりも大きく空間分割して計算量を減らす」という方法もあります。</p>
+
+<h2>
+<span id="サンプルコードの簡単な説明" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%B0%A1%E5%8D%98%E3%81%AA%E8%AA%AC%E6%98%8E"><i class="fa fa-link"></i></a>サンプルコードの簡単な説明</h2>
+
+<p>サンプルコードのC#の簡単な説明は以下のとおりです</p>
+
+<ul>
+<li>AStar.cs : A*計算モジュール
+
+<ul>
+<li>ANodeクラス: A*ノード</li>
+<li>ANodeMgrクラス: A*ノード管理クラス</li>
+</ul>
+</li>
+<li>Token.cs : ゲームオブジェクト</li>
+<li>TokenMgr.cs : ゲームオブジェクト管理</li>
+<li>Layer2D.cs : 2次元配列管理</li>
+<li>TMXLoader.cs : Tiled Map Editor読み込みモジュール</li>
+<li>Util.cs : ユーティリティ</li>
+</ul>
+
+<h2>
+<span id="スコアが同じ場合の計算優先順位" class="fragment"></span><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B9%E3%82%B3%E3%82%A2%E3%81%8C%E5%90%8C%E3%81%98%E5%A0%B4%E5%90%88%E3%81%AE%E8%A8%88%E7%AE%97%E5%84%AA%E5%85%88%E9%A0%86%E4%BD%8D"><i class="fa fa-link"></i></a>スコアが同じ場合の計算優先順位</h2>
+
+<p>本文では説明しませんでしたが、 <strong>スコアが同じ場合、実コストを優先して基準ノードとしないと最短ルートとならない</strong> ケースがあります。たとえば以下のように判定を入れる必要があります</p>
+
+<div class="code-frame" data-lang="csharp"><div class="highlight"><pre><span class="c1">/// 最小スコアのノードを取得する.</span>
+<span class="k">public</span> <span class="n">ANode</span> <span class="nf">SearchMinScoreNodeFromOpenList</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 最小スコア</span>
+  <span class="kt">int</span> <span class="n">min</span> <span class="p">=</span> <span class="m">9999</span><span class="p">;</span>
+  <span class="c1">// 最小実コスト</span>
+  <span class="kt">int</span> <span class="n">minCost</span> <span class="p">=</span> <span class="m">9999</span><span class="p">;</span>
+  <span class="n">ANode</span> <span class="n">minNode</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+  <span class="k">foreach</span><span class="p">(</span><span class="n">ANode</span> <span class="n">node</span> <span class="k">in</span> <span class="n">_openList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">score</span> <span class="p">=</span> <span class="n">node</span><span class="p">.</span><span class="n">GetScore</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">score</span> <span class="p">&gt;</span> <span class="n">min</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// スコアが大きい</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">score</span> <span class="p">==</span> <span class="n">min</span> <span class="p">&amp;&amp;</span> <span class="n">node</span><span class="p">.</span><span class="n">Cost</span> <span class="p">&gt;=</span> <span class="n">minCost</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// スコアが同じときは実コストも比較する</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 最小値更新.</span>
+    <span class="n">min</span> <span class="p">=</span> <span class="n">score</span><span class="p">;</span>
+    <span class="n">minCost</span> <span class="p">=</span> <span class="n">node</span><span class="p">.</span><span class="n">Cost</span><span class="p">;</span>
+    <span class="n">minNode</span> <span class="p">=</span> <span class="n">node</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">minNode</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p>この理屈ですが、推定コストはあくまで推定なので、スコアが同じ場合は実コストを優先して処理したほうがうまくいく、ということとなります。</p>
+<div class="hidden"><form class="js-task-list-update" action="./よくわかるA_(A-star)アルゴリズム_files/よくわかるA_(A-star)アルゴリズム.html" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1422031972" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">## A*(A-star)アルゴリズムとは
+A*アルゴリズムとは、探索アルゴリズムの一種です。経路をノードで表現して、スタートノード（開始地点）からゴールノード（目標地点）までの経路を計算し、この経路が最短であることを保証するアルゴリズムとなります。そしてスタートからゴールまでの間に障害物があってもちゃんと迂回してくれます。
+
+![astar.png](https://qiita-image-store.s3.amazonaws.com/0/43772/9b025efe-1ce1-255c-e330-f860ad5308b2.png)
+
+## サンプル
+サンプルはこちらのページにあります。
+http://2dgames.jp/unity/astar/
+ページを開くとランダムでスタートとゴールが決まり、キャラクターがゴールへ向かって動きます。ゴールにたどりつくと、「もう１回」ボタンが表示されるので、それを押すと再びスタートとゴールがランダムで配置されます。
+なお、Unity(C#)で実装したプロジェクトつきです。こちらのソースコードは自由につかってもらって構いません。ただし画像の2次使用は禁止します。
+
+## A*の実装
+### フィールドの定義
+まずはフィールド（地形）をどのように探索するのかを定義します。
+![grid.png](https://qiita-image-store.s3.amazonaws.com/0/43772/de761546-4215-2140-c492-b6c8263c0aa5.png)
+今回はわかりやすいように「5x5」の2次元のXYの正方形グリッドとしました。Sがスタート地点、Gがゴール、灰色の部分が移動不可能で、そして移動コストはすべて「1」となります。そして斜め移動を許可します。
+
+もし有機的で複雑な地形を扱う場合は、リンク付きノードの経路（リンクを管理する仕組み）を用意する必要があります。
+
+### ノードデータの設計
+通過可能なノードデータ (Nodeクラス) は以下のように定義します。
+
+* XY座標
+* ステータス（Nonw -&gt; Open -&gt; Closed)
+* 実コスト
+* 推定コスト（ヒューリスティック・コスト）
+* 親Nodeクラスのポインタ
+
+ステータスとはノードの状態をあらわします。初期状態はNoneとなっていて、Open、Closed、という状態へ遷移していきます。実コストは移動するための実際のコストです。推定コストというのがA*のキモとなります。これは「ゴールまでおそらくこれぐらいの移動コストがかかるだろう」という推測の値となります。最後の親Nodeポインタは、経路を求めるときに役に立ちます。
+
+### 探索を開始
+まずはスタート地点 (1,1) のノードを作成し、状態をNoneからOpenにします。ノードをOpenするときに以下の処理を行います
+![grid2.png](https://qiita-image-store.s3.amazonaws.com/0/43772/5cf139ef-fa45-c0ee-76d0-24432a6cae46.png)
+
+* 実コストを求める（開始地点なので「0」）
+* 推定コストを求める
+    * 斜め移動を許可する場合は以下の式で求める (tx/tyはゴール、x/yは基準ノード)
+        * dx = tx - x = (4 - 1) = 3
+        * dy = ty - y = (4 - 1) = 3
+        * dx と dy を比較して高い値が推定コストとなる (ここでは「3」が推定コストとなる）
+    * なお縦横(4方向)移動のみ許可する場合、推定コストは dx + dy
+* スコアを求める
+    * スコアの値は「実コスト＋推定コスト」= 0 + 3 = 3
+        * よってスコアは「3」となる
+* 親Nodeポインタは開始地点なので null
+
+### 周りをOpenする
+次に周りをOpenします。
+
+![grid3.png](https://qiita-image-store.s3.amazonaws.com/0/43772/33e3ebf5-440a-7cfb-a40b-b12d1fe12603.png)
+
+斜め移動を許可しているので周り8方向を開きます。なお縦横移動のみ許可している場合は4方向だけ開きます。
+周り8方向をOpenすると結果は以下のようになります。
+
+![grid4.png](https://qiita-image-store.s3.amazonaws.com/0/43772/f8169ca7-d443-7abb-a700-3fbaad20ced2.png)
+
+一歩進んだので、実コストが「1」増えています。今回はすべての移動コストを1としていますが、もし森は2必要、山岳は3必要、という数値があればそれを使用します。
+
+スタート地点のノードは、周りをOpenするという役目を終えたので、Closed状態にしておきます。なおOpenできるのは、「移動可能な地形かつNone状態のノード」のみとなります。
+
+そして、Openしたノードには親ノード（スタート地点のノード）のポインタを設定して、Openリストというものに入れておきます。これは次にOpenするノードの基準ノードを検索するための一時的な箱となります。
+
+### 基準ノードの判定
+基準ノードの判定は、「スコアが最も小さいノード」を選びます。ここまででは(1,2)のスコア(S)が「4」となっており最小です。なので、このノードの周りをOpenします。
+
+![grid5.png](https://qiita-image-store.s3.amazonaws.com/0/43772/0a227828-2eef-4f11-991d-cab67dff1654.png)
+
+とは言うもののOpenできるのは(0,3)のみです。ここをOpenするとスコアは6になります。なお基準ノードは周りをOpenしたらClosedにしておきます。
+
+そうするとスコアが「5」のものがいくつか存在します。どれも周りにOpenできるものがないので次々にClosedしていきます。このように「基準ノードを検索 &gt; 周りをOpen &gt; 基準ノードをClosed」を繰り返していきます。
+
+### 「基準ノードを検索 &gt; 周りをOpen &gt; 基準ノードをClosed」を繰り返すと……
+
+![grid6.png](https://qiita-image-store.s3.amazonaws.com/0/43772/6cae69de-2078-caf3-70c5-1dbf8abd7928.png)
+
+こんな感じでゴールまでたどりつくことができます。
+
+### 経路を取得するには
+ゴール座標にたどりついたとき、ゴールノードを取得できているはずです。このノードから親ノードポインタを再帰的にたどると、スタートノードまでたどりつきます。
+
+```
+ ゴール ...................................... スタート
+ (4,4) -&gt; (4,3) -&gt; (3,2) -&gt; (3,1) -&gt; (2,0) -&gt; (1,1)
+```
+
+これはC#のコードであれば、以下のように記述できるはずです。
+
+```csharp
+/// パスを取得する
+public void GetPath(List&lt;Point2&gt; pList) {
+  // リストに座標情報を追加していく
+  pList.Add(new Point2(X, Y));
+  if(_parent != null) {
+    // 再帰的に親ノードをたどる
+    _parent.GetPath(pList);
+  }
+}
+```
+
+これで逆順の座標リストが手に入るので、あとはList.Reverse()してやると、スタート地点の座標からゴール地点までの座標リストとなります。
+
+以上で、A*アルゴリズムの実装方法の説明は終わりとなります。
+
+-----
+
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+以下は補足事項です
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+
+-----
+
+## 最適化のヒント
+A*は結構重たい処理でCPU時間をかなり消費します。そのため実際にゲームに組み込む場合は以下のことに注意します
+
+* 計算で求めた移動経路はキャッシュしておく（毎フレーム計算しないようにする）
+* 時間がかかる場合には、途中で計算をやめて次フレームに処理をまわす
+* 遠すぎる場合は計算しない。他のAIルーチン（巡回ルートを通るなど）に切り替えるようにする
+    * 遠すぎる場合は途中まで計算して、その暫定結果から経路を決める、という方法もあります (最短ではないもののある程度は正しい経路となる)
+        *  ただし、迷路のような障害物が多い場合はうまくいきませんが……
+
+そしてやや高度なテクニックですが、「グリッドよりも大きく空間分割して計算量を減らす」という方法もあります。
+
+## サンプルコードの簡単な説明
+サンプルコードのC#の簡単な説明は以下のとおりです
+
+* AStar.cs : A*計算モジュール
+    * ANodeクラス: A*ノード
+    * ANodeMgrクラス: A*ノード管理クラス
+* Token.cs : ゲームオブジェクト
+* TokenMgr.cs : ゲームオブジェクト管理
+* Layer2D.cs : 2次元配列管理
+* TMXLoader.cs : Tiled Map Editor読み込みモジュール
+* Util.cs : ユーティリティ
+
+## スコアが同じ場合の計算優先順位
+
+本文では説明しませんでしたが、 **スコアが同じ場合、実コストを優先して基準ノードとしないと最短ルートとならない** ケースがあります。たとえば以下のように判定を入れる必要があります
+
+```csharp
+/// 最小スコアのノードを取得する.
+public ANode SearchMinScoreNodeFromOpenList() {
+  // 最小スコア
+  int min = 9999;
+  // 最小実コスト
+  int minCost = 9999;
+  ANode minNode = null;
+  foreach(ANode node in _openList) {
+    int score = node.GetScore();
+    if(score &gt; min) {
+      // スコアが大きい
+      continue;
+    }
+    if(score == min &amp;&amp; node.Cost &gt;= minCost) {
+      // スコアが同じときは実コストも比較する
+      continue;
+    }
+
+    // 最小値更新.
+    min = score;
+    minCost = node.Cost;
+    minNode = node;
+  }
+  return minNode;
+}
+```
+
+この理屈ですが、推定コストはあくまで推定なので、スコアが同じ場合は実コストを優先して処理したほうがうまくいく、ということとなります。
+</textarea><input type="submit" name="commit" value="Save changes"></form></div></section><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i>この記事は以下の記事からリンクされています</li><li class="references_reference js-reference"><a href="http://qiita.com/2dgames_jp/items/1730e7c4822091c3c320"><img src="./よくわかるA_(A-star)アルゴリズム_files/2enmgxmb51efz44z1n2z_normal.png" alt="2enmgxmb51efz44z1n2z normal">ローグライクを作ったので開発手順をまとめてみた</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-08-31T04:28:12+00:00" title="2015/8/31 13:28:12">約2ヶ月前</time></li></ul>  <div class="text-advertisement">
+      <span class="label label-info">PR</span>
+      <a target="_blank" id="ad-48" href="https://teams.qiita.com/?utm_content=48&utm_medium=text&utm_source=qiita">社内メールでの情報共有をなくそう - Qiita:Team</a>
+  </div>
+  <script>
+    $(function() {
+      'use strict';
+      Qiita.analysis.showAdvertisement({ adId: 48 })
+      $('#ad-48').click(function() {
+        Qiita.analysis.clickAdvertisement({
+          type:  'text',
+          place: 'bottom',
+          adId:  48
+        })
+      });
+    });
+  </script>
+<div class="itemsShowComment"><div class="itemsShowComment_wrapper" id="comments"><div class="js-comments"></div><div class="itemsShowCommentSignupOrLogin"><div class="itemsShowCommentSignupOrLogin_title">あなたもコメントしてみませんか :)</div><a class="btn btn-primary" track="click" data-label="RegisterToComment" href="http://qiita.com/signup?redirect_to=%2F2dgames_jp%2Fitems%2Ff29e915357c1decbc4b7%23comments">ユーザー登録(無料)</a><div class="itemsShowCommentSignupOrLogin_sub">すでにアカウントを持っている方は<a href="http://qiita.com/login?redirect_to=%2F2dgames_jp%2Fitems%2Ff29e915357c1decbc4b7%23comments">ログイン</a></div></div></div></div></div><div class="col-sm-3 itemsShowBody_subColumn"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./よくわかるA_(A-star)アルゴリズム_files/tweet_button.a428ab2e859e8008e0df5404770eb017.en.html" style="position: static; visibility: visible; width: 81px; height: 20px;" data-url="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="50" height="20" src="javascript:false" style="width: 50px; height: 20px;"></iframe><script async="async" charset="utf-8" src="./よくわかるA_(A-star)アルゴリズム_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1444914902974" name="I0_1444914902974" src="./よくわかるA_(A-star)アルゴリズム_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div></div><script>$(function() {
+  // Web Intents Javascript Events : https://dev.twitter.com/docs/intents/events#waiting-for-asynchronous-resources
+  twttr.ready(function (twttr) {
+    twttr.events.bind('tweet', function(event) {
+      if (event) {
+        Qiita.Mixpanel.tweetAnItem({ uuid: "f29e915357c1decbc4b7" });
+        ga('send', 'social', 'twitter', 'tweet', 'http://qiita.com');
+        $.ajax({
+          type: 'POST',
+          url: '/notifications',
+          data: {
+            notification: {
+              verb: 'tweet',
+              uuid: "f29e915357c1decbc4b7"
+            }
+          }
+        });
+      }
+    });
+    twttr.events.bind('click', function (e) {
+      if (e) {
+        ga('send', 'social', 'twitter', 'click', 'http://qiita.com');
+      }
+    });
+  });
+});</script><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/2dgames_jp"><img alt="2dgames_jp" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./よくわかるA_(A-star)アルゴリズム_files/2enmgxmb51efz44z1n2z_normal.png"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/2dgames_jp">2dgames_jp</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">1389</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><span class="js-userFollowButton userFollowButton" data-position="author-info" data-url-name="2dgames_jp"><form class="button_to" method="post" action="http://qiita.com/2dgames_jp/follow"><button class="btn btn-default btn-block userFollowButton_button-follow btn-xs" type="submit"><i class="fa fa-user-plus"></i>フォロー</button><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="></form><div class="btn btn-primary btn-block userFollowButton_button-following btn-xs">フォロー中</div><form class="button_to" method="post" action="http://qiita.com/2dgames_jp/unfollow"><button class="btn btn-danger btn-block userFollowButton_button-unfollow btn-xs" type="submit">解除</button><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="></form></span></div><section class="itemsShowAuthorPopularItems"><h6 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h6><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"><a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/2dgames_jp/items/33fe3ae428db36179365">Unityでタワーディフェンスを作ったのでアルゴリズムや手順を公開</a></li><li itemscope="" itemtype="http://schema.org/Article"><a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/2dgames_jp/items/11bb76167fb44bb5af5f">【Unity2D】Unityで2Dミニゲームを作るチュートリアル（第１回）</a></li><li itemscope="" itemtype="http://schema.org/Article"><a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/2dgames_jp/items/00ee2ad52914753bfbb7">不思議なダンジョンの作り方 (Unity2Dサンプルコードつき)</a></li><li itemscope="" itemtype="http://schema.org/Article"><a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/2dgames_jp/items/c2604084a6c6b5551feb">ゲーム開発環境をWindowsからMacへ移行するための代替ツール</a></li><li itemscope="" itemtype="http://schema.org/Article"><a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="./よくわかるA_(A-star)アルゴリズム_files/よくわかるA_(A-star)アルゴリズム.html">よくわかるA*(A-star)アルゴリズム (Unity2Dのサンプルコードつき)</a></li></ul></section></section><div style="position: relative; top: 0px; height: 0px;"></div><div class="scroll-chaser" style="width: 270px; position: fixed; top: 10px;">  <div class="banner-advertisement">
+      <a target="_blank" id="ad-53" href="http://shop.qiita.com/?utm_content=53&utm_medium=banner&utm_source=qiita">
+        <img src="./よくわかるA_(A-star)アルゴリズム_files/tshrit-banner-1887b87e263189c31b06713e596f4309.gif">
+</a>  </div>
+  <script>
+    $(function() {
+      'use strict';
+      Qiita.analysis.showAdvertisement({ adId: 53 })
+      $('#ad-53').click(function() {
+        Qiita.analysis.clickAdvertisement({
+          type:  'banner',
+          place: 'sidebar',
+          adId:  53
+        })
+      });
+    });
+  </script>
+<div class="tocTree"><div class="tocTree_contents js-tocTreeContents" style="max-height: 655px;"><ul class="nav"><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#aa-star%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E3%81%A8%E3%81%AF" track="click" data-label="TOC">
+A*(A-star)アルゴリズムとは</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB" track="click" data-label="TOC">
+サンプル</a></li><li class="active"><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#a%E3%81%AE%E5%AE%9F%E8%A3%85" track="click" data-label="TOC">
+A*の実装</a><ul class="nav"><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AE%E5%AE%9A%E7%BE%A9" track="click" data-label="TOC">
+フィールドの定義</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%83%8E%E3%83%BC%E3%83%89%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E8%A8%AD%E8%A8%88" track="click" data-label="TOC">
+ノードデータの設計</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E6%8E%A2%E7%B4%A2%E3%82%92%E9%96%8B%E5%A7%8B" track="click" data-label="TOC">
+探索を開始</a></li><li class="active"><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%91%A8%E3%82%8A%E3%82%92open%E3%81%99%E3%82%8B" track="click" data-label="TOC">
+周りをOpenする</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%81%AE%E5%88%A4%E5%AE%9A" track="click" data-label="TOC">
+基準ノードの判定</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%82%92%E6%A4%9C%E7%B4%A2--%E5%91%A8%E3%82%8A%E3%82%92open--%E5%9F%BA%E6%BA%96%E3%83%8E%E3%83%BC%E3%83%89%E3%82%92closed%E3%82%92%E7%B9%B0%E3%82%8A%E8%BF%94%E3%81%99%E3%81%A8" track="click" data-label="TOC">
+「基準ノードを検索 &gt; 周りをOpen &gt; 基準ノードをClosed」を繰り返すと……</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E7%B5%8C%E8%B7%AF%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF" track="click" data-label="TOC">
+経路を取得するには</a></li></ul></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%AE%E3%83%92%E3%83%B3%E3%83%88" track="click" data-label="TOC">
+最適化のヒント</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E7%B0%A1%E5%8D%98%E3%81%AA%E8%AA%AC%E6%98%8E" track="click" data-label="TOC">
+サンプルコードの簡単な説明</a></li><li class=""><a href="http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7#%E3%82%B9%E3%82%B3%E3%82%A2%E3%81%8C%E5%90%8C%E3%81%98%E5%A0%B4%E5%90%88%E3%81%AE%E8%A8%88%E7%AE%97%E5%84%AA%E5%85%88%E9%A0%86%E4%BD%8D" track="click" data-label="TOC">
+スコアが同じ場合の計算優先順位</a></li></ul></div></div><div class="js-tocAnchor"></div></div></div></div></div></article><script id="js-item" type="application/json">{ "url": "http://qiita.com/2dgames_jp/items/f29e915357c1decbc4b7", "id": 232542, "uuid": "f29e915357c1decbc4b7" }</script><script class="js-user" type="application/json">{&quot;id&quot;:43772,&quot;url_name&quot;:&quot;2dgames_jp&quot;,&quot;profile_image_url&quot;:&quot;https://pbs.twimg.com/profile_images/2373292135/2enmgxmb51efz44z1n2z_normal.png&quot;}</script></div><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2015 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a href="http://career.qiita.com/">Career</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href=""><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="rBc3tPccRN+RyaRLwlmf6RBN2z0pUBVJ5P/czaxxl6+QYcVNW7SahGPg2ZvlVYN1K059zQKxFGKhs/9kITPXsA=="><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>if (window.mixpanel instanceof Element) {
+  window.mixpanel = [];
+}
+(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./よくわかるA_(A-star)アルゴリズム_files/vendor-a645d16ca24ecf10cafec5640841b52a.js"></script><script src="./よくわかるA_(A-star)アルゴリズム_files/application-9df06eebab51328edc323027a7fed5d2.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="./よくわかるA_(A-star)アルゴリズム_files/jb3BUxkAISL.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="./よくわかるA_(A-star)アルゴリズム_files/jb3BUxkAISL(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script>(function (I18n) {
+  var match, orig;
+  I18n.defaultLocale = "ja";
+  I18n.fallbacks = true;
+  if (match = location.search.match(/(?:\?|&)locale=([^&]+)/)) {
+    I18n.locale = match[1];
+    orig = $.ajax;
+    $.ajax = function (params) {
+      params.data || (params.data = {});
+      params.data.locale = match[1];
+      return orig.call($, params);
+    };
+  } else {
+    I18n.locale = "ja";
+  }
+})(I18n);</script><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<iframe name="oauth2relay587430334" id="oauth2relay587430334" src="./よくわかるA_(A-star)アルゴリズム_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

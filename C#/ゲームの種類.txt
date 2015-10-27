@@ -1,4 +1,8 @@
 
+・F2P
+　Free-to-Playの略。無料のゲーム全般のこと。
+　皮肉で課金ゲーの事をPlay-to-Win(課金したヤツが勝つ)という。
+
 ・ローグライクゲーム（英：Roguelike game）
 　ローグに類似した性質、設計を持つコンピュータRPGの総称。
 　ローグその物を再現・移植したゲームは「ローグクローン」
@@ -22,11 +26,6 @@
 ・MMORPG（Massively Multiplayer Online Role-Playing Game））
 　多人数参加型オンラインRPG
 　多人数でチーム組んで狩りをしたりボスを倒すようなRPG
-
-・RTS（Real-Time-Strategy-Games）
-　自分の経済や国家を作り上げる作業や攻撃守備といった戦争行為、
-　また新天地や重要な物を見つけるといった索敵や探索をリアルタイムで
-　行うゲーム
 
 ・FPS（First Person shooter）
 　一人称視点のシューティングゲーム

@@ -1,0 +1,46 @@
+参考：http://kan-kikuchi.hatenablog.com/entry/photonBasic
+
+① OnPhotonSerializeViewを使う
+② RPCを使う
+
+①
+public class NetworkPlayer : Photon.MonoBehaviour
+{
+    void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info)
+    {
+        //データを送る
+        if (stream.isWriting)
+        {
+           //現在地と角度を送信
+           stream.SendNext (transform.position);
+           stream.SendNext (transform.rotation);
+        } 
+        //データを受け取る
+        else
+        {
+            //現在地と角度を受信
+            this.correctPlayerPos = (Vector3)stream.ReceiveNext ();
+            this.correctPlayerRot = (Quaternion)stream.ReceiveNext ();
+        }
+    }
+}
+
+②
+    // データを受信する
+    [PunRPC]
+    public void RecivedCompUnitPlaceRPC(bool isCompEnemy, PhotonMessageInfo inf)
+    {
+        isCompleteEnemySide = isCompEnemy;
+    }
+    // データを送信する
+    [PunRPC]
+    public void SendCompUnitPlaceRPC()
+    {
+        // ターン判定フラグを送信
+        photonView.RPC("RecivedCompunitPlaceRPC", PhotonTargets.Others, (bool)true);
+
+        // 自分側初期配置完了有無判定をtrueに設定
+        isCompleteMySide = true;
+    }
+
+

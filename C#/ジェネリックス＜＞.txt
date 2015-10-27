@@ -1,17 +1,30 @@
 
-・ 型だけ違って処理の内容が同じようなものを作るときに使う
-・比較などの演算子は使えなくなってしまうので、 わざわざ CompareTo を使う必要があったりする
+・様々な型に対応するため、型をパラメータ(型引数)として受けてその型によって処理を生成する機能
 
-・ジェネリッククラス： IComparable<T> { int CompareTo(T x, T y); }
-・ジェネリックメソッド： T max<T>(T x, T y) { ... }
+・ジェネリックの利点は要素・方式・操作などの直交性を最大限に高めること
 
+・型だけ違って処理の内容が同じようなものを作るときに使う
+
+・型引数で与えた型でメソッド呼び出しをしたい場合などにはwhereを使って型に制約条件を付加する
+　付加できる制約条件は（型引数をTとすると）以下の5つ
+	where T : struct	型Tは「値型」である
+	where T : class		型Tは「参照型」である
+	where T : new()		引数なしのコンストラクタを持つ。他の制約条件と同時に課す場合には、一番最後に指定する必要がある。
+	where T : [base class]	型Tは[base class]で指定された型を継承する。
+				　例）MonoBehaviourの機能を使う場合は「where : MonoBehaviour」
+	where T : [interface]	型Tは[interface]で指定されたインターフェースを実装する。
+
+・class Stack<Type> として定義したジェネリッククラスに対して具体的な型intを与え
+　class Stack<int> というクラスを作ることを「int で Stack をインスタンス化する」と言う
+
+※知っておくべきジェネリック関連用語：型引数、制約条件、インスタンス化
 
 参考：http://ufcpp.net/study/csharp/sp2_generics.html
 
 
 	void Start()
 	{
-		indexPair(card1); // ジェネリックスメソッドコールするとこは何もしなくていい
+		indexPair(card1); // ジェネリックメソッドコールするとこは何もしなくていい
 		indexPair(card2);
 	}
 

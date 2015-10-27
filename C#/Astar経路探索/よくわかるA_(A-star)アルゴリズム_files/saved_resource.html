@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)http://cdn.api.b.hatena.ne.jp/entry/button/?url=http%3A%2F%2Fqiita.com%2F2dgames_jp%2Fitems%2Ff29e915357c1decbc4b7 -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+  <link rel="canonical" href="http://b.hatena.ne.jp/entry/qiita.com/2dgames_jp/items/f29e915357c1decbc4b7">
+  <title>はてなブックマークボタン</title>
+  <link rel="stylesheet" href="reset.css" type="text/css" media="all">
+  <link rel="stylesheet" href="entry-button.css" type="text/css" media="all">
+  <script>
+    function postMessageToParentWin(type, dataStr, useFallback) {
+        var match = window.name.match(/^(\w+)\|((https?:\/\/[^\/?#]+)[^#]*)/);
+        if (!match) return;
+        if (window.postMessage) {
+            window.parent.postMessage('HBMessage@{"type": "' + type + '", "data": ' + dataStr + '}', match[3]);
+            return;
+        }
+        if (useFallback) {
+            var url = match[2] + "#HBMessage-" + match[1] + "-" + type + "/" + dataStr;
+            try {
+                window.parent.location.replace(url);
+            } catch (ex) {
+                window.parent.location.href = url;
+            }
+        }
+    }
+    function clickHandler() {
+        postMessageToParentWin("click", "null", true);
+    }
+  </script>
+  </head><body onkeypress="if (event.keyCode === 13) { clickHandler(); return false; }">
+    <a href="http://b.hatena.ne.jp/entry/qiita.com/2dgames_jp/items/f29e915357c1decbc4b7" class="button-container button-counter" target="_top" title="このエントリーをはてなブックマークに追加 (5 users)" onclick="if ((event.which || event.button) &lt;= 1) { clickHandler(); return false; }">
+      <img class="button-image" src="button-counter.gif" alt="B!">
+      <span class="counter-container counter-hot3">
+        <span class="counter">5</span>
+      </span>
+    </a>
+  
+
+</body></html>
