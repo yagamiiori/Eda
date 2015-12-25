@@ -1,0 +1,652 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0048)http://kan-kikuchi.hatenablog.com/entry/RayCast4 -->
+<!DOCTYPE html PUBLIC "" ""><HTML lang="ja" data-globalheader-type="pc" 
+data-device="pc" itemtype="http://schema.org/Article" itemscope="" 
+data-has-touch-view="1" data-brand="hatenablog" data-admin-domain="http://blog.hatena.ne.jp" 
+data-hide-header="1" data-plus-available="1" data-blog-comments-top-is-new="1" 
+data-version="3e88489c13c1598e05fcaa1dd08492e1" data-author="kan_kikuchi" 
+data-globalheader-color="b" data-blogs-uri-base="http://kan-kikuchi.hatenablog.com" 
+data-blog-name="(:3[kanのメモ帳]" data-blog="kan-kikuchi.hatenablog.com" 
+data-static-domain="https://blog.st-hatena.com" data-page="entry" 
+data-avail-langs="ja en"><HEAD prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+                 
+<META charset="utf-8">     
+<META http-equiv="X-UA-Compatible" content="IE=7; IE=9; IE=10; IE=11">     
+<TITLE>RayCastその4、Raycastを2Dで使う【Unity】 - (:3[kanのメモ帳]</TITLE>               
+<LINK href="http://kan-kikuchi.hatenablog.com/entry/RayCast4" rel="canonical">   
+      
+<META content="RayCastその4、Raycastを2Dで使う【Unity】 - (:3[kanのメモ帳]" itemprop="name">  
+         
+<META content="http://cdn-ak.f.st-hatena.com/images/fotolife/k/kan_kikuchi/20150729/20150729214025.gif" 
+itemprop="image">         
+<META content="RayCastその4、Raycastを2Dで使う【Unity】 - (:3[kanのメモ帳]" property="og:title"> 
+    
+<META content="article" property="og:type">     
+<META content="http://kan-kikuchi.hatenablog.com/entry/RayCast4" property="og:url"> 
+          
+<META content="http://cdn-ak.f.st-hatena.com/images/fotolife/k/kan_kikuchi/20150729/20150729214025.gif" 
+property="og:image">             
+<META content="この記事でのバージョン Unity 5.1.0f3 Personal RayCastシリーズ 1.使い方 2.衝突するオブジェクトの制限 3.Rayを画面に表示 4.2Dで使う はじめに RayCastシリーズ、前回はRayを画面に表示する記事でした。 RayCastその3、Rayを画面に表示【Unity】 - (:3[kanのメモ帳] 4回目の今回はRaycastを2Dで使う方法についてです。" 
+property="og:description">     
+<META content="http://kan-kikuchi.hatenablog.com/" property="og:site_name">      
+ 
+<META content="1438211435" property="article:published_time">         
+<META content="Unity" property="article:tag">        
+<META name="twitter:card" content="summary_large_image">         
+<META name="twitter:image" content="http://cdn-ak.f.st-hatena.com/images/fotolife/k/kan_kikuchi/20150729/20150729214025.gif"> 
+      
+<META name="twitter:title" content="RayCastその4、Raycastを2Dで使う【Unity】 - (:3[kanのメモ帳]"> 
+       
+<META name="twitter:description" content="この記事でのバージョン Unity 5.1.0f3 Personal RayCastシリーズ 1.使い方 2.衝突するオブジェクトの制限 3.Rayを画面に表示 4.2Dで使う はじめに RayCastシリーズ、前回はRayを画面に表示する記事でした。 RayCastその3、Rayを画面に表示【Unity】 - (:3…"> 
+     
+<META name="twitter:app:name:iphone" content="はてなブログアプリ">       
+<META name="twitter:app:id:iphone" content="583299321">       
+<META name="twitter:app:url:iphone" content="hatenablog:///open?uri=http%3A%2F%2Fkan-kikuchi.hatenablog.com%2Fentry%2FRayCast4"> 
+     
+<META name="twitter:site" content="@Kan_Kikuchi">        
+<META name="keywords" content="cocos2d,Unity,iOS,iPhone,iPad,アプリ開発">        
+<META name="description" content="この記事でのバージョン Unity 5.1.0f3 Personal RayCastシリーズ 1.使い方 2.衝突するオブジェクトの制限 3.Rayを画面に表示 4.2Dで使う はじめに RayCastシリーズ、前回はRayを画面に表示する記事でした。 RayCastその3、Rayを画面に表示【Unity】 - (:3…"> 
+    
+<SCRIPT type="text/javascript">
+// <!--
+
+if (~navigator.userAgent.indexOf('Mac OS X')) {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27ヒラギノ角ゴ Pro W3\x27, \x27Hiragino Kaku Gothic Pro\x27, sans-serif; } </style>');
+} else {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27メイリオ\x27, \x27Meiryo\x27, \x27MS PGothic\x27, sans-serif; } </style>');
+}
+
+// -->
+</SCRIPT>
+ <!--[if lt IE 9]>
+<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--> 
+    <LINK href="http://cdn.image.st-hatena.com/image/favicon/c21e5a502653d67bdc522bbb84d211149048707e/version=1/http%3A%2F%2Fcdn.mogile.archive.st-hatena.com%2Fv1%2Fimage%2Fkan_kikuchi%2F297789263919182453.png" 
+rel="shortcut icon">     <LINK href="http://cdn.image.st-hatena.com/image/square/8b1b51debd87dc5fc0d4e35e63b4864926fe5314/backend=imagemagick;height=192;version=1;width=192/http%3A%2F%2Fcdn.mogile.archive.st-hatena.com%2Fv1%2Fimage%2Fkan_kikuchi%2F297789263919182453.png" 
+rel="icon" sizes="192x192">     <LINK title="Atom" href="http://kan-kikuchi.hatenablog.com/feed" 
+rel="alternate" type="application/atom+xml">     <LINK title="RSS2.0" href="http://kan-kikuchi.hatenablog.com/rss" 
+rel="alternate" type="application/rss+xml">     <LINK title="oEmbed Profile of RayCastその4、Raycastを2Dで使う【Unity】" 
+href="http://hatenablog.com/oembed?url=http%3A%2F%2Fkan-kikuchi.hatenablog.com%2Fentry%2FRayCast4&amp;format=json" 
+rel="alternate" type="application/json+oembed">     <LINK title="oEmbed Profile of RayCastその4、Raycastを2Dで使う【Unity】" 
+href="http://hatenablog.com/oembed?url=http%3A%2F%2Fkan-kikuchi.hatenablog.com%2Fentry%2FRayCast4&amp;format=xml" 
+rel="alternate" type="text/xml+oembed">       <LINK href="http://www.hatena.ne.jp/kan_kikuchi/" 
+rel="author">     <LINK href="Physics2D.Raycast.files/blog.css" rel="stylesheet" 
+type="text/css">       <LINK href="Physics2D.Raycast.files/6e3de889d97af584963a2b44391ddfaa10c734af.css" 
+rel="stylesheet" type="text/css">    
+<SCRIPT></SCRIPT>
+         
+<STYLE>
+      div#google_afc_user,
+      div#google_afc_user_container_0,
+      div#google_afc_user_container_1,
+      div#google_afc_user_container_2,
+      div#google_afc_user_container_3,
+      div#google_afc_user_container_4,
+      div#google_afc_user_container_5,
+      div.google_afc_image,
+      div.google_afc_blocklink {
+          display: block !important;
+      }
+    </STYLE>
+       
+<META name="GENERATOR" content="MSHTML 11.00.9600.18125"></HEAD>   
+<BODY class="page-entry   enable-bottom-editarea customized-background-image  category-Unity globalheader-off "><!-- Google Universal Analytics --> 
+<SCRIPT id="google-analytics-script">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-29716941-6', 'auto', {'name': 'HatenaBlogTracker', 'sampleRate': 1});
+  ga('HatenaBlogTracker.require', 'displayfeatures');
+  ga('HatenaBlogTracker.send', 'pageview');
+  ga('create', 'UA-29716941-17', 'auto', {'name': 'HatenaBlogSeparatedTracker', 'sampleRate': 10});
+  ga('HatenaBlogSeparatedTracker.require', 'displayfeatures');
+  ga('HatenaBlogSeparatedTracker.send', 'pageview');
+
+    
+  
+  ga('create', 'UA-7855606-1', 'auto', {'name': 'HatenaGlobalTracker', 'sampleRate': 1});
+  ga('HatenaGlobalTracker.require', 'displayfeatures');
+  ga('HatenaGlobalTracker.send', 'pageview');
+</SCRIPT>
+ <!-- End Google Universal Analytics -->         
+<DIV id="header-container">
+<DIV id="sp-suggest" style="display: none;"><A id="sp-suggest-link" href="http://kan-kikuchi.hatenablog.com/entry/RayCast4#">スマートフォン用の表示で見る</A></DIV></DIV><!-- ここから --> 
+    
+<DIV class="quote-box">
+<DIV class="tooltip-quote tooltip-quote-star"><I title="引用スターをつける" class="blogicon-star"></I> 
+      </DIV>
+<DIV class="tooltip-quote tooltip-quote-stock"><I title="引用をストック" class="blogicon-quote"></I> 
+      </DIV></DIV>
+<DIV class="message-box" id="quote-star-message-box" style="display: none; position: absolute;"> 
+     スターをつけました     </DIV>
+<DIV class="quote-stock-panel" id="quote-stock-message-box" style="position: absolute; z-index: 3000;">
+<DIV class="message-box" id="quote-stock-succeeded-message" style="display: none;">
+<P>引用をストックしました</P><BUTTON class="btn btn-primary" id="quote-stock-show-editor-button" 
+data-track-name="curation-quote-edit-button">ストック一覧を見る</BUTTON>         <BUTTON 
+class="btn quote-stock-close-message-button">閉じる</BUTTON>       </DIV>
+<DIV class="message-box" id="quote-login-required-message" style="display: none;">
+<P>引用するにはまずログインしてください</P><BUTTON class="btn btn-primary" 
+id="quote-login-button">ログイン</BUTTON>         <BUTTON class="btn quote-stock-close-message-button">閉じる</BUTTON> 
+      </DIV>
+<DIV class="error-box" id="quote-stock-failed-message" style="display: none;">
+<P>引用をストックできませんでした。再度お試しください</P><BUTTON class="btn quote-stock-close-message-button">閉じる</BUTTON> 
+      </DIV>
+<DIV class="error-box" id="unstockable-quote-message-box" style="display: none; position: absolute; z-index: 3000;">
+<P>限定公開記事のため引用できません。</P></DIV></DIV><!-- ここまで -->     
+<SCRIPT id="js-requote-button-template" type="x-underscore-template">
+      <div class="requote-button js-requote-button">
+        <button class="requote-button-btn tipsy-top" title="引用する"><i class="blogicon-quote"></i></button>
+      </div>
+    </SCRIPT>
+     
+<DIV id="globalheader-container" style="display: none;"><IFRAME height="37" id="globalheader" 
+src="Physics2D.Raycast.files/blogs.htm" frameborder="0" 
+allowtransparency="true"></IFRAME> </DIV>
+<DIV id="hidden-subscribe-button">
+<DIV 
+class="hatena-follow-button-box btn-subscribe js-hatena-follow-button-box"><A 
+class="hatena-follow-button js-hatena-follow-button" href="http://kan-kikuchi.hatenablog.com/entry/RayCast4#"><SPAN 
+class="subscribing"><SPAN class="foreground">読者です</SPAN>       <SPAN class="background">読者をやめる</SPAN> 
+    </SPAN>     <SPAN class="unsubscribing" data-track-name="profile-widget-subscribe-button" 
+data-track-once=""><SPAN class="foreground">読者になる</SPAN>       <SPAN class="background">読者になる</SPAN> 
+    </SPAN>   </A>   
+<DIV class="subscription-count-box js-subscription-count-box"><I></I>     
+<U></U>     <SPAN 
+class="subscription-count js-subscription-count"></SPAN></DIV></DIV></DIV>
+<DIV id="container">
+<DIV id="container-inner"><HEADER id="blog-title" data-brand="hatenablog">
+<DIV id="blog-title-inner">
+<DIV id="blog-title-content">
+<H1 id="title"><A 
+href="http://kan-kikuchi.hatenablog.com/">(:3[kanのメモ帳]</A></H1>
+<H2 
+id="blog-description">個人ゲームアプリ開発者kan.kikuchiのメモ的技術ブログ。月木更新でUnity関連がメイン。</H2></DIV></DIV></HEADER>
+<DIV class="hfeed" id="content">
+<DIV id="content-inner">
+<DIV id="wrapper">
+<DIV id="main">
+<DIV id="main-inner"><!-- google_ad_section_start -->             <!-- rakuten_ad_target_begin --> 
+                                          <ARTICLE class="entry hentry js-entry-article date-first autopagerize_page_element chars-200 words-100 mode-hatena entry-odd" 
+id="entry-8454420450102171830" data-uuid="8454420450102171830" 
+data-keyword-campaign="">
+<DIV class="entry-inner"><HEADER class="entry-header">
+<DIV class="entry-date date first"><A href="http://kan-kikuchi.hatenablog.com/entries/2015/07/30" 
+rel="nofollow"><time title="2015-07-29T23:10:35Z" datetime="2015-07-29T23:10:35Z" 
+pubdate=""><SPAN class="date-year">2015</SPAN><SPAN class="hyphen">-</SPAN><SPAN 
+class="date-month">07</SPAN><SPAN class="hyphen">-</SPAN><SPAN 
+class="date-day">30</SPAN>           </time>         </A>       </DIV>
+<H1 class="entry-title"><A class="entry-title-link bookmark" href="http://kan-kikuchi.hatenablog.com/entry/RayCast4">RayCastその4、Raycastを2Dで使う【Unity】</A> 
+      </H1>
+<DIV class="entry-categories categories"><A href="http://kan-kikuchi.hatenablog.com/archive/category/Unity">Unity</A> 
+                  </DIV>
+<DIV class="customized-header">
+<DIV class="entry-header-html">
+<HR>
+
+<DIV style="margin: 0px; padding: 0px 0px 55px 85px; width: 640px;">
+<DIV style="width: 84px; float: left;">
+<SCRIPT src="Physics2D.Raycast.files/widgetoon.js" type="text/javascript"></SCRIPT>
+ <A class="twitter-share-buttoon" href="http://twitter.com/share" data-lang="ja" 
+data-count="vertical" data-text="RayCastその4、Raycastを2Dで使う【Unity】&nbsp;-&nbsp;(:3[kanのメモ帳]&#10;@Kan_Kikuchi&nbsp;" 
+data-url="http://kan-kikuchi.hatenablog.com/entry/RayCast4">ツイート</A> 
+<SCRIPT> widgetoon_main(); </SCRIPT>
+</DIV>
+<DIV style="width: 80px; float: left;"><IFRAME src="Physics2D.Raycast.files/tweet_button.htm" 
+frameborder="0" scrolling="no" style="border: currentColor; border-image: none; width: 150px; height: 65px; overflow: hidden;" 
+allowtransparency="true"></IFRAME></DIV>
+<DIV style="width: 90px; float: left;"><A title="このエントリーをはてなブックマークに追加" class="hatena-bookmark-button" 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-hatena-bookmark-lang="ja" 
+data-hatena-bookmark-layout="vertical-balloon"><IMG width="20" height="20" 
+style="border: currentColor; border-image: none;" alt="このエントリーをはてなブックマークに追加" 
+src=""></A></DIV>
+<DIV style="width: 70px; float: left;"><A class="pocket-btn" data-lang="en" 
+data-save-url="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-pocket-count="vertical" data-pocket-label="pocket"></A> </DIV>
+<DIV style="width: 60px; float: left;">
+<DIV class="g-plusone" data-href="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-size="tall"></DIV></DIV></DIV>
+<HR>
+</DIV></DIV>
+<DIV class="social-buttons"></DIV></HEADER>
+<DIV class="entry-content">
+<P>この記事でのバージョン<BR><SPAN style="color: rgb(0, 0, 204);">Unity 5.1.0f3 
+Personal</SPAN></P><BR>
+<P>RayCastシリーズ<BR><A 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast1">1.使い方</A><BR><A href="http://kan-kikuchi.hatenablog.com/entry/RayCast2">2.衝突するオブジェクトの制限</A><BR><A 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast3">3.Rayを画面に表示</A><BR>4.2Dで使う<BR><BR><BR></P>
+<DIV class="section">
+<H3>はじめに</H3>
+<P>RayCastシリーズ、前回はRayを画面に表示する記事でした。</P><BR>
+<P><IFRAME title="RayCastその3、Rayを画面に表示【Unity】 - (:3[kanのメモ帳]" class="embed-card embed-blogcard" 
+src="Physics2D.Raycast.files/like.htm" frameborder="0" scrolling="no" style="margin: 10px 0px; width: 100%; height: 190px; display: block; max-width: 500px;">&lt;a 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast3"&gt;RayCastその3、Rayを画面に表示【Unity】 
+- (:3[kanのメモ帳]&lt;/a&gt;</IFRAME></P><BR><BR>
+<P>4回目の今回は<SPAN 
+style="color: rgb(0, 0, 204);">Raycastを2Dで使う方法</SPAN>についてです。<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H3>Physics2D.Raycast</H3>
+<P>UnityではBoxColliderとBoxCollider2Dのように3Dと2Dではコライダーが別にあり、</P>
+<P><SPAN style="color: rgb(0, 0, 204);">違う次元のコライダーが衝突する事はありません</SPAN>。</P><BR>
+<P>Raycastも同様で、<SPAN 
+style="color: rgb(255, 0, 0);">Physics.Raycastは2D用のコライダーには衝突しません</SPAN>。</P>
+<P>なので、2Dの時は<SPAN 
+style="color: rgb(255, 0, 0);">Physics2D.Raycast</SPAN>を使います。</P>
+<P>実際に使ってみると以下の通り、</P><BR>
+<P>
+<TABLE bordercolor="#000000" border="1">
+  <TBODY>
+  <TR>
+    <TD><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:kan_kikuchi:20150729073436g:plain" 
+      class="hatena-fotolife" alt="f:id:kan_kikuchi:20150729073436g:plain" src="Physics2D.Raycast.files/20150729073436.gif" 
+      itemprop="image"></SPAN></TD></TR></TBODY></TABLE>
+<P></P>
+<P></P>
+<PRE class="code lang-cs" data-lang="cs" data-unlink=""><SPAN class="synType">void</SPAN> Update () {
+
+  <SPAN class="synComment">//メインカメラ上のマウスカーソルのある位置からRayを飛ばす</SPAN>
+  Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+  <SPAN class="synComment">//レイヤーマスク作成</SPAN>
+  <SPAN class="synType">int</SPAN> layerMask = LayerMaskNo.DEFAULT;
+
+  <SPAN class="synComment">//Rayの長さ</SPAN>
+  <SPAN class="synType">float</SPAN> maxDistance = <SPAN class="synConstant">10</SPAN>;
+
+  RaycastHit2D hit = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, layerMask);
+  
+  <SPAN class="synComment">//なにかと衝突した時だけそのオブジェクトの名前をログに出す</SPAN>
+  <SPAN class="synStatement">if</SPAN>(hit.collider){
+    Debug.Log(hit.collider.gameObject.name);
+  }
+
+}
+</PRE>
+<P><BR>3Dの時と同様に</P>
+<P><SPAN 
+style="color: rgb(0, 0, 204);">カーソルの位置からRayを飛ばし、カーソルの位置にあるオブジェクト名をログで出力</SPAN>しています。</P><BR>
+<P>なお、オブジェクト名がそれぞれBearとFoxで、</P>
+<P>両オブジェクトともBoxCollider2Dがついており、レイヤーはDefaultになっています。</P><BR>
+<P>
+<TABLE bordercolor="#000000" border="1">
+  <TBODY>
+  <TR>
+    <TD><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:kan_kikuchi:20150729074239p:plain" 
+      class="hatena-fotolife" alt="f:id:kan_kikuchi:20150729074239p:plain" src="Physics2D.Raycast.files/20150729074239.png" 
+      itemprop="image"></SPAN></TD></TR></TBODY></TABLE>
+<P></P><BR>
+<P>レイヤーの件は<A 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast2">その2</A>をご参照の事。</P>
+<P>だいたい3Dの時と同じですが、いくつか違う点もあります。<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H3>3Dとの相違点</H3>
+<DIV class="section">
+<H4>Rayを引数に出来ない</H4>
+<P>3Dの時は開始位置とベクトルの代わりにRayを引数に出来ましたが、</P>
+<P>2Dでは出来ないようです。</P>
+<P>なお、distanceやlayerMaskの省略は2Dでも行えます。<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H4>Depth</H4>
+<P>続いても引数の話ですが、<SPAN 
+style="color: rgb(255, 0, 0);">2DではlayerMaskの後にDepthのminとmaxを設定出来ます。</SPAN></P>
+<P>設定したDepth内のオブジェクトにしか衝突しないという事ですね。<BR><BR></P>
+<PRE class="code lang-cs" data-lang="cs" data-unlink="">Physics2D.Raycast(origin, direction, maxDistance, layerMask, minDepth, maxDepth);
+</PRE>
+<P><BR>2DのDepthというので、<SPAN 
+style="color: rgb(255, 0, 0);">SortingLayerやOrderの事かと思い気や、なんとZ座標</SPAN>の事でした。</P>
+<P>これの使い道はよく分かりません……<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H4>返り値とHitの受け取り</H4>
+<P>一番の相違点だと思うのがこの返り値です。</P>
+<P><SPAN style="color: rgb(255, 0, 0);">3Dだと返り値は衝突したかどうかのbool値</SPAN>で、</P>
+<P>衝突した場合の情報を受け取るためRaycastHitを参照渡し、というやり方でした。</P><BR>
+<P><SPAN 
+style="color: rgb(0, 0, 204);">2Dだと返り値自体がRaycastHit2D</SPAN>となっているため、</P>
+<P>かなり分かり易くなった気がします。</P><BR>
+<P>なお、衝突していない場合はRaycastHit2Dのcolliderがnullなのでそこで判定できます。<BR><BR><BR></P></DIV></DIV>
+<DIV class="section">
+<H3>2Dでも線を引く</H3>
+<P><A 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast3">その3</A>でRaycastとDrawRayを同時に行うメソッドというのを作りましたが、</P>
+<P>それの2Dバージョンも作ってみました。と言ってもほぼ同じですが。</P><BR>
+<P>
+<SCRIPT src="Physics2D.Raycast.files/6eb7536a4864f501e36c.js"></SCRIPT>
+</P><BR>
+<P>使い方は以下の通り。<BR><BR></P>
+<PRE class="code lang-cs" data-lang="cs" data-unlink="">RaycastHit2D hit = Physics2DExtentsion.RaycastAndDraw((Vector2)ray.origin, (Vector2)ray.direction, maxDistance, layerMask);
+</PRE>
+<P><BR>使用イメージはこんな感じ、</P><BR>
+<P>
+<TABLE bordercolor="#000000" border="1">
+  <TBODY>
+  <TR>
+    <TD><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:kan_kikuchi:20150729214025g:plain" 
+      class="hatena-fotolife" alt="f:id:kan_kikuchi:20150729214025g:plain" src="Physics2D.Raycast.files/20150729214025.gif" 
+      itemprop="image"></SPAN></TD></TR></TBODY></TABLE>
+<P></P><BR>
+<P>カメラからのRayを表示しても2Dだとほぼ見えないので、</P>
+<P>熊から狐に向かってRayを飛ばしてみました。<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H3>NGUI</H3>
+<P>余談なのですが、約2年前の記事で</P>
+<P><SPAN 
+style="color: rgb(255, 0, 0);">NGUIで表示しているジョイスティックに、Rayを当てようとして断念</SPAN>したらしいです。</P><BR>
+<P><IFRAME title="一人称視点 in iOS (3)【Unity】 - (:3[kanのメモ帳]" class="embed-card embed-blogcard" 
+src="Physics2D.Raycast.files/button.htm" frameborder="0" scrolling="no" style="margin: 10px 0px; width: 100%; height: 190px; display: block; max-width: 500px;">&lt;a 
+href="http://kan-kikuchi.hatenablog.com/entry/2013/11/19/165526"&gt;一人称視点 in iOS 
+(3)【Unity】 - (:3[kanのメモ帳]&lt;/a&gt;</IFRAME></P><BR>
+<P>ついでなので、この時に失敗した原因を言うと</P>
+<P><SPAN 
+style="color: rgb(255, 0, 0);">RayをGUIを表示しているカメラでは無く、メインのカメラから飛ばしていた事</SPAN>です。</P>
+<P>GUIを表示しているカメラからRayを飛ばせばもちろん衝突させる事が出来ます。</P><BR>
+<P>なお、NGUIは表示こそ2Dですがコライダーは3Dなので、</P>
+<P>Physics2D.Raycastでは無く、Physics.Raycastを使います。<BR><BR><BR></P></DIV>
+<DIV class="section">
+<H3>おわりに</H3>
+<P>今回でRayCastシリーズ終了です！</P>
+<P>それでは良いRayCastライフを〜(:３っ)∋〜</P><BR>
+<P>
+<HR>
+
+<P></P></DIV></DIV><FOOTER class="entry-footer">
+<P class="entry-footer-section"><SPAN class="author vcard"><SPAN class="fn" 
+data-user-name="kan_kikuchi" data-load-nickname="1">kan_kikuchi</SPAN></SPAN>    
+     <SPAN class="entry-footer-time"><A href="http://kan-kikuchi.hatenablog.com/entry/RayCast4"><time 
+title="2015-07-29T23:10:35Z" class="updated" datetime="2015-07-29T23:10:35Z" 
+pubdate="" data-relative="">2015-07-30 08:10</time></A></SPAN>       </P>
+<DIV class="hatena-star-container"></DIV>
+<DIV class="hatena-star-metadata" style="display: none;"><A class="hatena-star-permalink" 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast4">RayCastその4、Raycastを2Dで使う【Unity】</A> 
+        </DIV>
+<DIV class="social-buttons"></DIV>
+<DIV class="customized-footer">
+<DIV class="entry-footer-html">
+<DIV style="margin: 0px; padding: 0px 0px 55px; width: 640px;">
+<DIV style="width: 84px; float: left;">
+<SCRIPT src="Physics2D.Raycast.files/widgetoon.js" type="text/javascript"></SCRIPT>
+ <A class="twitter-share-buttoon" href="http://twitter.com/share" data-lang="ja" 
+data-count="vertical" data-text="RayCastその4、Raycastを2Dで使う【Unity】&nbsp;-&nbsp;(:3[kanのメモ帳]&#10;@Kan_Kikuchi&nbsp;" 
+data-url="http://kan-kikuchi.hatenablog.com/entry/RayCast4">ツイート</A> 
+<SCRIPT> widgetoon_main(); </SCRIPT>
+</DIV>
+<DIV style="width: 80px; float: left;"><IFRAME src="Physics2D.Raycast.files/button(1).htm" 
+frameborder="0" scrolling="no" style="border: currentColor; border-image: none; width: 150px; height: 65px; overflow: hidden;" 
+allowtransparency="true"></IFRAME></DIV>
+<DIV style="width: 90px; float: left;"><A title="このエントリーをはてなブックマークに追加" class="hatena-bookmark-button" 
+href="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-hatena-bookmark-lang="ja" 
+data-hatena-bookmark-layout="vertical-balloon"><IMG width="20" height="20" 
+style="border: currentColor; border-image: none;" alt="このエントリーをはてなブックマークに追加" 
+src=""></A></DIV>
+<DIV style="width: 70px; float: left;"><A class="pocket-btn" data-lang="en" 
+data-save-url="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-pocket-count="vertical" data-pocket-label="pocket"></A> </DIV>
+<DIV style="width: 60px; float: left;">
+<DIV class="g-plusone" data-href="http://kan-kikuchi.hatenablog.com/entry/RayCast4" 
+data-size="tall"></DIV></DIV></DIV><BR>
+<HR>
+<BR><IFRAME src="Physics2D.Raycast.files/fastbutton.htm" frameborder="0" 
+scrolling="no" style="border: currentColor; border-image: none; width: 600px; height: 230px; overflow: hidden;" 
+allowtransparency="true"></IFRAME> <BR><A class="twitter-follow-button" href="https://twitter.com/Kan_Kikuchi" 
+data-lang="ja" data-size="large" data-dnt="true" 
+data-show-count="true">@Kan_Kikuchiさんをフォロー</A> <BR><BR><A href="http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fkan-kikuchi.hatenablog.com%2Ffeed" 
+target="blank"><IMG width="131" height="56" id="feedlyFollow" alt="follow us in feedly" 
+src="Physics2D.Raycast.files/feedly-follow-rectangle-volume-big_2x.png"></A> 
+<BR><BR><IFRAME width="150" height="28" src="Physics2D.Raycast.files/RayCast3.htm" 
+frameborder="0" scrolling="no" allowtransparency="true"></IFRAME> 
+<HR>
+
+<H1>あわせて読みたい</H1><BR>
+<SCRIPT src="Physics2D.Raycast.files/jsapi.js"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/commons.js" charset="utf-8"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/gatcha.js" charset="utf-8"></SCRIPT>
+ 
+<DIV class="ninja-recommend-block" id="23804bde802b6796a654dbc5d7fda1e0">
+<SCRIPT src="Physics2D.Raycast.files/imp.1.5.6.js" type="text/javascript" charset="utf-8"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/23804bde802b6796a654dbc5d7fda1e0.js" type="text/javascript" charset="utf-8" async=""></SCRIPT>
+ </DIV>
+<HR>
+
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>
+<SCRIPT src="Physics2D.Raycast.files/f.txt" async=""></SCRIPT>
+       <!-- 記事下 --> <INS class="adsbygoogle" style="width: 336px; height: 280px; display: inline-block;" 
+      data-ad-slot="4840380848" data-ad-client="ca-pub-9680120767779979"></INS> 
+<SCRIPT>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</SCRIPT>
+       </TD>
+    <TD>
+<SCRIPT src="Physics2D.Raycast.files/f.txt" async=""></SCRIPT>
+       <!-- 記事下2 --> <INS class="adsbygoogle" style="width: 336px; height: 280px; display: inline-block;" 
+      data-ad-slot="6317114045" data-ad-client="ca-pub-9680120767779979"></INS> 
+<SCRIPT>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</SCRIPT>
+       </TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV class="comment-box"><A class="leave-comment-title">コメントを書く</A>
+<UL class="comment"></UL></DIV></FOOTER></DIV></ARTICLE>
+<DIV class="permalink pager"><SPAN class="pager-prev"><A href="http://kan-kikuchi.hatenablog.com/entry/Could_not_load_project" 
+rel="prev"><SPAN class="pager-arrow">« </SPAN>                           Could 
+not load project 【Unity】                         </A>                       
+</SPAN>                                                                          
+           <SPAN class="pager-next"><A href="http://kan-kikuchi.hatenablog.com/entry/RayCast3" 
+rel="next">RayCastその3、Rayを画面に表示【Unity】                           <SPAN class="pager-arrow">»</SPAN> 
+                        </A>                       </SPAN>                       
+                </DIV><!-- rakuten_ad_target_end -->             <!-- google_ad_section_end --> 
+                              </DIV></DIV><ASIDE id="box1">
+<DIV id="box1-inner"></DIV></ASIDE></DIV><!-- #wrapper -->     <ASIDE id="box2">
+<DIV id="box2-inner">
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-body">
+<SCRIPT src="Physics2D.Raycast.files/f.txt" async=""></SCRIPT>
+ <!-- --> <INS class="adsbygoogle" style="width: 336px; height: 280px; display: inline-block;" 
+data-ad-slot="6956242449" data-ad-client="ca-pub-9680120767779979"></INS> 
+<SCRIPT>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</SCRIPT>
+   </DIV></DIV>
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-title">アクセス数</DIV>
+<DIV class="hatena-module-body">
+<SCRIPT type="text/javascript"><!--
+    hatena_counter_name = "kan_kikuchi";
+    hatena_counter_id = "11";
+    hatena_counter_ref = document.referrer+"";
+    hatena_counter_screen = screen.width + "x" + screen.height+","+screen.colorDepth;
+//--></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/counter.js" type="text/javascript"></SCRIPT>
+ <NOSCRIPT>&lt;img src="http://counter.hatena.ne.jp/kan_kikuchi/11" border="0" 
+alt="counter"&gt;</NOSCRIPT>   </DIV></DIV>
+<DIV class="hatena-module hatena-module-profile">
+<DIV class="hatena-module-title">プロフィール   </DIV>
+<DIV class="hatena-module-body"><A class="profile-icon-link" href="http://kan-kikuchi.hatenablog.com/about"><IMG 
+class="profile-icon" alt="id:kan_kikuchi" src="Physics2D.Raycast.files/profile.gif"> 
+    </A>             <SPAN class="id"><A class="hatena-id-link" href="http://kan-kikuchi.hatenablog.com/about"><SPAN 
+data-user-name="kan_kikuchi" data-load-nickname="1">id:kan_kikuchi</SPAN></A>    
+                   <A title="はてなブログPro" href="http://blog.hatena.ne.jp/guide/pro"><I 
+class="icon-pro"></I></A>           </SPAN>
+<DIV class="profile-description">
+<P>ゲーム開発が趣味の社会人2年生<BR>29本のアプリをリリース！<BR>おかげ様で100万DLを達成！！</P></DIV></DIV></DIV>
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-title">フォロー</DIV>
+<DIV class="hatena-module-body"><IFRAME width="150" height="28" src="Physics2D.Raycast.files/165526.htm" 
+frameborder="0" scrolling="no" allowtransparency="true"></IFRAME> <BR><A href="http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fkan-kikuchi.hatenablog.com%2Ffeed" 
+target="blank"><IMG width="131" height="56" id="feedlyFollow" alt="follow us in feedly" 
+src="Physics2D.Raycast.files/feedly-follow-rectangle-volume-big_2x.png"></A> <A 
+class="twitter-follow-button" href="https://twitter.com/Kan_Kikuchi" data-lang="ja" 
+data-dnt="true" data-show-count="true" 
+data-show-screen-name="true">@Kan_Kikuchiさんをフォロー</A> 
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</SCRIPT>
+ 
+<DIV id="fb-root"></DIV>
+<SCRIPT>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&appId=592860874144704&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</SCRIPT>
+ 
+<DIV class="fb-page" data-href="https://www.facebook.com/kan.kikuchi.app.000" 
+data-show-posts="false" data-show-facepile="true" data-hide-cover="false" 
+data-adapt-container-width="false" data-small-header="false">
+<DIV class="fb-xfbml-parse-ignore">
+<BLOCKQUOTE cite="https://www.facebook.com/kan.kikuchi.app.000"><A href="https://www.facebook.com/kan.kikuchi.app.000">Kan.Kikuchi.App</A></BLOCKQUOTE></DIV></DIV></DIV></DIV>
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-title">注目記事</DIV>
+<DIV class="hatena-module-body">
+<DIV class="ninja-recommend-block" id="a1dbe206f7c509a0b73afa3a80170641">
+<SCRIPT src="Physics2D.Raycast.files/imp.1.5.6.js" type="text/javascript" charset="utf-8"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/a1dbe206f7c509a0b73afa3a80170641.js" type="text/javascript" charset="utf-8" async=""></SCRIPT>
+ </DIV></DIV></DIV>
+<DIV class="hatena-module hatena-module-search-box">
+<DIV class="hatena-module-title">検索   </DIV>
+<DIV class="hatena-module-body">
+<FORM class="search-form" role="search" action="http://kan-kikuchi.hatenablog.com/search" 
+method="get"><INPUT name="q" class="search-module-input" required="" type="text" placeholder="ブログ内検索" value=""> 
+      <INPUT class="search-module-button" type="submit" value="検索">     
+</FORM></DIV></DIV>
+<DIV class="hatena-module hatena-module-category">
+<DIV class="hatena-module-title">カテゴリー   </DIV>
+<DIV class="hatena-module-body">
+<UL class="hatena-urllist">
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/Unity">Unity 
+  (120)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF%E6%8B%A1%E5%BC%B5">エディタ拡張 
+  (23)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%83%87%E3%83%90%E3%83%83%E3%82%B0">デバッグ 
+  (17)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/C%23">         
+     C# (16)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/iOS">          
+    iOS (14)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/NGUI">         
+     NGUI (14)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%82%A2%E3%82%BB%E3%83%83%E3%83%88">アセット 
+  (7)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%83%97%E3%83%AD%E3%83%A2%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">プロモーション 
+  (7)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/Photon">       
+       Photon (6)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E6%96%B0%E4%BD%9C">新作 
+  (6)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/cocos2d">      
+        cocos2d (5)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E6%8B%A1%E5%BC%B5%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89">拡張メソッド 
+  (4)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%81%8A%E9%87%91">お金 
+  (4)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/LINQ">         
+     LINQ (4)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%81%9D%E3%81%AE%E4%BB%96">その他 
+  (3)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/Lobi">         
+     Lobi (3)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/XcodeAPI">     
+         XcodeAPI (3)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%82%A2%E3%83%83%E3%83%97%E3%83%87%E3%83%BC%E3%83%88">アップデート 
+  (2)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/Android">      
+        Android (2)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0">アルゴリズム 
+  (1)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/Parse">        
+      Parse (1)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E3%83%AA%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88">リジェクト 
+  (1)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/%E5%BA%83%E5%91%8A">広告 
+  (1)           </A>         </LI>
+  <LI><A href="http://kan-kikuchi.hatenablog.com/archive/category/cocos2dx">     
+         cocos2dx (1)           </A>         </LI></UL></DIV></DIV>
+<DIV class="hatena-module hatena-module-archive" data-archive-url="http://kan-kikuchi.hatenablog.com/archive" 
+data-archive-type="default">
+<DIV class="hatena-module-title"><A href="http://kan-kikuchi.hatenablog.com/archive">月別アーカイブ</A> 
+  </DIV>
+<DIV class="hatena-module-body"></DIV></DIV>
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-title">開発アプリ抜粋</DIV>
+<DIV class="hatena-module-body"><SPAN style="font-size: 150%;"><A href="http://kan-kikuchi.com/">一覧はこちら</A></SPAN> 
+<HR>
+
+<CENTER><SPAN style="font-size: 150%;">ローグライフ</SPAN> <BR><IMG width="150" src="Physics2D.Raycast.files/rogue.png"> 
+<BR><BR><A href="https://itunes.apple.com/jp/app/roguraifu/id802932884?l=ja&amp;ls=1&amp;mt=8"><IMG 
+width="130" src="Physics2D.Raycast.files/download_on_the_app_store_badge_us-uk_135x40.png"></A> 
+</CENTER><BR>▶本格派ローグライクゲーム<BR>▶cocos2d製 
+<HR>
+
+<CENTER><SPAN style="font-size: 150%;">箱庭RPG2</SPAN> <BR><IMG width="150" src="Physics2D.Raycast.files/icon1024.png"> 
+<BR><BR><A href="https://itunes.apple.com/jp/app/xiang-tingrpg2/id666169983?l=ja&amp;ls=1&amp;mt=8"><IMG 
+width="130" src="Physics2D.Raycast.files/download_on_the_app_store_badge_us-uk_135x40.png"></A> 
+</CENTER><BR>▶技を閃くシンプルRPG<BR>▶cocos2d製 
+<HR>
+
+<CENTER><SPAN style="font-size: 120%;">JKコンバットオンライン</SPAN> <BR><IMG width="150" 
+src="Physics2D.Raycast.files/itunesartwork2x.png"> <BR><BR><A href="https://itunes.apple.com/jp/app/school-girls-combat-online/id945477527?l=ja&amp;ls=1&amp;mt=8"><IMG 
+width="130" src="Physics2D.Raycast.files/download_on_the_app_store_badge_us-uk_135x40.png"></A> 
+<BR><A 
+href="https://play.google.com/store/apps/details?id=jk.combat.online"><IMG src="Physics2D.Raycast.files/ja_generic_rgb_wo_45.png"></A> 
+</CENTER><BR>▶オンラインJKアクション<BR>▶Unity+Photon製 
+<HR>
+
+<CENTER><SPAN style="font-size: 100%;">バトルランナーユニティちゃん</SPAN> <BR><IMG width="150" 
+src="Physics2D.Raycast.files/1024.png"> <BR><BR><A href="https://itunes.apple.com/jp/app/batorurannayunitichan/id887614992?mt=8"><IMG 
+width="130" src="Physics2D.Raycast.files/download_on_the_app_store_badge_us-uk_135x40.png"></A> 
+<BR><A href="https://play.google.com/store/apps/details?id=battle.runner.unitychan"><IMG 
+width="130" src="Physics2D.Raycast.files/ja_generic_rgb_wo_45.png"></A> 
+</CENTER><BR>▶ユニティちゃんのランゲーム<BR>▶Unity製 
+<HR>
+</DIV></DIV></DIV></ASIDE></DIV></DIV>
+<DIV id="bottom-editarea">
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</SCRIPT>
+
+<SCRIPT type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</SCRIPT>
+           </DIV></DIV></DIV>
+<SCRIPT src="Physics2D.Raycast.files/HatenaStar.js"></SCRIPT>
+         
+<SCRIPT src="Physics2D.Raycast.files/widgets.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/plusone.js" type="text/javascript">
+  {"parsetags": "explicit"}
+</SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/bookmark_button.js" type="text/javascript" charset="utf-8" async="async"></SCRIPT>
+   
+<SCRIPT src="Physics2D.Raycast.files/react-with-addons.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/jquery-ui.1.10.0.custom.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/jquery.flot.0.8.3.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/jquery.flot.time.0.8.3.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/hatenablog.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/texts-ja.js" type="text/javascript"></SCRIPT>
+   
+<SCRIPT type="text/javascript">Hatena.Diary.loadGlobalHeader()</SCRIPT>
+ 
+<SCRIPT src="Physics2D.Raycast.files/api.js" defer="" async=""></SCRIPT>
+                  
+<SCRIPT id="hatena-counter-script" type="text/javascript"><!--
+      hatena_counter_name = "kan_kikuchi";
+      hatena_counter_id = "101";
+      hatena_counter_ref = document.referrer+"";
+      hatena_counter_screen = screen.width + "x" + screen.height+","+screen.colorDepth;
+  //--></SCRIPT>
+   
+<SCRIPT src="Physics2D.Raycast.files/counter.js" type="text/javascript"></SCRIPT>
+   <NOSCRIPT>&lt;img src="http://counter.hatena.ne.jp/kan_kikuchi/101" 
+border="0" alt="counter"&gt;</NOSCRIPT>       </BODY></HTML>

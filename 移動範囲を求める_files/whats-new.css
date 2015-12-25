@@ -1,0 +1,77 @@
+div.whatsnew {
+  margin: 10px 0;
+  font-size: 100%;
+  word-break: break-all;
+  overflow: hidden;
+  border: 1px silver solid;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+
+div.wn-head {
+  margin: 0;
+  padding: 5px 10px;
+  overflow: hidden;
+  border: 0;
+  border-bottom: 1px silver solid;
+  -webkit-box-shadow: #cccccc 1px 1px 4px;
+  -moz-box-shadow: #cccccc 1px 1px 4px;
+  box-shadow: #cccccc 1px 1px 4px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+div.wn-head .wn-postlist {
+  background: transparent url("./image/list.png") left center no-repeat;
+  font-weight: normal;
+  font-size: 90%;
+  text-align: right;
+  cursor: pointer;
+  float: right;
+  width: 4.2em;
+}
+div.wn-head .wn-title {
+  font-weight: bold;
+  font-size: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+div.wn-item {
+  margin: 5px 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+div.wn-item .wn-date {
+  margin: 0 0 0 0.3em;
+  padding: 0;
+  border: 0;
+  float: left;
+  width: 8.1em;
+  font-weight: normal;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.wn-item .wn-article {
+  padding: 0 2px;
+  overflow: hidden;
+}
+div.wn-item .wn-article .newmark {
+  font-size: 74%;
+  padding: 1px 5px;
+  vertical-align: middle;
+  color: White;
+  background-color: #ff4500;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}

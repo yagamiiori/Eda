@@ -1,3 +1,27 @@
+参考：http://tyheeeee.hateblo.jp/entry/2013/08/07/C%23%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Byield_return%E3%81%AE%E6%8C%99%E5%8B%95
+
+・IEnumerable　1つのメソッド(GetEnumerator)を持つ
+　IEnumerator　1つのプロパティ(corrent)と、2つのメソッド(Reset,MoveNext)を持つ
+
+・遅延評価できる
+	var x = GetEnumeList(); 		①GetEnumeList内の"Second"は実行されない
+	Debug.Log("First");　　 		②これが一番に表示される
+	foreach(var x in GetEnumeList)
+	{
+	   Debug.Log(x);			③☆→★の順で表示される
+	}
+	private IEnumrable GetEnumeList()
+	{
+	   Debug.Log("Second");　　☆
+	   yield return "Thurd";　 ★
+	}
+
+・メインスレッド上で非同期処理となる
+
+・yield returnはIEnumerable, IEnumerable<T>, IEnumerator, IEnumerator<T>のいずれかを返す
+
+・foreachはIEnumerableインターフェイスを実装しているコレクションクラスである事が前提
+　foreach内でGetEnumerator()→MoveNextする事でCurrentを更新して列挙する
 
 ・イテレーター構文： IEnumerator を簡単に実装するための機能であり
 　配列やそれに類似するデータ構造の各要素に対する繰返し処理の抽象化

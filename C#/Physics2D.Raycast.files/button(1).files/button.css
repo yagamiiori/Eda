@@ -1,0 +1,117 @@
+body {
+	background: none; margin: 0px; padding: 0px; text-align: center; overflow: visible; font-family: "HelveticaNeue", Arial, sans-serif;
+}
+html {
+	background: none; margin: 0px; padding: 0px; text-align: center; overflow: visible; font-family: "HelveticaNeue", Arial, sans-serif;
+}
+.ajximg {
+	left: -789em; position: absolute;
+}
+.widget {
+	left: 0px; top: 0px; text-align: center; white-space: nowrap; position: absolute;
+}
+.center.widget {
+	margin: 0px auto; position: relative;
+}
+.right.widget {
+	left: auto; width: auto !important; right: 0px;
+}
+.pocket.widget {
+	width: 60px;
+}
+.save.widget {
+	width: 56px;
+}
+.vertical.pocket.widget {
+	width: 60px;
+}
+.vertical.save.widget {
+	width: 56px;
+}
+.horizontal.widget {
+	width: 115px;
+}
+#btn {
+	display: block; cursor: pointer;
+}
+#btn span {
+	background: rgb(255, 255, 255); border: 1px solid rgb(187, 187, 187); border-image: none; color: rgb(119, 119, 119); font-weight: bold; display: block; position: relative;
+}
+#btn:hover span {
+	color: rgb(85, 85, 85);
+}
+.horizontal #btn span {
+	padding: 0px 6px; border-radius: 3px; height: 18px; line-height: 18px; font-size: 11px; font-weight: normal; float: left; -moz-border-radius: 3px; -webkit-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px;
+}
+.vertical #btn span {
+	height: 33px; line-height: 33px; font-size: 14px; margin-bottom: 8px;
+}
+#btn span em {
+	transition:opacity 0.3s; font-style: normal; -moz-transition: opacity 0.3s; -webkit-transition: opacity 0.3s; -o-transition: opacity 0.3s;
+}
+#btn span em.fadeOut {
+	opacity: 0;
+}
+#btn span i {
+	border: 4px solid transparent; border-image: none; width: 0px; height: 0px; line-height: 0px; display: block; position: absolute; z-index: 10; -ms-zoom: 1;
+}
+#btn span u {
+	border: 4px solid transparent; border-image: none; width: 0px; height: 0px; line-height: 0px; display: block; position: absolute; z-index: 10; -ms-zoom: 1;
+}
+.vertical #btn span i {
+	margin: 0px 0px -4px -4px; left: 50%; bottom: 0px; border-bottom-color: currentColor; border-bottom-width: 0px; border-bottom-style: none;
+}
+.vertical #btn span u {
+	margin: 0px 0px -4px -4px; left: 50%; bottom: 0px; border-bottom-color: currentColor; border-bottom-width: 0px; border-bottom-style: none;
+}
+.vertical #btn span i {
+	border-top-color: rgb(170, 170, 170);
+}
+.vertical #btn span u {
+	margin-bottom: -3px; border-top-color: rgb(255, 255, 255);
+}
+.horizontal #btn span i {
+	margin: -4px 0px 0px -4px; left: 0px; top: 50%; border-left-color: currentColor; border-left-width: 0px; border-left-style: none;
+}
+.horizontal #btn span u {
+	margin: -4px 0px 0px -4px; left: 0px; top: 50%; border-left-color: currentColor; border-left-width: 0px; border-left-style: none;
+}
+.horizontal #btn span i {
+	border-right-color: rgb(170, 170, 170);
+}
+.horizontal #btn span u {
+	margin-left: -3px; border-right-color: rgb(255, 255, 255);
+}
+#btn b {
+	background: url("https://d7x5nblzs94me.cloudfront.net/v1/i/pocket_button.png?v=2") no-repeat top / 60px; height: 20px; line-height: 20px; font-size: 12px; display: block;
+}
+#btn:hover b {
+	background-position: center;
+}
+.saved#btn b {
+	background-position: bottom;
+}
+.pocket #btn b {
+	width: 60px;
+}
+.pocket.horizontal #btn {
+	padding-left: 66px;
+}
+.save #btn b {
+	width: 56px;
+}
+.save.horizontal #btn {
+	padding-left: 62px;
+}
+.horizontal #btn b {
+	left: 0px; top: 0px; position: absolute;
+}
+.save #btn b {
+	background-image: url("https://d7x5nblzs94me.cloudfront.net/v1/i/save_button.png?v=1"); background-size: 56px;
+}
+@media not all, only screen and (min-resolution:144dpi)
+{
+#btn b {
+	background-image: url("https://d7x5nblzs94me.cloudfront.net/v1/i/pocket_button-2x.png?v=2");
+}
+}

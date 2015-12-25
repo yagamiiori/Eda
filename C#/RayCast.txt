@@ -1,6 +1,15 @@
 
+--------------------------------------------------------------
+Raycastには以下の3種類がありそれぞれ対象が異なる
+対象となるコンポーネントがないと反応しないのはどれも同じ
 
+Physics.Raycast →Collider(3D)
+Physics2D.Raycast →Collider2D
+EventSystem.RaycastAll →uGUIのGraphic
 
+2D/3D/uGUIは完全に分離して考え別々に扱うこと
+画面上で重なって見えるのは構わんが同列に扱ったりコンポーネントを混ぜるのは論外
+--------------------------------------------------------------
 
 Ray ray = new Ray();
 RaycastHit hit = new RaycastHit();

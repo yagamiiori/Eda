@@ -1,0 +1,171 @@
+html {
+	background: none;
+}
+body {
+	background: none;
+}
+body {
+	overflow: hidden;
+}
+.button-container {
+	width: 49px; overflow: hidden; padding-left: 1px; text-decoration: none; display: block; -ms-zoom: 1;
+}
+.button-image {
+	margin-left: -1px; float: left;
+}
+.counter {
+	background: url("/images/entry-button/button-bg-right.gif") no-repeat right top; text-align: center; color: rgb(44, 110, 189); line-height: 21px; font-size: 93%; font-weight: bold; display: block;
+}
+.vbutton-container {
+	background: rgb(44, 110, 189); margin: 0px 1px; padding: 1px 0px; width: 48px; height: 48px; text-decoration: none; display: block; position: relative;
+}
+.vbutton-inner {
+	background: url("/images/entry-button/vbutton-bg.png") top rgb(44, 110, 189); margin: 0px -1px; height: 48px; display: block; position: relative; cursor: pointer; _background-image: none; _zoom: 1;
+}
+.vbutton-container .counter {
+	background: none; color: rgb(44, 110, 189); line-height: 0.8; padding-top: 8px;
+}
+.vbutton-container .counter .count {
+	display: block;
+}
+.vbutton-container .counter .users {
+	font-size: 80%; display: block;
+}
+.button-counter {
+	width: 48px; padding-right: 1px;
+}
+.counter-container {
+	background: rgb(171, 197, 229); padding: 1px 0px; display: block;
+}
+.counter-container .counter {
+	background: rgb(247, 249, 252); color: rgb(44, 110, 189); line-height: 18px; margin-right: -1px; border-right-color: rgb(171, 197, 229); border-right-width: 1px; border-right-style: solid;
+}
+.b-area-simple {
+	height: 20px; display: inline-block; -ms-zoom: 1;
+}
+.b-area-standard {
+	height: 20px; display: inline-block; -ms-zoom: 1;
+}
+.b-area-simple {
+	padding-left: 28px; position: relative;
+}
+.b-area-standard {
+	padding-left: 88px; position: relative;
+}
+.vertical.b-area-standard {
+	width: 80px; height: 60px; padding-left: 0px;
+}
+a.b-btn {
+	color: rgb(45, 76, 134); line-height: 18px; font-family: Arial; font-size: 11px; text-decoration: none;
+}
+a.b-count {
+	color: rgb(45, 76, 134); line-height: 18px; font-family: Arial; font-size: 11px; text-decoration: none;
+}
+.ja.b-area-standard a.b-btn {
+	line-height: 1; letter-spacing: -1px; font-family: "ÉqÉâÉMÉmäpÉS Pro W3", Hiragino Kaku Gothic Pro, "ÉÅÉCÉäÉI", Meiryo, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold;
+}
+.b-area-simple .b-btn {
+	left: 0px; top: 0px; position: absolute;
+}
+.b-area-standard .b-btn {
+	left: 0px; top: 0px; position: absolute;
+}
+.b-area-simple .b-btn {
+	display: inline-block; -ms-zoom: 1;
+}
+.b-area-simple .b-count {
+	display: inline-block; -ms-zoom: 1;
+}
+.b-area-standard .b-btn {
+	display: inline-block; -ms-zoom: 1;
+}
+.b-area-standard .b-count {
+	display: inline-block; -ms-zoom: 1;
+}
+.vertical.b-area-standard .b-btn {
+	top: 40px; display: block; position: absolute;
+}
+.b-area-simple .b-btn {
+	background: url("/images/entry-button/bbtn-s_v3.png") no-repeat left 0px / 20px 40px; width: 20px; height: 20px;
+}
+.b-area-simple .b-btn:hover {
+	background: url("/images/entry-button/bbtn-s_v3.png") no-repeat left -20px / 20px 40px; color: rgb(25, 58, 104);
+}
+@media not all, not all
+{
+.b-area-simple .b-btn {
+	background-image: url("/images/entry-button/bbtn-s_v3@2x.png");
+}
+.b-area-simple .b-btn:hover {
+	background-image: url("/images/entry-button/bbtn-s_v3@2x.png");
+}
+}
+.b-area-simple .b-btn span {
+	display: none;
+}
+.b-area-simple .b-count {
+	padding: 0px 5px; border-radius: 3px; border: 1px solid rgb(176, 193, 216); border-image: none; width: auto; height: 18px; position: relative; background-color: rgb(255, 255, 255); -webkit-border-radius: 3px;
+}
+.b-area-standard .b-count {
+	padding: 0px 5px; border-radius: 3px; border: 1px solid rgb(176, 193, 216); border-image: none; width: auto; height: 18px; position: relative; background-color: rgb(255, 255, 255); -webkit-border-radius: 3px;
+}
+.b-area-simple .b-count::after {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.b-area-simple .b-count::before {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.b-area-standard .b-count::after {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.b-area-standard .b-count::before {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.b-area-simple .b-count::after {
+	border-width: 3px; top: 6px; border-right-color: rgb(255, 255, 255);
+}
+.b-area-standard .b-count::after {
+	border-width: 3px; top: 6px; border-right-color: rgb(255, 255, 255);
+}
+.b-area-simple .b-count::before {
+	border-width: 5px; top: 4px; border-right-color: rgb(176, 193, 216);
+}
+.b-area-standard .b-count::before {
+	border-width: 5px; top: 4px; border-right-color: rgb(176, 193, 216);
+}
+.b-area-standard .b-btn {
+	background: url("/images/entry-button/bbtn-l_v3.png") no-repeat left 0px / 80px 40px; padding: 1px 0px 0px 24px; width: 56px; height: 19px; text-decoration: none; text-shadow: 0px 1px 0px #fff; -webkit-text-shadow: 0 1px 0 #FFF;
+}
+.ja.b-area-standard .b-btn {
+	padding: 6px 0px 0px 21px; width: 63px; height: 14px;
+}
+.b-area-standard .b-btn:hover {
+	background: url("/images/entry-button/bbtn-l_v3.png") no-repeat left -20px / 80px 40px; color: rgb(25, 58, 104);
+}
+@media not all, not all
+{
+.b-area-standard .b-btn {
+	background-image: url("/images/entry-button/bbtn-l_v3@2x.png");
+}
+.b-area-standard .b-btn:hover {
+	background-image: url("/images/entry-button/bbtn-l_v3@2x.png");
+}
+}
+.vertical.b-area-standard .b-count {
+	padding: 0px 4px; border-radius: 3px; border: 1px solid rgb(176, 193, 216); border-image: none; top: 0px; width: 70px; height: 31px; text-align: center; color: rgb(45, 76, 134); line-height: 31px; font-family: Arial; font-size: 16px; display: block; position: relative; background-color: rgb(255, 255, 255); -webkit-border-radius: 3px;
+}
+.vertical.b-area-standard .b-count::after {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.vertical.b-area-standard .b-count::before {
+	border: solid transparent; border-image: none; width: 0px; height: 0px; right: 100%; position: absolute; content: " ";
+}
+.vertical.b-area-standard .b-count::after {
+	border-width: 4px; left: 35px; top: 31px; border-top-color: rgb(255, 255, 255);
+}
+.vertical.b-area-standard .b-count::before {
+	border-width: 5px; left: 34px; top: 32px; border-top-color: rgb(176, 193, 216);
+}
+.b-count:hover {
+	color: rgb(25, 58, 104);
+}

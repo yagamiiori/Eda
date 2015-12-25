@@ -1,5 +1,0 @@
-
-filtermodeをデフォルトのbilinearからpointにする
-↓
-getcomponent<spiterenderer>.spite = 別のスプライト
-

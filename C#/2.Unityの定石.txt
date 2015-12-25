@@ -1,5 +1,24 @@
 
+
 ・まずここ　http://qiita.com/gamesonytablet/items/20b25ad9729e4a353c96
+
+・Photon.MonoBehaviourを継承することによってオーバーライドされたメソッドを呼び出すことが可能
+　OnPhotonSerializeViewなどを利用する場合は、必ず継承しておく必要がある
+
+・Resourcesフォルダに入れたものは生のデータとして扱われるからコンパイルが必要なものは入れても意味が無い
+　だからコンパイルが必要なソースファイルはここに入れると動かない
+
+・Vector3はstruct=値型だから変数に代入した時点で値の複製によるオーバーヘッドが発生する
+
+・OnCollision、OnTriggerメソッド系はrigidbodyが必須(2Dの場合)
+　ただし、3Dの場合はrigidbodyなくても動く
+
+・CanvasのPixelPerfectのチェックを確認、オンになってたらオフに変更すると劇的に早くなる
+
+・Contents以下にILayoutGroupやILayoutControlerがある場合、アイテムを追加更新してから
+　1フレーム待ってこれらのコンポーネントをオフれ
+　スクロール時に再レイアウトがかかるのを抑制する事で若干早くなる
+　アイテムを追加更新する場合にこれらをオンに戻す事を忘れないこと
 
 ・Findはヒエラルキを上に遡る必要がある位置は検索対象外となる
 	CanvasA

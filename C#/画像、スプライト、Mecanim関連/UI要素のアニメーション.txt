@@ -1,0 +1,29 @@
+
+参考：http://unitygeek.hatenablog.com/entry/2015/03/07/181029
+
+ボタンとかトグルを作る
+↓
+ボタンコンポのTransitionをAnimationにする（NormalTriggerとかは全部空欄にする）
+↓
+Imageコンポを追加し、SourceImageを設定（必須）
+↓
+MiscのAnimatorコンポを追加する
+↓
+Project→Create→Animation Controllerを作成
+↓
+AnimatorコンポのControllerにAnimation Controllerをアタッチ
+↓
+Project→Create→Animationを作成
+↓
+Animation ControllerをダブルクリックしAnimatorウィンドウを表示してから、
+AnimationファイルをD&D
+↓
+Animationウィンドウを開き、タイムライン上にスプライト画像をD&Dでスプライトを追加する
+ ※Animation名称は「Image.Sprite」になっているはず
+
+---------------------------------------------------------------------------------
+エラー「AnimationEvent has no function name specified!」はAnimationウィンドウで
+五角形マークがあるのにイベントが設定されてないという意味。
+イベントを設定するか、五角形マークを消す。
+
+

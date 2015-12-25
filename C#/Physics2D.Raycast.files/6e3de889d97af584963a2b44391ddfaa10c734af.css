@@ -1,0 +1,727 @@
+@import url( http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300italic,300,500italic,700,700italic,900italic,900,100,100italic );
+html {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+body {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+div {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+span {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+object {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+iframe {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h1 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h2 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h3 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h4 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h5 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+h6 {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+p {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+blockquote {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+pre {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+abbr {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+address {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+cite {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+code {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+del {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+dfn {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+em {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+img {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+ins {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+kbd {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+q {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+samp {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+small {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+strong {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+sub {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+sup {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+var {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+b {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+i {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+dl {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+dt {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+dd {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+ol {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+ul {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+li {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+fieldset {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+form {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+label {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+legend {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+table {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+caption {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+tbody {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+tfoot {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+thead {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+tr {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+th {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+td {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+article {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+aside {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+canvas {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+details {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+figcaption {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+figure {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+footer {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+header {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+hgroup {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+menu {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+nav {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+section {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+summary {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+time {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+mark {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+audio {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+video {
+	background: none; margin: 0px; padding: 0px; outline: 0px; border: 0px currentColor; border-image: none; font-size: 100%; vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+article {
+	display: block;
+}
+aside {
+	display: block;
+}
+details {
+	display: block;
+}
+figcaption {
+	display: block;
+}
+figure {
+	display: block;
+}
+footer {
+	display: block;
+}
+header {
+	display: block;
+}
+hgroup {
+	display: block;
+}
+menu {
+	display: block;
+}
+nav {
+	display: block;
+}
+section {
+	display: block;
+}
+nav ul {
+	list-style: none;
+}
+blockquote {
+	quotes: none;
+}
+q {
+	quotes: none;
+}
+blockquote::before {
+	content: none;
+}
+blockquote::after {
+	content: none;
+}
+q::before {
+	content: none;
+}
+q::after {
+	content: none;
+}
+a {
+	background: none; margin: 0px; padding: 0px; font-size: 100%; vertical-align: baseline;
+}
+ins {
+	color: rgb(0, 0, 0); text-decoration: none; background-color: rgb(255, 255, 153);
+}
+mark {
+	color: rgb(0, 0, 0); font-style: italic; font-weight: bold; background-color: rgb(255, 255, 153);
+}
+del {
+	text-decoration: line-through;
+}
+abbr[title] {
+	border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: dotted; cursor: help;
+}
+dfn[title] {
+	border-bottom-color: currentColor; border-bottom-width: 1px; border-bottom-style: dotted; cursor: help;
+}
+table {
+	border-collapse: collapse; border-spacing: 0;
+}
+hr {
+	border-width: 1px 0px 0px; border-style: solid none none; border-color: rgb(204, 204, 204) currentColor currentColor; margin: 1em 0px; padding: 0px; border-image: none; height: 1px; display: block;
+}
+input {
+	vertical-align: middle;
+}
+select {
+	vertical-align: middle;
+}
+a {
+	color: rgb(102, 102, 102); text-decoration: none;
+}
+a:hover {
+	color: rgb(146, 146, 146); text-decoration: underline;
+}
+a:active {
+	color: rgb(102, 102, 102);
+}
+a:visited {
+	color: rgb(102, 102, 102);
+}
+body {
+	background: none; color: rgb(34, 34, 34); font-family: "Helvetica Neue", "Helvetica", "Arial", "ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÉÅÉCÉäÉI", Meiryo, "ÇlÇr ÇoÉSÉVÉbÉN", "MS PGothic", sans-serif;
+}
+#globalheader-container {
+	background: rgba(255, 255, 255, 0.2); border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid;
+}
+#container {
+	background: rgb(255, 255, 255); margin: 0px auto; width: 100%; text-align: center;
+}
+#container-inner {
+	text-align: left;
+}
+#blog-title {
+	background: linear-gradient(rgb(0, 0, 0), rgb(72, 72, 72)); width: 100%; text-align: center; letter-spacing: 1px; min-height: 170px; text-shadow: 0px 2px 2px rgba(0,0,0,0.8);
+}
+#blog-title-inner {
+	background: url("http://cdn-ak.f.st-hatena.com/images/fotolife/k/kgsi/20130508/20130508182629.png") no-repeat top; margin: 0px auto; padding: 70px 0px; width: 980px; vertical-align: middle; display: block;
+}
+#title {
+	color: rgb(255, 255, 255); font-family: "Roboto", sans-serif; font-size: 28px; font-weight: 500; margin-bottom: 10px;
+}
+#title a {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+#blog-description {
+	color: rgb(213, 213, 213); font-size: 11px;
+}
+.header-image-enable #blog-title #title {
+	padding: 20px 0px 0px 20px;
+}
+.header-image-enable #blog-title {
+	padding: 30px 0px;
+}
+.header-image-only #blog-title {
+	padding: 30px 0px;
+}
+#content {
+	margin: 50px auto 30px; width: 980px;
+}
+#content-inner::after {
+	height: 0px; clear: both; display: block; visibility: hidden; content: ".";
+}
+#wrapper {
+	background: url("http://cdn-ak.f.st-hatena.com/images/fotolife/k/kgsi/20130508/20130508065221.gif") repeat-y 65px; width: 756px; padding-right: 30px; border-right-color: rgb(222, 222, 222); border-right-width: 1px; border-right-style: solid; float: left;
+}
+.page-archive #wrapper {
+	background: none; padding-right: 0px; border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+.page-about #wrapper {
+	background: none; padding-right: 0px; border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+.entry {
+	
+}
+.entry a {
+	text-decoration: underline;
+}
+.entry-inner {
+	padding-bottom: 80px;
+}
+.entry-header {
+	width: 756px; position: relative;
+}
+.date {
+	width: 66px; text-align: center; padding-top: 5px; font-size: 11px; border-top-color: rgb(0, 0, 0); border-top-width: 7px; border-top-style: solid; display: block; position: relative;
+}
+.date a {
+	color: rgb(0, 0, 0); text-decoration: none;
+}
+.entry .date-month + .hyphen {
+	text-indent: -9999px; display: block;
+}
+.date .date-year {
+	font-family: "Roboto", sans-serif; font-weight: 700;
+}
+.date .date-month {
+	font-family: "Roboto", sans-serif; font-weight: 700;
+}
+.date .date-day {
+	left: 0px; top: 20px; width: 65px; font-family: "Roboto", sans-serif; font-size: 42px; font-weight: 700; position: absolute;
+}
+.entry-title {
+	left: 85px; width: 665px; line-height: 1.3; margin-bottom: 15px; position: relative;
+}
+.page-archive .entry-title {
+	left: 0px; width: 756px;
+}
+.entry-title a {
+	color: rgb(34, 34, 34); font-size: 20px; text-decoration: none;
+}
+.categories {
+	padding: 0px 0px 10px; left: 85px; width: 665px; font-size: 10px; position: relative;
+}
+.page-archive .categories {
+	padding: 0px 0px 10px; left: 0px !important; width: 756px;
+}
+.categories a {
+	background: rgb(153, 153, 153); padding: 3px 8px; border-radius: 10px; color: rgb(255, 255, 255); text-decoration: none; -moz-border-radius: 10px; -webkit-border-radius: 10px; -moz-transition: all 0.05s linear 0; -webkit-transition: all 0.05s linear 0;
+}
+.author {
+	font-size: 11px;
+}
+.entry-footer-time {
+	font-size: 11px;
+}
+.entry-content {
+	left: 85px; width: 665px; position: relative;
+}
+.entry-header-menu {
+	top: 0px; right: 0px; font-size: 13px; position: absolute;
+}
+.entry-footer {
+	left: 85px; width: 665px; font-size: 13px; margin-top: 20px; position: relative;
+}
+.entry-footer-section {
+	margin-bottom: 15px;
+}
+.social-buttons {
+	margin-bottom: 15px;
+}
+.pager {
+	margin: 15px 0px; left: 85px; width: 665px; text-align: left; font-size: 14px; position: relative;
+}
+#footer {
+	background: rgb(255, 255, 255); padding: 10px 0px 30px; width: 100%; text-align: center; line-height: 1.3; font-size: 11px; border-top-color: rgb(222, 222, 222); border-top-width: 1px; border-top-style: solid;
+}
+#footer-inner {
+	margin: 0px auto; width: 980px;
+}
+#footer address {
+	display: inline;
+}
+#footer .services {
+	margin: 0px 7px; display: inline;
+}
+#footer a {
+	color: rgb(51, 51, 51); text-decoration: none;
+}
+#footer img {
+	vertical-align: middle;
+}
+.entry-comment {
+	list-style: none; padding-bottom: 15px; margin-bottom: 15px; border-bottom-color: rgb(223, 223, 223); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.comment-user-name .hatena-id-icon {
+	margin-right: 0.2em; vertical-align: middle;
+}
+.comment-user-name {
+	margin-bottom: 7px;
+}
+.comment-user-name a {
+	color: rgb(34, 34, 34); font-weight: bold;
+}
+.comment-content {
+	line-height: 1.5em; margin-bottom: 7px; -ms-word-wrap: break-word;
+}
+.comment-user-name {
+	font-size: 14px;
+}
+.comment-content {
+	font-size: 14px;
+}
+.comment-metadata {
+	color: rgb(170, 170, 170);
+}
+.comment-metadata a {
+	color: rgb(170, 170, 170);
+}
+.leave-comment-title {
+	margin: 10px 0px; padding: 10px; border: 1px solid rgb(222, 222, 222); border-image: none; text-align: center; font-size: 13px; font-weight: bold; display: block;
+}
+a.leave-comment-title {
+	text-decoration: none; display: block;
+}
+.leave-comment-title:hover {
+	background: rgb(246, 246, 246);
+}
+.entry-content {
+	line-height: 1.74; font-size: 14px;
+}
+.entry-content p {
+	margin: 0.7em 0px 1em;
+}
+.entry-content img {
+	max-width: 100%;
+}
+.entry-content h1 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h2 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h3 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h4 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h5 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h6 {
+	margin: 1em 0px; line-height: 1.7;
+}
+.entry-content h1 {
+	font-size: 160%;
+}
+.entry-content h2 {
+	font-size: 150%;
+}
+.entry-content h3 {
+	font-size: 130%;
+}
+.entry-content h4 {
+	font-size: 120%;
+}
+.entry-content h5 {
+	font-size: 110%;
+}
+.entry-content h6 {
+	font-size: 100%;
+}
+.entry-content h1 {
+	border-bottom-color: rgb(34, 34, 34); border-bottom-width: 2px; border-bottom-style: solid;
+}
+.entry-content h2 {
+	border-bottom-color: rgb(34, 34, 34); border-bottom-width: 2px; border-bottom-style: solid;
+}
+.entry-content h3 {
+	border-bottom-color: rgb(34, 34, 34); border-bottom-width: 2px; border-bottom-style: solid;
+}
+.entry-content ul {
+	margin: 0px 0px 0px 1.5em; padding: 0px;
+}
+.entry-content ol {
+	margin: 0px 0px 0px 1.5em; padding: 0px;
+}
+.entry-content dd {
+	margin: 0px 0px 0px 1.5em; padding: 0px;
+}
+.entry blockquote {
+	margin: 1em 0px; padding: 10px; border: 1px solid rgb(222, 222, 222); border-image: none;
+}
+.entry blockquote p {
+	margin-top: 0px; margin-bottom: 0px;
+}
+.entry-content table {
+	border-collapse: collapse; border-spacing: 0;
+}
+.entry-content table th {
+	padding: 5px 10px; border: 1px solid rgb(221, 221, 221); border-image: none;
+}
+.entry-content table td {
+	padding: 5px 10px; border: 1px solid rgb(221, 221, 221); border-image: none;
+}
+.entry-content table th {
+	background: rgb(250, 250, 250);
+}
+pre {
+	padding: 10px; border: 1px solid rgb(204, 204, 204); border-image: none; font-size: 12px;
+}
+a.keyword {
+	color: rgb(34, 34, 34); text-decoration: none; border-bottom-color: rgb(222, 222, 222); border-bottom-width: 1px; border-bottom-style: solid;
+}
+pre.lang-aa {
+	line-height: 15px; font-size: 14px;
+}
+.hatena-asin-detail li {
+	line-height: 1.4;
+}
+#box2 {
+	width: 180px; font-size: 12px; float: right; -ms-word-wrap: break-word;
+}
+.page-about #box2 {
+	padding-left: 13px; border-left-color: rgb(222, 222, 222); border-left-width: 1px; border-left-style: solid;
+}
+.page-archive #box2 {
+	padding-left: 13px; border-left-color: rgb(222, 222, 222); border-left-width: 1px; border-left-style: solid;
+}
+.hatena-module {
+	margin-bottom: 30px;
+}
+.hatena-module-title {
+	background: url("http://cdn-ak.f.st-hatena.com/images/fotolife/k/kgsi/20130508/20130508065220.gif") no-repeat left 0px; left: -21px; padding-left: 20px; font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 20px; display: block; position: relative; min-height: 15px;
+}
+.hatena-module-title a {
+	color: rgb(34, 34, 34); text-decoration: none;
+}
+.hatena-module-title a:hover {
+	text-decoration: underline;
+}
+.hatena-module .profile-icon {
+	margin-bottom: 5px;
+}
+.hatena-module .id {
+	margin-bottom: 5px; display: block;
+}
+.profile-description {
+	margin-bottom: 5px;
+}
+.hatena-module-body li {
+	list-style: none; margin-bottom: 0.65em;
+}
+.hatena-module-body {
+	line-height: 1.5;
+}
+.hatena-urllist {
+	
+}
+.hatena-urllist a {
+	
+}
+form.search-form input {
+	border: 1px solid rgb(204, 204, 204); border-image: none; vertical-align: middle;
+}
+.search-form .search-module-input {
+	margin: 0px; padding: 3px; width: 142px; font-size: 12px;
+}
+.search-form .search-module-button {
+	background: url("https://blog.st-hatena.com/images/theme/search_g.png?version=3e88489c13c1598e05fcaa1dd08492e1") no-repeat 50% 50%; border: currentColor; border-image: none; width: 23px; height: 23px; text-indent: -999px; cursor: pointer;
+}
+.page-about dt {
+	padding-bottom: 2px; font-size: 16px; font-weight: bold; margin-bottom: 5px; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.page-about dd {
+	margin-bottom: 30px; margin-left: 0px;
+}
+.page-about .entry-content img.profile-icon {
+	width: 16px; height: 16px;
+}
+.page-archive #main {
+	margin: 0px auto; padding: 0px; text-align: center;
+}
+.page-archive #main-inner {
+	text-align: left; font-size: 14px;
+}
+.page-archive #main-inner p {
+	margin-bottom: 1em;
+}
+.page-archive #main-inner h1 {
+	margin: 1em 0px 0.5em; font-size: 18px;
+}
+.page-archive #main-inner h1 a {
+	color: rgb(0, 0, 0); text-decoration: none;
+}
+.page-archive #main-inner h1 a:hover {
+	text-decoration: underline;
+}
+.page-archive #main-inner section {
+	margin-bottom: 30px;
+}
+.page-archive #main-inner .entry-title {
+	color: rgb(0, 0, 0); line-height: 1.5; font-size: 14px; text-decoration: none;
+}
+.page-archive #main-inner .entry-title:hover {
+	text-decoration: underline;
+}
+.page-archive #main-inner ul {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.page-archive #main-inner li {
+	margin: 0px; padding: 0px 0px 10px; border-bottom-color: rgb(222, 222, 222); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.page-archive #main-inner li .categories {
+	font-size: 10px; margin-top: 10px; margin-bottom: 10px; display: block;
+}
+.page-about #wrapper {
+	background: none;
+}
+.page-about .entry-content {
+	left: 0px; width: auto;
+}
+.breadcrumb {
+	margin: 30px auto; width: 980px; font-size: 11px;
+}
+.breadcrumb span:last-child {
+	color: rgb(153, 153, 153);
+}
+#top-editarea {
+	margin: 30px auto; width: 980px;
+}
+#bottom-editarea {
+	margin: 0px auto 30px; width: 980px;
+}
+pre.code {
+	font-family: "Source Code Pro","Monaco","Consolas","Courier New",Courier,monospace,sans-serif;
+}
+body {
+	font-family: ÉÅÉCÉäÉI, Meiryo, "ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÇlÇr ÇoÉSÉVÉbÉN", sans-serif;
+}
+.entry-content pre.code {
+	color: rgb(247, 247, 242); background-color: rgb(39, 40, 33);
+}
+.synSpecial {
+	color: rgb(220, 50, 47);
+}
+.synType {
+	color: rgb(46, 226, 166);
+}
+.synComment {
+	color: rgb(249, 37, 112);
+}
+.synPreProc {
+	color: rgb(173, 129, 223);
+}
+.synIdentifier {
+	color: rgb(38, 139, 210);
+}
+.synConstant {
+	color: rgb(227, 216, 115);
+}
+.synStatement {
+	color: rgb(100, 216, 237);
+}
+.table-of-contents li {
+	list-style-type: decimal;
+}
+.table-of-contents ul {
+	list-style-type: decimal;
+}

@@ -1,0 +1,399 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0329)http://jsoon.digitiminimi.com/tweet_button.html -->
+<!DOCTYPE html PUBLIC "" ""><HTML data-scribe="page:button"><HEAD><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+     
+<META charset="utf-8">     <LINK href="//twitter.com" rel="dns-prefetch"> 
+<STYLE>
+
+html {
+    margin: 0;
+    padding: 0;
+    font: normal normal normal 11px/18px 'Helvetica Neue',Arial,sans-serif;
+    color: #333;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+body {
+  margin:0;padding:0;
+  display: inline-block;
+}
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+#widget {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.xl {
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.btn {
+    position: relative;
+    background-color: #eee;
+    /*
+    background-image: -webkit-linear-gradient(#fff,#dedede);
+    background-image: linear-gradient(#fff,#dedede);
+    border: #ccc solid 1px;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    */
+    /*
+    */
+    border-radius: 3px;
+    background-color: #1b95e0;
+    color: #FFF;
+    font-weight: 500;
+    cursor: pointer;
+    height: 20px;
+    box-sizing: border-box;
+    
+}
+
+.xl .btn {
+    height: 28px;
+    border-radius: 4px;
+}
+
+.btn-o, .count-o, .btn, .btn .label, #count {
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+.btn i {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    margin-top: -7px;
+    margin-left: 4px;
+    width: 16px;
+    height: 13px;
+    background: transparent url(/widgets/images/btn.27237bab4db188ca749164efd38861b0.png) 0 0 no-repeat;
+    background-image: url("../img/l.png");
+}
+
+.xl .btn i {
+    width: 21px;
+    height: 16px;
+    margin-left: 2px;
+    background-position: -24px 0;
+    background-position-x: -24px;
+    background-position-y: 0px;
+}
+
+.btn .label {
+    padding: 0 8px 0 24px;
+    white-space: nowrap;
+}
+
+.xl .btn .label {
+    padding: 0 10px 0 32px;
+}
+
+.count-o {
+    position: relative;
+    background: #fff;
+    border: #bbb solid 1px;
+    border-radius: 3px;
+/*    visibility: hidden;*/
+    min-height: 18px;
+    min-width: 15px;
+    text-align: center;
+    margin-right: 0;
+}
+.count-ready .count-o {
+    visibility: visible;
+}
+
+.vcount .count-o {
+    display: block;
+    padding: 0 5px;
+    margin-bottom: 5px;
+}
+
+.btn-o, .count-o, .btn, .btn .label, #count {
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+}
+
+.count-o i, .count-o u {
+    position: absolute;
+    zoom: 1;
+    line-height: 0;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 50%;
+    margin: -4px 0 0 -4px;
+    border: 4px transparent solid;
+    border-right-color: #aaa;
+    border-left: 0;
+}
+
+.vcount .count-o i, .rtl.vcount .count-o i, .vcount .count-o u, .rtl.vcount .count-o u {
+    line-height: 0;
+    top: auto;
+    left: 50%;
+    bottom: 0;
+    right: auto;
+    margin: 0 0 -4px -4px;
+    border: 4px transparent solid;
+    border-top-color: #aaa;
+    border-bottom: 0;
+}
+
+.vcount .count-o u {
+    margin-bottom: -3px;
+    border-top-color: #fff;
+}
+
+.count-o u {
+    margin-left: -3px;
+    border-right-color: #fff;
+}
+#count {
+    white-space: nowrap;
+    color: #333;
+}
+
+.vcount #count {
+    font-size: 16px;
+    line-height: 34px;
+}
+
+.hcount .count-o {
+    padding: 0 3px;
+    margin: 0 0 0 2px;
+}
+</STYLE>
+     <TITLE>Twitter Tweet Button</TITLE>     
+<META name="GENERATOR" content="MSHTML 11.00.9600.18125"></HEAD>   
+<BODY data-scribe="section:share">
+<DIV id="widget">
+<DIV class="count-o" id="c" data-scribe="component:button"><I></I>         
+<U></U>         <A id="count" href="https://twitter.com/search">-</A>            
+   </DIV>
+<DIV class="btn-o" data-scribe="component:button"><A class="btn" id="b" href="https://twitter.com/share" 
+target="_blank"><I></I>           <SPAN class="label" id="l">Tweet</SPAN>        
+ </A>       </DIV>
+<SCRIPT>
+var qs = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  if (query.length == 0) {
+    query = window.location.hash.substr(1);
+  }
+  query = query.replace(/&amp;/g,'&');
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+  delete query_string[""]
+  return query_string;
+}();
+
+function urlWithAppendParams(url,params) {
+  var i = 0;
+  for (var key in params) {
+    if (i > 0) {
+      url += "&";
+    }
+    else {
+      url += "?";
+    }
+    url += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+    i++;
+  }
+  return url;
+}
+
+function extractParamsFromQuery(query,keys) {
+  params = {};
+  for (i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if(key in query) {
+      params[key] = query[key];
+    }
+  }
+  return params;
+}
+
+function setUpShareLink() {
+  var share_link =  document.getElementById('b');
+  var keys = ["text","url","hashtags","via","related"];
+  var params = extractParamsFromQuery(qs,keys)
+  share_link.href = urlWithAppendParams("https://twitter.com/intent/tweet",params);
+}
+
+function setUpShareLink() {
+  var share_link =  document.getElementById('b');
+  var keys = ["text","url","hashtags","via","related"];
+  var params = extractParamsFromQuery(qs,keys)
+
+  share_link.href = urlWithAppendParams("https://twitter.com/intent/tweet",params);
+}
+
+function setUpSeachLink() {
+  var link =  document.getElementById('count');
+  var keys = ["text","url","hashtags","via","related"];
+  var params = {
+    ref_src: "twsrc"
+  };
+  if (qs["url"]) {
+    params["q"] = qs["url"];
+  }
+  link.href = urlWithAppendParams("https://twitter.com/search",params);
+}
+
+function requestCount(url) {
+  var xmlhttp;
+  if (window.XMLHttpRequest) {
+    xmlhttp = new XMLHttpRequest();
+  } else {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+      if(xmlhttp.status == 200){
+        response = JSON.parse( xmlhttp.responseText );
+        applyCount(response["count"]);
+      }
+      else {
+        console.log(xmlhttp.responseText);
+      }
+    }
+  }
+  var jsonUrl = "http://jsoon.digitiminimi.com/twitter/count.json?url=" + encodeURIComponent(url);
+  xmlhttp.open("GET",jsonUrl,true);
+  try {
+      xmlhttp.send();
+  }
+  catch (e) {
+  }
+}
+
+function applyCount(count) {
+  if (count == undefined || count == null) {
+    count = "-";
+  }
+  else if (isNaN(Number(count)) || count.length == 0) {
+    count = "-";
+  }
+  else {
+    count = i4u(Number(count));
+  }
+
+  document.getElementById("count").firstChild.nodeValue = count;
+}
+
+function setUpCountView() {
+  var c = document.getElementById("c");
+  var w = document.getElementById("widget");
+  if(qs["count"] == "vertical") {
+    w.className = w.className + " vcount";
+  }
+  else if(qs["count"] == "horizontal"){
+    w.appendChild(c);
+    w.className = w.className + " hcount";
+  }
+  else {
+    w.removeChild(c);
+  }
+}
+
+function setUpLabel() {
+  var l = document.getElementById("l");
+  if(qs["lang"] == "ja") {
+    l.firstChild.nodeValue = "ツイート";
+  }
+}
+
+function i4u(i) {
+  var range = 1000;
+  var units = ['K','M','G','T'];
+  if(qs["lang"] == "ja") {
+    range = 10000;
+    units = ['万','億'];
+  }
+  if (i<range) { return i; }
+  for (u=-1;(i>=range && u<=(units.length));(i/=range,u++)) {}
+  return i.toFixed(1)+units[u];
+}
+
+function setUpSize() {
+  if(qs["size"] == "large" && qs["count"] != "vertical") {
+    var w = document.getElementById("widget");
+    w.className = w.className + " xl";
+  }
+}
+
+function setUpBody() {
+  var w,h;
+  if(qs["count"] == "vertical") {
+    w = 62;
+    h = 61;
+  }
+  else if(qs["count"] == "horizontal" && qs["size"] == "large") {
+    w = 122;
+    h = 28;
+  }
+  else if(qs["size"] == "large") {
+    w = 78;
+    h = 28;
+  }
+  else if(qs["count"] == "horizontal") {
+    w = 101;
+    h = 20;
+  }
+  else {
+    w = 62;
+    h = 20;
+  }
+  if(qs["lang"] == "ja") {
+    if(qs["size"] == "large") {
+      w += 16;
+    }
+    else {
+      w += 14;
+    }
+  }
+  document.body.setAttribute("style","width:" + w + "px;height:" + h +  "px;" );
+}
+
+setUpShareLink();
+setUpSeachLink();
+setUpCountView();
+setUpLabel();
+setUpSize();
+setUpBody();
+
+if(qs["url"]) {
+  requestCount(qs["url"]);
+}
+
+      </SCRIPT>
+           </DIV></BODY></HTML>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://trick7.com/2013/11/dontusefindobject/ -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Unity: FindObjectは使わないようにする | trick7</title>
+<meta name="keywords" content="面白い,ゲーム,trick7,iOS,iPhone,wii,Nintendo3DS">  
+<meta name="description" content="面白いゲームを紹介したり、ゲームの面白さを考えたり、ゲームを作ったりするブログ">
+
+<!-- facebook ogp -->
+<meta property="og:locale" content="ja_JP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity: FindObjectは使わないようにする">
+<meta property="og:url" content="http://trick7.com/2013/11/dontusefindobject/">
+<meta property="og:description" content="">
+<meta property="og:image" content="http://trick7.com/game/wp-content/trick7_logo.png">
+<!--fb-like 20121105-->
+<meta property="og:site_name" content="trick7">
+<meta property="fb:admins" content="678873872">
+
+<link rel="stylesheet" type="text/css" media="all" href="./FindObjectは使わないようにする_files/style.css">
+<script id="twitter-wjs" src="./FindObjectは使わないようにする_files/widgets.js"></script><script id="facebook-jssdk" src="./FindObjectは使わないようにする_files/all.js"></script><script type="text/javascript" async="" src="./FindObjectは使わないようにする_files/ga.js"></script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-374936-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript" charset="utf-8" async="" src="./FindObjectは使わないようにする_files/button.c44c2dc193c555561d5830b3b543eb26.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow-x:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, "hiragino kaku gothic pro",meiryo,"ms pgothic",sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v2/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+
+<body>
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_http" src="./FindObjectは使わないようにする_files/TlA_zCeMkxl.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Facebook Cross Domain Communication Frame" aria-hidden="true" tabindex="-1" id="fb_xdm_frame_https" src="./FindObjectは使わないようにする_files/TlA_zCeMkxl(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=113809878778679";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+ <header id="header">
+   <h1 id="site-title"><a href="http://trick7.com/">trick7</a></h1>
+ </header>
+
+ <div id="main">  <section id="primary">
+   <div id="content">
+
+         <article id="article">
+<header>
+ <h1 class="entry-title">Unity: FindObjectは使わないようにする</h1>
+</header>
+<div class="entry-content">
+ <p>Unite2013にて「Internal Unity Tips and Tricks」という発表での内容。Unity内でいろんな場所からあるオブジェクトにアクセスするためにはFindObjectを使うのだといろんな技術書にも書かれているけども、凄腕開発者に言わせるとFindObjectは参照に伴う負荷が高いらしいので、マネージャークラスを作成して、シングルトン配列にオブジェクトを格納しておき、それを参照する方が良いとのこと。<br>
+<span id="more-629"></span><br>
+<iframe width="640" height="480" src="./FindObjectは使わないようにする_files/Ozc_hXzp_KU.html" frameborder="0" allowfullscreen=""></iframe></p>
+<p>これが通常のFindObject実装。これが負荷が高いとのこと。</p>
+<pre><code>
+#define SLOW_LOOKUP
+
+using UnityEngine;
+
+public class SomeGameLogic : MonoBehaviour
+{
+    // Update is called once per frame
+#if SLOW_LOOKUP
+    void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            var towers = FindObjectsOfType(typeof (Tower)) as Tower[];
+            for (int i = 0; i &lt; towers.Length; i++)
+            {
+                towers[i].DoAction();
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>上記実装を使わず、以下のようなマネージャークラスを作成する。</p>
+<pre><code>
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TowerManager : MonoBehaviour
+{
+    public static TowerManager Singleton;
+    public List<tower> _Towers = new List<tower>();
+
+    public void OnEnable()
+    {
+        if (Singleton == null)
+            Singleton = this;
+    }
+
+    public void AddTower(Tower t)
+    {
+        if (!_Towers.Contains(t))
+        {
+            _Towers.Add(t);
+        }
+    }
+
+    public void RemoveTower(Tower t)
+    {
+        _Towers.Remove(t);
+    }
+}
+
+</tower></tower></code></pre>
+<p>このマネージャークラスはシングルトンとして存在し、オブジェクト（この発表ではTower）を格納するためのリスト配列を持っている。リストに追加・削除するためのパブリックメソッドも定義されている。</p>
+<p>そして、各タワー側には、自分をリストに追加するために、以下のような実装を持たせる</p>
+<pre><code>
+using UnityEngine;
+
+public class Tower : MonoBehaviour {
+    void OnEnable()
+    {
+        TowerManager.Singleton.AddTower(this);
+    }
+
+    void OnDisable()
+    {
+        TowerManager.Singleton.RemoveTower(this);
+    }
+
+    public void DoAction()
+    {
+
+    }
+}
+
+</code></pre>
+<p>そうすることで、冒頭のFindObjectの実装部分を以下のように書き換えることができる。</p>
+<pre><code>
+#define FAST_LOOKUP
+
+using UnityEngine;
+
+public class SomeGameLogic : MonoBehaviour
+{
+    // Update is called once per frame
+#if FAST_LOOKUP
+    void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            for (int i = 0; i &lt; TowerManager.Singleton._Towers.Count; i++)
+            {
+                TowerManager.Singleton._Towers[i].DoAction();
+            }
+        }
+    }
+}
+
+</code></pre>
+<p>あとは、TowerManagerはTowerよりも先に読み込んでおく必要があるので、Unityメニューの Edit &gt; Project Settings &gt; Script Execution Order のパネル上でTowerManagerの読み込み順が先になるように設定しておくこと。</p>
+<p>なるほど参考になりました。</p>
+ </div>
+</article>
+<div><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./FindObjectは使わないようにする_files/tweet_button.781f4f0ed6951ea86890554cec78adec.ja.html" style="position: static; visibility: visible; width: 75px; height: 20px;"></iframe>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>
+<div class="fb-like fb_iframe_widget" data-href="http://trick7.com/2013/11/dontusefindobject/" data-send="false" data-layout="button_count" data-width="100%" data-show-faces="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=113809878778679&amp;container_width=703&amp;href=http%3A%2F%2Ftrick7.com%2F2013%2F11%2Fdontusefindobject%2F&amp;layout=button_count&amp;locale=ja_JP&amp;sdk=joey&amp;send=false&amp;show_faces=true"><span style="vertical-align: bottom; width: 98px; height: 20px;"><iframe name="f46571b8c" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./FindObjectは使わないようにする_files/like.html" style="border: none; visibility: visible; width: 98px; height: 20px;" class=""></iframe></span></div>
+<div class="fb-comments fb_iframe_widget" data-href="http://trick7.com/2013/11/dontusefindobject/" data-num-posts="2" data-width="689" fb-xfbml-state="rendered"><span style="height: 175px; width: 689px;"><iframe id="f20a542a64" name="f24746f178" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./FindObjectは使わないようにする_files/comments.html" style="border: none; overflow: hidden; height: 175px; width: 689px;"></iframe></span></div>
+     <nav id="nav-single">
+      <span class="nav-previous"><a href="http://trick7.com/2013/11/consoletomobile/" rel="prev"><span class="meta-nav">←</span> 前へ</a></span>
+      <span class="nav-next"><a href="http://trick7.com/2013/11/unity-gokit/" rel="next">次へ <span class="meta-nav">→</span></a></span>
+     </nav>
+
+    
+   </div>
+  </section>
+
+  <div id="secondary">
+    <aside>
+     <h3 class="widget-title">Information</h3>
+     <ul>
+      <li><a href="http://trick7.com/2012/09/about/">ブログについて</a></li>
+     </ul>
+    </aside>
+
+    <aside>
+     <h3 class="widget-title">Categories</h3>
+     <ul>
+      	<li class="cat-item cat-item-4"><a href="http://trick7.com/category/book/">book</a> (3)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://trick7.com/category/develop/">develop</a> (32)
+<ul class="children">
+	<li class="cat-item cat-item-13"><a href="http://trick7.com/category/develop/blender/">blender</a> (4)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://trick7.com/category/develop/cocos2d-x/">Cocos2d-x</a> (4)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://trick7.com/category/develop/coronasdk/">CoronaSDK</a> (2)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://trick7.com/category/develop/mayalt/">MayaLT</a> (3)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://trick7.com/category/develop/openframeworks/">openFrameworks</a> (5)
+</li>
+	<li class="cat-item cat-item-16"><a href="http://trick7.com/category/develop/unity/">Unity</a> (12)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://trick7.com/category/game/">game</a> (64)
+<ul class="children">
+	<li class="cat-item cat-item-6"><a href="http://trick7.com/category/game/iphone/">iPhone</a> (50)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://trick7.com/category/game/nintendo3ds/">Nintendo3DS</a> (7)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://trick7.com/category/game/pc/">PC</a> (2)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://trick7.com/category/game/psp/">PSP</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://trick7.com/category/game/web/">web</a> (2)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://trick7.com/category/game/wii/">Wii</a> (2)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://trick7.com/category/idea/">idea</a> (1)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://trick7.com/category/memo/">memo</a> (42)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://trick7.com/category/%e6%9c%aa%e5%88%86%e9%a1%9e/">未分類</a> (3)
+</li>
+     </ul>
+    </aside>
+
+    <aside>
+     <h3 class="widget-title">Archives</h3>
+     <ul>
+      	<li><a href="http://trick7.com/2015/10/">2015年10月</a></li>
+	<li><a href="http://trick7.com/2015/03/">2015年3月</a></li>
+	<li><a href="http://trick7.com/2015/01/">2015年1月</a></li>
+	<li><a href="http://trick7.com/2014/12/">2014年12月</a></li>
+	<li><a href="http://trick7.com/2014/11/">2014年11月</a></li>
+	<li><a href="http://trick7.com/2014/10/">2014年10月</a></li>
+	<li><a href="http://trick7.com/2014/09/">2014年9月</a></li>
+	<li><a href="http://trick7.com/2014/08/">2014年8月</a></li>
+	<li><a href="http://trick7.com/2014/07/">2014年7月</a></li>
+	<li><a href="http://trick7.com/2014/06/">2014年6月</a></li>
+	<li><a href="http://trick7.com/2014/05/">2014年5月</a></li>
+	<li><a href="http://trick7.com/2014/04/">2014年4月</a></li>
+	<li><a href="http://trick7.com/2014/03/">2014年3月</a></li>
+	<li><a href="http://trick7.com/2014/02/">2014年2月</a></li>
+	<li><a href="http://trick7.com/2014/01/">2014年1月</a></li>
+	<li><a href="http://trick7.com/2013/12/">2013年12月</a></li>
+	<li><a href="http://trick7.com/2013/11/">2013年11月</a></li>
+	<li><a href="http://trick7.com/2013/10/">2013年10月</a></li>
+	<li><a href="http://trick7.com/2013/09/">2013年9月</a></li>
+	<li><a href="http://trick7.com/2013/08/">2013年8月</a></li>
+	<li><a href="http://trick7.com/2013/07/">2013年7月</a></li>
+	<li><a href="http://trick7.com/2013/06/">2013年6月</a></li>
+	<li><a href="http://trick7.com/2013/05/">2013年5月</a></li>
+	<li><a href="http://trick7.com/2013/04/">2013年4月</a></li>
+	<li><a href="http://trick7.com/2013/03/">2013年3月</a></li>
+	<li><a href="http://trick7.com/2013/02/">2013年2月</a></li>
+	<li><a href="http://trick7.com/2013/01/">2013年1月</a></li>
+	<li><a href="http://trick7.com/2012/12/">2012年12月</a></li>
+	<li><a href="http://trick7.com/2012/11/">2012年11月</a></li>
+	<li><a href="http://trick7.com/2012/10/">2012年10月</a></li>
+	<li><a href="http://trick7.com/2012/09/">2012年9月</a></li>
+     </ul>
+    </aside>
+   
+<aside>
+<h3 class="widget-title">Favorite</h3>
+<iframe src="./FindObjectは使わないようにする_files/cm.html" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+<iframe src="./FindObjectは使わないようにする_files/cm(1).html" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+</aside>
+  </div>
+ </div><!-- #main -->
+
+ <footer id="footer">
+  <p></p>
+ </footer>
+
+
+</body></html>

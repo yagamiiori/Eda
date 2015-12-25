@@ -1,0 +1,39 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0138)http://cdn.api.b.hatena.ne.jp/entry/button/ -->
+<!DOCTYPE html PUBLIC "" ""><HTML lang="ja"><HEAD><META content="IE=11.0000" 
+http-equiv="X-UA-Compatible">
+
+<META charset="utf-8">   <LINK href="http://b.hatena.ne.jp/entry/kan-kikuchi.hatenablog.com/entry/RayCast4" 
+rel="canonical">   <TITLE>はてなブックマークボタン</TITLE>   <LINK href="button.files/reset.css" 
+rel="stylesheet" type="text/css" media="all">   <LINK href="button.files/entry-button.css" 
+rel="stylesheet" type="text/css" media="all">   
+<SCRIPT>
+    function postMessageToParentWin(type, dataStr, useFallback) {
+        var match = window.name.match(/^(\w+)\|((https?:\/\/[^\/?#]+)[^#]*)/);
+        if (!match) return;
+        if (window.postMessage) {
+            window.parent.postMessage('HBMessage@{"type": "' + type + '", "data": ' + dataStr + '}', match[3]);
+            return;
+        }
+        if (useFallback) {
+            var url = match[2] + "#HBMessage-" + match[1] + "-" + type + "/" + dataStr;
+            try {
+                window.parent.location.replace(url);
+            } catch (ex) {
+                window.parent.location.href = url;
+            }
+        }
+    }
+    function clickHandler() {
+        postMessageToParentWin("click", "null", true);
+    }
+  </SCRIPT>
+   
+<META name="GENERATOR" content="MSHTML 11.00.9600.18125"></HEAD>
+<BODY onkeypress="if (event.keyCode === 13) { clickHandler(); return false; }">  
+   
+<DIV class="b-area-standard vertical ja"><A title="このエントリーをはてなブックマークに追加 (1 user)" 
+class="b-btn" onclick="if ((event.which || event.button) <= 1) { clickHandler(); return false; }" 
+href="http://b.hatena.ne.jp/entry/kan-kikuchi.hatenablog.com/entry/RayCast4" 
+target="_top"><SPAN>ブックマーク</SPAN>       </A><A class="b-count" href="http://b.hatena.ne.jp/entry/kan-kikuchi.hatenablog.com/entry/RayCast4" 
+target="_blank">1</A></DIV></BODY></HTML>

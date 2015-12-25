@@ -1,8 +1,0 @@
-
-アニメーションを強制的に最後のフレームにする
-Animation#[] でAnimationStateを、AnimationClip#lengthでアニメーションの秒数を取得できるっぽい。
-	Animation animation;
-	animation["SomeAnimation"].time = animation.clip.length;
-
-参考：http://qiita.com/udzura/items/bf43048c680b3aaad44a
-

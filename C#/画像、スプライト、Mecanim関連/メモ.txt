@@ -1,0 +1,9 @@
+◆通常、コライダー同士は反発するが、反発が必要ないオブジェクトは
+　コライダーのIsTriggerにチェックを入れる
+
+◆Resorces.LoadはResorcesフォルダからの相対パス必須（Resorcesフォルダがなければ作ること）
+
+◆Destroy(hit.collider.gameObject); // 光線に当たったオブジェクトを消します(クリックしたオブジェクト)
+
+◆子のオブジェクトに適用させてあるScriptから親のコンポーネントを弄りたい→GetComponentsInParent
+

@@ -1,0 +1,1507 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0046)http://tips.hecomi.com/entry/2015/08/14/220030 -->
+<!DOCTYPE html PUBLIC "" ""><HTML lang="ja" data-globalheader-type="pc" 
+data-device="pc" itemtype="http://schema.org/Article" itemscope="" 
+data-has-touch-view="1" data-brand="hatenablog" data-admin-domain="http://blog.hatena.ne.jp" 
+data-hide-header="1" data-plus-available="1" data-blog-comments-top-is-new="" 
+data-version="3e88489c13c1598e05fcaa1dd08492e1" data-author="hecomi" 
+data-globalheader-color="b" data-blogs-uri-base="http://tips.hecomi.com" 
+data-blog-name="凹みTips" data-blog="hecomi.hatenablog.com" data-static-domain="https://blog.st-hatena.com" 
+data-page="entry" data-avail-langs="ja en"><HEAD prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+                 
+<META charset="utf-8">     
+<META http-equiv="X-UA-Compatible" content="IE=7; IE=9; IE=10; IE=11">     
+<TITLE>Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた - 凹みTips</TITLE>          
+     <LINK href="http://tips.hecomi.com/entry/2015/08/14/220030" 
+rel="canonical">         
+<META content="Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた - 凹みTips" 
+itemprop="name">           
+<META content="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hecomi/20150814/20150814215723.png" 
+itemprop="image">         
+<META content="Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた - 凹みTips" 
+property="og:title">     
+<META content="article" property="og:type">     
+<META content="http://tips.hecomi.com/entry/2015/08/14/220030" 
+property="og:url">           
+<META content="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hecomi/20150814/20150814215723.png" 
+property="og:image">             
+<META content="はじめに Unity 5.1 よりマルチプレイヤ用のネットワークシステム（UNET）が追加されました。 (English) Unity 5.1 is here! – Unity Blog Announcing UNET – New Unity Multiplayer Technology – Unity Blog 古い Network 機能は今後 5.x のどこかのタイミングで廃止される予定です。 UNET は低レイヤのカスタマイズから、抽象化された高レベルな API 群、Unity のエディタ拡張から簡単に利用できるコンポーネント群およびプロファイラとの統合、そしてマッチメイキングといったマ…" 
+property="og:description">     
+<META content="http://tips.hecomi.com/" property="og:site_name">       
+<META content="1439557230" property="article:published_time">         
+<META content="Unity" property="article:tag">         
+<META content="C#" property="article:tag">        
+<META name="twitter:card" content="summary_large_image">         
+<META name="twitter:image" content="http://cdn-ak.f.st-hatena.com/images/fotolife/h/hecomi/20150814/20150814215723.png"> 
+      
+<META name="twitter:title" content="Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた - 凹みTips"> 
+       
+<META name="twitter:description" content="はじめに Unity 5.1 よりマルチプレイヤ用のネットワークシステム（UNET）が追加されました。 (English) Unity 5.1 is here! – Unity Blog Announcing UNET – New Unity Multiplayer Technology – Unity Blog 古い…"> 
+     
+<META name="twitter:app:name:iphone" content="はてなブログアプリ">       
+<META name="twitter:app:id:iphone" content="583299321">       
+<META name="twitter:app:url:iphone" content="hatenablog:///open?uri=http%3A%2F%2Ftips.hecomi.com%2Fentry%2F2015%2F08%2F14%2F220030"> 
+     
+<META name="twitter:site" content="@hecomi">        
+<META name="keywords" content="C++, JavaScript, Unity, Oculus Rift">        
+<META name="description" content="はじめに Unity 5.1 よりマルチプレイヤ用のネットワークシステム（UNET）が追加されました。 (English) Unity 5.1 is here! – Unity Blog Announcing UNET – New Unity Multiplayer Technology – Unity Blog 古い…"> 
+    
+<SCRIPT type="text/javascript">
+// <!--
+
+if (~navigator.userAgent.indexOf('Mac OS X')) {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27ヒラギノ角ゴ Pro W3\x27, \x27Hiragino Kaku Gothic Pro\x27, sans-serif; } </style>');
+} else {
+  document.write('<style type="text/css">html, body { font-family: \x27Helvetica\x27, \x27Arial\x27, \x27メイリオ\x27, \x27Meiryo\x27, \x27MS PGothic\x27, sans-serif; } </style>');
+}
+
+// -->
+</SCRIPT>
+ <!--[if lt IE 9]>
+<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--> 
+    <LINK href="http://cdn.image.st-hatena.com/image/favicon/04ac45abe88391c832b8d39589dbade647aaf21b/version=1/http%3A%2F%2Fcdn.mogile.archive.st-hatena.com%2Fv1%2Fimage%2Fhecomi%2F297786579574733611.png" 
+rel="shortcut icon">     <LINK href="http://cdn.image.st-hatena.com/image/square/01f9a71b1308d651ad00d9b6eec5fe157ea2642e/backend=imagemagick;height=192;version=1;width=192/http%3A%2F%2Fcdn.mogile.archive.st-hatena.com%2Fv1%2Fimage%2Fhecomi%2F297786579574733611.png" 
+rel="icon" sizes="192x192">     <LINK title="Atom" href="http://tips.hecomi.com/feed" 
+rel="alternate" type="application/atom+xml">     <LINK title="RSS2.0" href="http://tips.hecomi.com/rss" 
+rel="alternate" type="application/rss+xml">     <LINK title="oEmbed Profile of Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた" 
+href="http://hatenablog.com/oembed?url=http%3A%2F%2Ftips.hecomi.com%2Fentry%2F2015%2F08%2F14%2F220030&amp;format=json" 
+rel="alternate" type="application/json+oembed">     <LINK title="oEmbed Profile of Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた" 
+href="http://hatenablog.com/oembed?url=http%3A%2F%2Ftips.hecomi.com%2Fentry%2F2015%2F08%2F14%2F220030&amp;format=xml" 
+rel="alternate" type="text/xml+oembed">       <LINK href="http://www.hatena.ne.jp/hecomi/" 
+rel="author">     <LINK href="UNETについて.files/blog.css" rel="stylesheet" type="text/css"> 
+      <LINK href="UNETについて.files/c871dfa0c830706631b13221fbe59a0bf47abe4f.css" 
+rel="stylesheet" type="text/css">    
+<SCRIPT></SCRIPT>
+         
+<STYLE>
+      div#google_afc_user,
+      div#google_afc_user_container_0,
+      div#google_afc_user_container_1,
+      div#google_afc_user_container_2,
+      div#google_afc_user_container_3,
+      div#google_afc_user_container_4,
+      div#google_afc_user_container_5,
+      div.google_afc_image,
+      div.google_afc_blocklink {
+          display: block !important;
+      }
+    </STYLE>
+       
+<META name="GENERATOR" content="MSHTML 11.00.9600.18125"></HEAD>   
+<BODY class="page-entry header-image-only enable-top-editarea enable-bottom-editarea customized-background-image  category-Unity category-C# globalheader-off "><!-- Google Universal Analytics --> 
+<SCRIPT id="google-analytics-script">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-29716941-6', 'auto', {'name': 'HatenaBlogTracker', 'sampleRate': 1});
+  ga('HatenaBlogTracker.require', 'displayfeatures');
+  ga('HatenaBlogTracker.send', 'pageview');
+  ga('create', 'UA-29716941-23', 'auto', {'name': 'HatenaBlogSeparatedTracker', 'sampleRate': 10});
+  ga('HatenaBlogSeparatedTracker.require', 'displayfeatures');
+  ga('HatenaBlogSeparatedTracker.send', 'pageview');
+
+    
+      ga('create', 'UA-17296465-4', 'auto', {'name': 'HatenaBlogUserTracker'});
+      ga('HatenaBlogUserTracker.require', 'displayfeatures');
+      ga('HatenaBlogUserTracker.send', 'pageview');
+    
+  
+  ga('create', 'UA-7855606-1', 'auto', {'name': 'HatenaGlobalTracker', 'sampleRate': 1});
+  ga('HatenaGlobalTracker.require', 'displayfeatures');
+  ga('HatenaGlobalTracker.send', 'pageview');
+</SCRIPT>
+ <!-- End Google Universal Analytics -->         
+<DIV id="header-container">
+<DIV id="sp-suggest" style="display: none;"><A id="sp-suggest-link" href="http://tips.hecomi.com/entry/2015/08/14/220030#">スマートフォン用の表示で見る</A></DIV></DIV><!-- ここから --> 
+    
+<DIV class="quote-box">
+<DIV class="tooltip-quote tooltip-quote-star"><I title="引用スターをつける" class="blogicon-star"></I> 
+      </DIV>
+<DIV class="tooltip-quote tooltip-quote-stock"><I title="引用をストック" class="blogicon-quote"></I> 
+      </DIV></DIV>
+<DIV class="message-box" id="quote-star-message-box" style="display: none; position: absolute;"> 
+     スターをつけました     </DIV>
+<DIV class="quote-stock-panel" id="quote-stock-message-box" style="position: absolute; z-index: 3000;">
+<DIV class="message-box" id="quote-stock-succeeded-message" style="display: none;">
+<P>引用をストックしました</P><BUTTON class="btn btn-primary" id="quote-stock-show-editor-button" 
+data-track-name="curation-quote-edit-button">ストック一覧を見る</BUTTON>         <BUTTON 
+class="btn quote-stock-close-message-button">閉じる</BUTTON>       </DIV>
+<DIV class="message-box" id="quote-login-required-message" style="display: none;">
+<P>引用するにはまずログインしてください</P><BUTTON class="btn btn-primary" 
+id="quote-login-button">ログイン</BUTTON>         <BUTTON class="btn quote-stock-close-message-button">閉じる</BUTTON> 
+      </DIV>
+<DIV class="error-box" id="quote-stock-failed-message" style="display: none;">
+<P>引用をストックできませんでした。再度お試しください</P><BUTTON class="btn quote-stock-close-message-button">閉じる</BUTTON> 
+      </DIV>
+<DIV class="error-box" id="unstockable-quote-message-box" style="display: none; position: absolute; z-index: 3000;">
+<P>限定公開記事のため引用できません。</P></DIV></DIV><!-- ここまで -->     
+<SCRIPT id="js-requote-button-template" type="x-underscore-template">
+      <div class="requote-button js-requote-button">
+        <button class="requote-button-btn tipsy-top" title="引用する"><i class="blogicon-quote"></i></button>
+      </div>
+    </SCRIPT>
+     
+<DIV id="globalheader-container" style="display: none;"><IFRAME height="37" id="globalheader" 
+src="UNETについて.files/blogs.htm" frameborder="0" 
+allowtransparency="true"></IFRAME> </DIV>
+<DIV id="hidden-subscribe-button">
+<DIV 
+class="hatena-follow-button-box btn-subscribe js-hatena-follow-button-box"><A 
+class="hatena-follow-button js-hatena-follow-button" href="http://tips.hecomi.com/entry/2015/08/14/220030#"><SPAN 
+class="subscribing"><SPAN class="foreground">読者です</SPAN>       <SPAN class="background">読者をやめる</SPAN> 
+    </SPAN>     <SPAN class="unsubscribing" data-track-name="profile-widget-subscribe-button" 
+data-track-once=""><SPAN class="foreground">読者になる</SPAN>       <SPAN class="background">読者になる</SPAN> 
+    </SPAN>   </A>   
+<DIV class="subscription-count-box js-subscription-count-box"><I></I>     
+<U></U>     <SPAN 
+class="subscription-count js-subscription-count"></SPAN></DIV></DIV></DIV>
+<DIV id="container">
+<DIV id="container-inner"><HEADER id="blog-title" data-brand="hatenablog">
+<DIV id="blog-title-inner" style='background-position: center 0px; background-image: url("http://cdn-ak.f.st-hatena.com/images/fotolife/h/hecomi/20140102/20140102162544.png");'>
+<DIV id="blog-title-content">
+<H1 id="title"><A href="http://tips.hecomi.com/">凹みTips</A></H1>
+<H2 id="blog-description">C++、JavaScript、Unity、ガジェット等の Tips 
+について雑多に書いています。</H2></DIV></DIV></HEADER>
+<DIV id="top-editarea"><A href="http://hecomi.hatenablog.com/">
+<DIV style="left: 0px; top: 0px; width: 1040px; height: 160px; margin-top: -160px; position: relative; z-index: 1000;"></DIV></A> 
+          </DIV>
+<DIV class="hfeed" id="content">
+<DIV id="content-inner">
+<DIV id="wrapper">
+<DIV id="main">
+<DIV id="main-inner"><!-- google_ad_section_start -->             <!-- rakuten_ad_target_begin --> 
+                                          <ARTICLE class="entry hentry js-entry-article date-first autopagerize_page_element chars-20000 words-2000 mode-markdown entry-odd" 
+id="entry-8454420450104809426" data-uuid="8454420450104809426" 
+data-keyword-campaign="">
+<DIV class="entry-inner"><HEADER class="entry-header">
+<DIV class="entry-date date first"><A href="http://tips.hecomi.com/entries/2015/08/14" 
+rel="nofollow"><time title="2015-08-14T13:00:30Z" datetime="2015-08-14T13:00:30Z" 
+pubdate=""><SPAN class="date-year">2015</SPAN><SPAN class="hyphen">-</SPAN><SPAN 
+class="date-month">08</SPAN><SPAN class="hyphen">-</SPAN><SPAN 
+class="date-day">14</SPAN>           </time>         </A>       </DIV>
+<H1 class="entry-title"><A class="entry-title-link bookmark" href="http://tips.hecomi.com/entry/2015/08/14/220030">Unity 
+5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた</A>       </H1>
+<DIV class="entry-categories categories"><A href="http://tips.hecomi.com/archive/category/Unity">Unity</A> 
+                    <A 
+href="http://tips.hecomi.com/archive/category/C%23">C#</A>                   
+</DIV></HEADER>
+<DIV class="entry-content">
+<H2>はじめに</H2>
+<P><B>Unity 5.1</B> より<B>マルチプレイヤ</B>用のネットワークシステム（<B>UNET</B>）が追加されました。</P>
+<UL>
+  <LI><A 
+  href="http://blogs.unity3d.com/jp/2015/06/09/unity-5-1-is-here/">(English) 
+  Unity 5.1 is here! – Unity Blog</A></LI>
+  <LI><A href="http://blogs.unity3d.com/2014/05/12/announcing-unet-new-unity-multiplayer-technology/">Announcing 
+  UNET – New Unity Multiplayer Technology – Unity Blog</A></LI></UL>
+<P>古い Network 機能は今後 5.x のどこかのタイミングで廃止される予定です。</P>
+<P>UNET は低レイヤのカスタマイズから、抽象化された高レベルな <A class="keyword" href="http://d.hatena.ne.jp/keyword/API">API</A> 
+群、Unity のエディタ拡張から簡単に利用できる<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>群およびプロファイラとの統合、そしてマッチメイキングといったマルチプレイヤゲーム向けのサービスまでを提供する、Unity 
+5 を代表する機能の一つです。ロードマップでは Phase.3 まで描かれていて、現在は Phase.1 が提供された段階です。</P>
+<P>現状、英語・日本語ともに下回りを含め詳しく解説した文字ベースの資料がドキュメント以外にほとんどなく、ドキュメントはすごい良くまとまっているものの分量が多いので、どこを学習の基点としたら良いか決めるのが難しいと思います。そこで自身の備忘録も兼ねて一通り機能を調べてまとめてみました。機能がとても多いので全てはカバーできないですが、取り敢えず一通り眺めればドキュメントの読み方が分かるようなところを目指して、分かりやすそうな順で解説を書いています。私の理解を元に、ちょっと込み入ったところも書いてみました。間違っている所があればご指摘頂けると助かります。</P>
+<P>ただし、UNET 
+は現在も色々と変更が行われているようで、例えばドキュメントのコードから結構変更が行われていてそのままだと動かないものが多いので、今後、下記情報も古くなる可能性があることにご留意下さい。</P>
+<H2>環境</H2>
+<UL>
+  <LI><A class="keyword" href="http://d.hatena.ne.jp/keyword/Mac%20OS%20X">Mac 
+  OS X</A> 10.10.4</LI>
+  <LI>Unity 5.1.2f1</LI></UL>
+<H2>デモ</H2>
+<P>試しに 3D チャットを作ってみました。さくらの <A class="keyword" href="http://d.hatena.ne.jp/keyword/VPS">VPS</A> 
+で <A class="keyword" href="http://d.hatena.ne.jp/keyword/Linux">Linux</A> 
+ビルドしたサーバを動かし、そこへ<A class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>のクライアントからつなぐデモです。サーバ側で動いてる 
+AI もいます。サーバ・クライアント共に同じプロジェクトをビルドしています。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150814215723p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150814215723p:plain" src="UNETについて.files/20150814215723.png" 
+itemprop="image"></SPAN></P>
+<P><IFRAME width="640" height="480" src="UNETについて.files/zeJi8UIzltQ.htm" 
+frameborder="0" allowfullscreen=""></IFRAME></P>
+<P>どれくらいのクライアントの接続に耐えられるか、またいつ止まるかは不明ですが、デモアプリは以下からダウンロードできます。</P>
+<UL>
+  <LI><A href="https://dl.dropboxusercontent.com/u/7131835/Programs/Unet3dChatDemo_Mac.zip">Unet3dChatDemo_Mac.zip 
+  @ Dropbox</A></LI>
+  <LI><A href="https://dl.dropboxusercontent.com/u/7131835/Programs/Unet3dChatDemo_Win.zip">Unet3dChatDemo_Win.zip 
+  @ Dropbox</A></LI></UL>
+<H2>教材</H2>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ja/current/Manual/UNet.html">Unity - 
+  マニュアル: マルチプレーヤーとネットワーキング</A> 
+  <UL>
+    <LI>ドキュメント（現在未翻訳）。一通り書いてあるけど読むのが大変。</LI></UL></LI>
+  <LI><A href="http://tsubakit1.hateblo.jp/entry/2015/06/13/233000">【Unit 
+  5】Unityでマルチプレイヤーなゲームを作る入門（１） - テラシュールブログ</A> 
+  <UL>
+    <LI>椿さんの記事。<A class="keyword" 
+    href="http://d.hatena.ne.jp/keyword/FPS">FPS</A> Controller をアタッチしたプレイヤが <A 
+    class="keyword" href="http://d.hatena.ne.jp/keyword/localhost">localhost</A> 
+    で同期されるところまでスクショを交えて詳しく書いてあります。</LI></UL></LI>
+  <LI><A href="http://forum.unity3d.com/threads/unity-5-unet-multiplayer-tutorials-making-a-basic-survival-co-op.325692/">Unity 
+  5 UNET Multiplayer Tutorials - Making a basic survival co-op | Unity 
+  Community</A> 
+  <UL>
+    <LI><A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%C1%A5%E5%A1%BC%A5%C8%A5%EA%A5%A2%A5%EB">チュートリアル</A>動画が沢山（英語）。ひとつあたり数十分で 
+    21 本。</LI>
+    <LI>Part 1 の前半部が椿さんの記事とほぼ同じ感じです。</LI></UL></LI>
+  <LI><A href="http://japan.unity3d.com/unite/unite2015/files/DAY2_1700_room1_Sean.pdf">Unity 
+  New Networking System (UNet) - Unite Asia 2015</A> 
+  <UL>
+    <LI>Unite Asia 2015 での資料。ドキュメントの図もここから多くを利用している？</LI></UL></LI>
+  <LI><A 
+  href="https://www.youtube.com/watch?t=3027&amp;v=gZbbYXzyXKk">Democratizing 
+  Multiplayer Development - Unite Europe 2015 - YouTube</A> 
+  <UL>
+    <LI>Unite Europe 2015 での講演動画</LI></UL></LI>
+  <LI><A 
+  href="http://hiyotama.hatenablog.com/entry/2015/07/06/153000">【Unity9】UNETでマルチプレイヤーなオンラインゲーム開発【UNET1】 
+  - Unity5(C#)初心者・入門者向けチュートリアル ひよこのたまご</A> 
+  <UL>
+    <LI><A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%C1%A5%E5%A1%BC%A5%C8%A5%EA%A5%A2%A5%EB">チュートリアル</A>動画の内容を図解付きで丁寧に記事にまとめてくださっています、多分今のところ日本語で一番詳しい。</LI>
+    <LI>手を動かしながら覚えたい人は、まずこちらを実践すると感触が掴めると思います。</LI></UL></LI></UL>
+<H2>サンプルプロジェクト</H2>
+<P>以下のスレッドで HLAPI / LLAPI のサンプルがいくつか配布されています。</P>
+<UL>
+  <LI><A 
+  href="http://forum.unity3d.com/threads/unet-sample-projects.331978/">Unity 
+  Multiplayer - UNet Sample Projects | Unity Community</A></LI></UL>
+<P>以下は<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A4%A5%F3%A5%D9%A1%BC%A5%C0%A1%BC%A5%B2%A1%BC%A5%E0">インベーダーゲーム</A>のサンプルのキャプチャです。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811194006p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811194006p:plain" src="UNETについて.files/20150811194006.png" 
+itemprop="image"></SPAN></P>
+<H2>HLAPI / LLAPI</H2>
+<P>UNET には大きく分けて 2 種類の<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%E6%A1%BC%A5%B9%A5%B1%A1%BC%A5%B9">ユースケース</A>をカバーする機能を提供しています。</P>
+<UL>
+  <LI>マルチプレイヤ用のゲームを簡単に作りたい 
+  <UL>
+    <LI><B>High Level <A class="keyword" href="http://d.hatena.ne.jp/keyword/API">API</A> 
+    (HLAPI)</B> 
+    <UL>
+      <LI>下回りの実装を意識すること無くデータの<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>・デ<A 
+      class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>やマッチメイキングなどのマルチプレイヤ向けの基本機能を提供</LI></UL></LI></UL></LI>
+  <LI>ネットワークインフラやより複雑なマルチプレイヤゲームを作りたい 
+  <UL>
+    <LI><B>NetworkTransport <A class="keyword" href="http://d.hatena.ne.jp/keyword/API">API</A>（LLAPI）</B> 
+    <UL>
+      <LI>OS が提供するネットワーク機能の上に乗る薄いレイヤ</LI>
+      <LI><A class="keyword" href="http://d.hatena.ne.jp/keyword/UDP">UDP</A> と 
+      WebSocket の 2 つの<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%ED%A5%C8%A5%B3%A5%EB">プロトコル</A>をサポート</LI></UL></LI></UL></LI></UL>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808150902p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808150902p:plain" src="UNETについて.files/20150808150902.png" 
+itemprop="image"></SPAN></P>
+<H2>Getting Started</H2>
+<P>最初から各論に入ると分からなくなるので、まずは UNET の感触をつかむために、<A href="http://tsubakit1.hateblo.jp/entry/2015/06/13/233000">椿さんの記事</A>の内容を元にその詳細を解説しようと思います。詳しくは椿さんのエントリを見ていただきたいのですが、箇条書きにすると以下のような手順になります。作業は５分位で出来る内容です。</P>
+<UL>
+  <LI>適当にオブジェクトを配置</LI>
+  <LI>シーンに <CODE>NetworkManager</CODE> および <CODE>NetworkManagerHUD</CODE> 
+  をアタッチした Game Object を配置</LI>
+  <LI>Asset &gt; Import Package &gt; Characters をインポートして <CODE>FPS 
+  Controller</CODE> を配置</LI>
+  <LI>配置した <CODE>FPS Controller</CODE> に <CODE>NetworkIdentity</CODE> および 
+  <CODE>NetworkTransform</CODE> をアタッチ 
+  <UL>
+    <LI><CODE>NetworkIdentity</CODE> の <CODE>Is Player Authority</CODE> 
+    をチェック</LI>
+    <LI><CODE>NetworkTransform</CODE> の <CODE>Transform Sync Mode</CODE> を 
+    <CODE>Sync Character Controller</CODE> に変更</LI></UL></LI>
+  <LI><CODE>FPS Controller</CODE> にカメラなどリモートで不要な<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>を 
+  disabled にする<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</A> 
+  <CODE>DisableRemotePlayerBehaviours</CODE> をアタッチ（自前で用意、後述）して不要にする<A class="keyword" 
+  href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>をインスペクタ上で登録</LI>
+  <LI><CODE>FPS Controller</CODE> を Prefab 化</LI>
+  <LI><CODE>NetworkManager</CODE> の <CODE>Spawn Info</CODE> &gt; <CODE>Player 
+  Prefab</CODE> に <CODE>FPS Controller</CODE> の Prefab を指定</LI>
+  <LI>ビルドして実行 &amp; Editor 上でも実行して、Editor 上では <CODE>Lan Host(H)</CODE> 
+  を、ビルドしたアプリでは <CODE>Lan Client(C)</CODE> をクリック</LI>
+  <LI>片方を動かすともう一方で動く</LI></UL>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking; <SPAN class="synComment">// 新ネットワーク機能の名前空間</SPAN>
+
+<SPAN class="synComment">// NetworkBehaviour では isLocalPlayer などネットワーク系の</SPAN>
+<SPAN class="synComment">// プロパティやメソッドにアクセスできる</SPAN>
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> DisableRemotePlayerBehaviours : NetworkBehaviour
+{
+    <SPAN class="synType">public</SPAN> Behaviour[] behaviours;
+
+    <SPAN class="synType">void</SPAN> Start()
+    {
+        <SPAN class="synComment">// 登録されたコンポーネントをリモート側で disabled にする</SPAN>
+        <SPAN class="synStatement">if</SPAN> (!isLocalPlayer) {
+            <SPAN class="synStatement">foreach</SPAN> (var behaviour <SPAN class="synStatement">in</SPAN> behaviours) {
+                behaviour.enabled = <SPAN class="synConstant">false</SPAN>;
+            }
+        }
+    }
+}
+</PRE>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150807194437p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150807194437p:plain" src="UNETについて.files/20150807194437.png" 
+itemprop="image"></SPAN></P>
+<H2>解説</H2>
+<P>雰囲気は掴めたと思うので、具体的に上記手順で何をしていたか、各<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>がどういう役割をしているのか、順に見て理解を深めていきましょう。</P>
+<H3>Network Manager</H3>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ja/current/Manual/UNetManager.html">Unity 
+  - マニュアル: NetworkManager を使用する</A></LI>
+  <LI><A href="http://docs.unity3d.com/ja/current/ScriptReference/Networking.NetworkManager.html">Unity 
+  - Scripting API:</A></LI></UL>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808151226p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808151226p:plain" src="UNETについて.files/20150808151226.png" 
+itemprop="image"></SPAN></P>
+<P><CODE>Network Manager</CODE> は HLAPI を使って作られたマルチプレイヤゲームで必要な機能群が一通り揃った<A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>です。</P>
+<P>以下の様な機能を提供してくれます。</P>
+<UL>
+  <LI>ネットワークでの役割の管理 
+  <UL>
+    <LI>サーバかクライアントかホスト（サーバ + ローカルクライアント）のいずれか</LI>
+    <LI><CODE>Network Manager HUD</CODE> を同時にアタッチするとサンプルの UI が表示</LI></UL></LI>
+  <LI>オブジェクト生成の管理 
+  <UL>
+    <LI>開始時に <CODE>Instantiate</CODE> する <CODE>Player Prefab</CODE> を登録する</LI>
+    <LI>動的に生成する Prefab を登録する</LI>
+    <LI>登録した Prefab を <CODE>NetworkServer.Spawn(GameObject)</CODE> 
+    に渡すと全クライアントで生成</LI></UL></LI>
+  <LI>シーンの管理 
+  <UL>
+    <LI>オフラインシーンとオンラインシーンを管理</LI>
+    <LI>オンラインになると自動でシーン遷移</LI>
+    <LI>Build Settings で <CODE>Scenes In Build</CODE> にシーンを登録すると <CODE>Menu 
+    Scene</CODE> と <CODE>Play Scene</CODE> にシーンをドラッグ＆ドロップできるようになる</LI></UL></LI>
+  <LI><A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%C7%A5%D0%A5%C3%A5%B0">デバッグ</A> 
+  <UL>
+    <LI>ネットワーク遅延やパケロスのシミュレーション</LI>
+    <LI>コネクションの状態やローカル・リモートのオブジェクトのリストの表示</LI></UL></LI>
+  <LI>マッチメイキング 
+  <UL>
+    <LI>Unity Multiplayer サービスとの連携（後述）</LI></UL></LI>
+  <LI>カスタマイズ 
+  <UL>
+    <LI>いくつかの関数は virtual になっていて継承してカスタム出来る</LI>
+    <LI>例) <CODE>Player Prefab</CODE> 生成時の <CODE>OnServerAddPlayer()</CODE></LI>
+    <LI><CODE>NetworkLobbyManager</CODE> はこれを継承してロビーを作れるようにしたもの</LI></UL></LI></UL>
+<P>先程の例では最初の２つの項目を利用した形になります。</P>
+<H3>NetworkIdentity</H3>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808155819p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808155819p:plain" src="UNETについて.files/20150808155819.png" 
+itemprop="image"></SPAN></P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ja/current/Manual/class-NetworkIdentity.html">Unity 
+  - マニュアル: NetworkIdentity</A></LI></UL>
+<P><CODE>NetworkIdentity</CODE> はネットワーク同期でのコアとなる<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>で、同期するオブジェクトには必ず付ける必要があります。ここにはネットワーク内で共通の 
+<CODE>Scene ID</CODE>（どのシーンに属するか）や <CODE>Network ID</CODE>（ネットワーク内で一意に決まる 
+ID）、<CODE>Asset ID</CODE>（どのアセットを利用するか）や他の<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>から利用する様々なフラグ（例えば 
+<CODE>localPlayerAuthority</CODE> は <CODE>NetworkTransform</CODE> 
+が参照）といった情報が含まれています。</P>
+<P>これらは Inspector 下部もしくは Inspector のモードを Debug にすることで確認することが出来ます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808153652p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808153652p:plain" src="UNETについて.files/20150808153652.png" 
+itemprop="image"></SPAN></P>
+<H3>NetworkTransform</H3>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808155718p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808155718p:plain" src="UNETについて.files/20150808155718.png" 
+itemprop="image"></SPAN></P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/class-NetworkTransform.html">Unity 
+  - Manual: NetworkTransform</A></LI></UL>
+<P><CODE>NetworkTransform</CODE> はその名の通りネットワーク内で <CODE>Transform</CODE> <A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>を同期する役割をします。同期のモード（単純に 
+<CODE>Transform</CODE> の値を同期するか、<CODE>RigidBody</CODE> に追従するか、<CODE>Character 
+Controller</CODE> に追従するかなど）や同期の頻度、補間の設定などが可能です。</P>
+<P><CODE>NetworkTransformVisualizer</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>をアタッチして 
+<CODE>Visualizer Prefab</CODE> を設定すると生値と補間の様子を見ることが出来ます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150808162716p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150808162716p:plain" src="UNETについて.files/20150808162716.png" 
+itemprop="image"></SPAN></P>
+<P>後述しますが、Photon の <CODE>PhotonTransformView</CODE> 
+の様に細かな補間の設定は出来ないようなので色々と調整したい場合は自前で書く必要があります。</P>
+<H3>NetworkAnimator</H3>
+<P>例では出てきませんでしたが、似たものに <CODE>Animator</CODE> を同期する <CODE>NetworkAnimator</CODE> 
+もあります。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150812193856p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150812193856p:plain" src="UNETについて.files/20150812193856.png" 
+itemprop="image"></SPAN></P>
+<P>指定した <CODE>Animator</CODE> の変数が自動で Inspector 
+に出てきてチェックしたものを同期してくれます。ただあくまでも定期的な同期なので、すぐにかつ確実に同期が必要な場合、別途対応する必要があります。これは後述します。</P>
+<H2>サーバ・クライアント・ホスト</H2>
+<P><CODE>NetworkManager</CODE> 
+のところでサーバ、クライアント、ホストに触れましたが、理解を深めるためにこれらについてちょっと見ておきましょう。</P>
+<P>まず大前提として、UNET では同じゲームのコードでクライアント・サーバ共に動かしています。サーバ専用の言語を覚えたりする必要はありません。</P>
+<P>UNET では基本的には一つのサーバに<A class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>のクライアントがぶら下がる形になります。ただ専用のサーバがない場合はいずれかのクライアントがサーバの役割も担うことになります。これがホストです。ホストではサーバとクライアントが同じプロセスで動作（同じシーンやオブジェクトを共有）しています。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150809154610p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150809154610p:plain" src="UNETについて.files/20150809154610.png" 
+itemprop="image"></SPAN></P>
+<P>こうしてサーバに対してローカルなクライアントとリモートなクライアントが出来るのですが、<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%D7%A5%ED%A5%B0%A5%E9%A5%DE">プログラマ</A>はこれらのホストにローカルなクライアントかリモートなクライアントかを意識することなくプログラムできるようになっています。ただし、サーバかクライアントかといったことや、参照しているオブジェクトが各クライアントから見てローカルなのかリモートなのかは強く意識する必要があります。</P>
+<P>例えば、先ほど操作するプレイヤにアタッチした <CODE>NetworkIdentity</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>の 
+<CODE>Is Player Authority</CODE> 
+にチェックを入れましたが、これによって各クライアント毎に自身のプレイヤの所有権が与えられ、<CODE>isLocalPlayer</CODE> フラグが 
+true になります。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150809164453p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150809164453p:plain" src="UNETについて.files/20150809164453.png" 
+itemprop="image"></SPAN></P>
+<H2>ネットワーク間で動作する<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A></H2>
+<P>さて、今度はコードからの利用を見て行きましょう。先ほどの <CODE>NetworkTransform</CODE> 
+の代わりになるようなものを書いてみます。簡単のために位置だけ同期するコードを書いてみます。</P>
+<P>自前でネットワーク関連の<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>を作成するには、<CODE>MonoBehaviour</CODE> 
+の代わりに、これを継承してネットワーク機能を付加した <CODE>NetworkBehaviour</CODE> 
+を継承します。<CODE>NetworkBehaviour</CODE> は <CODE>NetworkIdentity</CODE> 
+と共に動作します。いくつか特殊な記法が存在します。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/class-NetworkBehaviour.html">Unity 
+  - Manual: NetworkBehaviour</A></LI>
+  <LI><A href="http://docs.unity3d.com/ja/current/ScriptReference/Networking.NetworkBehaviour.html">Unity 
+  - Scripting API:</A></LI></UL>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> Player_SyncPosition : NetworkBehaviour
+{
+    <SPAN class="synComment">// SyncVar Attribute をつけたプロパティはネットワーク越しで共有される</SPAN>
+    [SyncVar]
+    <SPAN class="synType">private</SPAN> Vector3 syncPos;
+
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> easing = <SPAN class="synConstant">0.25f</SPAN>;
+
+    <SPAN class="synComment">// Unity Engine から呼ばれる関数（e.g. Start / OnCollisionEnter) に</SPAN>
+    <SPAN class="synComment">// ClientCallback Attribute をつけるとクライアント側だけで実行される（サーバ側は空実装）</SPAN>
+    <SPAN class="synComment">// 同様に ServerCallback Attribute もある</SPAN>
+    [ClientCallback]
+    <SPAN class="synType">void</SPAN> Update()
+    {
+        <SPAN class="synComment">// サーバ側に現在位置を送信</SPAN>
+        <SPAN class="synStatement">if</SPAN> (isLocalPlayer) {
+            TransmitPosition();
+        } <SPAN class="synStatement">else</SPAN> {
+            LerpPosition();
+        }
+    }
+
+    <SPAN class="synComment">// Client Attribute をつけると Client のみ実行される（サーバでは空実装になる）</SPAN>
+    <SPAN class="synComment">// 同様に Server Attribute もある</SPAN>
+    [Client]
+    <SPAN class="synType">void</SPAN> TransmitPosition()
+    {
+        CmdProvidePositionToServer(transform.position);
+    }
+
+    <SPAN class="synComment">// サーバ側で実行されるコマンド</SPAN>
+    <SPAN class="synComment">// クライアント側からサーバ側へコマンドを送る時はこれが必要</SPAN>
+    <SPAN class="synComment">// Command Attribute と Cmd-prefix な関数をセットで定義</SPAN>
+    [Command]
+    <SPAN class="synType">void</SPAN> CmdProvidePositionToServer(Vector3 pos)
+    {
+        syncPos = pos;
+    }
+
+    <SPAN class="synType">void</SPAN> LerpPosition()
+    {
+        transform.position = Vector3.Lerp(transform.position, syncPos, easing);
+    }
+}
+</PRE>
+<P>これを <CODE>NetworkTransfom</CODE> 
+の代わりにアタッチすると、滑らか（目的位置に徐々に近づけるコードなのでキビキビでなくヌルッと動く）に位置が同期されます。</P>
+<P>コメントにも解説を入れましたが、<CODE>NetworkBehaviour</CODE> には特別ないくつかの Attribute 
+やルールが存在し、これらを利用してネットワーク越しで情報をやり取りするコードを簡潔に書けるような仕組みが用意されています。一通り機能を見てみましょう。</P>
+<UL>
+  <LI><B>変数の同期</B> 
+  <UL>
+    <LI><CODE>SyncVar</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけると値が同期される 
+    <UL>
+      <LI>ただし Primitive 型のみ（Vector3 等の Unity の Primitve 型も OK）</LI></UL></LI>
+    <LI>同期はサーバ → クライアントのみなのでサンプルコードのようにサーバに同期したい値を送る必要がある 
+    <UL>
+      <LI>もしくは <CODE>hook</CODE> を使うとより簡単に記述できる 
+      <UL>
+        <LI><A 
+        href="http://hiyotama.hatenablog.com/entry/2015/07/15/090000">【Unity9】UNETでHPを画面に表示し、Playerへダメージを与える【UNET9】 
+        - Unity5(C#)初心者・入門者向けチュートリアル ひよこのたまご</A></LI></UL></LI></UL></LI>
+    <LI>仕組みの詳細： <A href="http://blogs.unity3d.com/2014/05/29/unet-syncvar/">UNET 
+    SyncVar – Unity Blog</A></LI></UL></LI>
+  <LI><B>ネットワーク機能関連のコールバック</B> 
+  <UL>
+    <LI>いくつかの virtual 関数群が用意されている（override して利用、詳細はマニュアル参照） 
+    <UL>
+      <LI><CODE>OnStartServer</CODE></LI>
+      <LI><CODE>OnStartClient</CODE></LI>
+      <LI><CODE>OnSerialize</CODE></LI>
+      <LI><CODE>OnDeSerialize</CODE></LI>
+      <LI><CODE>OnNetworkDestroy</CODE></LI>
+      <LI><CODE>OnStartLocalPlayer</CODE></LI>
+      <LI><CODE>OnRebuildObservers</CODE></LI>
+      <LI><CODE>OnSetLocalVisibility</CODE></LI>
+      <LI><CODE>OnCheckObserver</CODE></LI></UL></LI>
+    <LI>いくつかのコールバックは後で解説します</LI></UL></LI>
+  <LI><B>サーバ / クライアントでの関数の切り分け</B> 
+  <UL>
+    <LI><CODE>Client</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけるとクライアントのみで実行される関数になる（サーバだと直ぐに 
+    return される）</LI>
+    <LI><CODE>Server</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけるとサーバのみ</LI>
+    <LI>Unity のコールバックにつける 
+    <CODE>ClientCallback</CODE>、<CODE>ServerCallback</CODE> もある 
+    <UL>
+      <LI>基本的には <CODE>Client</CODE>、<CODE>Server</CODE> と同じ、Warning 
+      を発生しない（？）</LI></UL></LI></UL></LI>
+  <LI><B>クライアントからサーバへのコマンドの送信</B> 
+  <UL>
+    <LI><CODE>Cmd</CODE> から始まる関数に <CODE>Command</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけるとサーバで実行されるクライアントから呼び出せる関数になる</LI></UL></LI>
+  <LI><B>サーバからクライアントの RPC（リモートプロシージャコール）</B> 
+  <UL>
+    <LI><CODE>Rpc</CODE> から始まる関数に <CODE>ClientRpc</CODE> <A class="keyword" 
+    href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけるとクライアントで実行されるサーバから呼び出せる関数になる</LI></UL></LI>
+  <LI><B>ネットワーク越しのイベントの登録</B> 
+  <UL>
+    <LI><CODE>Event</CODE> から始まるイベントに <CODE>SyncEvent</CODE> <A class="keyword" 
+    href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>をつけるとクライアントで呼び出されるイベントをサーバから発火出来る</LI>
+    <LI><CODE>ClientRPC</CODE> が単純な呼び出しに対しイベントを用意して他の<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</A>から利用することが可能</LI>
+    <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.SyncEventAttribute.html">Unity 
+    - Scripting API:</A></LI></UL></LI></UL>
+<P>これらをうまいこと利用してロジックを組んであげればゲームが出来るのが何となくイメージできるのではないでしょうか。<A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/%A5%C1%A5%E5%A1%BC%A5%C8%A5%EA%A5%A2%A5%EB">チュートリアル</A>動画ではこれらをうまく利用してゲームを作成しているのでサンプルとして見ると参考になると思います。</P>
+<H2>オブジェクトの "Spawn" を理解する</H2>
+<P>次に動的なオブジェクトの生成について見て行きましょう。</P>
+<P>ドキュメントでは頻繁に "Spawn" という単語が出てきます。これは "Instantiate" とは区別して使われていて、"Instantiate" 
+が <CODE>Object.Instantiate()</CODE> によってオブジェクトを生成するのに対し、"Spawn" 
+はネットワークに接続されたクライアント全てにおいてオブジェクトを生成することを意味しています。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/UNetSpawning.html">Unity - Manual: 
+  Object Spawning</A></LI></UL>
+<P>UNET 
+では、オブジェクトがサーバ上で変更されたり破棄されるとその通知が各クライアントへ伝わります。また、生成後に新しいクライアントがサーバに接続した際も、その新しいクライアント上で既に生成済みのオブジェクトが生成されます。</P>
+<P>オブジェクトを "Spawn" するためには、対象のオブジェクトを <CODE>NetworkServer.Spawn()</CODE> 
+に渡す必要があります。<CODE>NetworkServer</CODE> クラスはサーバの状態や機能をまとめたクラスです。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkServer.html">Unity 
+  - Scripting API:</A></LI></UL>
+<P>もちろん直接オブジェクトの参照をネットワーク越しに渡すことは出来ません。そこでこれが上手く動くためには、各クライアントで何のオブジェクトを生成するか各クライアントが把握している必要があります。この役割を果たすのが 
+<CODE>NetworkIdentity</CODE> の時に見た <CODE>Asset ID</CODE> です。そして <CODE>Asset 
+ID</CODE> は事前に登録しておく必要があります。</P>
+<P>登録する方法は <CODE>NetworkManager</CODE> 
+を利用している際はインスペクタから、それ以外はコードから行う必要があります。インスペクタから行う場合は <CODE>NetworkManager</CODE> 
+の <CODE>Spawn Info</CODE> &gt; <CODE>Registered Spawnable Prefabs</CODE> に対象の 
+Prefab を登録します。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150809185313p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150809185313p:plain" src="UNETについて.files/20150809185313.png" 
+itemprop="image"></SPAN></P>
+<P>コードで書く場合は <CODE>ClientScene.RegisterPrefab()</CODE> で登録します。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.ClientScene.RegisterPrefab.html">Unity 
+  - Scripting API:</A></LI></UL>
+<P>例えばキャラクタから弾を発射してみます。<CODE>NetworkManager</CODE> に弾の Prefab 
+を登録し、以下の様なコードを書いてプレイヤにアタッチします。</P>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+<SPAN class="synStatement">using</SPAN> System.Collections;
+
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> ShootBullet : NetworkBehaviour
+{
+    <SPAN class="synType">public</SPAN> GameObject bulletPrefab;
+    <SPAN class="synType">public</SPAN> KeyCode shootKey = KeyCode.Space;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> forwardSpeed = <SPAN class="synConstant">10f</SPAN>;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> upSpeed = <SPAN class="synConstant">5f</SPAN>;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> duration = <SPAN class="synConstant">3f</SPAN>;
+
+    [ClientCallback]
+    <SPAN class="synType">void</SPAN> Update()
+    {
+        <SPAN class="synStatement">if</SPAN> (isLocalPlayer &amp;&amp; Input.GetKeyDown(shootKey)) {
+            var forward = Camera.main.transform.forward;
+            var up = Camera.main.transform.up;
+            var velocity = forward * forwardSpeed + up * upSpeed;
+            CmdShoot(velocity);
+        }
+    }
+
+    [Command]
+    <SPAN class="synType">void</SPAN> CmdShoot(Vector3 velocity)
+    {
+        var bullet = Instantiate(bulletPrefab);
+        bullet.transform.position = transform.position + velocity.normalized * <SPAN class="synConstant">0.5f</SPAN>;
+        var rigidbody = bullet.GetComponent&lt;Rigidbody&gt;();
+        <SPAN class="synStatement">if</SPAN> (rigidbody) {
+            rigidbody.velocity = velocity;
+        }
+        NetworkServer.Spawn(bullet);
+        StartCoroutine(DestroyBullet(bullet));
+    }
+
+    [Server]
+    IEnumerator DestroyBullet(GameObject bullet)
+    {
+        <SPAN class="synStatement">yield</SPAN> <SPAN class="synStatement">return</SPAN> <SPAN class="synStatement">new</SPAN> WaitForSeconds(duration);
+        NetworkServer.Destroy(bullet);
+        Destroy(bullet); <SPAN class="synComment">// 要るか要らないかまだ不明...</SPAN>
+    }
+}
+</PRE>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150810181213p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150810181213p:plain" src="UNETについて.files/20150810181213.png" 
+itemprop="image"></SPAN></P>
+<P>生成・破棄をサーバ側で行うようにしています。サーバで <CODE>Instantiate</CODE> 
+して、<CODE>NetworkServer.Spawn()</CODE> で全てのクライアントでも生成、時間が経ったら 
+<CODE>NetworkServer.Destroy()</CODE> で全てのクライアントから破棄しています。UNET 
+ではこういった、クライアントからサーバへの命令なのか、サーバからクライアントへの命令なのかのルールを守る必要があります。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150810191632j:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150810191632j:plain" src="UNETについて.files/20150810191632.jpg" 
+itemprop="image"></SPAN></P>
+<H2><A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>・デ<A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A></H2>
+<H3>SyncVars</H3>
+<P>SyncVar 
+は前述の通りです。知らなくても全く問題ない内容（そうなるように頑張ってくれている）ですが、公式ブログにどうやって実装しているかの解説が書いてあります。</P>
+<UL>
+  <LI><A href="http://blogs.unity3d.com/2014/05/29/unet-syncvar/">UNET SyncVar – 
+  Unity Blog</A></LI></UL>
+<P>内部的にはパフォーマンスや帯域節約のために <CODE>SyncVar</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>を適用した変数のうち、変更されたものに 
+Dirty フラグをセットするようになっているのですが、この Dirty 
+フラグを自動でセットするように変数をプロパティに置き換えるコードジェネレーションが内部で走っています。ユーザコードを大量に置換すると問題が起きやすいので、ここでは 
+Mono.Cecil という IL レベルでコードをあれこれするライブラリを利用しています。</P>
+<UL>
+  <LI><A href="http://www.mono-project.com/docs/tools+libraries/libraries/Mono.Cecil/">Mono.Cecil 
+  | Mono</A></LI>
+  <LI><A 
+  href="http://king-of-nowhere.hatenablog.com/entry/2014/02/04/002817">Mono.Cecilで黒魔術を行う。〜トレースログをインジェクション編〜 
+  - alocoholic_babay's diary</A></LI></UL>
+<P><A class="keyword" href="http://d.hatena.ne.jp/keyword/WebGL">WebGL</A> 
+のコード変換プロセスもアレでしたが、Unity の中には黒魔術屋さんが沢山いそうですね。</P>
+<H3>SyncLists</H3>
+<P>話題が逸れたので戻していきます。<CODE>SyncVar</CODE> 
+は単一の変数にしか効きませんでしたが、リストで使いたい場合に組み込みの同期用リストがいくつか用意されています。</P>
+<UL>
+  <LI><CODE>SyncListString</CODE></LI>
+  <LI><CODE>SyncListFloat</CODE></LI>
+  <LI><CODE>SyncListInt</CODE></LI>
+  <LI><CODE>SyncListUInt</CODE></LI>
+  <LI><CODE>SyncListBool</CODE></LI></UL>
+<P>またユーザ定義型の構造体をリスト化出来る <CODE>SyncListStruct&lt;T&gt;</CODE> も用意されています。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.SyncListStruct_1.html">Unity 
+  - Scripting API:</A></LI></UL>
+<H3>独自<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>・デ<A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A></H3>
+<P><CODE>NetworkBehaviour</CODE> のちらっと見ましたが、<CODE>OnSerialize()</CODE> と 
+<CODE>OnDeSerialize()</CODE> というコールバックが <CODE>NetworkBehaviour</CODE> の virtual 
+関数として用意されています。ここでは複雑な<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>・デ<A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B7%A5%EA%A5%A2%A5%E9%A5%A4%A5%BA">シリアライズ</A>の記述が可能です。が、自前で 
+Dirty フラグを意識したりと結構大変そうです。以下のマニュアルの最下部にサンプルコードが載っています。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/UNetStateSync.html">Unity - 
+  Manual: State Synchronization</A></LI></UL>
+<H3>Network Message</H3>
+<P><CODE>Send()</CODE> 系の関数が 
+<CODE>NetworkServer</CODE>、<CODE>NetworkClient</CODE>、<CODE>NetworkConnection</CODE> 
+に実装されています（<CODE>NetworkConnection</CODE> は <CODE>NetworkClient</CODE> 
+なら一つ、<CODE>NetworkServer</CODE> なら<A class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>持っている各接続をまとめたクラス）。引数に 
+<CODE>MessageBase</CODE> を継承したクラスの<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A4%A5%F3%A5%B9%A5%BF%A5%F3%A5%B9">インスタンス</A>を指定して使う形になります。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/UNetMessages.html">Unity - Manual: 
+  Network Messages</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkServer.html">NetworkServer 
+  | Unity Scripting API</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkClient.html">NetworkClient 
+  | Unity Scripting API</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkConnection.html">NetworkConnection 
+  | Unity Scripting API</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.MessageBase.html">MessageBase 
+  | Unity Scripting API</A></LI></UL>
+<P>コードとしては、 <CODE>Serialize(NetworkWriter)</CODE> と 
+<CODE>Deserialize(NetworkReader)</CODE> を継承するクラスを作成することで<A class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>のパラメタをパックすることが出来ます。メッセージを受けとってゴニョゴニョ処理するような場合や 
+<CODE>SyncVar</CODE> が対応していない型（Byte Array 等）を送りたいときなど、<CODE>SyncVar</CODE> 
+ではカバーできないケースに使うと良いと思います。</P>
+<P>また、<CODE>EmptyMessage</CODE>、<CODE>IntegerMessage</CODE>、<CODE>StringMessage</CODE> 
+は予め用意されています。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkSystem.EmptyMessage.html">EmptyMessage 
+  | Unity Scripting API</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkSystem.IntegerMessage.html">IntegerMessage 
+  | Unity Scripting API</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkSystem.StringMessage.html">StringMessage 
+  | Unity Scripting API</A></LI></UL>
+<P>余談ですが、ものによって DeSerialize だったり Deserialize だったりするのは修正されるのかな...。</P>
+<H2>Channel / <A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/QoS">QoS</A></H2>
+<H3>概要</H3>
+<P>これまで色々と見てきましたが、<CODE>SyncVar</CODE> や <CODE>Send</CODE> 
+はどういった通信路を経由して送るのかお任せの状態でした。例えば位置や姿勢は 100 回に 1 
+回メッセージが届かなかったとしても特に影響はありませんが、ダメージやステートなどが同期されないと、あるクライアントでは敵が生きていて別のクライアントでは死んでる、みたいな状態が起こってしまいます。</P>
+<P>UNET ではどういった通信路を利用して同期したりメッセージを送りあったりするかを指定する Channel を<A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>本用意することができ、それぞれの Channel 
+に <A class="keyword" href="http://d.hatena.ne.jp/keyword/QoS">QoS</A> 
+を指定できるようになっています。<A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/QoS">QoS</A> は Quality of Service 
+のことで、一般的には送信するデータの扱い・品質を意味します。</P>
+<UL>
+  <LI><A href="https://ja.wikipedia.org/wiki/Quality_of_Service">Quality of 
+  Service - Wikipedia</A></LI></UL>
+<P>UNET では以下の <A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/QoS">QoS</A> が用意されています（参考： <A href="http://blogs.unity3d.com/jp/2014/06/11/all-about-the-unity-networking-transport-layer/">(English) 
+All about the Unity networking transport layer – Unity Blog</A>）。</P>
+<UL>
+  <LI>Unreliable 
+  <UL>
+    <LI>パケロスの可能性がある</LI>
+    <LI>速い</LI></UL></LI>
+  <LI>UnreliableFragmented 
+  <UL>
+    <LI>Unreliable + 一回のデータ量上限が決まっている</LI>
+    <LI>長いログなど</LI></UL></LI>
+  <LI>UnreliableSequenced 
+  <UL>
+    <LI>Unreliable + 順序が保証されている</LI>
+    <LI>映像や音声など</LI></UL></LI>
+  <LI>Reliable 
+  <UL>
+    <LI>パケロスしない</LI>
+    <LI>遅い</LI>
+    <LI>ダメージやステートなど</LI></UL></LI>
+  <LI>ReliableFragmented 
+  <UL>
+    <LI>Reliable + データ量上限</LI>
+    <LI>グループ化されたメッセージなど</LI></UL></LI>
+  <LI>ReliableSequenced 
+  <UL>
+    <LI>Reliable + 順序保証</LI>
+    <LI>ファイルの転送など</LI></UL></LI>
+  <LI>StateUpdate 
+  <UL>
+    <LI>Unreliable + 古いデータは破棄</LI>
+    <LI>位置の同期など</LI></UL></LI>
+  <LI>AllCostDelivery 
+  <UL>
+    <LI>Reliable が RTT に応じて再送するのに対し、一定間隔で再送</LI>
+    <LI>ショットの発射など</LI></UL></LI></UL>
+<P>これらは <CODE>NetworkManager</CODE> を利用している場合は、<CODE>Advanced 
+Configuration</CODE> の <CODE>QoS Channel</CODE> から設定できます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150810213545p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150810213545p:plain" src="UNETについて.files/20150810213545.png" 
+itemprop="image"></SPAN></P>
+<H3>利用方法</H3>
+<P>コードからは<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>の引数として 
+Channel を指定できます。<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</A>単位で指定する場合は 
+<CODE>NetworkSettings</CODE> <A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>を使用します。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkSettingsAttribute.html">NetworkSettingsAttribute 
+  | Unity Scripting API</A></LI></UL>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+
+[NetworkSettings(channel=<SPAN class="synConstant">1</SPAN>,sendInterval=<SPAN class="synConstant">0.2f</SPAN>)]
+<SPAN class="synType">class</SPAN> MyScript : NetworkBehaviour
+{
+    [SyncVar]
+    <SPAN class="synType">int</SPAN> <SPAN class="synStatement">value</SPAN>;
+}
+</PRE>
+<P>ここでは同時に同期の間隔（<CODE>sendInterval</CODE>）も指定できます。これらの設定は Inspector に表示されます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150810214422p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150810214422p:plain" src="UNETについて.files/20150810214422.png" 
+itemprop="image"></SPAN></P>
+<P>関数ごとには <CODE>Command</CODE> や <CODE>ClientRPC</CODE> といった<A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>の引数で指定できます。</P>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> Player : NetworkBehaviour {
+    <SPAN class="synComment">// ...</SPAN>
+
+    [Command(channel=<SPAN class="synConstant">1</SPAN>)]
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">void</SPAN> CmdMove(<SPAN class="synType">int</SPAN> x, <SPAN class="synType">int</SPAN> y) {
+        moveX = x;
+        moveY = y;
+        isDirty = <SPAN class="synConstant">true</SPAN>;
+    }
+}
+</PRE>
+<P>こういった細かなチューニングがより良いゲーム体験には必要になってきます。</P>
+<H2>プロファイラ</H2>
+<P>UNET では段階的にですがプロファイラとの統合が図られています。現在は以下の 2 
+つの機能がプロファイラと統合されています。詳細は未だドキュメント化されていないですが、どれだけパケットが流れているか、どのパケットが支配的になっているかといったことが確認可能です。グラフをクリックするとクリックした箇所の詳細が下部に表示されます。</P>
+<H3>Network Messaging</H3>
+<P>入出するパケットの流れを見ることが出来ます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811154823p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811154823p:plain" src="UNETについて.files/20150811154823.png" 
+itemprop="image"></SPAN></P>
+<H3>Network Operations</H3>
+<P>どのタイミングでオブジェクトの生成・破棄が起きているか、<CODE>Command</CODE> や <CODE>ClientRPC</CODE> 
+がどれだけコールされているか、またそのコールされた関数は何か、といったことが確認できます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811155007p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811155007p:plain" src="UNETについて.files/20150811155007.png" 
+itemprop="image"></SPAN></P>
+<H2>オブジェクトの Visibility 制御  </H2>
+<P>パフォーマンスの話が続きます。ゲームが広いエリアで沢山のネットワーク関連のオブジェクトが接続されている場合、全てのクライアントに対して全てのオブジェクトを 
+Spawn していると、<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%EC%A5%F3%A5%C0%A5%EA%A5%F3%A5%B0">レンダリング</A>コストもかかりますし、沢山の帯域を消費してしまいますし、新しくユーザが参加した場合も全てのオブジェクトを 
+Spawn するのに時間がかかってログイン時間が長くなってしまったりと色々と悪影響が出てきます。</P>
+<H3>NetworkProximityChecker</H3>
+<P>そこで、UNET では <CODE>NetworkProximityChecker</CODE> という<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>が用意されていて、これを利用すると設定した距離以上離れると以下のように動作します。</P>
+<UL>
+  <LI>ホストと同じローカルクライアントの場合 
+  <UL>
+    <LI><CODE>Renderer</CODE> が disabled になる</LI></UL></LI>
+  <LI>リモートクライアントの場合 
+  <UL>
+    <LI><CODE>Destroy</CODE> される</LI>
+    <LI>新しく接続した場合、範囲外なら Spawn しない</LI></UL></LI></UL>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811162133p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811162133p:plain" src="UNETについて.files/20150811162133.png" 
+itemprop="image"></SPAN></P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkProximityChecker.html">NetworkProximityChecker 
+  | Unity Scripting API</A></LI></UL>
+<P>仕組みとしては Physics を利用しているので、<CODE>Check Method</CODE> で <CODE>Physics3D</CODE> 
+か <CODE>Physics2D</CODE> どちらでチェックするか選択する必要があります。その上で <CODE>Vis Range</CODE> 
+よりも離れると hidden になるという感じです。<CODE>Force Hidden</CODE> はプレイヤオブジェクトだと通常は hidden 
+にならないので、無理やり hidden にしたい場合にチェックします。</P>
+<P>ただ、現在のところ用意された<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B3%A5%F3%A5%DD%A1%BC%A5%CD%A5%F3%A5%C8">コンポーネント</A>はバグが有る（<CODE>ArgumentOutOfRangeException</CODE> 
+が発生する）ようで、<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%EF%A1%BC%A5%AF%A5%A2%A5%E9%A5%A6%A5%F3%A5%C9">ワークアラウンド</A>で以下のように継承して利用する必要があるようです。</P>
+<UL>
+  <LI><A href="http://forum.unity3d.com/threads/object-visibility-with-networkproximitychecker.332626/">Object 
+  Visibility with [NetworkProximityChecker] | Unity Community</A></LI></UL>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+ 
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> ProximityChecker : NetworkProximityChecker 
+{
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">override</SPAN> <SPAN class="synType">bool</SPAN> OnCheckObserver(NetworkConnection newObserver)
+    {
+        <SPAN class="synStatement">return</SPAN> <SPAN class="synConstant">false</SPAN>;
+    }
+}
+</PRE>
+<H3>ホストでの Visibility の取り扱い</H3>
+<P>上述したように、ホストでは全てのオブジェクトを管理する必要が有るため、<CODE>Renderer</CODE> が disabled 
+になるだけです。ただ、ものによっては同期する必要のない重い<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</A>が付いている場合があります。これらは 
+<CODE>NetworkBehaviour</CODE> の <CODE>OnSetLocalVisibility(bool)</CODE> 
+を利用することで制御することが可能です。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkBehaviour.OnSetLocalVisibility.html">Unity 
+  - Scripting API:</A></LI></UL>
+<H3>カスタマイズ</H3>
+<P><CODE>NetworkProximityChecker</CODE> 
+が内部的に何をしていてどうすればカスタマイズ出来るか見て行きましょう。まず、オブジェクトの Visibility 
+の管理は全てサーバ側で行われることを覚えておいて下さい。</P>
+<P><CODE>NetworkProximityChecker</CODE> は定期的に 
+<CODE>NetworkIdentity.RebuildObservers()</CODE> という関数を呼び、この結果 
+<CODE>NetworkBehaviour.OnRebuildObservers(HashMap&lt;NetworkConnection&gt; 
+observers, bool initial)</CODE> というコールバックが呼ばれます。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ja/current/ScriptReference/Networking.NetworkBehaviour.OnRebuildObservers.html">Unity 
+  - Scripting API:</A></LI></UL>
+<P>この中で近接判定を行います。ここで言う Observer とは各プレイヤのことです。つまり <CODE>RebuildObservers</CODE> 
+とは誰が見えているかという情報を更新してくれ、という命令になります。この情報というのが 
+<CODE>HashMap&lt;NetworkConnection&gt;</CODE> 
+で、ここに自分が誰から見えているか詰める、というのが近接判定の作業になります。</P>
+<P>Observer はプレイヤと言いましたが、具体的にクラスで言うと <CODE>NetworkConnection</CODE> 
+のことです。<CODE>NetworkServer.connections</CODE> 
+に全てのクライアントに対してのコネクションが入っているのですが、これとは別にサーバ側では各プレイヤのオブジェクトにアタッチされた 
+<CODE>NetworkIdentity</CODE> の <CODE>connectionToClient</CODE> 
+に、各クライアントへのコネクションが格納されています。これを利用してプレイヤを判定するというのが具体的なコードになります。</P>
+<P>以下、<CODE>NetworkProximityChecker</CODE> を模倣して書いた<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%AF%A5%EA%A5%D7%A5%C8">スクリプト</A>になります。</P>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+<SPAN class="synStatement">using</SPAN> System.Collections;
+<SPAN class="synStatement">using</SPAN> System.Collections.Generic;
+
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> CustomProximityChecker : NetworkBehaviour
+{
+    <SPAN class="synType">private</SPAN> NetworkIdentity netId_;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> interval = <SPAN class="synConstant">1f</SPAN>;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">float</SPAN> range = <SPAN class="synConstant">2f</SPAN>;
+
+    [Server]
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">override</SPAN> <SPAN class="synType">void</SPAN> OnStartServer()
+    {
+        netId_ = GetComponent&lt;NetworkIdentity&gt;();
+        StartCoroutine(CheckProximityPeriodically());
+    }
+
+    [Server]
+    IEnumerator CheckProximityPeriodically()
+    {
+        <SPAN class="synType">bool</SPAN> isInitial = <SPAN class="synConstant">true</SPAN>;
+        <SPAN class="synStatement">for</SPAN> (;;) {
+            <SPAN class="synStatement">yield</SPAN> <SPAN class="synStatement">return</SPAN> <SPAN class="synStatement">new</SPAN> WaitForSeconds(interval);
+            <SPAN class="synComment">// 全ての OnRebuildObservers を呼ぶ</SPAN>
+            netId_.RebuildObservers(isInitial);
+            isInitial = <SPAN class="synConstant">false</SPAN>;
+        }
+    }
+
+    [Server]
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">override</SPAN> <SPAN class="synType">bool</SPAN> OnCheckObserver(NetworkConnection newObserver)
+    {
+        <SPAN class="synComment">// 新しくユーザが接続した時に呼ばれる。</SPAN>
+        <SPAN class="synComment">// true を返すとそのユーザのシーンに Spawn し、false だと何もしない</SPAN>
+        <SPAN class="synStatement">return</SPAN> <SPAN class="synConstant">false</SPAN>;
+    }
+
+    [Server]
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">override</SPAN> <SPAN class="synType">bool</SPAN> OnRebuildObservers(HashSet&lt;NetworkConnection&gt; observers, <SPAN class="synType">bool</SPAN> initial)
+    {
+        <SPAN class="synComment">// このスクリプトがアタッチされているオブジェクトが各プレイヤから見えていたら</SPAN>
+        <SPAN class="synComment">// observers にそのプレイヤに該当する NetworkConnection を格納する</SPAN>
+        <SPAN class="synComment">// その結果に応じて Spawn や Destroy が各プレイヤのシーンに対して行われる</SPAN>
+        var hits = Physics.OverlapSphere(transform.position, range);
+        <SPAN class="synStatement">foreach</SPAN> (var hit <SPAN class="synStatement">in</SPAN> hits) {
+            var netId = hit.GetComponent&lt;NetworkIdentity&gt;();
+            <SPAN class="synType">bool</SPAN> isPlayer = (netId != <SPAN class="synConstant">null</SPAN>) &amp;&amp; (netId.connectionToClient != <SPAN class="synConstant">null</SPAN>);
+            <SPAN class="synStatement">if</SPAN> (isPlayer) {
+                observers.Add(netId.connectionToClient);
+            }
+        }
+        <SPAN class="synStatement">return</SPAN> <SPAN class="synConstant">true</SPAN>;
+    }
+}
+</PRE>
+<P>ちなみに <CODE>OnRebuildObservers()</CODE> や <CODE>OnCheckObserver()</CODE> 
+は全ての関連した <CODE>NetworkBehaviour</CODE> に対して呼ばれるので、別のクラスに分離しても構いません。サンプルコードは <A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/Sphere">Sphere</A> 
+で見ていましたが、オクルージョンによって判定したりエリアによって判定したり、自分なりのルールをここに付け加えれば、各クライアント毎の処理も減り、その結果やりとりするメッセージも減って帯域も節約できます。</P>
+<H2>マッチメイキング</H2>
+<H3>概要</H3>
+<P>いよいよマッチメイキングについて見て行きましょう。</P>
+<P>UNET ではマッチメイキングとリレーサーバをサービスとして提供してくれています。</P>
+<UL>
+  <LI><A href="https://unity3d.com/jp/services/multiplayer">Unity - Services - 
+  Multiplayer</A></LI></UL>
+<P>プレイヤはルームを作成して、別のプレイヤはそのルームを検索、参加する、ということが可能になり、お互いに IP 
+を知らなくとも一緒にゲームをプレイできるようになります。現在はプレビュー版で 100 CCU（Concurrent User）までテストできます。</P>
+<P><CODE>NetworkManager</CODE> を利用してマッチメイキングを行うと、自動的に UNET 
+のリレーサーバをパケットが経由するようになるため、これによって Firewall や NAT 越えの心配をする必要がなくなります。</P>
+<H3>マッチメイキングしてみる</H3>
+<P>まずは登録して試してみましょう。手順は以下のエントリが詳しいです。</P>
+<UL>
+  <LI><A 
+  href="http://hiyotama.hatenablog.com/entry/2015/07/25/090000">【Unity9】Unity 
+  MultiPlayerを使ってネットワーク越しにマッチメイキング！【UNET19】 - Unity5(C#)初心者・入門者向けチュートリアル 
+  ひよこのたまご</A></LI></UL>
+<P>登録後、Player Settings の <CODE>Cloud Project Id</CODE> に作成したプロジェクトの ID を登録すれば OK 
+です。<CODE>NetworkManager</CODE> にマッチメイキングの機能が備わっているので、これを利用すると異なるネットワークからお互いの IP 
+を知ることなく Unity のリレーサーバ経由でマッチングすることが可能です。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811194932p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811194932p:plain" src="UNETについて.files/20150811194932.png" 
+itemprop="image"></SPAN></P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811195107p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811195107p:plain" src="UNETについて.files/20150811195107.png" 
+itemprop="image"></SPAN></P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150811195646p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150811195646p:plain" src="UNETについて.files/20150811195646.png" 
+itemprop="image"></SPAN></P>
+<H3>コードから制御する</H3>
+<P>マッチメイキングを制御するには <CODE>NetworkMatch</CODE> を利用します。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/UNetMatchMaker.html">Unity - 
+  Manual: Matchmaker</A></LI></UL>
+<P>マニュアルのように自分でコールバック含め作成しても良いのですが、<CODE>NetworkManager</CODE> 
+にも機能が備わっているのでそちらを参考に書いてみます。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkManager.html">Unity 
+  - Scripting API:</A></LI></UL>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synStatement">using</SPAN> UnityEngine;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking;
+<SPAN class="synStatement">using</SPAN> UnityEngine.Networking.Match;
+<SPAN class="synStatement">using</SPAN> System.Collections;
+
+<SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> NetworkManagerTest : MonoBehaviour 
+{
+    <SPAN class="synType">private</SPAN> NetworkManager manager_;
+    <SPAN class="synType">private</SPAN> NetworkMatch match_;
+
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">string</SPAN> matchName = <SPAN class="synConstant">"hogehoge"</SPAN>;
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">uint</SPAN> matchSize = 4U;
+
+    <SPAN class="synType">void</SPAN> Start()
+    {
+        manager_ = GetComponent&lt;NetworkManager&gt;();
+    }
+
+    <SPAN class="synType">void</SPAN> Update()
+    {
+        <SPAN class="synStatement">if</SPAN> (Input.GetKeyDown(KeyCode.S)) {
+            Debug.Log(<SPAN class="synConstant">"Start Match Maker"</SPAN>);
+            manager_.StartMatchMaker();
+            manager_.matchName = matchName;
+            manager_.matchSize = matchSize;
+            match_ = manager_.matchMaker;
+        }
+        <SPAN class="synStatement">if</SPAN> (match_ != <SPAN class="synConstant">null</SPAN> &amp;&amp; Input.GetKeyDown(KeyCode.C)) {
+            match_.CreateMatch(manager_.matchName, manager_.matchSize, <SPAN class="synConstant">true</SPAN>, <SPAN class="synConstant">""</SPAN>, manager_.OnMatchCreate);
+        }
+        <SPAN class="synStatement">if</SPAN> (match_ != <SPAN class="synConstant">null</SPAN> &amp;&amp; Input.GetKeyDown(KeyCode.L)) {
+            Debug.Log(<SPAN class="synConstant">"List Matches"</SPAN>);
+            match_.ListMatches(<SPAN class="synConstant">0</SPAN>, <SPAN class="synConstant">20</SPAN>, <SPAN class="synConstant">""</SPAN>, manager_.OnMatchList);
+        }
+        <SPAN class="synStatement">if</SPAN> (match_ != <SPAN class="synConstant">null</SPAN> &amp;&amp; Input.GetKeyDown(KeyCode.J)) {
+            Debug.Log(<SPAN class="synConstant">"Join Match"</SPAN>);
+            var desc = manager_.matches[<SPAN class="synConstant">0</SPAN>]; <SPAN class="synComment">// join first room</SPAN>
+            match_.JoinMatch(desc.networkId, <SPAN class="synConstant">""</SPAN>, manager_.OnMatchJoined);
+        }
+    }
+}
+</PRE>
+<P>大変雑ですが、これを <CODE>NetworkManager</CODE> と同じ Game Object 
+に取り付け、ホスト側ではサーバからのレスポンスがあったら「S &gt; C」の順でキーを押下、クライアント側では「S &gt; L &gt; 
+J」すると作成したルームに参加することが出来ます。さすがにこのままだとあれなので、この機能を呼ぶように適当に UI を作れば OK です。</P>
+<H2>Network Transport Layer (LLAPI)</H2>
+<P>最後に LLAPI です。LLAPI はシステムのソケットの上に乗る薄いレイヤです。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/Manual/UNetUsingTransport.html">Unity - 
+  Manual: Using the Transport Layer API</A></LI>
+  <LI><A href="http://blogs.unity3d.com/jp/2014/06/11/all-about-the-unity-networking-transport-layer/">(English) 
+  All about the Unity networking transport layer – Unity Blog</A></LI>
+  <LI><A href="http://docs.unity3d.com/ScriptReference/Networking.NetworkTransport.html">NetworkTransport 
+  | Unity Scripting API</A></LI></UL>
+<P>サンプルプロジェクトも上がっているので、気になる方は見てみると面白いと思います。</P>
+<UL>
+  <LI><A 
+  href="http://forum.unity3d.com/threads/unet-sample-projects.331978/">Unity 
+  Multiplayer - UNet Sample Projects | Unity Community</A></LI></UL>
+<P>まだ余り情報がないのと、私がネットワーク周りに疎いので、どなたか詳しく解説してくださると嬉しいです。。</P>
+<H2>その他</H2>
+<P>その他気になりそうな点です。</P>
+<H3><A class="keyword" href="http://d.hatena.ne.jp/keyword/WebGL">WebGL</A> 
+への対応</H3>
+<P>LLAPI で対応してますが、HLAPI では今のところ対応していません。</P>
+<UL>
+  <LI><A href="http://forum.unity3d.com/threads/unet-and-webgl-authoritative-server.329972/:tit;e">http://forum.unity3d.com/threads/unet-and-webgl-authoritative-server.329972/:tit;e</A></LI>
+  <LI><A href="http://forum.unity3d.com/threads/unet-and-webgl.333041/">UNet and 
+  WebGL? | Unity Community</A></LI></UL>
+<P>現在対応中とのことです。WebRTC data channel も対応してくれないかな...。</P>
+<UL>
+  <LI><A href="http://forum.unity3d.com/threads/unity-network-any-plans-in-webgl.314610/">Unity.Network 
+  any plans in WebGL? | Unity Community</A></LI></UL>
+<H3>ベータ機能</H3>
+<UL>
+  <LI><A href="https://unity3d.com/unity/beta">Unity - Beta</A></LI>
+  <LI><A href="https://www.reddit.com/r/Unity3D/comments/3cdzn9/unity_520b1_now_available/">https://www.reddit.com/r/Unity3D/comments/3cdzn9/unity_520b1_now_available/</A></LI></UL>
+<P>5.2b では、いくつかのバグ修正と、<CODE>NetworkTransform</CODE> の改善、ローカルでの 
+Discovery、ノンプレイヤなオブジェクトの Authority の設定などが含まれているようです。</P>
+<H3>専用サーバ</H3>
+<P>ホスト前提のゲームでなく、MMO の様にどこかでサーバが動いていて、みんながそこにアクセスするようなことをしたい場合は、<A class="keyword" 
+href="http://d.hatena.ne.jp/keyword/Linux">Linux</A> 
+ビルドしたアプリをバッチモードでどこかのサーバでヘッドレスに起動して運用するのが良いのではないかと思います。</P>
+<UL>
+  <LI><A href="http://docs.unity3d.com/ja/current/Manual/CommandLineArguments.html">Unity 
+  - マニュアル: コマンドライン引数</A></LI></UL>
+<P>コンソールから <CODE>-batchmode</CODE> 引数をつけるか、<A class="keyword" href="http://d.hatena.ne.jp/keyword/Linux">Linux</A> 
+のビルドオプションに <CODE>Headless Mode</CODE> があるので、それを指定してサーバ側で起動するのでも良いと思います。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150812194328p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150812194328p:plain" src="UNETについて.files/20150812194328.png" 
+itemprop="image"></SPAN></P>
+<P>冒頭のデモはこの運用でサーバがさくらの <A class="keyword" href="http://d.hatena.ne.jp/keyword/VPS">VPS</A> 
+上で動いています。同じプロジェクトのビルドでサーバ・クライアント両方動くのはスゴイですね。多分 <A class="keyword" href="http://d.hatena.ne.jp/keyword/Android">Android</A> 
+や <A class="keyword" href="http://d.hatena.ne.jp/keyword/iOS">iOS</A> 
+ビルドしても動くのではないでしょうか。</P>
+<P>ただちょっとコードに気を使わないと色々と破綻してしまう（例えばホストでテストしているとクライアントの動作も含むため、サーバ単体で動かして初めてミスに気づくなど）ので注意が必要です。</P>
+<H3>設定</H3>
+<P>Project Settings に Network の項目が追加されています。現状は <CODE>Debug Level</CODE> と 
+<CODE>Sendrate</CODE> のみ指定できます。</P>
+<P><SPAN itemtype="http://schema.org/Photograph" itemscope=""><IMG title="f:id:hecomi:20150812194612p:plain" 
+class="hatena-fotolife" alt="f:id:hecomi:20150812194612p:plain" src="UNETについて.files/20150812194612.png" 
+itemprop="image"></SPAN></P>
+<H3>Animator の即時同期</H3>
+<P><CODE>NetworkAnimator</CODE> 
+では素早いアクションなどの同期に向いていないので、そういう場合は自前でやり取りする必要があります。そこで、<CODE>SyncVar</CODE> とその<A 
+class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%A2%A5%C8%A5%EA%A5%D3%A5%E5%A1%BC%A5%C8">アトリビュート</A>の 
+<CODE>hook</CODE> がとても役立ちます。</P>
+<PRE class="code lang-cs" data-unlink="" data-lang="cs"><SPAN class="synType">public</SPAN> <SPAN class="synType">class</SPAN> AnimationTriggerSync : NetworkBehaviour
+{
+    <SPAN class="synComment">// ...</SPAN>
+
+    <SPAN class="synComment">// この SyncVar を通じて各クライアントに変更を通知する</SPAN>
+    [SyncVar(hook = <SPAN class="synConstant">"OnIsJumpChangedForRemoteClient"</SPAN>)] 
+    <SPAN class="synType">private</SPAN> <SPAN class="synType">bool</SPAN> isJump_ = <SPAN class="synConstant">false</SPAN>;
+
+    <SPAN class="synComment">// 1. ここが起点</SPAN>
+    <SPAN class="synComment">// 各クライアントは自分のアニメーションのフラグをすぐにセット</SPAN>
+    <SPAN class="synComment">// その他のクライアントも同期するためにまずはサーバのフラグをセット</SPAN>
+    [Client]
+    <SPAN class="synType">public</SPAN> <SPAN class="synType">void</SPAN> SetIsJumpForLocalClient(<SPAN class="synType">bool</SPAN> isJump)
+    {
+        <SPAN class="synStatement">if</SPAN> (isLocalPlayer) {
+            animator_.SetBool(<SPAN class="synConstant">"isJump"</SPAN>, isJump);
+            CmdProvideIsJumpToServer(isJump);
+        }
+    }
+
+    <SPAN class="synComment">// 2. サーバでフラグをセットする</SPAN>
+    <SPAN class="synComment">// これにより hook で設定された関数が各クライアントで呼ばれる</SPAN>
+    <SPAN class="synComment">// channel の QoS は Reliable State Update がおすすめ</SPAN>
+    [Command(channel = <SPAN class="synConstant">2</SPAN>)]
+    <SPAN class="synType">private</SPAN> <SPAN class="synType">void</SPAN> CmdProvideIsJumpToServer(<SPAN class="synType">bool</SPAN> isJump) 
+    { 
+        isJump_ = isJump; 
+    }
+
+    <SPAN class="synComment">// 3. 各クライアントでフラグをセットする</SPAN>
+    <SPAN class="synComment">// ローカルなクライアントにも通知されるが、すでにセット済みなので、</SPAN>
+    <SPAN class="synComment">// リモートなクライアントだけ Animator にフラグをセットする</SPAN>
+    [Client]
+    <SPAN class="synType">private</SPAN> <SPAN class="synType">void</SPAN> OnIsJumpChangedForRemoteClient(<SPAN class="synType">bool</SPAN> isJump) 
+    { 
+        <SPAN class="synStatement">if</SPAN> (!isLocalPlayer) {
+            animator_.SetBool(<SPAN class="synConstant">"isJump"</SPAN>, isJump);
+        }
+    }
+
+    <SPAN class="synComment">// ...</SPAN>
+}
+</PRE>
+<P>これでローカルなプレイヤはネットワークに繋がっていない時と同じように動き、リモートなクライアントは最小限の時間で同期されます。省略しますが、トリガの場合は適当に 
+int をインクリメントしてフックするとか、<CODE>Command</CODE> して <CODE>ClientRPC</CODE> 
+するか、キー判定をサーバ側でやって <CODE>ClientRPC</CODE> するかのいずれかになると思います。</P>
+<H3>開発</H3>
+<P>クライアントのテストをするためにいちいちビルドをしていると大変なので、エディタを<A class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A3%BF%F4">複数</A>立ち上げる方式が便利そうです。</P>
+<UL>
+  <LI><A 
+  href="http://tsubakit1.hateblo.jp/entry/2015/08/10/012452">【Unity】おなじプロジェクトを複数のエディタで同時に操作する（Windows版） 
+  - テラシュールブログ</A></LI></UL>
+<H2>おわりに</H2>
+<P>一通り機能を見てみましたがいかがだったでしょうか。概要さえ掴めてしまえば予備知識無しでは難解だったドキュメントも読めるようになるのではないかと思います。</P>
+<P>現状の UNET はホストを前提とした設計になっているのですが、デモの様にサーバを立ててしまえば今後様々な<A class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%E6%A1%BC%A5%B9%A5%B1%A1%BC%A5%B9">ユースケース</A>に対応してくれると考えています（サービス側で 
+dedicated server を動かすとか...）。いまのところ Phase.2 
+の情報が少なくてなかなか読めないところはありますが、今後のアップデートも注目していきます。</P></DIV><FOOTER class="entry-footer">
+<P class="entry-footer-section"><SPAN class="author vcard"><SPAN class="fn" 
+data-user-name="hecomi" data-load-nickname="1">hecomi</SPAN></SPAN>         
+<SPAN class="entry-footer-time"><A href="http://tips.hecomi.com/entry/2015/08/14/220030"><time 
+title="2015-08-14T13:00:30Z" class="updated" datetime="2015-08-14T13:00:30Z" 
+pubdate="" data-relative="">2015-08-14 22:00</time></A></SPAN>       </P>
+<DIV class="hatena-star-container"></DIV>
+<DIV class="hatena-star-metadata" style="display: none;"><A class="hatena-star-permalink" 
+href="http://tips.hecomi.com/entry/2015/08/14/220030">Unity 5.1 
+から導入された新しいネットワーク機能の UNET について詳しく調べてみた</A>         </DIV>
+<DIV class="social-buttons">
+<DIV class="social-button-item"><A title="この記事をはてなブックマークに追加" class="hatena-bookmark-button" 
+href="http://b.hatena.ne.jp/entry/http://tips.hecomi.com/entry/2015/08/14/220030" 
+data-hatena-bookmark-lang="ja" 
+data-hatena-bookmark-layout="vertical-balloon"><IMG width="20" height="20" 
+style="border: currentColor; border-image: none;" alt="この記事をはてなブックマークに追加" src="UNETについて.files/button-only.gif"></A> 
+    </DIV>
+<DIV class="social-button-item"><A class="twitter-share-button" href="https://twitter.com/share" 
+data-lang="ja" data-text="Unity 5.1 から導入された新しいネットワーク機能の UNET について詳しく調べてみた - 凹みTips" 
+data-count="vertical" 
+data-url="http://tips.hecomi.com/entry/2015/08/14/220030">Tweet</A>     
+</DIV></DIV>
+<DIV class="customized-footer"></DIV>
+<DIV class="comment-box">
+<UL class="comment"></UL><A class="leave-comment-title">コメントを書く</A>              
+ </DIV></FOOTER></DIV></ARTICLE>
+<DIV class="permalink pager"><SPAN class="pager-prev"><A href="http://tips.hecomi.com/entry/2015/09/16/014119" 
+rel="prev"><SPAN class="pager-arrow">« </SPAN>                           Unity で 
+Android 向けの OpenCV x ArUco …                         </A>                       
+</SPAN>                                                                          
+           <SPAN class="pager-next"><A href="http://tips.hecomi.com/entry/2015/08/06/003049" 
+rel="next">Maker Faire Tokyo 2015 にレゴ x ハード…                           <SPAN 
+class="pager-arrow">»</SPAN>                         </A>                       
+</SPAN>                                       </DIV><!-- rakuten_ad_target_end --> 
+            <!-- google_ad_section_end -->                               
+</DIV></DIV><ASIDE id="box1">
+<DIV id="box1-inner"></DIV></ASIDE></DIV><!-- #wrapper -->     <ASIDE id="box2">
+<DIV id="box2-inner">
+<DIV class="hatena-module hatena-module-profile">
+<DIV class="hatena-module-title">Profile   </DIV>
+<DIV class="hatena-module-body"><A class="profile-icon-link" href="http://tips.hecomi.com/about"><IMG 
+class="profile-icon" alt="id:hecomi" src="UNETについて.files/profile.gif">     </A>  
+           <SPAN class="id"><A class="hatena-id-link" href="http://tips.hecomi.com/about"><SPAN 
+data-user-name="hecomi" data-load-nickname="1">id:hecomi</SPAN></A>              
+         <A title="はてなブログPro" href="http://blog.hatena.ne.jp/guide/pro"><I 
+class="icon-pro"></I></A>           </SPAN>
+<DIV class="profile-description">
+<P>凹んでます。</P></DIV>
+<DIV 
+class="hatena-follow-button-box btn-subscribe js-hatena-follow-button-box"><A 
+class="hatena-follow-button js-hatena-follow-button" href="http://tips.hecomi.com/entry/2015/08/14/220030#"><SPAN 
+class="subscribing"><SPAN class="foreground">読者です</SPAN>       <SPAN class="background">読者をやめる</SPAN> 
+    </SPAN>     <SPAN class="unsubscribing" data-track-name="profile-widget-subscribe-button" 
+data-track-once=""><SPAN class="foreground">読者になる</SPAN>       <SPAN class="background">読者になる</SPAN> 
+    </SPAN>   </A>   
+<DIV class="subscription-count-box js-subscription-count-box"><I></I>     
+<U></U>     <SPAN 
+class="subscription-count js-subscription-count"></SPAN></DIV></DIV>
+<DIV class="hatena-follow-button-box btn-twitter"><A class="twitter-follow-button" 
+href="https://twitter.com/hecomi" data-lang="ja" 
+data-show-count="false">@hecomiをフォロー       </A>     </DIV></DIV></DIV>
+<DIV class="hatena-module hatena-module-category">
+<DIV class="hatena-module-title">Categories   </DIV>
+<DIV class="hatena-module-body">
+<UL class="hatena-urllist">
+  <LI><A href="http://tips.hecomi.com/archive/category/3DCG">            3DCG 
+  (5)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Android">            
+  Android (6)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/AR">            AR (7)    
+         </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Arduino">            
+  Arduino (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Blender">            
+  Blender (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/C">            C (1)      
+       </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/C%23">            C# (40) 
+            </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/C%2B%2B">            C++ 
+  (77)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Emscripten">            
+  Emscripten (4)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Gadget">            
+  Gadget (9)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/GLSL">            GLSL 
+  (3)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/gnuplot">            
+  gnuplot (5)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/HTML5">            HTML5 
+  (16)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/JavaScript">            
+  JavaScript (70)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Julius">            
+  Julius (16)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Kinect">            
+  Kinect (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Leap%20Motion">           
+   Leap Motion (8)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Linux">            Linux 
+  (5)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Mac">            Mac (3)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Maya%20LT">            
+  Maya LT (4)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/MMD">            MMD (9)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/MongoDB">            
+  MongoDB (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Myo">            Myo (2)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/NaCl">            NaCl 
+  (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/NDK">            NDK (2)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Node.js">            
+  Node.js (48)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Objective-C">            
+  Objective-C (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Oculus">            
+  Oculus (28)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/OLL">            OLL (3)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Open%20JTalk">            
+  Open JTalk (6)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/OpenAL">            
+  OpenAL (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/OpenCV">            
+  OpenCV (8)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/openFrameworks">          
+    openFrameworks (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/OpenNI">            
+  OpenNI (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/PCL">            PCL (1)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Pebble">            
+  Pebble (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/PhantomJS">            
+  PhantomJS (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Python">            
+  Python (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Qt">            Qt (20)   
+          </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/RealSense">            
+  RealSense (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Ruby">            Ruby 
+  (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Tessel">            
+  Tessel (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Unity">            Unity 
+  (68)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Unreal%20Engine%204">     
+         Unreal Engine 4 (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/V8">            V8 (5)    
+         </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Vim">            Vim (11) 
+            </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/WEB">            WEB (1)  
+           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/Windows">            
+  Windows (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/ZigBee">            
+  ZigBee (2)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E5%87%B8P">凸P (3)        
+     </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E6%84%89%E7%B9%B0%E9%83%B7">愉繰郷 
+  (4)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97">数値計算 
+  (6)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E6%9C%AA%E6%9D%A5%E3%81%AE%E3%81%8A%E9%83%A8%E5%B1%8B">未来のお部屋 
+  (10)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92">機械学習 
+  (3)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E9%9B%BB%E5%AD%90%E5%B7%A5%E4%BD%9C">電子工作 
+  (1)           </A>         </LI>
+  <LI><A href="http://tips.hecomi.com/archive/category/%E9%9F%B3%E5%A3%B0%E4%BF%A1%E5%8F%B7%E5%87%A6%E7%90%86">音声信号処理 
+  (1)           </A>         </LI></UL></DIV></DIV>
+<DIV class="hatena-module hatena-module-recent-entries ">
+<DIV class="hatena-module-title"><A href="http://tips.hecomi.com/archive">      
+Recent Entries     </A>   </DIV>
+<DIV class="hatena-module-body">
+<UL class="recent-entries hatena-urllist ">
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/12/12/231957">VR 向け高性能ステレオカメラの 
+  Ovrvision Pro を手に入れたので詳しく調べてみた        </A>                               
+  </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/12/05/003000">Unity 
+  で実行時にコードやコマンドを補完つきで実行できる uREPL を作ってみた        </A>                              
+   </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/11/26/023408">ネットとつながる LED 時計の 
+  LaMetric を手に入れたので遊んでみた        </A>                               </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/10/11/211456">発売前に RICOH THETA S 
+  のライブビューを Unity でリアルタイムに全天球で見るやつ作ってみた        </A>                               
+  </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/10/10/230000">色々なデバイスやセンサを組み合わせることで幸せになれたのか発表してきた 
+  #おうちハック        </A>                               </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/09/16/014119">Unity で Android 向けの 
+  OpenCV x ArUco を利用した AR アプリを作ってみる        </A>                               
+  </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/08/14/220030">Unity 5.1 
+  から導入された新しいネットワーク機能の UNET について詳しく調べてみた        </A>                              
+   </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/08/06/003049">Maker Faire Tokyo 2015 
+  にレゴ x ハードウェア x プロジェクションなシューティングゲーム LITTAI を出展してきた        </A>                  
+               </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/07/31/204701">Maker Faire Tokyo 2015 
+  にレゴ x ハードウェア x プロジェクションなゲーム LITTAI を出展します        </A>                          
+       </DIV></LI>
+  <LI class="urllist-item recent-entries-item">
+  <DIV class="urllist-item-inner recent-entries-item-inner"><A class="urllist-title-link recent-entries-title-link          urllist-title recent-entries-title        " 
+  href="http://tips.hecomi.com/entry/2015/06/17/234142">軽量な AR ライブラリの ArUco を 
+  Mac で使ってみた        </A>                               
+</DIV></LI></UL></DIV></DIV>
+<DIV class="hatena-module hatena-module-html">
+<DIV class="hatena-module-body"><!-- --> 
+<DIV class="hatena-module-title"><A href="http://b.hatena.ne.jp/entrylist?sort=count&amp;url=tips.hecomi.com">Popular 
+Entries</A> </DIV><!-- --> 
+<DIV align="center" id="popular_entries_feed">Now Loading...</DIV><!-- --> 
+<SCRIPT src="UNETについて.files/jsapi.js"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+google.load("feeds", "1"); 
+function initialize() {
+ //RSSフィードの取得
+ var blogURL = "http://tips.hecomi.com/";
+ var blogTITLE = "凹みTips"; 
+ var feed = new google.feeds.Feed("http://b.hatena.ne.jp/entrylist?mode=rss&sort=count&url=" +blogURL);
+ //取得するフィード数
+ feed.setNumEntries(7);
+ //実際に読む込む
+ feed.load(function(result) {
+ //読み込めたか判別
+  if (!result.error) {
+   //表示部分を選択
+   var container = document.getElementById("popular_entries_feed");
+   //変数の初期化
+   var useFeed = "";
+   //Feedの処理
+   for (var i = 0; i < result.feed.entries.length; i++) {
+    //Feedを一つ抽出
+    var entry = result.feed.entries[i];
+    //日付を抽出
+    var pdate = new Date(entry.publishedDate);
+    var strdate = (pdate.getYear() + 1900) + '年' + (pdate.getMonth() + 1) + '月' + pdate.getDate() + '日';
+    //最初の画像を抽出
+    var first_image = entry.content.match(/(http:){1}[\S_-]+\.(?:jpg|gif|png)/);
+    //画像サイズを調整
+    first_image[0] = first_image[0].replace(/(\.[^.]+$)/ , "_l$1"); 
+    //リストに突っ込む
+    useFeed += '<div class="htbl_popular_entry"><a href="' + entry.link + '"><img class="htbl_popular_entry_img" src="' + first_image[0] + '"><div class="htbl_popular_entry_text"><span class="entry_title">' + entry.title.replace('- '+blogTITLE , '') + '</span><span class="entry_hatebu"><img src="http://b.hatena.ne.jp/entry/image/' + entry.link + '"></span><span class="entry_date">' + strdate + '</span></div></a></div>';
+    }
+  //リストを表示させる
+  container.innerHTML = '<div class="htbl_popular_entries">' + useFeed + '</div>';
+   }
+ });
+}
+google.setOnLoadCallback(initialize);
+</SCRIPT>
+   </DIV></DIV>
+<DIV class="hatena-module hatena-module-search-box">
+<DIV class="hatena-module-title">    Search   </DIV>
+<DIV class="hatena-module-body">
+<FORM class="search-form" role="search" action="http://tips.hecomi.com/search" 
+method="get"><INPUT name="q" class="search-module-input" required="" type="text" placeholder="ブログ内検索" value=""> 
+      <INPUT class="search-module-button" type="submit" value="検索">     
+</FORM></DIV></DIV>
+<DIV class="hatena-module hatena-module-archive" data-archive-url="http://tips.hecomi.com/archive" 
+data-archive-type="default">
+<DIV class="hatena-module-title"><A 
+href="http://tips.hecomi.com/archive">Archives</A>   </DIV>
+<DIV class="hatena-module-body"></DIV></DIV>
+<DIV class="hatena-module hatena-module-recent-comments">
+<DIV class="hatena-module-title">    Comments   </DIV>
+<DIV class="hatena-module-body" data-count="5">
+<UL class="recent-comments hatena-urllist"></UL></DIV>
+<SCRIPT class="recent-comments-template" type="text/x-underscore-template">
+    <li>
+      <span class="user-id">
+        <img src="<%- comment.icon_url %>" class="hatena-id-icon" alt="<%- comment.user_name %>" title="<%- comment.user_name %>" />
+        <% if (comment.is_hatena_user) { %>
+          <span data-load-nickname="1" data-user-name="<%- comment.user_name %>">id:<%- comment.user_name %></span>
+        <% } else { %>
+          <%- comment.user_name %>
+        <% } %>
+      </span>
+      <a href="<%- comment.entry_url %>"><%- comment.entry_title %></a>
+      <span class="recent-comment-time">(<time data-relative class="recent-comment-time" data-epoch="<%- comment.epoch * 1000 %>"><%- comment.time %></time>)</span>
+    </li>
+  </SCRIPT>
+ </DIV></DIV></ASIDE></DIV></DIV>
+<DIV id="bottom-editarea">
+<SCRIPT src="UNETについて.files/hateblo-line-number.js" defer="defer" type="text/javascript"></SCRIPT>
+           </DIV></DIV></DIV>
+<SCRIPT src="UNETについて.files/HatenaStar.js"></SCRIPT>
+         
+<SCRIPT src="UNETについて.files/widgets.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/plusone.js" type="text/javascript">
+  {"parsetags": "explicit"}
+</SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/bookmark_button.js" type="text/javascript" charset="utf-8" async="async"></SCRIPT>
+   
+<SCRIPT src="UNETについて.files/react-with-addons.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/jquery-ui.1.10.0.custom.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/jquery.flot.0.8.3.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/jquery.flot.time.0.8.3.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/hatenablog.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/texts-ja.js" type="text/javascript"></SCRIPT>
+   
+<SCRIPT type="text/javascript">Hatena.Diary.loadGlobalHeader()</SCRIPT>
+ 
+<SCRIPT src="UNETについて.files/api.js" defer="" async=""></SCRIPT>
+                  
+<SCRIPT id="hatena-counter-script" type="text/javascript"><!--
+      hatena_counter_name = "hecomi";
+      hatena_counter_id = "101";
+      hatena_counter_ref = document.referrer+"";
+      hatena_counter_screen = screen.width + "x" + screen.height+","+screen.colorDepth;
+  //--></SCRIPT>
+   
+<SCRIPT src="UNETについて.files/counter.js" type="text/javascript"></SCRIPT>
+   <NOSCRIPT>&lt;img src="http://counter.hatena.ne.jp/hecomi/101" border="0" 
+alt="counter"&gt;</NOSCRIPT>       </BODY></HTML>
