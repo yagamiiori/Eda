@@ -10,4 +10,8 @@
 ・デフォルト設定では、部屋から退室したり接続が切れたりしたら、そのクライアントが作成した同期してるオブジェクトは削除される
 ・シーン遷移をしても、Roomから出たりPhotonから切断したりしない
 ・PhotonViewにはトランスフォーム、リジッドボディ、スクリプトなどを格納することができ、これが同期の対象となる。
+・RPCを使う場合はRPCを書いたスクリプトをアタッチしたゲームオブジェクトにPhotonViewをアタッチする必要がある
+　また、RPCを書いたスクリプトには使わなくてもpublic void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) { }
+　の記述が必要
+
 
