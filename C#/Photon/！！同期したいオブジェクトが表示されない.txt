@@ -1,0 +1,4 @@
+
+Instantiateを「PhotonNetwork.Instantiate」と書いているか？
+
+

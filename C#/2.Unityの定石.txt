@@ -1,6 +1,11 @@
 
-
 ・まずここ　http://qiita.com/gamesonytablet/items/20b25ad9729e4a353c96
+
+・GameObjectとgameObjectの違い
+　GameObjectは型（クラス）の種類の名前
+　gameObjectはオブジェクトが持っている、GameObject型のクラスの実体（インスタンス）
+　初心者に紛らわしいのはGameObject自体もstaticメソッドを持ってることだろうけど、
+　GameObjectのstaticメソッドは共通の機能で、　gameObjectのメソッドは自分自身に関する機能(gameObject.transformとか)を持ってる
 
 ・Photon.MonoBehaviourを継承することによってオーバーライドされたメソッドを呼び出すことが可能
 　OnPhotonSerializeViewなどを利用する場合は、必ず継承しておく必要がある
