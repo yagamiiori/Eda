@@ -1,0 +1,63 @@
+.wpt-header iframe {
+	float: right;
+}
+.wpt-left {
+	margin-right: 10px; float: left;
+}
+.wpt-right {
+	margin-left: 10px; float: right;
+}
+.wpt-twitter-name {
+	line-height: 1; font-size: 120%;
+}
+.wpt-tweet-time {
+	font-size: 90%;
+}
+.wpt-intents-border {
+	margin: 5px 0px; border-top-color: currentColor; border-top-width: 1px; border-top-style: solid; opacity: 0.3;
+}
+.wpt-intents {
+	padding: 0px 0px 5px; text-align: center;
+}
+.wpt-twitter-image {
+	width: 100%; height: auto;
+}
+.wpt-intents a span {
+	top: 2px; width: 16px; height: 16px; margin-right: 3px; display: inline-block; position: relative;
+}
+.wpt-intents .wpt-reply span {
+	background: url("../images/spritev2.png") 0px;
+}
+.wpt-intents .wpt-retweet span {
+	background: url("../images/spritev2.png") -80px;
+}
+.wpt-intents .wpt-favorite span {
+	background: url("../images/spritev2.png") -32px;
+}
+.wpt-intents .wpt-reply:hover span {
+	background-position: -16px;
+}
+.wpt-intents .wpt-reply:focus span {
+	background-position: -16px;
+}
+.wpt-intents .wpt-retweet:hover span {
+	background-position: -96px;
+}
+.wpt-intents .wpt-retweet:focus span {
+	background-position: -96px;
+}
+.wpt-intents .wpt-favorite:hover span {
+	background-position: -48px;
+}
+.wpt-intents .wpt-favorite:focus span {
+	background-position: -48px;
+}
+.retweeted .wpt-intents .wpt-retweet span {
+	background-position: -112px;
+}
+.favorited .wpt-intents .wpt-favorite span {
+	background-position: -64px;
+}
+.wpt-intents a span.intent-text {
+	background: none; margin: 0px; top: 0px; width: auto; height: auto;
+}

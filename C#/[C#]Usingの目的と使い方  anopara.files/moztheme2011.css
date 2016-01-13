@@ -1,0 +1,54 @@
+.moz-widget-list-adjust .widget-area ul {
+	list-style: square; padding-left: 1em;
+}
+.moz-widget-list-adjust #primary {
+	margin-right: -28.2%;
+}
+.moz-widget-list-adjust #secondary {
+	width: 20.3%;
+}
+.moz-widget-list-adjust.left-sidebar #primary {
+	margin-right: 0px; margin-left: -28.2%;
+}
+.moz-widget-list-adjust.left-sidebar #secondary {
+	margin-left: 5.7%;
+}
+.moz-sidebar-adjust .commentlist {
+	width: 91.5%;
+}
+#respond {
+	width: 91.5%;
+}
+.moz-sidebar-adjust .commentlist {
+	padding-left: 50px;
+}
+.moz-nav-adjust #nav-single {
+	text-align: center; float: none;
+}
+.sticky.moz-headline {
+	padding: 0px;
+}
+.sticky.moz-headline .entry-content {
+	display: none;
+}
+.sticky.moz-headline .entry-meta {
+	display: none;
+}
+.sticky.moz-headline .entry-format {
+	display: none;
+}
+.sticky.moz-headline .comments-link {
+	display: none;
+}
+.sticky.moz-headline .entry-title {
+	padding: 0px; text-align: center;
+}
+.sticky.moz-headline .entry-title a {
+	color: blue; font-size: 80%; font-style: italic;
+}
+.sticky.moz-headline .headline-text {
+	color: red;
+}
+*:first-child + html #access {
+	margin-top: -6px;
+}

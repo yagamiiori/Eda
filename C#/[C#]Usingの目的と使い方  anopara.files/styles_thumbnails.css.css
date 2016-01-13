@@ -1,0 +1,33 @@
+.yarpp-thumbnails-horizontal .yarpp-thumbnail {
+	display: inline-block;
+}
+.yarpp-thumbnail-default {
+	display: inline-block;
+}
+.yarpp-thumbnail-title {
+	display: inline-block;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail {
+	margin: 5px 5px 5px 0px; border: 1px solid rgba(127, 127, 127, 0.1); border-image: none; width: 130px; height: 170px; vertical-align: top;
+}
+.yarpp-thumbnail > img {
+	margin: 5px; width: 120px; height: 120px;
+}
+.yarpp-thumbnail-default {
+	margin: 5px; width: 120px; height: 120px;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail > img {
+	display: block;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail-default {
+	display: block;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail-title {
+	margin: 0px 7px 7px; width: 120px; line-height: 1.4em; overflow: hidden; font-size: 1em; text-decoration: inherit; max-height: 2.8em;
+}
+.yarpp-thumbnail-default {
+	overflow: hidden;
+}
+.yarpp-thumbnail-default > img {
+	min-height: 120px; min-width: 120px;
+}

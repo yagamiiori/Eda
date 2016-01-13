@@ -1,0 +1,42 @@
+.wpp-no-data {
+	
+}
+.wpp-list {
+	
+}
+.wpp-list li {
+	overflow: hidden; clear: both; float: none;
+}
+.wpp-list li.current {
+	
+}
+.wpp-thumbnail {
+	margin: 0px 5px 0px 0px; border: currentColor; border-image: none; float: left; display: inline;
+}
+.wpp-post-title {
+	
+}
+.wpp-excerpt {
+	
+}
+.post-stats {
+	font-size: 9px; font-weight: bold; display: block;
+}
+.wpp-comments {
+	
+}
+.wpp-views {
+	
+}
+.wpp-author {
+	
+}
+.wpp-date {
+	
+}
+.wpp-category {
+	
+}
+.wpp-rating {
+	
+}

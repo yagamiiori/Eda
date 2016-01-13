@@ -1,0 +1,751 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0106)http://anopara.matrix.jp/2014/04/24/cusing%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/ -->
+<!DOCTYPE html PUBLIC "" ""><!--[if IE 6]>
+<html id="ie6" lang="ja" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<![endif]--><!--[if IE 7]>
+<html id="ie7" lang="ja" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<![endif]--><!--[if IE 8]>
+<html id="ie8" lang="ja" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<![endif]--><!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!--><HTML 
+lang="ja" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#"><!--<![endif]--><HEAD><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+ 
+<META charset="UTF-8"> 
+<META name="viewport" content="width=device-width"> <TITLE>[C#]Usingの目的と使い方 | 
+anopara</TITLE> <LINK href="http://gmpg.org/xfn/11" rel="profile"> <LINK href="[C%23]Usingの目的と使い方%20%20anopara.files/style.css" 
+rel="stylesheet" type="text/css" media="all"> <LINK href="http://anopara.matrix.jp/xmlrpc.php" 
+rel="pingback"> <!--[if lt IE 9]>
+<script src="http://anopara.matrix.jp/wp-content/themes/anopara2011/js/html5.js" type="text/javascript"></script>
+<![endif]--> <!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) --> <!-- /SEO Ultimate --> 
+<LINK title="anopara » フィード" href="http://anopara.matrix.jp/feed/" rel="alternate" 
+type="application/rss+xml"> <LINK title="anopara » コメントフィード" href="http://anopara.matrix.jp/comments/feed/" 
+rel="alternate" type="application/rss+xml">		 
+<SCRIPT type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/anopara.matrix.jp\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.1"}};
+			!function(a,b,c){function d(a){var c,d=b.createElement("canvas"),e=d.getContext&&d.getContext("2d");return e&&e.fillText?(e.textBaseline="top",e.font="600 32px Arial","flag"===a?(e.fillText(String.fromCharCode(55356,56806,55356,56826),0,0),d.toDataURL().length>3e3):"diversity"===a?(e.fillText(String.fromCharCode(55356,57221),0,0),c=e.getImageData(16,16,1,1).data.toString(),e.fillText(String.fromCharCode(55356,57221,55356,57343),0,0),c!==e.getImageData(16,16,1,1).data.toString()):("simple"===a?e.fillText(String.fromCharCode(55357,56835),0,0):e.fillText(String.fromCharCode(55356,57135),0,0),0!==e.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</SCRIPT>
+		 
+<STYLE type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</STYLE>
+ <LINK id="moztheme2011-css" href="[C%23]Usingの目的と使い方%20%20anopara.files/moztheme2011.css" 
+rel="stylesheet" type="text/css" media="all"> <LINK id="yarppWidgetCss-css" 
+href="[C%23]Usingの目的と使い方%20%20anopara.files/widget.css" rel="stylesheet" type="text/css" 
+media="all"> <LINK id="wp-polls-css" href="[C%23]Usingの目的と使い方%20%20anopara.files/polls-css.css" 
+rel="stylesheet" type="text/css" media="all"> 
+<STYLE id="wp-polls-inline-css" type="text/css">
+.wp-polls .pollbar {
+	margin: 1px;
+	font-size: 6px;
+	line-height: 8px;
+	height: 8px;
+	background-image: url('http://anopara.matrix.jp/wp-content/plugins/wp-polls/images/default/pollbg.gif');
+	border: 1px solid #c8c8c8;
+}
+
+</STYLE>
+ <LINK id="wpt-twitter-feed-css" href="[C%23]Usingの目的と使い方%20%20anopara.files/twitter-feed.css" 
+rel="stylesheet" type="text/css" media="all"> <LINK id="wordpress-popular-posts-css" 
+href="[C%23]Usingの目的と使い方%20%20anopara.files/wpp.css" rel="stylesheet" type="text/css" 
+media="all"> <LINK id="overlay_settings_style-css" href="[C%23]Usingの目的と使い方%20%20anopara.files/frontend.css" 
+rel="stylesheet" type="text/css" media="all"> <LINK id="yarpp-thumbnails-yarpp-thumbnail-css" 
+href="[C%23]Usingの目的と使い方%20%20anopara.files/styles_thumbnails.css.css" rel="stylesheet" 
+type="text/css" media="all"> <!-- This site uses the Google Analytics by Yoast plugin v5.4.6 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ --> 
+<SCRIPT type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-39530411-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	__gaTracker('require', 'displayfeatures');
+	__gaTracker('send','pageview');
+
+</SCRIPT>
+ <!-- / Google Analytics by Yoast --> 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/jquery.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/jquery-migrate.min.js" type="text/javascript"></SCRIPT>
+ <LINK href="http://anopara.matrix.jp/wp-json/" rel="https://api.w.org/"> <LINK 
+title="RSD" href="http://anopara.matrix.jp/xmlrpc.php?rsd" rel="EditURI" type="application/rsd+xml"> 
+<LINK href="http://anopara.matrix.jp/wp-includes/wlwmanifest.xml" rel="wlwmanifest" 
+type="application/wlwmanifest+xml"> 
+<META name="GENERATOR" content="MSHTML 11.00.9600.18125"> <LINK href="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+rel="canonical"> <LINK href="http://anopara.matrix.jp/?p=2777" rel="shortlink"> 
+<LINK href="http://anopara.matrix.jp/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fanopara.matrix.jp%2F2014%2F04%2F24%2Fcusing%25e3%2581%25ae%25e7%259b%25ae%25e7%259a%2584%25e3%2581%25a8%25e4%25bd%25bf%25e3%2581%2584%25e6%2596%25b9%2F" 
+rel="alternate" type="application/json+oembed"> <LINK href="http://anopara.matrix.jp/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fanopara.matrix.jp%2F2014%2F04%2F24%2Fcusing%25e3%2581%25ae%25e7%259b%25ae%25e7%259a%2584%25e3%2581%25a8%25e4%25bd%25bf%25e3%2581%2584%25e6%2596%25b9%2F&amp;format=xml" 
+rel="alternate" type="text/xml+oembed"> <LINK href="http://anopara.matrix.jp/2014/04/24/cusing%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/" 
+rel="alternate" type="text/html" media="handheld">				 <!-- WordPress Popular Posts v3.3.3 -->
+				 
+<SCRIPT type="text/javascript">//<![CDATA[
+
+					var sampling_active = 0;
+					var sampling_rate   = 100;
+					var do_request = false;
+
+					if ( !sampling_active ) {
+						do_request = true;
+					} else {
+						var num = Math.floor(Math.random() * sampling_rate) + 1;
+						do_request = ( 1 === num );
+					}
+
+					if ( do_request ) {
+
+						// Create XMLHttpRequest object and set variables
+						var xhr = ( window.XMLHttpRequest )
+						  ? new XMLHttpRequest()
+						  : new ActiveXObject( "Microsoft.XMLHTTP" ),
+						url = 'http://anopara.matrix.jp/wp-admin/admin-ajax.php',
+						params = 'action=update_views_ajax&token=f1d9b16027&wpp_id=2777';
+						// Set request method and target URL
+						xhr.open( "POST", url, true );
+						// Set request header
+						xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+						// Hook into onreadystatechange
+						xhr.onreadystatechange = function() {
+							if ( 4 === xhr.readyState && 200 === xhr.status ) {
+								if ( window.console && window.console.log ) {
+									window.console.log( xhr.responseText );
+								}
+							}
+						};
+						// Send request
+						xhr.send( params );
+
+					}
+
+				//]]></SCRIPT>
+				 <!-- End WordPress Popular Posts v3.3.3 -->				 
+<META content="[C#]Usingの目的と使い方" property="og:title"> 
+<META content="anopara" property="og:site_name"> 
+<META content="Usingを使えという記事に結構アクセスがあるので、もうちょっと基本的なところから解説をしたい。 Usingを使うと何が嬉しいのか リソースの開放を確実に行える。ファイルを開きっぱなし..." 
+property="og:description"> 
+<META content="article" property="og:type"> 
+<META content="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+property="og:url"> 
+<META content="http://anopara.matrix.jp/wp-content/uploads/2013/02/copy-DSC_3970.jpg" 
+property="og:image"> 
+<META content="100004655074531" property="fb:admins"> 
+<META content="298283320294961" property="fb:app_id"> <!-- BEGIN: WP Social Bookmarking Light --> 
+<SCRIPT>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</SCRIPT>
+ 
+<STYLE type="text/css">
+.wp_social_bookmarking_light{
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.wsbl_facebook_like iframe{max-width:none !important}
+
+.wp_social_bookmarking_light div{
+    float: left !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 5px 0px 0 !important;
+    height: 23px !important;
+    text-indent: 0 !important;
+}
+.wp_social_bookmarking_light img{
+    border: 0 !important;
+    padding: 0;
+    margin: 0;
+    vertical-align: top !important;
+}
+.wp_social_bookmarking_light_clear{
+    clear: both !important;
+}
+.wsbl_twitter{
+    width: 100px;
+}</STYLE>
+ <!-- END: WP Social Bookmarking Light --> 
+<STYLE id="custom-background-css" type="text/css">
+body.custom-background { background-color: #939393; }
+</STYLE>
+ 
+<STYLE id="syntaxhighlighteranchor" type="text/css"></STYLE>
+ <LINK href="http://anopara.matrix.jp/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon"> 
+<LINK href="http://anopara.matrix.jp/favicon.ico" rel="icon" type="image/vnd.microsoft.icon"> 
+</HEAD> 
+<BODY class="single single-post postid-2777 single-format-standard custom-background single-author two-column right-sidebar moz-sidebar-adjust">
+<DIV class="hfeed" id="page"><HEADER id="branding" role="banner"><HGROUP>
+<H1 id="site-title"><SPAN><A title="anopara" href="http://anopara.matrix.jp/" 
+rel="home">anopara</A></SPAN></H1>
+<H2 id="site-description">a negative circuit meets nostalgic 
+freax.</H2></HGROUP><A href="http://anopara.matrix.jp/"><IMG width="1000" 
+height="288" alt="" src="[C%23]Usingの目的と使い方%20%20anopara.files/copy-DSC_3970.jpg"></A>
+											 
+<FORM id="searchform" action="http://anopara.matrix.jp/" method="get"><LABEL 
+class="assistive-text" for="s">検索</LABEL>
+		 <INPUT name="s" class="field" id="s" type="text" placeholder="検索" value="">
+		 <INPUT name="submit" class="submit" id="searchsubmit" type="submit" value="検索">
+	 </FORM><NAV id="access" role="navigation">
+<H3 class="assistive-text">メインメニュー</H3>
+<DIV class="skip-link"><A title="メインコンテンツへ移動" class="assistive-text" href="http://anopara.matrix.jp/2014/04/24/cusing%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/#content">メインコンテンツへ移動</A></DIV>
+<DIV class="skip-link"><A title="サブコンテンツへ移動" class="assistive-text" href="http://anopara.matrix.jp/2014/04/24/cusing%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/#secondary">サブコンテンツへ移動</A></DIV>
+<DIV class="menu-%e3%83%a1%e3%82%a4%e3%83%b3%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc-container">
+<UL class="menu" id="menu-%e3%83%a1%e3%82%a4%e3%83%b3%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc">
+  <LI class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1561" 
+  id="menu-item-1561"><A href="http://anopara.matrix.jp/">ホーム</A></LI>
+  <LI class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1566" 
+  id="menu-item-1566"><A href="http://anopara.matrix.jp/%e7%b5%b5%e3%81%9d%e3%81%ae%ef%bc%91/">絵・写真・CG</A></LI>
+  <LI class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4241" 
+  id="menu-item-4241"><A href="http://anopara.matrix.jp/%e9%85%8d%e5%b8%83%e3%82%bd%e3%83%95%e3%83%88%e4%b8%80%e8%a6%a7/">配布ソフト一覧</A></LI>
+  <LI class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4243" 
+  id="menu-item-4243"><A href="http://anopara.matrix.jp/%e9%85%8d%e5%b8%83%e9%9b%bb%e5%ad%90%e6%9b%b8%e7%b1%8d%e4%b8%80%e8%a6%a7/">配布電子書籍一覧</A></LI>
+  <LI class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1562" 
+  id="menu-item-1562"><A href="http://anopara.matrix.jp/about/">このサイトについて</A>
+  <UL class="sub-menu">
+    <LI class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1563" 
+    id="menu-item-1563"><A href="http://anopara.matrix.jp/about/%e4%bf%a1%e9%a0%bc%e3%81%ae%e3%80%8c%e9%a3%b2%e3%82%93%e3%81%a0%e3%81%8f%e3%82%8c%e3%83%9e%e3%83%bc%e3%82%af%e3%80%8d%e3%82%92%e3%81%94%e7%a2%ba%e8%aa%8d%e4%b8%8b%e3%81%95%e3%81%84%e3%80%82/">信頼の「飲んだくれマーク」をご確認下さい。</A></LI></UL></LI></UL></DIV></NAV><!-- #access -->
+	 </HEADER><!-- #branding -->	 
+<DIV id="main">
+<DIV id="primary">
+<DIV id="content" role="main"><NAV id="nav-single">
+<H3 class="assistive-text">投稿ナビゲーション</H3><SPAN class="nav-previous"><A href="http://anopara.matrix.jp/2014/04/24/%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e6%95%b06%e4%b8%87%e7%aa%81%e7%a0%b4%e3%81%97%e3%81%9f/" 
+rel="prev"><SPAN class="meta-nav">←</SPAN> 前へ</A></SPAN>						 <SPAN class="nav-next"><A 
+href="http://anopara.matrix.jp/2014/05/03/%e4%b8%80%e6%9d%a1%e3%81%ae%e5%ae%b6%e3%81%af%e5%81%9c%e9%9b%bb%e3%81%a7%e3%81%a9%e3%81%86%e3%81%aa%e3%81%a3%e3%81%9f%e3%81%8b/" 
+rel="next">次へ <SPAN class="meta-nav">→</SPAN></A></SPAN>					 </NAV><!-- #nav-single -->
+					 <ARTICLE class="post-2777 post type-post status-publish format-standard hentry category-c category-soft-dev" 
+id="post-2777"><HEADER class="entry-header">
+<H1 class="entry-title">[C#]Usingの目的と使い方</H1>
+<DIV class="entry-meta"><SPAN class="sep">投稿日時: </SPAN><A title="3:07 PM" href="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+rel="bookmark"><time class="entry-date" 
+datetime="2014-04-24T15:07:32+00:00">2014年4月24日</time></A><SPAN class="by-author"> 
+<SPAN class="sep"> 投稿者: </SPAN> <SPAN class="author vcard"><A title="withpop の投稿をすべて表示" 
+class="url fn n" href="http://anopara.matrix.jp/author/withpop/" 
+rel="author">withpop</A></SPAN></SPAN>		</DIV><!-- .entry-meta -->			 </HEADER><!-- .entry-header -->
+	 
+<DIV class="entry-content">
+<P><A title="[C#]Usingを使え" href="http://anopara.matrix.jp/2013/05/16/cusing%e3%82%92%e4%bd%bf%e3%81%88/">Usingを使え</A>という記事に結構アクセスがあるので、もうちょっと基本的なところから解説をしたい。</P>
+<H2 class="article">Usingを使うと何が嬉しいのか</H2>
+<P>リソースの開放を確実に行える。ファイルを開きっぱなしで閉じないとか、長い間起動しているとだんだんメモリを食うとか、そういうバグを減らせる。</P>
+<H2 class="article">どうやって使うのか</H2>
+<P>基本的には閉じなければならないリソースのインスタンスを作るときにusingで囲ってあげればいい。</P>
+<PRE title="" class="brush: csharp; title: ; notranslate">using (FileStream fs = new FileStream("./aho.txt", FileMode.Open, FileAccess.Read))
+{
+    // なんかの処理
+}
+</PRE>
+<P>そういうリソースが複数ある時はusingをまとめて書ける。</P>
+<PRE title="" class="brush: csharp; title: ; notranslate">using (FileStream fs = new FileStream("./aho.txt", FileMode.Open, FileAccess.Read))
+using (StreamReader sr= new StreamReader(fs, Encoding.UTF8))
+{
+    // なにかの処理
+}
+</PRE>
+<P>これでどういう動作になるかというと、usingに続くステートメントブロック（中括弧{}で囲んだ行）から抜けるときは、usingでインスタンス化されたオブジェクトが必ず解放される。例外が発生しても、gotoで飛んでも、returnしても解放される。だから、「例外発生した時はclose呼ばないから解放されない」なんてバグが発生しない。</P>
+<P>ステートメントブロックを抜けると必ず解放されるので、close()とかflush()とかを明示的に呼び出す必要はない。</P>
+<P>すげー便利！！良い！！</P>
+<H2 class="article">どういうクラスのオブジェクトがusingできるのか</H2>
+<P>.NET標準フレームワークに備わっていて、closeとかflushとか必要なものは何でもできます。できるかどうかわからない場合、とりあえず書けばVisual 
+Studioがすぐにエラーを出してくれます。よくわからん場合はとにかく書いてみましょう。</P>
+<H2 class="article">もうちょい詳しく</H2>
+<P><A onclick="__gaTracker('send', 'event', 'outbound-article', 'http://msdn.microsoft.com/ja-jp/library/yh598w02.aspx', 'using ステートメント (C# リファレンス) - MSDN');" 
+href="http://msdn.microsoft.com/ja-jp/library/yh598w02.aspx">using ステートメント (C# 
+リファレンス) - MSDN</A></P>
+<P>using節でインスタンス化できるオブジェクトはIDisposableインタフェースを実装したものだけです。using節で宣言された変数のスコープはそれに続くステートメントブロック内となり、スコープを抜けると必ずIDisposable.Dispose()が呼ばれます。そういう機能です。</P>
+<P>なので、Dispose()の中でちゃんとした終了処理が実装されていないと、この機能は役に立ちません。標準フレームワークに搭載されているクラス群は大丈夫でしょうが、自分でIDisposableインタフェースを実装するときは注意しましょう。</P>
+<H2 class="article">応用</H2>
+<P>usingを応用して「スコープを抜けたときにCommitされていなければ勝手にRollbackしてくれる自作のトランザクションスコープ」なんかを作れます。（気の利いたO/Rマッパとかフレームワークを使えばこのくらいは勝手にやってくれるんですが･･･。）</P>
+<DIV class="wp_social_bookmarking_light">
+<DIV class="wsbl_hatena_button"><A title="このエントリーをはてなブックマークに追加" class="hatena-bookmark-button" 
+onclick="__gaTracker('send', 'event', 'outbound-article', 'http://b.hatena.ne.jp/entry/http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/', ' ');" 
+href="http://b.hatena.ne.jp/entry/http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+data-hatena-bookmark-layout="standard" data-hatena-bookmark-title="[C#]Usingの目的と使い方"><IMG 
+width="20" height="20" style="border: currentColor; border-image: none;" alt="このエントリーをはてなブックマークに追加" 
+src="[C%23]Usingの目的と使い方%20%20anopara.files/button-only@2x.png"></A>
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/bookmark_button.js" type="text/javascript" charset="utf-8" async="async"></SCRIPT>
+</DIV>
+<DIV class="wsbl_facebook_share">
+<DIV id="fb-root"></DIV><fb:share-button type="button_count" href="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/"></fb:share-button></DIV>
+<DIV class="wsbl_twitter"><A class="twitter-share-button" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/share', 'Tweet');" 
+href="https://twitter.com/share" data-lang="en" data-text="[C#]Usingの目的と使い方" 
+data-url="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+{count}="">Tweet</A></DIV>
+<DIV class="wsbl_google_plus_one"><g:plusone href="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+annotation="none" size="medium"></g:plusone></DIV></DIV><BR class="wp_social_bookmarking_light_clear">
+<DIV class="wpInsert wpInsertInPostAd wpInsertBelow" style="margin: 5px; padding: 0px;">
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/f.txt" async=""></SCRIPT>
+ <!-- inner article2 --> <INS class="adsbygoogle" style="width: 336px; height: 280px; display: inline-block;" 
+data-ad-slot="5538929869" data-ad-client="ca-pub-6929843402841994"></INS> 
+<SCRIPT>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</SCRIPT>
+</DIV>
+<DIV class="yarpp-related">
+<H3>Related posts:</H3>
+<DIV class="yarpp-thumbnails-horizontal"><A title="[C#]Usingを使え" class="yarpp-thumbnail" 
+href="http://anopara.matrix.jp/2013/05/16/cusing%e3%82%92%e4%bd%bf%e3%81%88/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]Usingを使え</SPAN></A> <A title="[C#]explicit" 
+class="yarpp-thumbnail" 
+href="http://anopara.matrix.jp/2013/12/20/cexplicit/"><SPAN class="yarpp-thumbnail-default"><IMG 
+src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN class="yarpp-thumbnail-title">[C#]explicit</SPAN></A> 
+<A title="[C#]usingとvarの組み合わせがウンチ" class="yarpp-thumbnail" href="http://anopara.matrix.jp/2014/01/31/cusing%e3%81%a8var%e3%81%ae%e7%b5%84%e3%81%bf%e5%90%88%e3%82%8f%e3%81%9b%e3%81%8c%e3%82%a6%e3%83%b3%e3%83%81/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]usingとvarの組み合わせがウンチ</SPAN></A> <A title="[C#]XML操作はLINQよりXPath" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2013/12/03/cxml%e6%93%8d%e4%bd%9c%e3%81%aflinq%e3%82%88%e3%82%8axpath/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]XML操作はLINQよりXPath</SPAN></A> <A title="[C#]型付きDataSetは人格荒廃の元なのでおすすめしない話" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2013/05/16/c%e5%9e%8b%e4%bb%98%e3%81%8ddataset%e3%81%af%e4%ba%ba%e6%a0%bc%e8%8d%92%e5%bb%83%e3%81%ae%e5%85%83%e3%81%aa%e3%81%ae%e3%81%a7%e3%81%8a%e3%81%99%e3%81%99%e3%82%81%e3%81%97%e3%81%aa%e3%81%84%e8%a9%b1/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]型付きDataSetは人格荒廃の元なのでおすすめしない話</SPAN></A> <A 
+title="[C#]Outlookから予定表データとかを取得する" class="yarpp-thumbnail" href="http://anopara.matrix.jp/2014/05/13/coutlook%e3%81%8b%e3%82%89%e4%ba%88%e5%ae%9a%e8%a1%a8%e3%83%87%e3%83%bc%e3%82%bf%e3%81%a8%e3%81%8b%e3%82%92%e5%8f%96%e5%be%97%e3%81%99%e3%82%8b/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]Outlookから予定表データとかを取得する</SPAN></A> <A title="[C#]コンパイル時の警告を抑制する" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2013/12/03/c%e3%82%b3%e3%83%b3%e3%83%91%e3%82%a4%e3%83%ab%e6%99%82%e3%81%ae%e8%ad%a6%e5%91%8a%e3%82%92%e6%8a%91%e5%88%b6%e3%81%99%e3%82%8b/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">[C#]コンパイル時の警告を抑制する</SPAN></A> <A title=".NETとHTML5とJavaScriptはうまく調和する" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2014/08/08/dotnet-html5-javascript-will-mixed-well/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">.NETとHTML5とJavaScriptはうまく調和する</SPAN></A> <A title="Androidでニューラルネットで年収１００万アップ" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2013/11/13/android%e3%81%a7%e3%83%8b%e3%83%a5%e3%83%bc%e3%83%a9%e3%83%ab%e3%83%8d%e3%83%83%e3%83%88%e3%81%a7%e5%b9%b4%e5%8f%8e%ef%bc%91%ef%bc%90%ef%bc%90%e4%b8%87/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">Androidでニューラルネットで年収１００万アップ</SPAN></A> <A title="やっぱJenkins導入すべきだな" 
+class="yarpp-thumbnail" href="http://anopara.matrix.jp/2013/11/07/%e3%82%84%e3%81%a3%e3%81%b1jenkins%e5%b0%8e%e5%85%a5%e3%81%99%e3%81%b9%e3%81%8d%e3%81%a0%e3%81%aa/"><SPAN 
+class="yarpp-thumbnail-default"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/default.png"></SPAN><SPAN 
+class="yarpp-thumbnail-title">やっぱJenkins導入すべきだな</SPAN></A> </DIV></DIV><!-- PC 用のコードを設置 --> 
+<SCRIPT type="text/javascript"><!--
+google_ad_client = "ca-pub-6929843402841994";
+/* side */
+google_ad_slot = "4671319064";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/f(1).txt" type="text/javascript"></SCRIPT>
+			 </DIV><!-- .entry-content -->	 <FOOTER class="entry-meta">カテゴリー: <A href="http://anopara.matrix.jp/category/pc/soft-dev/c/" 
+rel="category tag">C#</A>, <A href="http://anopara.matrix.jp/category/pc/soft-dev/" 
+rel="category tag">ソフトウェア開発</A> &nbsp; 作成者: <A href="http://anopara.matrix.jp/author/withpop/">withpop</A> 
+<A title="[C#]Usingの目的と使い方 へのパーマリンク" href="http://anopara.matrix.jp/2014/04/24/cusing%e3%81%ae%e7%9b%ae%e7%9a%84%e3%81%a8%e4%bd%bf%e3%81%84%e6%96%b9/" 
+rel="bookmark">パーマリンク</A>					</FOOTER><!-- .entry-meta --> </ARTICLE><!-- #post-2777 -->
+						 
+<DIV id="comments"></DIV><!-- #comments -->							 </DIV><!-- #content -->
+		 </DIV><!-- #primary -->		 
+<DIV class="widget-area" id="secondary" role="complementary"><ASIDE class="widget widget_text" 
+id="text-5">
+<H3 class="widget-title">anopara</H3>
+<DIV class="textwidget">
+<DIV id="fb-root"></DIV>
+<SCRIPT>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=298283320294961";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</SCRIPT>
+ 
+<DIV class="fb-like" data-share="true" data-show-faces="false" data-action="like" 
+data-layout="button_count" data-href="http://anopara.matrix.jp/"></DIV><A class="twitter-share-button" 
+onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://twitter.com/share', 'ツイート');" 
+href="https://twitter.com/share" data-lang="ja">ツイート</A> 
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</SCRIPT>
+ <A onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fanopara.matrix.jp%2Ffeed%2F', '');" 
+href="http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fanopara.matrix.jp%2Ffeed%2F" 
+target="blank"><IMG width="131" height="56" id="feedlyFollow" alt="follow us in feedly" 
+src="[C%23]Usingの目的と使い方%20%20anopara.files/feedly-follow-rectangle-flat-big_2x.png"></A> 
+<A title="このサイトを RSS で購読" href="http://anopara.matrix.jp/?feed=rss2"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/rss-xl.png"></A> 
+<A href="http://anopara.matrix.jp/about/"><IMG width="200" height="182" class="alignnone size-full wp-image-2406" 
+alt="zigazo_s" src="[C%23]Usingの目的と使い方%20%20anopara.files/zigazo_s.png"> </A> 
+<P><STRONG>作者：withpop</STRONG></P>
+<P>昼はサラリーマン。頑張れば何でも出来る。</P>
+<P>連絡先：<BR><IMG width="200" height="27" class="alignnone size-full wp-image-2408" 
+alt="mail" 
+src="[C%23]Usingの目的と使い方%20%20anopara.files/mail.png"></P></DIV></ASIDE><ASIDE 
+class="widget widget_text" id="text-6">
+<H3 class="widget-title">twitter</H3>
+<DIV class="textwidget"><A class="twitter-timeline" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://twitter.com/anoparanominal', '@anoparanominal からのツイート');" 
+href="https://twitter.com/anoparanominal" 
+data-widget-id="469229985039806464">@anoparanominal からのツイート</A> 
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</SCRIPT>
+ </DIV></ASIDE><ASIDE class="widget widget_text" id="text-4">
+<H3 class="widget-title">広告</H3>
+<DIV class="textwidget">
+<SCRIPT type="text/javascript"><!--
+google_ad_client = "ca-pub-6929843402841994";
+/* side */
+google_ad_slot = "4531718263";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/f(1).txt" type="text/javascript"></SCRIPT>
+</DIV></ASIDE><ASIDE class="widget widget_text" id="text-7">
+<H3 class="widget-title">書籍</H3>
+<DIV class="textwidget"><IMG width="100" height="145" class="alignnone" alt="" 
+src="[C%23]Usingの目的と使い方%20%20anopara.files/22e7eb9329a02aae9917fc184f015c541.png"><BR>
+夢日記あのぱら<BR><A onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://play.google.com/store/books/details/withpop_%E5%A4%A2%E6%97%A5%E8%A8%98%E3%81%82%E3%81%AE%E3%81%B1%E3%82%89?id=dg7JBAAAQBAJ', 'Google Play');" 
+href="https://play.google.com/store/books/details/withpop_%E5%A4%A2%E6%97%A5%E8%A8%98%E3%81%82%E3%81%AE%E3%81%B1%E3%82%89?id=dg7JBAAAQBAJ">Google 
+Play</A> or  <A onclick="__gaTracker('send', 'event', 'download', 'http://anopara.matrix.jp/wp-content/uploads/2014/10/yumenikkianopara.zip');" 
+href="http://anopara.matrix.jp/wp-content/uploads/2014/10/yumenikkianopara.zip">EPUBファイル</A></DIV></ASIDE><ASIDE 
+class="widget widget_text" id="text-8">
+<H3 class="widget-title">その他</H3>
+<DIV class="textwidget"><A onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://curuma.jp/', '\n\n車比較サイト');" 
+href="http://curuma.jp/" target="_blank"><IMG src="[C%23]Usingの目的と使い方%20%20anopara.files/banner.png">
+ 車比較サイト</A> 
+<HR>
+
+<P><SPAN class="rbig"><A href="http://anopara.matrix.jp/2015/09/05/%E4%B8%80%E6%9D%A1%E3%81%AE%E7%B4%B9%E4%BB%8B%E5%88%B6%E5%BA%A6%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BC%882015%E5%B9%B49%E6%9C%88%E6%99%82%E7%82%B9%EF%BC%89/">一条工務店の紹介制度を利用する方へ</A></SPAN></P></DIV></ASIDE><ASIDE 
+class="widget widget_polls-widget" id="polls-widget-2">
+<H3 class="widget-title">ご協力ください</H3>
+<DIV class="wp-polls" id="polls-2">
+<FORM class="wp-polls-form" id="polls_form_2" action="/index.php" method="post">
+<P style="display: none;"><INPUT name="wp-polls-nonce" id="poll_2_nonce" type="hidden" value="6c5f1ce658"></P>
+<P style="display: none;"><INPUT name="poll_id" type="hidden" value="2"></P>
+<P style="display: none;"><INPUT name="poll_multiple_ans_2" id="poll_multiple_ans_2" type="hidden" value="3"></P>
+<P style="text-align: center;"><STRONG>今後読みたい記事を投票</STRONG></P>
+<DIV class="wp-polls-ans" id="polls-2-ans">
+<UL class="wp-polls-ul">
+  <LI><INPUT name="poll_2" id="poll-answer-6" type="checkbox" value="6"> <LABEL 
+  for="poll-answer-6">一条工務店の家、家の建築</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-7" type="checkbox" value="7"> <LABEL 
+  for="poll-answer-7">PC一般(Windows, Linux)</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-8" type="checkbox" value="8"> <LABEL 
+  for="poll-answer-8">雑談</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-9" type="checkbox" value="9"> <LABEL 
+  for="poll-answer-9">プログラミング</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-10" type="checkbox" value="10"> 
+  <LABEL for="poll-answer-10">夢日記</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-11" type="checkbox" value="11"> 
+  <LABEL for="poll-answer-11">絵、写真、CG</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-12" type="checkbox" value="12"> 
+  <LABEL for="poll-answer-12">アクアリウム</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-13" type="checkbox" value="13"> 
+  <LABEL for="poll-answer-13">車</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-14" type="checkbox" value="14"> 
+  <LABEL for="poll-answer-14">DIY</LABEL></LI>
+  <LI><INPUT name="poll_2" id="poll-answer-15" type="checkbox" value="15"> 
+  <LABEL for="poll-answer-15">スマホ</LABEL></LI></UL>
+<P style="text-align: center;"><INPUT name="vote" class="Buttons" onclick="poll_vote(2);" type="button" value="   投票   "></P>
+<P style="text-align: center;"><A title="View Results Of This Poll" onclick="poll_result(2); return false;" 
+href="http://anopara.matrix.jp/2014/04/24/cusing%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/#ViewPollResults">View 
+Results</A></P></DIV></FORM></DIV>
+<DIV class="wp-polls-loading" id="polls-2-loading"><IMG width="16" height="16" 
+title="Loading ..." class="wp-polls-image" alt="Loading ..." src="[C%23]Usingの目的と使い方%20%20anopara.files/loading.gif">&nbsp;Loading 
+...</DIV></ASIDE><!-- WordPress Popular Posts Plugin v3.3.3 [W] [monthly] [views] [regular] --> 
+<ASIDE class="widget popular-posts" id="wpp-2">
+<H3 class="widget-title">最近の人気記事</H3>
+<UL class="wpp-list">
+  <LI><A title="CX-5（ガソリンモデル）がアイドリングストップしない" class="wpp-post-title" href="http://anopara.matrix.jp/2016/01/11/%e3%83%81%e3%83%a7%e3%82%a4%e4%b9%97%e3%82%8a%e3%82%a2%e3%82%a4%e3%83%89%e3%83%aa%e3%83%b3%e3%82%b0%e3%82%b9%e3%83%88%e3%83%83%e3%83%97%e8%bb%8a%e3%81%ab%e3%81%af%e3%83%90%e3%83%83%e3%83%86%e3%83%aa/" 
+  target="_self">CX-5（ガソリンモデル）がアイドリングストップしない</A> </LI>
+  <LI><A title="D90からD7200に買い換えました" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/26/d90%e3%81%8b%e3%82%89d7200%e3%81%ab%e8%b2%b7%e3%81%84%e6%8f%9b%e3%81%88%e3%81%be%e3%81%97%e3%81%9f/" 
+  target="_self">D90からD7200に買い換えました</A> </LI>
+  <LI><A title="VWに乗らない日本人はビビってる？" class="wpp-post-title" href="http://anopara.matrix.jp/2016/01/06/vw%e3%81%ab%e4%b9%97%e3%82%89%e3%81%aa%e3%81%84%e6%97%a5%e6%9c%ac%e4%ba%ba%e3%81%af%e3%83%93%e3%83%93%e3%81%a3%e3%81%a6%e3%82%8b%ef%bc%9f/" 
+  target="_self">VWに乗らない日本人はビビってる？</A> </LI>
+  <LI><A title="失敗したときに「あぁ…もうだめだ」と良く思います" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/21/%e5%a4%b1%e6%95%97%e3%81%97%e3%81%9f%e3%81%a8%e3%81%8d%e3%81%ab%e3%80%8c%e3%81%82%e3%81%81%e3%82%82%e3%81%86%e3%81%a0%e3%82%81%e3%81%a0%e3%80%8d%e3%81%a8%e8%89%af%e3%81%8f%e6%80%9d%e3%81%84/" 
+  target="_self">失敗したときに「あぁ…もうだめだ」と良く思います</A> </LI>
+  <LI><A title="カメラの選び方まとめ" class="wpp-post-title" href="http://anopara.matrix.jp/2016/01/03/%e3%82%ab%e3%83%a1%e3%83%a9%e3%81%ae%e9%81%b8%e3%81%b3%e6%96%b9%e3%81%be%e3%81%a8%e3%82%81/" 
+  target="_self">カメラの選び方まとめ</A> </LI>
+  <LI><A title="ソフトウェア開発でガントチャートを使うってどうなんだ" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/28/%e3%82%bd%e3%83%95%e3%83%88%e3%82%a6%e3%82%a7%e3%82%a2%e9%96%8b%e7%99%ba%e3%81%a7%e3%82%ac%e3%83%b3%e3%83%88%e3%83%81%e3%83%a3%e3%83%bc%e3%83%88%e3%82%92%e4%bd%bf%e3%81%86%e3%81%a3%e3%81%a6%e3%81%a9/" 
+  target="_self">ソフトウェア開発でガントチャートを使うってどうなんだ</A> </LI>
+  <LI><A title="人でなくなった夢" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/25/%e4%ba%ba%e3%81%a7%e3%81%aa%e3%81%8f%e3%81%aa%e3%81%a3%e3%81%9f%e5%a4%a2/" 
+  target="_self">人でなくなった夢</A> </LI>
+  <LI><A title="本ブログは日記系ブログです(アンケートにご協力ください)" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/21/%e6%9c%ac%e3%83%96%e3%83%ad%e3%82%b0%e3%81%af%e6%97%a5%e8%a8%98%e7%b3%bb%e3%83%96%e3%83%ad%e3%82%b0%e3%81%a7%e3%81%99%e3%82%a2%e3%83%b3%e3%82%b1%e3%83%bc%e3%83%88%e3%81%ab%e3%81%94%e5%8d%94%e5%8a%9b/" 
+  target="_self">本ブログは日記系ブログです(アンケートにご協力ください)</A> </LI>
+  <LI><A title="日記（2015年12月18日～2015年12月20日）" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/23/%e6%97%a5%e8%a8%98%ef%bc%882015%e5%b9%b412%e6%9c%8818%e6%97%a5%ef%bd%9e2015%e5%b9%b412%e6%9c%8820%e6%97%a5%ef%bc%89/" 
+  target="_self">日記（2015年12月18日～2015年12月20日）</A> </LI>
+  <LI><A title="日記(2015年12月21日)" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/24/%e6%97%a5%e8%a8%982015%e5%b9%b412%e6%9c%8821%e6%97%a5/" 
+  target="_self">日記(2015年12月21日)</A> </LI>
+  <LI><A title="日記（2015年12月22日）" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/27/%e6%97%a5%e8%a8%98%ef%bc%882015%e5%b9%b412%e6%9c%8822%e6%97%a5%ef%bc%89/" 
+  target="_self">日記（2015年12月22日）</A> </LI>
+  <LI><A title="投票ありがとうございました" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/26/%e6%8a%95%e7%a5%a8%e3%81%82%e3%82%8a%e3%81%8c%e3%81%a8%e3%81%86%e3%81%94%e3%81%96%e3%81%84%e3%81%be%e3%81%97%e3%81%9f/" 
+  target="_self">投票ありがとうございました</A> </LI>
+  <LI><A title="2016年初夢" class="wpp-post-title" href="http://anopara.matrix.jp/2016/01/03/2016%e5%b9%b4%e5%88%9d%e5%a4%a2/" 
+  target="_self">2016年初夢</A> </LI>
+  <LI><A title="日記(2015年12月21日)" class="wpp-post-title" href="http://anopara.matrix.jp/2015/12/27/%e6%97%a5%e8%a8%982015%e5%b9%b412%e6%9c%8821%e6%97%a5-2/" 
+  target="_self">日記(2015年12月21日)</A> </LI></UL></ASIDE><!-- End WordPress Popular Posts Plugin v3.3.3 --> 
+<ASIDE class="widget widget_categories" id="categories-2">
+<H3 class="widget-title">カテゴリー</H3>
+<UL>
+  <LI class="cat-item cat-item-24"><A href="http://anopara.matrix.jp/category/pc/soft-dev/c/">C#</A> 
+  </LI>
+  <LI class="cat-item cat-item-18"><A href="http://anopara.matrix.jp/category/%e7%a7%91%e5%ad%a6%e3%83%bb%e5%b7%a5%e5%ad%a6/diy/">DIY</A> 
+  </LI>
+  <LI class="cat-item cat-item-91"><A href="http://anopara.matrix.jp/category/pc/soft-dev/docx2epub/">docx2epub</A> 
+  </LI>
+  <LI class="cat-item cat-item-50"><A href="http://anopara.matrix.jp/category/pc/soft-dev/javascript/">JavaScript</A> 
+  </LI>
+  <LI class="cat-item cat-item-22"><A href="http://anopara.matrix.jp/category/pc/linux/">Linux</A> 
+  </LI>
+  <LI class="cat-item cat-item-4"><A href="http://anopara.matrix.jp/category/pc/">PC</A> 
+  </LI>
+  <LI class="cat-item cat-item-40"><A href="http://anopara.matrix.jp/category/pc/soft-dev/python/">Python</A> 
+  </LI>
+  <LI class="cat-item cat-item-68"><A href="http://anopara.matrix.jp/category/pc/soft-dev/scala/">Scala</A> 
+  </LI>
+  <LI class="cat-item cat-item-5"><A href="http://anopara.matrix.jp/category/pc/windows/">Windows</A> 
+  </LI>
+  <LI class="cat-item cat-item-23"><A href="http://anopara.matrix.jp/category/pc/wordpress/">Wordpress</A> 
+  </LI>
+  <LI class="cat-item cat-item-21"><A href="http://anopara.matrix.jp/category/%e3%82%a2%e3%82%af%e3%82%a2%e3%83%aa%e3%82%a6%e3%83%a0/">アクアリウム</A> 
+  </LI>
+  <LI class="cat-item cat-item-33"><A href="http://anopara.matrix.jp/category/%e6%b5%b7%e5%a4%96/%e3%82%a4%e3%83%b3%e3%83%89/">インド</A> 
+  </LI>
+  <LI class="cat-item cat-item-12"><A href="http://anopara.matrix.jp/category/%e3%82%ab%e3%83%a1%e3%83%a9/">カメラ</A> 
+  </LI>
+  <LI class="cat-item cat-item-14"><A href="http://anopara.matrix.jp/category/%e3%82%b9%e3%83%9e%e3%83%9b%e3%83%bb%e3%83%a2%e3%83%90%e3%82%a4%e3%83%ab/">スマホ・モバイル</A> 
+  </LI>
+  <LI class="cat-item cat-item-6"><A href="http://anopara.matrix.jp/category/pc/soft-dev/">ソフトウェア開発</A> 
+  </LI>
+  <LI class="cat-item cat-item-28"><A href="http://anopara.matrix.jp/category/%e3%83%8b%e3%83%a5%e3%83%bc%e3%82%b9/">ニュース</A> 
+  </LI>
+  <LI class="cat-item cat-item-55"><A href="http://anopara.matrix.jp/category/%e7%a7%91%e5%ad%a6%e3%83%bb%e5%b7%a5%e5%ad%a6/%e3%83%8b%e3%83%a5%e3%83%bc%e3%83%a9%e3%83%ab%e3%83%8d%e3%83%83%e3%83%88/">ニューラルネット</A> 
+  </LI>
+  <LI class="cat-item cat-item-11"><A href="http://anopara.matrix.jp/category/%e3%83%ac%e3%83%93%e3%83%a5%e3%83%bc/">レビュー</A> 
+  </LI>
+  <LI class="cat-item cat-item-37"><A href="http://anopara.matrix.jp/category/%e5%ae%b6/%e4%b8%80%e6%9d%a1%e3%81%ae%e5%ae%b6%e3%81%ae%e8%a9%b1/">一条の家の話</A> 
+  </LI>
+  <LI class="cat-item cat-item-15"><A href="http://anopara.matrix.jp/category/%e4%bc%bc%e9%a1%94%e7%b5%b5/">似顔絵</A> 
+  </LI>
+  <LI class="cat-item cat-item-13"><A href="http://anopara.matrix.jp/category/%e3%82%ab%e3%83%a1%e3%83%a9/%e5%86%99%e7%9c%9f/">写真</A> 
+  </LI>
+  <LI class="cat-item cat-item-3"><A href="http://anopara.matrix.jp/category/%e5%a4%a2%e6%97%a5%e8%a8%98/">夢日記</A> 
+  </LI>
+  <LI class="cat-item cat-item-36"><A href="http://anopara.matrix.jp/category/%e5%ae%b6/">家</A> 
+  </LI>
+  <LI class="cat-item cat-item-2"><A href="http://anopara.matrix.jp/category/%e5%ae%b6/%e5%ae%b6%e3%82%92%e5%bb%ba%e3%81%a6%e3%82%8b%e8%a9%b1/">家を建てる話</A> 
+  </LI>
+  <LI class="cat-item cat-item-67"><A href="http://anopara.matrix.jp/category/%e5%ae%b6%e9%9b%bb/">家電</A> 
+  </LI>
+  <LI class="cat-item cat-item-61"><A href="http://anopara.matrix.jp/category/%e5%b0%b1%e8%81%b7%e6%b4%bb%e5%8b%95/">就職活動</A> 
+  </LI>
+  <LI class="cat-item cat-item-115"><A href="http://anopara.matrix.jp/category/%e7%b5%8c%e6%b8%88%e3%83%bb%e9%87%91%e8%9e%8d/%e6%8a%95%e8%b3%87/">投資</A> 
+  </LI>
+  <LI class="cat-item cat-item-31"><A href="http://anopara.matrix.jp/category/%e6%97%85%e8%a1%8c/">旅行</A> 
+  </LI>
+  <LI class="cat-item cat-item-57"><A href="http://anopara.matrix.jp/category/%e6%98%a0%e7%94%bb/">映画</A> 
+  </LI>
+  <LI class="cat-item cat-item-1"><A href="http://anopara.matrix.jp/category/%e6%9c%aa%e5%88%86%e9%a1%9e/">未分類</A> 
+  </LI>
+  <LI class="cat-item cat-item-16"><A href="http://anopara.matrix.jp/category/%e6%9c%ac/">本</A> 
+  </LI>
+  <LI class="cat-item cat-item-38"><A href="http://anopara.matrix.jp/category/%e5%ae%b6/%e6%b3%95%e5%be%8b%e3%83%bb%e6%89%8b%e7%b6%9a%e3%81%8d/">法律・手続き</A> 
+  </LI>
+  <LI class="cat-item cat-item-32"><A href="http://anopara.matrix.jp/category/%e6%b5%b7%e5%a4%96/">海外</A> 
+  </LI>
+  <LI class="cat-item cat-item-8"><A href="http://anopara.matrix.jp/category/%e6%bc%ab%e7%94%bb/">漫画</A> 
+  </LI>
+  <LI class="cat-item cat-item-93"><A href="http://anopara.matrix.jp/category/%e7%94%9f%e6%b4%bb/">生活</A> 
+  </LI>
+  <LI class="cat-item cat-item-19"><A href="http://anopara.matrix.jp/category/%e7%a7%91%e5%ad%a6%e3%83%bb%e5%b7%a5%e5%ad%a6/%e7%94%9f%e7%89%a9%e5%ad%a6%e3%83%bb%e5%8c%bb%e5%ad%a6/">生物学・医学</A> 
+  </LI>
+  <LI class="cat-item cat-item-17"><A href="http://anopara.matrix.jp/category/%e7%a7%91%e5%ad%a6%e3%83%bb%e5%b7%a5%e5%ad%a6/%e7%99%ba%e9%9b%bb/">発電</A> 
+  </LI>
+  <LI class="cat-item cat-item-9"><A href="http://anopara.matrix.jp/category/%e7%a7%91%e5%ad%a6%e3%83%bb%e5%b7%a5%e5%ad%a6/">科学・工学</A> 
+  </LI>
+  <LI class="cat-item cat-item-65"><A href="http://anopara.matrix.jp/category/%e7%b5%8c%e6%b8%88%e3%83%bb%e9%87%91%e8%9e%8d/">経済・金融</A> 
+  </LI>
+  <LI class="cat-item cat-item-10"><A href="http://anopara.matrix.jp/category/%e7%b5%b5/">絵</A> 
+  </LI>
+  <LI class="cat-item cat-item-29"><A href="http://anopara.matrix.jp/category/%e8%82%b2%e5%85%90/">育児</A> 
+  </LI>
+  <LI class="cat-item cat-item-20"><A href="http://anopara.matrix.jp/category/%e8%87%aa%e4%bd%9c%e3%82%bd%e3%83%95%e3%83%88/">自作ソフト</A> 
+  </LI>
+  <LI class="cat-item cat-item-39"><A href="http://anopara.matrix.jp/category/%e8%87%aa%e8%bb%a2%e8%bb%8a/">自転車</A> 
+  </LI>
+  <LI class="cat-item cat-item-103"><A href="http://anopara.matrix.jp/category/%e8%b5%b7%e6%a5%ad/">起業</A> 
+  </LI>
+  <LI class="cat-item cat-item-30"><A href="http://anopara.matrix.jp/category/%e8%bb%8a/">車</A> 
+  </LI>
+  <LI class="cat-item cat-item-35"><A href="http://anopara.matrix.jp/category/%e8%bb%8d%e4%ba%8b/">軍事</A> 
+  </LI>
+  <LI class="cat-item cat-item-124"><A href="http://anopara.matrix.jp/category/pc/soft-dev/fp/">関数型プログラミング</A> 
+  </LI>
+  <LI class="cat-item cat-item-7"><A href="http://anopara.matrix.jp/category/%e9%9b%91%e8%ab%87/">雑談</A> 
+  </LI></UL></ASIDE><ASIDE class="widget widget_archive" id="archives-2">
+<H3 class="widget-title">アーカイブ</H3>
+<UL>
+  <LI><A href="http://anopara.matrix.jp/2016/01/">2016年1月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/12/">2015年12月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/11/">2015年11月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/10/">2015年10月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/09/">2015年9月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/08/">2015年8月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/07/">2015年7月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/06/">2015年6月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/05/">2015年5月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/04/">2015年4月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/03/">2015年3月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/02/">2015年2月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2015/01/">2015年1月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/12/">2014年12月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/11/">2014年11月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/10/">2014年10月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/09/">2014年9月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/08/">2014年8月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/07/">2014年7月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/06/">2014年6月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/05/">2014年5月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/04/">2014年4月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/03/">2014年3月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/02/">2014年2月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2014/01/">2014年1月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/12/">2013年12月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/11/">2013年11月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/10/">2013年10月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/09/">2013年9月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/08/">2013年8月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/07/">2013年7月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/06/">2013年6月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/05/">2013年5月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/04/">2013年4月</A></LI>
+  <LI><A href="http://anopara.matrix.jp/2013/03/">2013年3月</A></LI>
+  <LI><A 
+href="http://anopara.matrix.jp/2013/02/">2013年2月</A></LI></UL></ASIDE></DIV><!-- #secondary .widget-area -->
+	 </DIV><!-- #main -->	 <FOOTER id="colophon" role="contentinfo">
+<DIV class="one" id="supplementary">
+<DIV class="widget-area" id="first" role="complementary"><ASIDE class="widget widget_calendar" 
+id="calendar-2">
+<DIV class="calendar_wrap" id="calendar_wrap">
+<TABLE id="wp-calendar">
+  <CAPTION>2014年4月</CAPTION>
+  <THEAD>
+  <TR>
+    <TH title="月曜日" scope="col">月</TH>
+    <TH title="火曜日" scope="col">火</TH>
+    <TH title="水曜日" scope="col">水</TH>
+    <TH title="木曜日" scope="col">木</TH>
+    <TH title="金曜日" scope="col">金</TH>
+    <TH title="土曜日" scope="col">土</TH>
+    <TH title="日曜日" scope="col">日</TH></TR></THEAD>
+  <TFOOT>
+  <TR>
+    <TD id="prev" colspan="3"><A href="http://anopara.matrix.jp/2014/03/">« 
+      3月</A></TD>
+    <TD class="pad">&nbsp;</TD>
+    <TD id="next" colspan="3"><A href="http://anopara.matrix.jp/2014/05/">5月 
+      »</A></TD></TR></TFOOT>
+  <TBODY>
+  <TR>
+    <TD class="pad" colspan="1">&nbsp;</TD>
+    <TD>1</TD>
+    <TD><A aria-label="2014年4月2日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/02/">2</A></TD>
+    <TD>3</TD>
+    <TD>4</TD>
+    <TD>5</TD>
+    <TD>6</TD></TR>
+  <TR>
+    <TD><A aria-label="2014年4月7日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/07/">7</A></TD>
+    <TD><A aria-label="2014年4月8日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/08/">8</A></TD>
+    <TD><A aria-label="2014年4月9日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/09/">9</A></TD>
+    <TD><A aria-label="2014年4月10日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/10/">10</A></TD>
+    <TD><A aria-label="2014年4月11日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/11/">11</A></TD>
+    <TD>12</TD>
+    <TD>13</TD></TR>
+  <TR>
+    <TD><A aria-label="2014年4月14日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/14/">14</A></TD>
+    <TD>15</TD>
+    <TD>16</TD>
+    <TD><A aria-label="2014年4月17日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/17/">17</A></TD>
+    <TD><A aria-label="2014年4月18日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/18/">18</A></TD>
+    <TD>19</TD>
+    <TD>20</TD></TR>
+  <TR>
+    <TD>21</TD>
+    <TD><A aria-label="2014年4月22日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/22/">22</A></TD>
+    <TD>23</TD>
+    <TD><A aria-label="2014年4月24日 に投稿を公開" href="http://anopara.matrix.jp/2014/04/24/">24</A></TD>
+    <TD>25</TD>
+    <TD>26</TD>
+    <TD>27</TD></TR>
+  <TR>
+    <TD>28</TD>
+    <TD>29</TD>
+    <TD>30</TD>
+    <TD class="pad" colspan="4">&nbsp;</TD></TR></TBODY></TABLE></DIV></ASIDE></DIV><!-- #first .widget-area -->
+			 </DIV><!-- #supplementary -->			 
+<DIV id="site-generator">
+<P>彼氏とあの娘はparanomical-chaosの果てに<BR>This site powerd by wordpress and modified 
+theme twentyeleven.</P></DIV></FOOTER><!-- #colophon --> </DIV><!-- #page --> 
+<DIV id="su-footer-links" style="text-align: center;"></DIV><!-- BEGIN: WP Social Bookmarking Light --> 
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/platform.js" defer="" async="">{lang: "ja"}</SCRIPT>
+ <!-- END: WP Social Bookmarking Light --> 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/shCore.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/shBrushCSharp.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://anopara.matrix.jp/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shCore.css?ver=2.1.364";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://anopara.matrix.jp/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeRDark.css?ver=2.1.364";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://anopara.matrix.jp/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/clipboard.swf';
+	SyntaxHighlighter.config.strings.expandSource = 'ソースを見る';
+	SyntaxHighlighter.config.strings.viewSource = 'ソースを表示';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'クリップボードへコピー';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'コードをクリップボードへコピーしました';
+	SyntaxHighlighter.config.strings.print = '印刷';
+	SyntaxHighlighter.config.strings.help = 'SyntaxHighlighterについて';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = '指定のブラシが見つかりませんでした: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'HTMLスクリプトのオプションのためにブラシが構成されませんでした: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.all();
+</SCRIPT>
+ <LINK id="yarppRelatedCss-css" href="[C%23]Usingの目的と使い方%20%20anopara.files/related.css" 
+rel="stylesheet" type="text/css" media="all"> 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/comment-reply.min.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+/* <![CDATA[ */
+var pollsL10n = {"ajax_url":"http:\/\/anopara.matrix.jp\/wp-admin\/admin-ajax.php","text_wait":"Your last request is still being processed. Please wait a while ...","text_valid":"Please choose a valid poll answer.","text_multiple":"Maximum number of choices allowed: ","show_loading":"1","show_fading":"1"};
+/* ]]> */
+</SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/polls-js.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+/* <![CDATA[ */
+var settings_obj = {"ajax_url":"http:\/\/anopara.matrix.jp\/wp-admin\/admin-ajax.php","nonce":"3be03ab7ed","confirm":"Are you sure to delete item?"};
+/* ]]> */
+</SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/frontend.js" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="[C%23]Usingの目的と使い方%20%20anopara.files/wp-embed.min.js" type="text/javascript"></SCRIPT>
+ </BODY></HTML>
